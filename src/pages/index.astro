@@ -1,24 +1,42 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const res = await fetch('https://demskigroup.com/wp-json/wp/v2/posts?_embed&per_page=6');
-const posts = await res.json();
+let posts = [];
+let results = [];
 
-const resultsRes = await fetch('https://demskigroup.com/wp-json/wp/v2/results?_embed&per_page=6');
-const results = await resultsRes.json();
+try {
+  const res = await fetch('https://demskigroup.com/wp-json/wp/v2/posts?_embed&per_page=6', { signal: AbortSignal.timeout(8000) });
+  if (res.ok) posts = await res.json();
+} catch (e) {
+  console.warn('Blog posts fetch failed:', e?.message);
+}
+
+try {
+  const resultsRes = await fetch('https://demskigroup.com/wp-json/wp/v2/results?_embed&per_page=6', { signal: AbortSignal.timeout(8000) });
+  if (resultsRes.ok) results = await resultsRes.json();
+} catch (e) {
+  console.warn('Results fetch failed:', e?.message);
+}
 ---
 
 <Layout title="The Demski Group - Custom Software Development">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" slot="head" />
+<!-- Preload hero background image (LCP resource) -->
+<link rel="preload" href="/hero-bg.jpg" as="image" slot="head" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" slot="head" />
+<link rel="preconnect" href="https://api.fontshare.com" slot="head" />
+<!-- AOS CSS loaded non-blocking -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" media="print" onload="this.media='all'" slot="head" />
+<!-- noscript fallback for AOS (rendered inline, not in head slot) -->
 <style slot="head">
 @import url('https://api.fontshare.com/v2/css?f[]=general-sans@700,600,500,400&display=swap');
+/* font-display:swap is applied via the URL param above (fontshare honurs it) */
 
 /* AOS override — keep animations subtle */
 [data-aos] { pointer-events: none; }
 [data-aos].aos-animate { pointer-events: auto; }
 
 /* ─── GLOBAL ─── */
-html { overflow-x: hidden; }
+html, body { overflow-x: hidden; }
 * { box-sizing: border-box; }
 .mob-br { display: none; }
 
@@ -287,6 +305,7 @@ html { overflow-x: hidden; }
   gap: 48px;
   width: max-content;
   animation: marquee-scroll 28s linear infinite;
+  will-change: transform;
 }
 .marquee-track.reverse {
   animation-direction: reverse;
@@ -352,8 +371,6 @@ html { overflow-x: hidden; }
   margin-top: -60px;
   overflow: hidden;
   border-radius: 0 80px 0 0;
-  isolation: isolate;
-  will-change: transform;
 }
 .clients-left img {
   width: 100%;
@@ -416,10 +433,11 @@ html { overflow-x: hidden; }
   margin-top: -676px;
   padding: 0 0 60px 0;
   z-index: 5;
+  transform: translateY(-2%);
 }
 .testimonial-slider {
   display: flex;
-  gap: 16px;
+  gap: 32px;
   padding: 20px 0;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -429,10 +447,10 @@ html { overflow-x: hidden; }
   align-items: flex-start;
 }
 .testimonial-slider::-webkit-scrollbar { display: none; }
-.tslider-clip { overflow: hidden; margin: 0 60px; }
+.tslider-clip { overflow: hidden; margin: 0 60px; padding-left: 1%; }
 
 .testimonial-card-new {
-  flex: 0 0 calc(25% - 11px);
+  flex: 0 0 calc(25% - 24px);
   background: #fff;
   border: 1px solid #e2e2e2;
   border-radius: 14px;
@@ -544,10 +562,12 @@ html { overflow-x: hidden; }
   background: #ffffff;
   padding: 80px 174px 0;
   overflow: visible;
+  margin-top: -120px;
 }
 .excellence-card {
   max-width: 1300px;
   margin: -114px auto 0;
+  transform: translateY(6%);
   background: #0c0c0c;
   border-radius: 25px;
   overflow: hidden;
@@ -613,8 +633,8 @@ html { overflow-x: hidden; }
 }
 .badge-rotator {
   position: relative;
-  width: 260px;
-  height: 260px;
+  width: 507px;
+  height: 507px;
 }
 .badge-slide {
   position: absolute;
@@ -631,8 +651,8 @@ html { overflow-x: hidden; }
   pointer-events: auto;
 }
 .badge-slide img {
-  max-width: 220px;
-  max-height: 220px;
+  max-width: 429px;
+  max-height: 429px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -942,7 +962,7 @@ html { overflow-x: hidden; }
 .blog-section .section-header h2 { color: #3A3A3A; }
 .blog-section .post-card { filter: none; }
 .blog-section .post-card:hover { filter: none; }
-.results-section { background: #fff; padding: 0 30px 80px; }
+/* .results-section base rule is defined in SECTION 12+13 block below */
 .results-section .section-header h2 { color: #3A3A3A; }
 .results-section .section-header p { color: #0A0000 !important; }
 
@@ -1019,7 +1039,7 @@ html { overflow-x: hidden; }
   scroll-snap-align: start;
   position: relative;
   cursor: pointer;
-  height: 450px;
+  height: 496px;
   text-decoration: none;
   display: block;
   flex-shrink: 0;
@@ -1169,6 +1189,7 @@ html { overflow-x: hidden; }
   line-height: 1.3;
   margin: 0;
 }
+.cta-line2 { white-space: nowrap; }
 .final-cta-text h2 span {
   color: #4798ed;
   display: block;
@@ -1245,13 +1266,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 .social-row { display: flex; gap: 10px; margin-top: 10px; }
 .social-row a { width: 46px; height: 46px; background: #1a1a1a; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; text-decoration: none !important; transition: background 0.3s ease; }
 .social-row a:hover { background: #003087; }
-@media (max-width: 768px) {
-  .footer-inner { grid-template-columns: 1fr !important; }
-  .footer-logo { padding: 30px 20px 0; }
-  .footer-col { padding: 20px; }
-  .footer-contact { padding: 20px; }
-  .footer-bottom { padding: 16px 20px; }
-}
+/* ─── footer 768px overrides consolidated in the MOBILE block below ─── */
 
 /* ═══════════════════════════════════════════════════════
    TABLET — 768px to 1024px
@@ -1348,7 +1363,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
   }
   .mob-br { display: block; }
   .hero-text h1 {
-    font-size: 34px;
+    font-size: 38px;
     line-height: 1.15;
     text-align: center;
     color: #282828;
@@ -1382,18 +1397,19 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
   /* Services */
   .services-section { padding: 0 0 50px; }
   .services-inner { padding: 0 16px; }
-  .services-header { flex-direction: column; gap: 16px; padding: 50px 0 30px; align-items: flex-start; }
-  .services-header h2 { font-size: 28px; white-space: normal; transform: none; }
+  .services-header { flex-direction: column; gap: 16px; padding: 50px 0 30px; align-items: center; text-align: center; }
+  .services-header h2 { font-size: 28px; white-space: normal; transform: none; text-align: center; }
   .btn-outline { transform: none; margin-top: 0; font-size: 15px; }
   .services-grid { grid-template-columns: 1fr; gap: 32px; }
   .service-card h3 { font-size: 22px; }
   .service-card p { font-size: 16px; }
 
   /* Tech */
-  .tech-section { padding: 60px 0 100px; }
-  .tech-inner h2 { font-size: 28px; padding: 0 16px; }
+  .tech-section { padding: 60px 0 100px; overflow: hidden; }
+  .tech-inner h2 { font-size: 28px; padding: 0 16px; text-align: center; }
   .tech-inner .sub { font-size: 15px; padding: 0 16px; }
   .tech-tag { font-size: 20px; padding: 8px 24px; }
+  .marquee-wrapper { overflow: hidden; }
 
   /* Clients */
   .clients-top { flex-direction: column; min-height: auto; }
@@ -1408,13 +1424,29 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
   .testimonial-card-new { flex: 0 0 calc(85vw - 24px); }
   .slider-btn { display: none; }
 
+  /* Excellence */
+  .excellence-section { padding: 60px 16px 0; }
+  .excellence-card { margin: 0 auto; padding: 40px 20px 40px; grid-template-columns: 1fr; gap: 32px; }
+  .excellence-left { border-right: none; border-bottom: 1px solid #333; padding-right: 0; padding-bottom: 32px; align-items: center; text-align: center; }
+  .excellence-left p { max-width: 100%; text-align: center; }
+  .excellence-left h2 { font-size: 28px; text-align: center; }
+  .excellence-right { padding-left: 0; align-items: center; justify-content: center; }
+  .badge-rotator { width: 260px; height: 260px; max-width: 260px; }
+  .badge-slide img { max-width: 220px; max-height: 220px; }
+  .excellence-bottom { flex-direction: column; gap: 24px; padding-top: 24px; }
+  .rating-col { padding: 0 20px; }
+  .rating-col-label { font-size: 24px; margin-bottom: 10px; }
+  .rating-col-stars { font-size: 28px; }
+
   /* Process */
   .process-section { padding: 60px 16px 120px; }
-  .process-heading h2 { font-size: 28px; }
-  .process-heading p { font-size: 15px; }
+  .process-heading { text-align: center; }
+  .process-heading h2 { font-size: 28px; text-align: center; }
+  .process-heading p { font-size: 15px; text-align: center; }
   .process-body { flex-direction: column; gap: 30px; }
   .process-right { position: static; width: 100%; }
-  .process-right-actions { flex-direction: row; flex-wrap: wrap; gap: 16px; justify-content: flex-start; }
+  .process-right-actions { flex-direction: row; flex-wrap: wrap; gap: 16px; justify-content: center; margin-left: 0; transform: none; }
+  .btn-back-arrow { font-size: 48px; margin-left: 0; }
   .step-card h4 { font-size: 18px; }
   .step-card p { font-size: 15px; }
   .step-card::before { display: none; }
@@ -1425,9 +1457,10 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
   .section-header { flex-direction: column; align-items: flex-start; gap: 14px; }
   .section-header h2 { font-size: 26px; }
   .cards-slider-wrap { margin-top: 20px; }
-  .post-card { flex: 0 0 85vw; height: 320px; }
-  .cards-nav { display: none; }
+  .post-card { flex: 0 0 90vw; height: 320px; }
+  .cards-nav { display: none !important; }
   .blog-section .cards-nav { display: none !important; }
+  .results-section .cards-nav { display: none !important; }
 
   /* Results */
   .results-section { padding: 0 16px 60px; }
@@ -1436,9 +1469,10 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
   .final-cta-inner { flex-direction: column; min-height: auto; }
   .final-cta-text { flex: none; width: 100%; padding: 40px 20px 36px; }
   .final-cta-text h2 { font-size: 22px; }
+  .cta-line2 { white-space: normal !important; }
   .final-cta-text h2 span { display: inline; }
   .final-cta-image { width: 100%; overflow: hidden; }
-  .final-cta-image img { width: 100%; height: 220px; transform: none; margin-top: 0; border-radius: 0; object-position: center top; }
+  .final-cta-image img { width: 100%; height: 220px; transform: none; margin-top: 0; border-radius: 20px; object-position: center top; }
 
   /* Footer */
   .footer-inner { grid-template-columns: 1fr !important; }
@@ -1493,11 +1527,24 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
   .footer-col h4 { font-size: 18px; }
   .footer-contact h4 { font-size: 18px; }
 }
+
+/* ─── REDUCED MOTION: disable/slow heavy animations for accessibility ─── */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .btn-back-arrow { animation: none; }
+  [data-aos] { transition: none !important; animation: none !important; }
+  .btn-orange { animation: none; }
+  .badge-slide { transition: none; }
+  .post-card, .post-card img { transition: none; }
+}
 </style>
+
+<!-- ── PAGE MAIN CONTENT ── -->
+<main id="main-content">
 
 <!-- ── S0: HERO ── -->
 <section class="hero">
-  <div class="hero-overlay"></div>
+  <div class="hero-overlay" aria-hidden="true"></div>
   <div class="hero-inner">
     <div class="hero-text">
       <h1>Custom<br class="mob-br" /> Software<br class="mob-br" /> Development</h1>
@@ -1533,7 +1580,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 <div class="brands-wrap">
   <div class="brands-label"><span class="brands-text">Companies that trust<br/>our <a href="https://demskigroup.com/our-clients/">experienced team</a>.</span></div>
   <div class="brands-logo-img">
-    <img src="/brandlogos.webp" alt="Companies: HP, Riot Games, Allstate, Bank of America, Herbalife, Rinnai" />
+    <img src="/brandlogos.webp" alt="Companies: HP, Riot Games, Allstate, Bank of America, Herbalife, Rinnai" width="800" height="170" loading="lazy" />
   </div>
 </div>
 
@@ -1580,7 +1627,6 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 </section>
 
 <!-- ── S5: TECH STACK ── -->
-<!-- ── S5: TECH STACK ── -->
 <section class="tech-section">
   <div class="tech-curve-top"></div>
   <div class="tech-inner">
@@ -1615,6 +1661,8 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <img
         src="https://demskigroup.com/wp-content/uploads/2024/06/two-coworkers-using-ipad-smiling-scaled.jpg"
         alt="Two coworkers using iPad smiling"
+        width="600" height="800"
+        loading="lazy"
       />
     </div>
     <div class="clients-right">
@@ -1634,7 +1682,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/Tausi.png" alt="Tausi" /></div>
+          <div class="tcard-logo"><img src="/logos/Tausi.png" alt="Tausi" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">I've been working with the Demski team for a while now on building my app, and so far, the experience has been excellent! They are communicative, knowledgeable, and truly dedicated to bringing my vision to life. Their expertise and support have made this process smooth, enjoyable and nothing short of exciting. I'm looking forward to the launch and seeing everything come together. Highly recommended!</p>
         <div class="tcard-footer">
@@ -1649,7 +1697,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/Zoomifi.png" alt="Zoomifi" /></div>
+          <div class="tcard-logo"><img src="/logos/Zoomifi.png" alt="Zoomifi" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">My company partnered with The Demski Group for mobile application development, and their work exceeded our expectations. Their professionalism, attention to detail, and quality are unmatched. They provided valuable infrastructure advice, maintained excellent communication, and quickly resolved any issues or bugs. We are confident in their expertise.</p>
         <div class="tcard-footer">
@@ -1664,7 +1712,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/BrandedAF.png" alt="Branded" /></div>
+          <div class="tcard-logo"><img src="/logos/BrandedAF.png" alt="Branded AF" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">Working with The Demski Group has been an absolute pleasure! They are professional, highly skilled, and incredibly easy to work with. Throughout the development of my mobile app, they are always responsive, helpful, and willing to go the extra mile to ensure everything is perfect. I highly recommend them to anyone looking for a reliable and talented development team! I know I will be returning to them for future projects!</p>
         <div class="tcard-footer">
@@ -1679,7 +1727,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/ImpactTennis.png" alt="Impact Team Tennis" /></div>
+          <div class="tcard-logo"><img src="/logos/ImpactTennis.png" alt="Impact Team Tennis" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. Their professionalism and attention to detail are unmatched.</p>
         <div class="tcard-footer">
@@ -1694,7 +1742,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="https://demskigroup.com/wp-content/uploads/2024/07/Companylogo3-300x159.png" alt="Biopac" /></div>
+          <div class="tcard-logo"><img src="https://demskigroup.com/wp-content/uploads/2024/07/Companylogo3-300x159.png" alt="Biopac" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">We spoke to a few different companies as we set out to find someone to create a website/database application. We chose The Demski Group in part because we found them very easy to talk to. That first impression stuck as we have a great relationship with them now. We are not even considering looking for anyone else.</p>
         <div class="tcard-footer">
@@ -1709,7 +1757,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/Yawye.png" alt="Yawye" /></div>
+          <div class="tcard-logo"><img src="/logos/Yawye.png" alt="Yawye" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">We are true believers in this team and will no doubt provide ongoing business. The Demski Group consistently produces quality work, leading our team to be true believers of their work. Their team is accountable, setting high standards for their work and delivering results.</p>
         <div class="tcard-footer">
@@ -1724,7 +1772,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/Tausi.png" alt="Tausi" /></div>
+          <div class="tcard-logo"><img src="/logos/Tausi.png" alt="Tausi" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">The Demski Group was professional and outstanding at their work. The Demski Group delivered a professional website that received positive feedback from users across many industries. They communicated effectively via Zoom and were always accessible. Customers can expect an honest team that can provide outstanding outputs.</p>
         <div class="tcard-footer">
@@ -1739,7 +1787,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/Zoomifi.png" alt="Zoomifi" /></div>
+          <div class="tcard-logo"><img src="/logos/Zoomifi.png" alt="Zoomifi" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">After working with many development firms, I now funnel all my development to The Demski Group. The Demski Group has become our main app developer thanks to their consistency, quality of work, and high level of communication. They deliver apps with minimal bugs, remain open to feedback, and can take an app from idea to execution with next to no management on our part.</p>
         <div class="tcard-footer">
@@ -1754,7 +1802,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/MartinSorbo.png" alt="Martin &amp; Sorbo" /></div>
+          <div class="tcard-logo"><img src="/logos/MartinSorbo.png" alt="Martin &amp; Sorbo" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">It was such a pleasure working with The Demski Group. Not only were they flexible in scheduling meetings and moving deadlines but even with little information provided they knew exactly what the target outcome should be and absolutely outperformed. All of our requirements were fulfilled and they even provided us with useful documentation for future maintenance. We cannot recommend them enough and we will hire The Demski Group definitely again for any future development needs for our company.</p>
         <div class="tcard-footer">
@@ -1769,7 +1817,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/BrandedAF.png" alt="Branded" /></div>
+          <div class="tcard-logo"><img src="/logos/BrandedAF.png" alt="Branded AF" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">They delivered what they said they would, and it worked as planned. As a result of the collaboration, The Demski Group successfully launched the website, and the revenue started generating. The team regularly held weekly meetings, keeping the client updated on all tasks, plans, and feedback. Ultimately, they precisely delivered what they promised.</p>
         <div class="tcard-footer">
@@ -1784,7 +1832,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/Audiojack.png" alt="AudioJack" /></div>
+          <div class="tcard-logo"><img src="/logos/Audiojack.png" alt="AudioJack" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">Fantastic experience working with this team. They communicate regularly, understand that things can change and adapt as we sorted through the issues that came up with the project. All very important qualities when working with someone. The other elements I expect to be good, but being able to go the extra mile and be present was wonderful. Will work with them again as we continue to grow.</p>
         <div class="tcard-footer">
@@ -1799,7 +1847,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/Corning.png" alt="Corning" /></div>
+          <div class="tcard-logo"><img src="/logos/Corning.png" alt="Corning" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">The Demski Group team were great in helping out with our project and flexible with some of our changing timelines!</p>
         <div class="tcard-footer">
@@ -1814,7 +1862,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/FlowerMoxie.png" alt="Flower Moxie" /></div>
+          <div class="tcard-logo"><img src="/logos/FlowerMoxie.png" alt="Flower Moxie" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">The Demski Group was an absolute pleasure to work with and I will continue to hire them for my other Shopify dev projects. They scoped and quoted the project fairly, stayed within the hours they estimated, was extremely prompt in completing the tasks, extremely communicative, and quick to hop on a call. HIGHLY RECOMMEND, they're a wonderful hire!</p>
         <div class="tcard-footer">
@@ -1829,7 +1877,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/SEEN.png" alt="SEEN" /></div>
+          <div class="tcard-logo"><img src="/logos/SEEN.png" alt="SEEN" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">I really appreciate The Demski Group's willingness to shift quickly on projects and deadlines. The Demski Group continues to evolve the app to increase user engagement and retention. The team is available on multiple communication channels, which allows them to weigh in on various aspects of the product. They're also willing to pivot depending on the startup's needs.</p>
         <div class="tcard-footer">
@@ -1844,7 +1892,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/FarmersDaughter.png" alt="Farmer's Daughter" /></div>
+          <div class="tcard-logo"><img src="/logos/FarmersDaughter.png" alt="Farmer's Daughter" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">The Demski Group has done an outstanding job updating our website and implementing custom tools that have greatly improved our customer experience. Their expertise in SEO and PPC has also significantly increased our online visibility and sales. We are extremely pleased with the outcome and the positive feedback we've received from our customers.</p>
         <div class="tcard-footer">
@@ -1859,7 +1907,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/GettinBy.png" alt="Gettin' By" /></div>
+          <div class="tcard-logo"><img src="/logos/GettinBy.png" alt="Gettin' By" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">They helped us make the game more effective because they understood what we were trying to do. The Demski Group was able to implement every aspect of the requirements, including the rules, much to our delight. The team was highly communicative, and internal stakeholders were particularly impressed with the vendor's game development and technical experience.</p>
         <div class="tcard-footer">
@@ -1874,7 +1922,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
-          <div class="tcard-logo"><img src="/logos/TrickyWater.png" alt="Tricky Water" /></div>
+          <div class="tcard-logo"><img src="/logos/TrickyWater.png" alt="Tricky Water" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">They are very sound at a technical skill level. The Demski Group delivered all the agreed-upon deliverables in a timely manner. They were very accessible and knowledgeable, which ensured a smooth and effective workflow. Their deep technical knowledge and expertise were hallmarks of their work.</p>
         <div class="tcard-footer">
@@ -2027,16 +2075,16 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div class="excellence-right">
         <div class="badge-rotator" id="badge-rotator">
           <div class="badge-slide active">
-            <img src="/clutchcowhite.webp" alt="Clutch Top Software Developers 2022" />
+            <img src="/clutchcowhite.webp" alt="Clutch Top Software Developers 2022" width="220" height="220" loading="lazy" />
           </div>
           <div class="badge-slide">
-            <img src="/clutch2.webp" alt="Clutch Top App Development 2023" />
+            <img src="/clutch2.webp" alt="Clutch Top App Development 2023" width="220" height="220" loading="lazy" />
           </div>
           <div class="badge-slide">
-            <img src="/clutch3.webp" alt="Clutch Top Software Developers 2023" />
+            <img src="/clutch3.webp" alt="Clutch Top Software Developers 2023" width="220" height="220" loading="lazy" />
           </div>
           <div class="badge-slide">
-            <img src="/cisppwhite.webp" alt="CISSP Certified" />
+            <img src="/cisppwhite.webp" alt="CISSP Certified" width="200" height="200" loading="lazy" />
           </div>
         </div>
       </div>
@@ -2155,7 +2203,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 <!-- Right: sticky CTA only -->
 <div class="process-right">
   <div class="process-right-actions">
-    <span class="btn-back-arrow">
+    <span class="btn-back-arrow" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="1em" height="1em">
         <path d="M23 12H5M12 19l-7-7 7-7"/>
       </svg>
@@ -2168,44 +2216,9 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 </div> <!-- end process-inner -->
 
 <!-- Big decorative diamond -->
-<div class="process-deco-card"></div>
+<div class="process-deco-card" aria-hidden="true"></div>
 
 </section>
-
-<script is:inline>
-(function () {
-  const stepsContainer = document.getElementById('process-steps');
-  const lineFill = document.getElementById('process-line-fill');
-  const steps = Array.from(document.querySelectorAll('.process-step'));
-  if (!stepsContainer || !lineFill || !steps.length) return;
-
-  function update() {
-    const rect = stepsContainer.getBoundingClientRect();
-    const windowH = window.innerHeight;
-
-    // Fill line based on scroll progress through the container
-    const progress = Math.max(0, Math.min(1,
-      (windowH * 0.65 - rect.top) / rect.height
-    ));
-    lineFill.style.height = (progress * 100) + '%';
-
-    // Activate each step when its midpoint crosses 65% of viewport
-    steps.forEach((step) => {
-      const stepRect = step.getBoundingClientRect();
-      const mid = stepRect.top + stepRect.height / 2;
-      if (mid < windowH * 0.65) {
-        step.classList.add('active');
-      } else {
-        step.classList.remove('active');
-      }
-    });
-  }
-
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update, { passive: true });
-  update();
-})();
-</script>
 
 <script is:inline>
 (function () {
@@ -2255,14 +2268,14 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
     </div>
 
     <div class="cards-slider-wrap">
-      <button class="cards-nav cards-nav-prev" id="blog-prev" aria-label="Previous">←</button>
+      <button class="cards-nav cards-nav-prev" id="blog-prev" aria-label="Previous blog post">←</button>
       <div class="cards-slider" id="blog-slider">
         {posts.map((post: any) => {
           const img = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
           const date = new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
           return (
             <a class="post-card" href={`/blog/${post.slug}`}>
-              {img && <img src={img} alt={post.title.rendered} />}
+              {img && <img src={img} alt={post.title.rendered} loading="lazy" width="600" height="450" />}
               <div class="post-card-overlay">
                 <div class="post-card-title">{post.title.rendered}</div>
                 <div class="post-card-bottom">
@@ -2274,7 +2287,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
           );
         })}
       </div>
-      <button class="cards-nav cards-nav-next" id="blog-next" aria-label="Next">→</button>
+      <button class="cards-nav cards-nav-next" id="blog-next" aria-label="Next blog post">→</button>
     </div>
   </div>
 </section>
@@ -2292,14 +2305,14 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
     </div>
 
     <div class="cards-slider-wrap">
-      <button class="cards-nav cards-nav-prev" id="results-prev" aria-label="Previous">←</button>
+      <button class="cards-nav cards-nav-prev" id="results-prev" aria-label="Previous result">←</button>
       <div class="cards-slider" id="results-slider">
         {results.map((post: any) => {
           const img = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
           const date = new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
           return (
             <a class="post-card" href={`/results/${post.slug}`}>
-              {img && <img src={img} alt={post.title.rendered} />}
+              {img && <img src={img} alt={post.title.rendered} loading="lazy" width="600" height="450" />}
               <div class="post-card-overlay">
                 <div class="post-card-title">{post.title.rendered}</div>
                 <div class="post-card-bottom">
@@ -2311,7 +2324,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
           );
         })}
       </div>
-      <button class="cards-nav cards-nav-next" id="results-next" aria-label="Next">→</button>
+      <button class="cards-nav cards-nav-next" id="results-next" aria-label="Next result">→</button>
     </div>
   </div>
 </section>
@@ -2395,8 +2408,8 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
   <div class="final-cta-inner">
     <div class="final-cta-text">
       <h2>
-        <span>Transform Your Vision into Reality:</span>
-        <span style="white-space: nowrap; color: white;">Partner with Our Expert Team Today!</span>
+        <span>Transform Your Vision into<br class="mob-br" /> Reality:</span>
+        <span style="color: white;" class="cta-line2">Partner with Our Expert<br class="mob-br" /> Team Today!</span>
       </h2>
       <div>
         <a href="/contact-us/" class="btn-orange">Schedule a Consultation</a>
@@ -2406,50 +2419,13 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <img
         src="https://demskigroup.com/wp-content/uploads/2024/06/cropped-shot-of-a-group-of-creatives-having-a-meet-2023-11-27-04-53-10-utc-1.jpg"
         alt="Team meeting"
+        width="800" height="352"
+        loading="lazy"
       />
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
-<footer style="margin-top: 0">
-  <div class="footer-inner">
-    <div class="footer-logo">
-      <a href="/"><img src="/1-300x300.webp" alt="Demski Group" /></a>
-    </div>
-    <div class="footer-col">
-      <h4>Explore</h4>
-      <a href="/services/">Services</a>
-      <a href="/methodologies/">Methodologies</a>
-      <a href="/technologies/">Technologies</a>
-      <a href="/services/custom-development/">Custom Development</a>
-      <a href="/services/enterprise-software/">Enterprise Software</a>
-      <a href="/services/app-development/">Mobile Development</a>
-      <a href="/services/iot-development/">IoT Development</a>
-    </div>
-    <div class="footer-col">
-      <h4>Resources</h4>
-      <a href="/our-clients">Our Clients</a>
-      <a href="/about">About Us</a>
-      <a href="/careers/">Careers</a>
-      <a href="/blog">Blog</a>
-      <a href="/privacy-policy/">Privacy Policy</a>
-    </div>
-    <div class="footer-contact">
-      <h4>Get in Touch</h4>
-      <a href="/contact-us/" class="footer-cta-btn">Schedule a Consultation</a>
-      <p>The Demski Group<br />237 Delaware Ave #7<br />Olean, NY 14760<br />716-670-4514</p>
-      <p>250 East 5th Street 15th floor<br />Cincinnati, OH 45202<br />513-562-150</p>
-      <p>1001 S. Main St. #8131<br />Kalispell, MT 59901<br />406-540-5604</p>
-      <h4 style="font-size:20px;margin-top:16px;margin-bottom:10px;">Follow Us</h4>
-      <div class="social-row">
-        <a href="https://www.facebook.com/demskigroup/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-        <a href="https://x.com/demskigroup" target="_blank" aria-label="X"><i class="fab fa-x-twitter"></i></a>
-        <a href="https://www.linkedin.com/company/demskigroup/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.instagram.com/demskigroup/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://g.co/kgs/WDaNBe6" target="_blank" aria-label="Google"><i class="fab fa-google"></i></a>
-      </div>
-    </div>
-  </div>
-</footer>
+</main><!-- /#main-content -->
+
 </Layout>

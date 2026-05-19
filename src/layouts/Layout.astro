@@ -14,8 +14,13 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <!-- Preconnect to external font/icon origins for faster resource loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" /></noscript>
     <style>
       /* ─── RESET ─── */
       * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -53,6 +58,10 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
       .nav-dropdown-menu a.active { color: #0154b1; }
       .btn-cta { background: #f09300 !important; color: white !important; border: 1px solid #f09300; padding: 10px 20px !important; border-radius: 6px; font-size: 18px !important; font-weight: 500 !important; white-space: nowrap; transition: background 0.4s ease; }
       .btn-cta:hover { background: #ffffff !important; border: 1px solid #222; color: #222 !important; }
+
+      /* ─── FOCUS STATES (accessibility) ─── */
+      :focus-visible { outline: 2px solid #0154b1; outline-offset: 3px; border-radius: 3px; }
+      a:focus-visible, button:focus-visible { outline: 2px solid #0154b1; outline-offset: 3px; border-radius: 3px; }
 
       /* ─── HAMBURGER / MOBILE MENU ─── */
       .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; background: none; border: none; padding: 5px; }
@@ -104,6 +113,25 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
         .footer-bottom { padding: 16px 20px; }
       }
 
+      /* ─── SKIP TO CONTENT ─── */
+      .skip-to-content {
+        position: absolute;
+        left: -9999px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        z-index: 9999;
+        background: #0154b1;
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 0 0 6px 6px;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 16px;
+      }
+      .skip-to-content:focus { left: 16px; width: auto; height: auto; overflow: visible; }
+
       @media (max-width: 480px) {
         .btn-cta { display: none; }
       }
@@ -112,6 +140,9 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
     <slot name="head" />
   </head>
   <body class={pageClass}>
+
+    <!-- Skip-to-content for keyboard / screen reader navigation -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
     <!-- STICKY SITE HEADER: top-bar + navbar + mobile-menu pin together -->
     <div class="site-header-wrap">
@@ -124,7 +155,7 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
       <!-- HEADER -->
       <header>
         <div class="logo">
-          <a href="/"><img src="/Logo3-768x137.webp" alt="Demski Group" /></a>
+          <a href="/"><img src="/Logo3-768x137.webp" alt="Demski Group" width="256" height="46" fetchpriority="high" /></a>
         </div>
         <nav>
           <div class="nav-dropdown">
@@ -192,6 +223,48 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
 
     <!-- PAGE CONTENT -->
     <slot />
+
+    <!-- SHARED FOOTER -->
+    <footer style="margin-top: 0">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <a href="/"><img src="/1-300x300.webp" alt="Demski Group" width="80" height="80" loading="lazy" /></a>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="/services/">Services</a>
+          <a href="/methodologies/">Methodologies</a>
+          <a href="/technologies/">Technologies</a>
+          <a href="/services/custom-development/">Custom Development</a>
+          <a href="/services/enterprise-software/">Enterprise Software</a>
+          <a href="/services/app-development/">Mobile Development</a>
+          <a href="/services/iot-development/">IoT Development</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/our-clients">Our Clients</a>
+          <a href="/about">About Us</a>
+          <a href="/careers/">Careers</a>
+          <a href="/blog">Blog</a>
+          <a href="/privacy-policy/">Privacy Policy</a>
+        </div>
+        <div class="footer-contact">
+          <h4>Get in Touch</h4>
+          <a href="/contact-us/" class="footer-cta-btn">Schedule a Consultation</a>
+          <p>The Demski Group<br />237 Delaware Ave #7<br />Olean, NY 14760<br />716-670-4514</p>
+          <p>250 East 5th Street 15th floor<br />Cincinnati, OH 45202<br />513-562-150</p>
+          <p>1001 S. Main St. #8131<br />Kalispell, MT 59901<br />406-540-5604</p>
+          <h4 style="font-size:20px;margin-top:16px;margin-bottom:10px;">Follow Us</h4>
+          <div class="social-row">
+            <a href="https://www.facebook.com/demskigroup/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://x.com/demskigroup" target="_blank" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.linkedin.com/company/demskigroup/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.instagram.com/demskigroup/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://g.co/kgs/WDaNBe6" target="_blank" aria-label="Google"><i class="fab fa-google"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
 
 
     <script>

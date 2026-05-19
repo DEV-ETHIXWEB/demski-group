@@ -51,6 +51,8 @@ const cases = [
   description="Boost conversions and streamline your sales pipeline with custom lead tracking tools, intelligent automation, and real-time performance insights."
   pageClass="sales-solution-page"
 >
+  <!-- Preload hero background for this page (LCP candidate) -->
+  <link rel="preload" href={`${assetBase}/a-group-of-people-working-man-and-woman-in-the-pla-2025-10-16-22-30-43-utc-scaled.jpg`} as="image" slot="head" />
   <style slot="head">
     /* ── Page tokens ── */
     .sales-solution-page {
@@ -224,7 +226,7 @@ const cases = [
     }
 
     .hero-badges img {
-      width: 148px;
+      width: 222px;
       height: auto;
       object-fit: contain;
       display: block;
@@ -1223,18 +1225,30 @@ const cases = [
       .sales-solution-page .footer-inner { grid-template-columns: 1fr !important; }
     }
 
+    /* ── Reduced motion accessibility ── */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-btn, .button-orange, .button-light { transition: none; }
+      .acc-panel { transition: none !important; }
+    }
+
     /* ── Responsive: ≤ 430px — small phone ── */
     @media (max-width: 430px) {
-      .hero { padding: 28px 16px; }
-      .hero h1 { font-size: 20px; }
-      .hero p   { font-size: 12px; }
-      .hero-btn { font-size: 13px; padding: 10px 14px; }
-      .intro-grid .section-title { font-size: 22px; }
-      .accordion-copy .section-title { font-size: 20px; }
-      .services-grid-section .section-title { font-size: 22px; }
-      .why-copy .section-title { font-size: 20px; }
-      .case-section .section-title { font-size: 20px; }
-      .contact-form-col .section-title { font-size: 20px; }
+      .sales-section { padding: 28px 16px; }
+      .hero { padding: 32px 18px; margin-left: 10px; margin-right: 10px; }
+      .hero h1 { font-size: clamp(26px, 7vw, 32px); line-height: 1.15; }
+      .hero p   { font-size: 14px; line-height: 1.55; }
+      .hero-btn { font-size: 14px; padding: 12px 20px; }
+      .hero-badges img { width: 90px; }
+      .intro-grid .section-title { font-size: clamp(22px, 6vw, 28px); }
+      .accordion-copy .section-title { font-size: clamp(20px, 5.5vw, 26px); }
+      .acc-title { font-size: 13px; }
+      .services-grid-section .section-title { font-size: clamp(22px, 6vw, 28px); }
+      .service-card h3 { font-size: 17px; }
+      .why-copy .section-title { font-size: clamp(20px, 5.5vw, 26px); }
+      .why-copy > p, .why-copy li { font-size: 14px; }
+      .case-section .section-title { font-size: clamp(20px, 5.5vw, 26px); }
+      .contact-form-col .section-title { font-size: clamp(20px, 5.5vw, 26px); }
+      .contact-form input, .contact-form textarea { font-size: 14px; }
     }
   </style>
 
@@ -1253,9 +1267,9 @@ const cases = [
       </div>
       <!-- RIGHT: stacked trust badges — inside hero matching reference -->
       <div class="hero-badges" aria-label="Review badges">
-        <img src={`${assetBase}/Clutch2024.png`} alt="Clutch 2024 Top Software Developers badge" />
-        <img src={`${assetBase}/Clutch2023.png`} alt="Clutch 2023 Top Software Developers badge" />
-        <img src={`${assetBase}/Google.png`}      alt="Google five star review badge" />
+        <img src={`${assetBase}/Clutch2024.png`} alt="Clutch 2024 Top Software Developers badge" width="148" height="148" loading="lazy" />
+        <img src={`${assetBase}/Clutch2023.png`} alt="Clutch 2023 Top Software Developers badge" width="148" height="148" loading="lazy" />
+        <img src={`${assetBase}/Google.png`}      alt="Google five star review badge" width="148" height="148" loading="lazy" />
       </div>
     </section>
 
@@ -1293,6 +1307,8 @@ const cases = [
         class="feature-image"
         src={`${assetBase}/engineer-working-on-chip-development-2025-03-06-13-42-24-utc-1024x683.jpg`}
         alt="Software engineer working on sales tracking dashboards"
+        width="1024" height="683"
+        loading="lazy"
       />
     </section>
 
@@ -1334,6 +1350,8 @@ const cases = [
         class="feature-image"
         src={`${assetBase}/professional-businessman-person-team-group-meeting-2025-03-26-13-34-42-utc-1024x683.jpg`}
         alt="Business team discussing sales strategy"
+        width="1024" height="683"
+        loading="lazy"
       />
     </section>
 
@@ -1368,6 +1386,8 @@ const cases = [
           <img
             src={`${assetBase}/colleagues-in-office-using-computer-2024-10-18-17-41-53-utc-1024x683.jpg`}
             alt="Software development team working together"
+            width="1024" height="683"
+            loading="lazy"
           />
         </div>
         <div class="why-card-body">
@@ -1388,7 +1408,7 @@ const cases = [
         {cases.map(({ tag, name, description, image, tone, link }) => (
           <article class={`case-card ${tone === 'dark' ? 'featured' : tone}`}>
             <span class="case-tag">{tag}</span>
-            <img src={`${assetBase}/${image}`} alt={`${name} logo`} />
+            <img src={`${assetBase}/${image}`} alt={`${name} logo`} width="300" height="92" loading="lazy" />
             {description && <p>{description}</p>}
             <a class="case-link" href={link}>Read full case study →</a>
           </article>
@@ -1438,6 +1458,8 @@ const cases = [
             class="contact-right-img"
             src={`${assetBase}/two-young-intercultural-colleagues-discussing-code-2025-03-16-06-53-49-utc-1024x683.jpg`}
             alt="Developers discussing code"
+            width="1024" height="683"
+            loading="lazy"
           />
         </div>
 
