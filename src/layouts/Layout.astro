@@ -279,7 +279,7 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
       const mobileDropBtn = document.getElementById('mobileDropBtn');
       if (mobileDropBtn) {
         mobileDropBtn.addEventListener('click', () => {
-          mobileDropBtn.closest('.mobile-dropdown').classList.toggle('open');
+          mobileDropBtn.closest('.mobile-dropdown')?.classList.toggle('open');
         });
       }
     </script>
