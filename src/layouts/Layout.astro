@@ -385,7 +385,7 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
     <!-- Scroll-triggered sticky bar (desktop only, appears after 5% scroll) -->
     <div id="scrollStickyBar" style="
       position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
-      transform: translateY(-100%); transition: transform 0.35s ease;
+      transform: translateY(-100%); transition: transform 0.42s cubic-bezier(0.4,0,0.2,1);
     ">
       <!-- Top bar -->
       <div style="background:#0154b1;color:white;font-size:20px;padding:8px 30px;text-align:center;font-family:'Outfit',sans-serif;">
@@ -415,18 +415,30 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
         if (window.innerWidth <= 768) { bar.style.display = 'none'; return; }
         var header = document.querySelector('.site-header-wrap');
         var shown = false;
+        var ticking = false;
         var threshold = Math.max(80, (document.body.scrollHeight - window.innerHeight) * 0.04);
-        window.addEventListener('scroll', function(){
+
+        // Smooth fade on header instead of display:none (prevents layout jump)
+        if (header) header.style.transition = 'opacity 0.35s ease';
+
+        function update() {
           var sy = window.scrollY;
+          // Show: at threshold. Hide: 24px below threshold (hysteresis prevents rapid toggling)
           if (!shown && sy >= threshold) {
-            bar.style.transform = 'translateY(0)';
-            if (header) header.style.display = 'none';
             shown = true;
-          } else if (shown && sy < threshold) {
-            bar.style.transform = 'translateY(-100%)';
-            if (header) header.style.display = '';
+            bar.style.transform = 'translateY(0)';
+            if (header) { header.style.opacity = '0'; header.style.pointerEvents = 'none'; }
+          } else if (shown && sy < threshold - 24) {
             shown = false;
+            bar.style.transform = 'translateY(-100%)';
+            if (header) { header.style.opacity = '1'; header.style.pointerEvents = ''; }
           }
+          ticking = false;
+        }
+
+        // requestAnimationFrame throttle — max one update per frame (60fps)
+        window.addEventListener('scroll', function(){
+          if (!ticking) { requestAnimationFrame(update); ticking = true; }
         }, { passive: true });
       })();
     </script>
