@@ -298,23 +298,26 @@ h1, h2, h3, h4, h5, h6 {
 /* The .btn-outline rule — add font-size override for tech section */
 .svc-tech-left .btn-outline {
   display: inline-flex !important;
-  align-items: center;
-  gap: 8px;
+  align-items: center !important;
+  gap: 10px !important;
   border: 1.5px solid #1a1a1a !important;
-  color: #0A0000 !important;
+  color: #1a1a1a !important;
   background: transparent !important;
-  font-family: 'Outfit', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 12px 28px;
-  border-radius: 50px;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  border-radius: 50px !important;
   text-decoration: none !important;
-  white-space: nowrap;
-  transition: all 0.25s;
+  white-space: nowrap !important;
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease !important;
 }
 .svc-tech-left .btn-outline:hover {
-  background: #0A0000 !important;
-  color: #fff !important;
+  background: transparent !important;
+  color: #0154b1 !important;
+  border-color: #0154b1 !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 18px rgba(1, 84, 177, 0.12) !important;
 }
 .tech-logo-grid {
   display: grid;
@@ -376,21 +379,30 @@ h1, h2, h3, h4, h5, h6 {
   color: #0A0000; line-height: 1.2;
 }
 .btn-outline-sm {
-  display: inline-flex; align-items: center; gap: 8px;
-  border: 1.5px solid #1a1a1a; color: #0A0000;
-  font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 600;
-  padding: 9px 18px; border-radius: 50px;
-  text-decoration: none; transition: all 0.25s; white-space: nowrap; margin-top: 8px;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  border: 1.5px solid #1a1a1a !important;
+  color: #1a1a1a !important;
+  background: transparent !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  border-radius: 50px !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  margin-top: 8px;
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease !important;
 }
-.btn-outline-sm .ac {
-  width: 20px; height: 20px;
-  background: #0A0000; color: #fff;
-  border-radius: 50%; display: inline-flex;
-  align-items: center; justify-content: center;
-  font-size: 11px; transition: all 0.25s;
+.btn-outline-sm .ac { display: none; }
+.btn-outline-sm:hover {
+  background: transparent !important;
+  color: #0154b1 !important;
+  border-color: #0154b1 !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 18px rgba(1, 84, 177, 0.12) !important;
 }
-.btn-outline-sm:hover { background: #0A0000; color: #fff; }
-.btn-outline-sm:hover .ac { background: #fff; color: #0A0000; }
 
 /* Top wrap: BIOPAC + 4 */
 .proj-top-wrap {
@@ -699,24 +711,28 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
 }
 .btn-outline-methods {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1.5px solid #1a1a1a;
-  color: #0A0000;
-  font-family: 'Outfit', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  padding: 10px 20px;
-  border-radius: 50px;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  border: 1.5px solid #1a1a1a !important;
+  color: #1a1a1a !important;
+  background: transparent !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  border-radius: 50px !important;
   text-decoration: none !important;
-  transition: all 0.25s;
-  white-space: nowrap;
-  width: fit-content;
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease !important;
+  white-space: nowrap !important;
+  width: fit-content !important;
 }
 .btn-outline-methods:hover {
-  background: #0A0000;
-  color: #fff;
+  color: #0154b1 !important;
+  border-color: #0154b1 !important;
+  background: transparent !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 18px rgba(1, 84, 177, 0.12) !important;
 }
 .svc-methods-grid {
   display: grid;
@@ -1135,7 +1151,7 @@ h1, h2, h3, h4, h5, h6 {
   <div class="svc-projects-inner">
     <div class="svc-projects-header">
       <h2>Over 600 Projects Delivered<br/>Successfully</h2>
-      <a href="/our-clients/" class="btn-outline-sm">See all clients <span class="ac">→</span></a>
+      <a href="/our-clients/" class="btn-outline-sm">See all clients →</a>
     </div>
 
     <!-- BIOPAC + 4 -->
