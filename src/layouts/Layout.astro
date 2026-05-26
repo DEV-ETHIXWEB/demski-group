@@ -205,22 +205,87 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
         flex-shrink: 0;
         transition: transform 0.3s ease;
         vertical-align: middle;
+        font-size: 0;
+        line-height: 0;
       }
       .btn-arrow-icon::before {
-        content: "→";
-        font-size: 42px;
-        font-weight: 300;
-        line-height: 1;
-        display: block;
-        transform: translateY(-3px);
-        -webkit-font-smoothing: antialiased;
-        text-rendering: geometricPrecision;
-        font-family: 'Outfit', sans-serif;
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: currentColor;
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 18'%3E%3Cpath d='M0 9 H21 M14 2 L22 9 L14 16' stroke='black' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 18'%3E%3Cpath d='M0 9 H21 M14 2 L22 9 L14 16' stroke='black' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-position: center;
+        mask-position: center;
+        transition: background-color 0.3s ease;
       }
       .btn-arrow:hover .btn-arrow-icon,
       a:hover .btn-arrow-icon,
       button:hover .btn-arrow-icon {
         transform: translateX(5px);
+      }
+      .arrow-circle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        font-size: 0;
+        line-height: 0;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        transition: transform 0.3s ease;
+        vertical-align: middle;
+      }
+      .arrow-circle::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: currentColor;
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 18'%3E%3Cpath d='M0 9 H21 M14 2 L22 9 L14 16' stroke='black' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 18'%3E%3Cpath d='M0 9 H21 M14 2 L22 9 L14 16' stroke='black' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-position: center;
+        mask-position: center;
+        transition: background-color 0.3s ease;
+      }
+      a:hover .arrow-circle,
+      button:hover .arrow-circle {
+        transform: translateX(5px);
+      }
+      .svc-arrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        font-size: 0;
+        line-height: 0;
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        vertical-align: middle;
+        transition: transform 0.3s ease;
+      }
+      .svc-arrow::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: currentColor;
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 18'%3E%3Cpath d='M0 9 H21 M14 2 L22 9 L14 16' stroke='black' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 18'%3E%3Cpath d='M0 9 H21 M14 2 L22 9 L14 16' stroke='black' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-position: center;
+        mask-position: center;
       }
     </style>
     <!-- Page-level styles injected here -->

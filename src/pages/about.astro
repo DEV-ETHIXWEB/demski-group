@@ -266,7 +266,6 @@ html { overflow-x: hidden; }
   margin-top: 10px;
 }
 .btn-outline:hover { color: #0154B1; border-color: #0154B1; }
-.btn-outline .btn-arrow-icon::before { font-size: 32px; }
 .btn-outline svg { transition: fill 0.3s; }
 .btn-outline:hover svg { fill: #0154B1; }
 /* featured + side grid */
@@ -339,7 +338,6 @@ html { overflow-x: hidden; }
   transition: color 0.3s;
 }
 .project-read-link:hover { color: #4798ED; border-color: #4798ED; }
-.project-read-link .btn-arrow-icon::before { font-size: 24px; }
 /* right 2×2 grid */
 .projects-side-grid {
   display: grid;
@@ -385,7 +383,6 @@ html { overflow-x: hidden; }
 }
 .project-logo-card:hover span { color: #0154B1; }
 .project-logo-card span .btn-arrow-icon { width: 16px; height: 16px; }
-.project-logo-card span .btn-arrow-icon::before { font-size: 21px; }
 /* bottom 4 cards row */
 .projects-bottom-row {
   display: grid;
@@ -561,7 +558,6 @@ html { overflow-x: hidden; }
 }
 .rc.dark .rc-link { color: #fff; border-bottom-color: #fff; }
 .rc-link:hover, .rc.dark .rc-link:hover { color: #4798ED; border-color: #4798ED; }
-.rc-link .btn-arrow-icon::before { font-size: 24px; }
 
 /* ══ TECHNICAL EXPERTISE ══ */
 .expertise-section {
@@ -819,6 +815,11 @@ html { overflow-x: hidden; }
   transition: gap 0.2s ease;
 }
 .about-post-card:hover .about-post-card-read { gap: 10px; }
+.about-post-card-read .svc-arrow {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
 .about-cards-nav {
   position: absolute;
   top: 50%; transform: translateY(-50%);
@@ -1396,7 +1397,7 @@ html { overflow-x: hidden; }
       <div>
         <h2>From the Blog</h2>
       </div>
-      <a href="/blog" class="btn-see-all-blog">See all →</a>
+      <a href="/blog" class="btn-see-all-blog">See all <span class="btn-arrow-icon"></span></a>
     </div>
     <div class="about-cards-slider-wrap">
       <button class="about-cards-nav about-cards-nav-prev" id="about-blog-prev" aria-label="Previous">←</button>
@@ -1411,7 +1412,7 @@ html { overflow-x: hidden; }
                 <div class="about-post-card-title">{post.title.rendered}</div>
                 <div class="about-post-card-bottom">
                   <span class="about-post-card-date">{date}</span>
-                  <span class="about-post-card-read">Read More →</span>
+                  <span class="about-post-card-read">Read More <span class="svc-arrow"></span></span>
                 </div>
               </div>
             </a>
