@@ -17,7 +17,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   overflow: hidden;
   background: #fff;
-  padding: 80;
+  padding: 80px;
   padding-bottom: 180px;
 
 }
@@ -675,8 +675,8 @@ h1, h2, h3, h4, h5, h6 {
   flex-shrink: 0;
 }
 .svc-pos-btn .btn-orange {
-  font-size: 20px;            /* override global btn-orange size */
-  padding: 18px 32px;
+  font-size: 20px;
+  padding: 16px 36px;
   white-space: nowrap;
 }
 
@@ -989,8 +989,9 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 900px) {
   .svc-hero-inner { grid-template-columns: 1fr; }
   .svc-hero-right { height: 260px; }
-  .svc-brands-wrap { flex-direction: column; }
-  .svc-brands-label { border-right: none; border-bottom: 1px solid #444; }
+  .brands-wrap { flex-direction: column; margin-top: -80px; padding: 24px 28px; }
+  .brands-label { border-right: none; border-bottom: 1px solid #ddd; min-width: unset; margin-left: 0; padding-right: 0; padding-bottom: 20px; margin-bottom: 16px; width: 100%; text-align: left; }
+  .brands-logo-img { padding-left: 0; }
   .svc-excellence-inner { grid-template-columns: 1fr; gap: 40px; }
   .svc-pos-inner { grid-template-columns: 1fr; }
   .svc-contact-inner { grid-template-columns: 1fr; }
