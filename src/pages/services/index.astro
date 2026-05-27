@@ -297,14 +297,14 @@ h1, h2, h3, h4, h5, h6 {
 .svc-tech-left .btn-outline {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 10px !important;
+  gap: 16px !important;
   border: 1.5px solid #1a1a1a !important;
   color: #1a1a1a !important;
   background: transparent !important;
   font-family: 'Outfit', sans-serif !important;
-  font-size: 16px !important;
+  font-size: 18px !important;
   font-weight: 600 !important;
-  padding: 10px 24px !important;
+  padding: 12px 24px !important;
   border-radius: 50px !important;
   text-decoration: none !important;
   white-space: nowrap !important;
@@ -545,6 +545,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   width: 507px;
   height: 507px;
+  overflow: hidden;
 }
 .badge-slide {
   position: absolute;
@@ -553,12 +554,18 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.8s ease;
+  transform: translateX(100%);
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.65s ease;
   pointer-events: none;
 }
 .badge-slide.active {
   opacity: 1;
+  transform: translateX(0);
   pointer-events: auto;
+}
+.badge-slide.leaving {
+  opacity: 0;
+  transform: translateX(-100%);
 }
 .badge-slide img {
   max-width: 429px;
@@ -961,11 +968,14 @@ h1, h2, h3, h4, h5, h6 {
 .tc-carousel { position: relative; flex: 1; }
 .tc-slide { display: none; flex-direction: column; padding: 0; background: transparent; border-radius: 0; box-shadow: none; }
 .tc-slide.active { display: flex; }
-.tc-quote-icon { color: #005cb9; font-size: 26px; margin-bottom: 18px; line-height: 1; }
+.tc-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+.tc-quote-icon { font-size: 22px; color: #7ab0cf; line-height: 1; font-family: Georgia, serif; font-weight: 700; letter-spacing: -1px; }
+.tc-logo { display: flex; align-items: center; height: 35px; }
+.tc-logo img { height: 35px; width: auto; object-fit: contain; max-width: 120px; }
 .tc-text { color: #333; font-size: 16px; line-height: 1.72; margin: 0 0 20px; flex: 1; }
 .tc-footer { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; padding-top: 14px; border-top: 1px solid #e8e8e8; }
 .tc-author { font-size: 14px; font-weight: 700; color: #1a1a1a; line-height: 1.4; }
-.tc-author span { display: block; font-weight: 400; font-size: 13px; color: #888; }
+.tc-role { display: block; font-weight: 400; font-size: 13px; color: #888; }
 .tc-link { color: #1a1a1a; text-decoration: none; font-size: 13px; font-weight: 500; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; }
 .tc-fraction-bar { text-align: center; font-size: 20px; color: #000; padding: 14px 0 8px; position: relative; z-index: 2; transform: translateY(-100px); }
 .contact-right-img { width: 100%; height: 220px; object-fit: cover; object-position: center top; display: block; margin-top: 0; margin-bottom: 0; border-radius: 16px 16px 22px 22px; transform: translateY(-50px); }
@@ -1250,14 +1260,17 @@ h1, h2, h3, h4, h5, h6 {
 </section>
 <script is:inline>
   (function () {
-    const slides = document.querySelectorAll('#badge-rotator .badge-slide');
+    const slides = Array.from(document.querySelectorAll('#badge-rotator .badge-slide'));
     if (!slides.length) return;
     let current = 0;
     setInterval(() => {
-      slides[current].classList.remove('active');
+      const prev = current;
       current = (current + 1) % slides.length;
+      slides[prev].classList.remove('active');
+      slides[prev].classList.add('leaving');
       slides[current].classList.add('active');
-    }, 2500);
+      setTimeout(() => slides[prev].classList.remove('leaving'), 700);
+    }, 2800);
   })();
   </script>
 
@@ -1368,26 +1381,44 @@ h1, h2, h3, h4, h5, h6 {
       <p class="svc-contact-right-label">What our customers say</p>
       <div class="tc-carousel" id="svcTcCarousel">
         <div class="tc-slide active" data-tc-slide>
-          <div class="tc-quote-icon"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
+          <div class="tc-top">
+            <div class="tc-quote-icon">❝❝</div>
+            <div class="tc-logo"></div>
+          </div>
           <p class="tc-text">The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. They are also very professional and timely as well as a pleasure to work with! We have worked with Andrew Demski for all of our IT needs.</p>
           <div class="tc-footer">
-            <div class="tc-author">Delaine Mast<span>CEO</span></div>
+            <div>
+              <div class="tc-author">Delaine Mast</div>
+              <div class="tc-role">CEO</div>
+            </div>
             <a class="tc-link" href="/our-clients/impact-team-tennis/">Read case study <span class="svc-arrow"></span></a>
           </div>
         </div>
         <div class="tc-slide" data-tc-slide>
-          <div class="tc-quote-icon"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
+          <div class="tc-top">
+            <div class="tc-quote-icon">❝❝</div>
+            <div class="tc-logo"></div>
+          </div>
           <p class="tc-text">We spoke to a few different companies as we set out to find someone to create a website/database application to augment our desktop software. We chose The Demski Group in part because we found them very easy to talk to in our interview. That first impression stuck as we have a great relationship with them now. We are currently planning to farm out another project and are not even considering looking for anyone else to take it on.</p>
           <div class="tc-footer">
-            <div class="tc-author">Mickey Rowe<span>Manager</span></div>
+            <div>
+              <div class="tc-author">Mickey Rowe</div>
+              <div class="tc-role">Manager</div>
+            </div>
             <a class="tc-link" href="/our-clients/biopac/">Read case study <span class="svc-arrow"></span></a>
           </div>
         </div>
         <div class="tc-slide" data-tc-slide>
-          <div class="tc-quote-icon"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
+          <div class="tc-top">
+            <div class="tc-quote-icon">❝❝</div>
+            <div class="tc-logo"></div>
+          </div>
           <p class="tc-text">Code quality was very good and done in a fast, efficient manner. We are pleased with the excellent job from The Demski Group. The team was able to provide high-quality services throughout the project. They produced the deliverables in a timely manner and within budget.</p>
           <div class="tc-footer">
-            <div class="tc-author">Thariq Kara<span>CEO</span></div>
+            <div>
+              <div class="tc-author">Thariq Kara</div>
+              <div class="tc-role">CEO</div>
+            </div>
             <a class="tc-link" href="/our-clients/nu-borders/">Read case study <span class="svc-arrow"></span></a>
           </div>
         </div>
@@ -1452,7 +1483,7 @@ h1, h2, h3, h4, h5, h6 {
       try {
         let all = [], page = 1, tp = 1;
         do {
-          const res = await fetch(`${base}?_embed&per_page=100&page=${page}`);
+          const res = await fetch(`${base}?_embed&per_page=100&page=${page}`, { signal: AbortSignal.timeout(8000) });
           if (!res.ok) break;
           const h = res.headers.get('X-WP-TotalPages');
           if (h) tp = parseInt(h);
@@ -1483,7 +1514,14 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   const clients = await fetchClients();
-  if (!clients.length) return;
+  if (!clients.length) {
+    // API unavailable — clear skeleton placeholders so users don't see endless loaders
+    const bSec = document.getElementById('svc-biopac-section');
+    const gSec = document.getElementById('svc-clients-grid');
+    if (bSec) bSec.style.display = 'none';
+    if (gSec) gSec.style.display = 'none';
+    return;
+  }
 
   const biopac = clients.find(c => c.slug?.includes('biopac')) || clients[0];
   const others = clients.filter(c => c.id !== biopac?.id);
