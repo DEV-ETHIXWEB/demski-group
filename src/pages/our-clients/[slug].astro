@@ -1,0 +1,169 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const { slug } = Astro.params;
+
+const WP_URLS = [
+  `https://demskigroup.com/wp-json/wp/v2/our-clients?slug=${slug}&_embed`,
+  `https://demskigrdev.wpenginepowered.com/wp-json/wp/v2/our-clients?slug=${slug}&_embed`,
+];
+
+let client: any = null;
+for (const url of WP_URLS) {
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) continue;
+    const data = await res.json();
+    if (Array.isArray(data) && data.length) { client = data[0]; break; }
+  } catch(_) { continue; }
+}
+
+const title       = client?.title?.rendered || 'Case Study';
+const content     = client?.content?.rendered || '';
+const featuredImg = client?._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
+const excerpt     = client?.excerpt?.rendered?.replace(/<[^>]*>/g,'').trim() || '';
+const industry    = client?._embedded?.['wp:term']?.[0]?.[0]?.name || '';
+---
+
+<Layout title={`${title} | Case Study – The Demski Group`} description={excerpt}>
+
+  <style slot="head">
+    .cs-page { font-family: 'Outfit', sans-serif; color: #1b1c1d; }
+
+    /* ── Hero ── */
+    .cs-hero {
+      background: #001629;
+      padding: 80px 40px 60px;
+      text-align: center;
+    }
+    .cs-hero .breadcrumb { font-size: 15px; color: rgba(255,255,255,0.55); margin-bottom: 18px; }
+    .cs-hero .breadcrumb a { color: rgba(255,255,255,0.55); text-decoration: none; }
+    .cs-hero .breadcrumb a:hover { color: #fff; }
+    .cs-hero .industry-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 22px;
+    }
+    .cs-hero h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+      max-width: 860px;
+      margin: 0 auto 20px;
+    }
+    .cs-hero .excerpt {
+      font-size: 18px;
+      color: rgba(255,255,255,0.72);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ── Featured image ── */
+    .cs-featured-img {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .cs-featured-img img {
+      width: 100%;
+      height: 480px;
+      object-fit: contain;
+      display: block;
+      background: #f5f5f5;
+    }
+
+    /* ── Body ── */
+    .cs-body {
+      max-width: 860px;
+      margin: 60px auto 100px;
+      padding: 0 30px;
+    }
+    .cs-content { font-size: 18px; line-height: 1.8; color: #333; }
+    .cs-content h2 { font-size: 30px; font-weight: 700; color: #001629; margin: 48px 0 16px; }
+    .cs-content h3 { font-size: 24px; font-weight: 700; color: #001629; margin: 36px 0 12px; }
+    .cs-content p  { margin-bottom: 22px; }
+    .cs-content a  { color: #005cb9; text-decoration: underline; }
+    .cs-content a:hover { color: #f09300; }
+    .cs-content ul, .cs-content ol { padding-left: 24px; margin-bottom: 22px; }
+    .cs-content li { margin-bottom: 8px; }
+    .cs-content img { max-width: 100%; height: auto; border-radius: 8px; margin: 28px 0; }
+    .cs-content blockquote {
+      border-left: 4px solid #005cb9;
+      padding: 14px 22px;
+      margin: 32px 0;
+      background: #f0f6ff;
+      font-style: italic;
+      color: #444;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      color: #5B7486;
+      font-weight: 600;
+      text-decoration: none;
+      margin-bottom: 40px;
+    }
+    .back-link:hover { color: #005cb9; }
+
+    .not-found { text-align: center; padding: 120px 20px; font-size: 22px; color: #888; }
+
+    @media (max-width: 768px) {
+      .cs-hero { padding: 60px 20px 40px; }
+      .cs-hero h1 { font-size: 28px; }
+      .cs-featured-img img { height: 240px; }
+      .cs-body { padding: 0 20px; margin: 40px auto 60px; }
+      .cs-content { font-size: 16px; }
+    }
+  </style>
+
+  <div class="cs-page">
+    {client ? (
+      <>
+        <div class="cs-hero">
+          <div class="breadcrumb">
+            <a href="/">Home</a> &nbsp;›&nbsp; <a href="/our-clients/">Our Clients</a> &nbsp;›&nbsp; {title}
+          </div>
+          {industry && <span class="industry-tag">{industry}</span>}
+          <h1 set:html={title} />
+          {excerpt && <p class="excerpt">{excerpt}</p>}
+        </div>
+
+        {featuredImg && (
+          <div class="cs-featured-img">
+            <img src={featuredImg} alt={`${title} logo`} />
+          </div>
+        )}
+
+        <div class="cs-body">
+          <a class="back-link" href="/our-clients/">
+            <svg width="14" height="12" viewBox="0 0 14 12" fill="none" style="transform:rotate(180deg)">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M0 6C0 5.77271 0.0902897 5.55473 0.251006 5.39402C0.411723 5.2333 0.629701 5.14301 0.856988 5.14301H10.7861L7.10615 1.46482C6.94523 1.3039 6.85482 1.08565 6.85482 0.858071C6.85482 0.630497 6.94523 0.412243 7.10615 0.251323C7.26707 0.0904038 7.48532 0 7.71289 0C7.94047 0 8.15872 0.0904038 8.31964 0.251323L13.4616 5.39325C13.5414 5.47286 13.6047 5.56743 13.6479 5.67154C13.6911 5.77566 13.7133 5.88728 13.7133 6C13.7133 6.11272 13.6911 6.22434 13.6479 6.32845C13.6047 6.43257 13.5414 6.52714 13.4616 6.60675L8.31964 11.7487C8.15872 11.9096 7.94047 12 7.71289 12C7.48532 12 7.26707 11.9096 7.10615 11.7487C6.94523 11.5878 6.85482 11.3695 6.85482 11.1419C6.85482 10.9144 6.94523 10.6961 7.10615 10.5352L10.7861 6.85699H0.856988C0.629701 6.85699 0.411723 6.7667 0.251006 6.60598C0.0902897 6.44527 0 6.22729 0 6Z" fill="#5B7486"/>
+            </svg>
+            ← Back to Our Clients
+          </a>
+          {content
+            ? <div class="cs-content" set:html={content} />
+            : <p style="color:#888; font-size:18px;">Full case study content coming soon.</p>
+          }
+        </div>
+      </>
+    ) : (
+      <div class="not-found">
+        Case study not found. <a href="/our-clients/" style="color:#005cb9">← Back to Our Clients</a>
+      </div>
+    )}
+  </div>
+
+</Layout>

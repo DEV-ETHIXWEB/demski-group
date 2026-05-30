@@ -13,6 +13,7 @@ try {
 
 <Layout title="About Us - The Demski Group">
 <style slot="head">
+<<<<<<< HEAD
 @import url('https://api.fontshare.com/v2/css?f[]=general-sans@700,600,500,400&display=swap');
 html { overflow-x: hidden; }
 
@@ -22,6 +23,17 @@ html { overflow-x: hidden; }
   position: relative;
   overflow: hidden;
   min-height: 560px;
+=======
+/* ── GLOBAL ── */
+html { overflow-x: hidden; }
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ══ HERO ══ */
+.about-hero {
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   display: flex;
   align-items: center;
 }
@@ -29,6 +41,7 @@ html { overflow-x: hidden; }
   max-width: 1300px;
   margin: 0 auto;
   width: 100%;
+<<<<<<< HEAD
   padding: 120px 60px 160px;
   display: flex;
   align-items: center;
@@ -73,10 +86,60 @@ html { overflow-x: hidden; }
   background: #f0f0f0;
   border-radius: 50%;
   z-index: 1;
+=======
+  padding: 100px 80px 150px;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  position: relative;
+  z-index: 2;
+}
+.about-hero-text { flex: 0 0 auto; width: 580px; margin-left: -6.5%; }
+.about-eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #000;
+  margin-bottom: 20px;
+}
+.about-hero-text h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 65px;
+  font-weight: 600;
+  color: #282828;
+  line-height: 1.1em;
+  margin-bottom: 24px;
+  letter-spacing: 0.6px;
+}
+.about-hero-text p {
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  color: #282828;
+  line-height: 1.75;
+  max-width: 580px;
+  margin-bottom: 80px;
+}
+.about-hero-image { flex: 0 0 auto; margin-left: auto; }
+.about-hero-image img { height: 400px; width: auto; object-fit: contain; }
+/* bottom wave */
+.about-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -155px;
+  left: -45%;
+  width: 190%;
+  height: 224px;
+  background: #F0F0F0;
+  border-radius: 50%;
+  z-index: 0;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 }
 
 /* ══ BRANDS ══ */
 .about-brands-outer {
+<<<<<<< HEAD
   background: #f0f0f0;
   padding: 0 60px;
   position: relative;
@@ -101,20 +164,58 @@ html { overflow-x: hidden; }
   border-right: 1px solid #444;
   flex-shrink: 0;
   text-align: center;
+=======
+  background: #F0F0F0;
+  padding: 0 60px;
+  position: relative;
+  z-index: 50;
+}
+.about-brands-wrap {
+  max-width: 1344px;
+  margin: 0 auto;
+  background: #282828;
+  border-radius: 25px;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  position: relative;
+  top: -120px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+}
+.about-brands-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: #fff;
+  padding: 34px 45px;
+  border-right: 3px solid rgba(255,255,255,0.9);
+  flex-shrink: 0;
+  min-width: 336px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1.6;
+<<<<<<< HEAD
 }
 .about-brands-logo {
   flex: 1;
   padding: 30px 44px;
+=======
+  text-align: center;
+  padding-left: 198px;
+}
+.about-brands-logo {
+  flex: 1;
+  padding: 14px 84px 14px 112px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   display: flex;
   align-items: center;
 }
 .about-brands-logo img {
   width: 100%;
   height: auto;
+<<<<<<< HEAD
   max-height: 130px;
   object-fit: contain;
 }
@@ -145,10 +246,47 @@ html { overflow-x: hidden; }
   position: relative;
   z-index: 3;
   padding-top: 60px;
+=======
+  max-height: 156px;
+  margin-left: -20px;
+  object-fit: contain;
+  transform: translateX(-20%) scale(1.2);
+  transform-origin: center;
+}
+
+/* ══ GRAY: Mission + Team + Experienced ══ */
+.about-gray {
+  background: #F0F0F0;
+  padding: 0 30px 120px;
+  position: relative;
+  overflow: visible;
+  margin-top: -50px;
+}
+/* convex dome — gray bulges downward into white */
+.about-gray::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -10%;
+  width: 120%;
+  height: 160px;
+  background: #F0F0F0;
+  border-radius: 0 0 50% 50%;
+  z-index: 2;
+}
+.mission-inner {
+  max-width: 780px;
+  margin: 0 auto 70px;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+  padding-top: 70px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 }
 .mission-inner h2 {
   font-family: 'Outfit', sans-serif;
   font-size: 50px;
+<<<<<<< HEAD
   font-weight: 700;
   color: #0A0000;
   margin-bottom: 24px;
@@ -171,16 +309,61 @@ html { overflow-x: hidden; }
   border-radius: 14px;
   display: block;
   margin-bottom: 14px;
+=======
+  font-weight: 600;
+  color: #282828;
+  margin-bottom: 22px;
+  line-height: 1.1;
+}
+.mission-inner p {
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  color: #000;
+  line-height: 1.7;
+}
+/* team photos */
+.team-photos-wrap {
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  position: relative;
+  z-index: 3;
+}
+.team-member-wrap { display: flex; flex-direction: column; gap: 14px; }
+.team-photo-item {
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+}
+.team-photo-item img {
+  width: 100%;
+  height: 375px;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  border-radius: 25px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 }
 .team-photo-name {
   font-family: 'Outfit', sans-serif;
   font-size: 20px;
   font-weight: 600;
+<<<<<<< HEAD
   color: #0A0000;
   text-align: center;
 }
 .exp-team-wrap {
   max-width: 780px;
+=======
+  color: #282828;
+  text-align: left;
+  padding-left: 4px;
+}
+.exp-team-wrap {
+  max-width: 850px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   margin: 0 auto;
   text-align: center;
   position: relative;
@@ -189,6 +372,7 @@ html { overflow-x: hidden; }
 .exp-team-wrap h2 {
   font-family: 'Outfit', sans-serif;
   font-size: 50px;
+<<<<<<< HEAD
   font-weight: 700;
   color: #0A0000;
   margin-bottom: 20px;
@@ -198,15 +382,37 @@ html { overflow-x: hidden; }
 /* ══ PROJECTS ══ */
 .projects-section { background: #ffffff; padding: 100px 30px; }
 .projects-inner { max-width: 1200px; margin: 0 auto; }
+=======
+  font-weight: 600;
+  color: #282828;
+  margin-bottom: 18px;
+  line-height: 1.1;
+}
+.exp-team-wrap p {
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  color: #282828;
+  line-height: 1.75;
+}
+
+/* ══ PROJECTS ══ */
+.projects-section { background: #fff; padding: 170px 24px 80px; }
+.projects-inner { max-width: 1360px; margin: 0 auto; }
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 .projects-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+<<<<<<< HEAD
   margin-bottom: 20px;
+=======
+  margin-bottom: 30px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 }
 .projects-header h2 {
   font-family: 'Outfit', sans-serif;
   font-size: 50px;
+<<<<<<< HEAD
   font-weight: 700;
   color: #0A0000;
   line-height: 1.15;
@@ -389,6 +595,337 @@ html { overflow-x: hidden; }
   padding: 120px 30px 100px;
 }
 /* Subtle bg — light, not overwhelming */
+=======
+  font-weight: 600;
+  color: #282828;
+  line-height: 1.04;
+  margin-bottom: 12px;
+}
+.projects-header p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: #000;
+  margin-top: 10px;
+}
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 2px solid #282828;
+  color: #282828;
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 25px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.3s, border-color 0.3s;
+  margin-top: 10px;
+}
+.btn-outline:hover { color: #0154B1; border-color: #0154B1; }
+.btn-outline svg { transition: fill 0.3s; }
+.btn-outline:hover svg { fill: #0154B1; }
+/* featured + side grid */
+.projects-main-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.project-featured {
+  grid-row: span 2;
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+  min-height: 440px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  background-image: url('https://demskigroup.com/wp-content/uploads/2025/02/Blue-Abstract-Background-1-768x432.jpg');
+  background-position: bottom right;
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  transition: box-shadow 0.3s;
+}
+.project-featured::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(15,18,26,0.71);
+  border-radius: 25px;
+  z-index: 0;
+}
+.project-featured:hover { box-shadow: 0 0 20px rgba(0,0,0,0.35); }
+.project-featured-body {
+  position: relative;
+  z-index: 1;
+  padding: 24px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+.project-featured-logo {
+  height: 140px;
+  object-fit: contain;
+  object-position: left center;
+  filter: brightness(200%) contrast(0%) saturate(100%);
+  display: block;
+}
+.project-featured-desc {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.65;
+  margin-top: auto;
+  margin-bottom: 14px;
+}
+.project-read-link {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 2px solid #fff;
+  padding-bottom: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s;
+}
+.project-read-link:hover { color: #4798ED; border-color: #4798ED; }
+/* right 2×2 grid */
+.projects-side-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.project-logo-card {
+  background: #fff;
+  border-radius: 25px;
+  padding: 16px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s;
+  min-height: 140px;
+}
+.project-logo-card:hover { box-shadow: 0 0 20px rgba(0,0,0,0.22); }
+.project-logo-card img {
+  width: 100%;
+  max-width: 100%;
+  height: 125px;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  margin: auto;
+}
+.project-logo-card span {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #282828;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 10px;
+  transition: color 0.3s;
+  text-align: right;
+}
+.project-logo-card:hover span { color: #0154B1; }
+.project-logo-card span .btn-arrow-icon { width: 16px; height: 16px; }
+/* bottom 4 cards row */
+.projects-bottom-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* ══ WHAT OUR CLIENTS SAY ══ */
+.clients-say-section { background: #fff; padding: 80px 0 80px; overflow: hidden; }
+.clients-say-top {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 60px;
+  padding: 0 0 0 max(36px, calc((100vw - 1368px) / 2 + 36px));
+}
+.clients-say-left { flex: 0 0 50%; padding-top: 20px; margin-top: -4%; }
+.clients-say-left h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 50px;
+  font-weight: 600;
+  color: #282828;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+.clients-say-left p {
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  color: #282828;
+  line-height: 1.75;
+  max-width: 100%;
+}
+.clients-say-right {
+  flex: 1;
+  overflow: hidden;
+  margin-right: -9999px;
+  padding-right: 9999px;
+}
+.clients-say-right img {
+  width: 100%;
+  height: 611px;
+  object-fit: cover;
+  object-position: 40% center;
+  border-radius: 25px 0 0 25px;
+  display: block;
+}
+/* review cards animation */
+@keyframes cardSlideDown {
+  from { opacity: 0; transform: translateY(-40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.rc {
+  opacity: 0;
+  animation: cardSlideDown 0.6s ease forwards;
+}
+/* cards 1-2 together */
+.reviews-grid .rc:nth-child(1),
+.reviews-grid .rc:nth-child(2)  { animation-delay: 0.1s; }
+/* cards 3-4 together */
+.reviews-grid .rc:nth-child(3),
+.reviews-grid .rc:nth-child(4)  { animation-delay: 0.4s; }
+/* cards 5-6 together */
+.reviews-grid .rc:nth-child(5),
+.reviews-grid .rc:nth-child(6)  { animation-delay: 0.7s; }
+/* cards 7-8 together */
+.reviews-grid .rc:nth-child(7),
+.reviews-grid .rc:nth-child(8)  { animation-delay: 1.0s; }
+/* cards 9-10 together */
+.reviews-grid .rc:nth-child(9),
+.reviews-grid .rc:nth-child(10) { animation-delay: 1.3s; }
+/* cards 11-12 together */
+.reviews-grid .rc:nth-child(11),
+.reviews-grid .rc:nth-child(12) { animation-delay: 1.6s; }
+/* cards 13-14 together */
+.reviews-grid .rc:nth-child(13),
+.reviews-grid .rc:nth-child(14) { animation-delay: 1.9s; }
+/* cards 15-16 together */
+.reviews-grid .rc:nth-child(15),
+.reviews-grid .rc:nth-child(16) { animation-delay: 2.2s; }
+
+/* review cards grid */
+.reviews-grid {
+  max-width: 1200px;
+  margin: -380px auto 80px;
+  padding: 0 60px;
+  transform: translateX(-9%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  position: relative;
+  z-index: 10;
+  overflow: visible;
+}
+.reviews-grid .rc:not(:first-child) {
+  padding: 28px 66px 22px;
+  font-size: 105%;
+  width: 123.7%;
+}
+/* left column cards — shift left */
+.reviews-grid .rc:nth-child(even) {
+  margin: 1% 7.5% 1% 3px;
+}
+/* right column cards — shift right */
+.reviews-grid .rc:nth-child(odd):not(:first-child) {
+  margin: 1% 7.5% 1% calc(32.5% - 35px);
+}
+.rc {
+  border-radius: 25px;
+  padding: 20px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s;
+}
+.rc:hover { box-shadow: 0 0 20px rgba(0,0,0,0.22); }
+.rc.dark { background: #282828; box-shadow: none; }
+.rc.dark:hover { box-shadow: 0 0 20px rgba(0,0,0,0.4); }
+.rc-icon {
+  font-size: 36px;
+  line-height: 1;
+  color: rgba(0,0,0,0.15);
+}
+.rc.dark .rc-icon { color: rgba(255,255,255,0.2); }
+.rc-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  color: #000;
+  line-height: 1.75;
+  flex: 1;
+}
+.rc.dark .rc-text { color: #fff; }
+.rc-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(40,40,40,0.51);
+}
+.rc.dark .rc-name { color: rgba(255,255,255,0.51); }
+.rc-role {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  color: rgba(40,40,40,0.51);
+  margin-top: 2px;
+}
+.rc.dark .rc-role { color: rgba(255,255,255,0.51); }
+.rc-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  margin-top: auto;
+}
+.rc.dark .rc-footer { border-top-color: rgba(255,255,255,0.1); }
+.rc-logo { height: 75px; max-width: 160px; object-fit: contain; object-position: center right; display: block; }
+.rc.dark .rc-logo { filter: brightness(200%) contrast(0%); }
+.rc-link {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #282828;
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid #282828;
+  padding-bottom: 1px;
+  transition: color 0.3s, border-color 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.rc.dark .rc-link { color: #fff; border-bottom-color: #fff; }
+.rc-link:hover, .rc.dark .rc-link:hover { color: #4798ED; border-color: #4798ED; }
+
+/* ══ TECHNICAL EXPERTISE ══ */
+.expertise-section {
+  position: relative;
+  overflow: hidden;
+  padding: 110px 40px 100px;
+  background: #F0F0F0;
+}
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 .expertise-section::before {
   content: '';
   position: absolute;
@@ -396,6 +933,7 @@ html { overflow-x: hidden; }
   background-image: url('https://demskigroup.com/wp-content/uploads/2025/02/Tech1.jpg');
   background-size: cover;
   background-position: center;
+<<<<<<< HEAD
   background-repeat: no-repeat;
   /* NO fixed attachment — that was causing the stretch */
   filter: brightness(180%) contrast(80%) saturate(60%) blur(0px) hue-rotate(0deg);
@@ -403,10 +941,17 @@ html { overflow-x: hidden; }
   z-index: 0;
 }
 /* White overlay on top of the faded image */
+=======
+  filter: brightness(170%) contrast(80%) saturate(50%);
+  opacity: 0.3;
+  z-index: 0;
+}
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 .expertise-section::after {
   content: '';
   position: absolute;
   inset: 0;
+<<<<<<< HEAD
   background: rgba(240, 240, 240, 0.55);
   z-index: 1;
 }
@@ -434,11 +979,26 @@ html { overflow-x: hidden; }
   z-index: 2;
   display: none;
 }
+=======
+  background: rgba(240,240,240,0.5);
+  z-index: 1;
+}
+/* top straight line into expertise section */
+.exp-curve-top {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 0px;
+  background: #fff;
+  clip-path: none;
+  z-index: 3;
+}
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 .expertise-inner {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   gap: 80px;
+<<<<<<< HEAD
   align-items: center;
   position: relative;
   z-index: 3;
@@ -467,10 +1027,33 @@ html { overflow-x: hidden; }
   transition: all 0.25s;
 }
 .btn-see-services:hover { background: #0A0000; color: white; }
+=======
+  align-items: flex-start;
+  position: relative;
+  z-index: 4;
+}
+.expertise-left { flex: 0 0 460px; }
+.expertise-left h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 50px;
+  font-weight: 600;
+  color: #282828;
+  margin-bottom: 18px;
+  line-height: 1.1;
+}
+.expertise-left p {
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  color: #000;
+  line-height: 1.575;
+  margin-bottom: 28px;
+}
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 .expertise-right {
   flex: 1;
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   gap: 10px;
 }
 .service-row-1 {
@@ -519,11 +1102,64 @@ html { overflow-x: hidden; }
 .service-tile-name {
   font-family: 'Outfit', sans-serif;
   font-size: 15px;
+=======
+  gap: 20px;
+  margin-left: 25px;
+  width: 110%;
+}
+.svc-row-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
+.svc-row-2 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; width: calc(100% + 38px); }
+.svc-row-2 .svc-tile { min-height: 160px; }
+.svc-tile {
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 18px;
+  text-decoration: none;
+  background-size: cover;
+  background-position: center;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.svc-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(15,18,26,0.71);
+  transition: background 0.3s;
+  z-index: 0;
+  border-radius: 25px;
+}
+.svc-tile:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.35); }
+.svc-tile:hover::before { background: rgba(15,18,26,0.5); }
+.svc-tile.featured { min-height: 220px; }
+.svc-icon {
+  position: relative;
+  font-size: 32px;
+  color: rgba(255,255,255,0.85);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 10px;
+}
+.svc-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   font-weight: 700;
   color: #fff;
   line-height: 1.35;
   position: relative;
   z-index: 1;
+<<<<<<< HEAD
 }
 .service-tile.featured .service-tile-name { font-size: 20px; }
 .service-tile:nth-child(2) { background: linear-gradient(135deg, #0a2040 0%, #0e3060 100%); }
@@ -531,27 +1167,56 @@ html { overflow-x: hidden; }
 .service-tile:nth-child(4) { background: linear-gradient(135deg, #0a1e35 0%, #123055 100%); }
 .service-tile:nth-child(5) { background: linear-gradient(135deg, #0c2040 0%, #0d3560 100%); }
 .service-tile:nth-child(6) { background: linear-gradient(135deg, #081828 0%, #102840 100%); }
+=======
+  text-align: center;
+  margin-top: 12px;
+}
+.svc-row-1 .svc-name { font-size: 21px; }
+.svc-tile.featured .svc-name { font-size: 29px; }
+
+/* ══ COMMITMENT ══ */
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 .commitment-inner {
   max-width: 860px;
   margin: 80px auto 0;
   text-align: center;
   position: relative;
+<<<<<<< HEAD
   z-index: 3;
+=======
+  z-index: 4;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   padding-top: 60px;
   border-top: 1px solid rgba(0,0,0,0.12);
 }
 .commitment-inner h2 {
   font-family: 'Outfit', sans-serif;
+<<<<<<< HEAD
   font-size: 44px;
   font-weight: 700;
   color: #0A0000;
   margin-bottom: 20px;
 }
 .commitment-inner p { font-size: 16px; color: #444; line-height: 1.85; margin-bottom: 50px; }
+=======
+  font-size: 50px;
+  font-weight: 600;
+  color: #282828;
+  margin-bottom: 20px;
+}
+.commitment-inner p {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  color: #000;
+  line-height: 1.85;
+  margin-bottom: 50px;
+}
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 .badges-row {
   display: flex;
   justify-content: center;
   align-items: center;
+<<<<<<< HEAD
   gap: 36px;
   flex-wrap: wrap;
 }
@@ -571,10 +1236,33 @@ html { overflow-x: hidden; }
   font-size: 42px;
   font-weight: 700;
   color: #0A0000;
+=======
+  gap: 40px;
+  flex-wrap: nowrap;
+}
+.badges-row img { height: 168px; width: auto; max-width: 220px; object-fit: contain; flex-shrink: 0; }
+.badges-row img:nth-child(2) { height: 127px; max-width: 166px; }
+
+/* ══ BLOG ══ */
+.about-blog-section { background: #fff; padding: 80px 30px; }
+.about-blog-inner { max-width: 1300px; margin: 0 auto; }
+.about-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.about-section-header h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 50px;
+  font-weight: 700;
+  color: #3A3A3A;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 }
 .btn-see-all-blog {
   display: inline-flex;
   align-items: center;
+<<<<<<< HEAD
   gap: 10px;
   border: 1.5px solid #1a1a1a;
   color: #0A0000;
@@ -596,11 +1284,30 @@ html { overflow-x: hidden; }
 .btn-see-all-blog:hover .ac { background: white; color: #0A0000; }
 .blog-slider-wrap { position: relative; }
 .blog-slider {
+=======
+  gap: 20px;
+  border: 1.65px solid #1a1a1a;
+  color: #0A0000;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 50px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  align-self: flex-start;
+  margin-top: 5%;
+}
+.btn-see-all-blog:hover { background: white; color: #0154b1; border-color: #0154b1; }
+.about-cards-slider-wrap { position: relative; margin-top: 36px; }
+.about-cards-slider {
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   display: flex;
   gap: 20px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+<<<<<<< HEAD
   scroll-behavior: smooth;
   padding: 4px 4px 12px;
 }
@@ -638,18 +1345,90 @@ html { overflow-x: hidden; }
 .blog-post-date { font-size: 13px; color: rgba(255,255,255,0.65); }
 .blog-post-read { font-size: 13px; font-weight: 700; color: #fff; }
 .blog-nav {
+=======
+  -ms-overflow-style: none;
+  padding: 8px 4px 16px;
+}
+.about-cards-slider::-webkit-scrollbar { display: none; }
+.about-post-card {
+  flex: 0 0 calc(33.333% - 14px);
+  border-radius: 20px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  position: relative;
+  cursor: pointer;
+  height: 496px;
+  text-decoration: none;
+  display: block;
+  flex-shrink: 0;
+  filter: grayscale(30%);
+  transition: filter 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+.about-post-card:hover {
+  filter: brightness(1.05) grayscale(0%) !important;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+  z-index: 2;
+}
+.about-post-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+.about-post-card:hover img { transform: scale(1.04); }
+.about-post-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.92) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px 26px 20px;
+  transition: background 0.4s ease;
+}
+.about-post-card:hover .about-post-card-overlay {
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 40%, rgba(0,0,0,0.95) 100%);
+}
+.about-post-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1.45;
+  margin-bottom: 20%;
+}
+.about-post-card-bottom { display: flex; justify-content: space-between; align-items: center; }
+.about-post-card-date { font-size: 13px; color: rgba(255,255,255,0.90); }
+.about-post-card-read {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.2s ease;
+}
+.about-post-card:hover .about-post-card-read { gap: 10px; }
+.about-post-card-read .svc-arrow {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+.about-cards-nav {
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   position: absolute;
   top: 50%; transform: translateY(-50%);
   width: 44px; height: 44px;
   background: #fff;
   border: 1.5px solid #ddd;
   border-radius: 50%;
+<<<<<<< HEAD
   font-size: 18px; color: #333;
+=======
+  font-size: 20px; color: #333;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; z-index: 10;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   transition: all 0.2s;
 }
+<<<<<<< HEAD
 .blog-nav:hover { background: #0A0000; color: white; border-color: #0A0000; }
 .blog-nav-prev { left: -56px; }
 .blog-nav-next { right: -56px; }
@@ -658,12 +1437,26 @@ html { overflow-x: hidden; }
 .about-final-cta {
   position: relative;
   min-height: 340px;
+=======
+.about-cards-nav:hover { background: #0A0000; color: white; border-color: #0A0000; }
+.about-cards-nav-prev { left: -56px; }
+.about-cards-nav-next { right: -56px; }
+
+/* ══ FINAL CTA ══ */
+.about-cta {
+  position: relative;
+  min-height: 380px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
+<<<<<<< HEAD
 .about-final-cta-bg {
+=======
+.about-cta-bg {
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   position: absolute;
   inset: 0;
   background-image: url('https://demskigrdev.wpenginepowered.com/wp-content/uploads/2024/06/cropped-shot-of-a-group-of-creatives-having-a-meet-2023-11-27-04-53-10-utc-1.jpg');
@@ -672,6 +1465,7 @@ html { overflow-x: hidden; }
   filter: brightness(0.45);
   z-index: 0;
 }
+<<<<<<< HEAD
 .about-final-cta-inner {
   position: relative;
   z-index: 2;
@@ -682,15 +1476,32 @@ html { overflow-x: hidden; }
   font-family: 'Outfit', sans-serif;
   font-size: 36px;
   font-weight: 700;
+=======
+.about-cta-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 120px 30px 80px;
+}
+.about-cta-inner h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 38px;
+  font-weight: 600;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   color: #fff;
   margin-bottom: 36px;
   line-height: 1.25;
 }
+<<<<<<< HEAD
 .about-cta-btns { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+=======
+.cta-btns { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 .btn-cta-orange {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
   background: #F09300;
   color: #fff;
   font-family: 'Outfit', sans-serif;
@@ -707,6 +1518,8 @@ html { overflow-x: hidden; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
+=======
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   gap: 10px;
   background: #F09300;
   color: #fff;
@@ -716,6 +1529,7 @@ html { overflow-x: hidden; }
   padding: 16px 0;
   border-radius: 8px;
   text-decoration: none;
+<<<<<<< HEAD
   transition: background 0.3s;
   width: 300px;
 }
@@ -750,6 +1564,87 @@ html { overflow-x: hidden; }
   .about-brands-outer { padding: 0 16px; }
   .expertise-right { grid-template-columns: 1fr 1fr; }
   .projects-row-2 { grid-template-columns: 1fr 1fr; }
+=======
+  width: 300px;
+  transition: background 0.3s;
+}
+.btn-cta-orange:hover { background: #fff; color: #000; }
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 1200px) {
+  .about-hero-inner { padding: 90px 50px 140px; gap: 40px; }
+  .about-hero-text h1 { font-size: 54px; }
+  .expertise-inner { gap: 50px; }
+}
+@media (max-width: 1024px) {
+  .about-hero-text h1 { font-size: 46px; }
+  .expertise-inner { flex-direction: column; }
+  .expertise-left { flex: none; width: 100%; }
+  .svc-row-2 { grid-template-columns: repeat(2, 1fr); }
+  .projects-main-row { grid-template-columns: 1fr; }
+  .projects-side-grid { grid-template-columns: repeat(2, 1fr); }
+  .projects-bottom-row { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .clients-say-top { flex-direction: column; padding: 0 24px; gap: 32px; }
+  .clients-say-right { flex: none; width: 100%; }
+  .clients-say-right img { height: 260px; }
+  .reviews-grid { grid-template-columns: 1fr; padding: 0 24px; }
+  .about-brands-wrap { flex-direction: column; top: -40px; }
+  .about-brands-label { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.25); padding: 20px 24px; min-width: unset; }
+  .about-brands-logo { padding: 16px 24px; justify-content: center; }
+  .about-brands-logo img { transform: none; max-height: 70px; }
+  .about-gray { margin-top: -40px; }
+  .projects-header { flex-direction: column; gap: 16px; }
+  .projects-header h2 { font-size: 36px; }
+  .mission-inner h2, .exp-team-wrap h2 { font-size: 36px; }
+}
+@media (max-width: 768px) {
+  .about-hero-inner { flex-direction: column; padding: 80px 24px 120px; gap: 28px; }
+  .about-hero-text h1 { font-size: 36px; }
+  .about-hero-text p { font-size: 16px; }
+  .about-hero-image img { height: 200px; }
+  .about-hero::after { height: 100px; bottom: -60px; }
+  .about-brands-outer { padding: 0 16px; }
+  .about-brands-wrap { top: -30px; }
+  .about-gray { margin-top: -30px; padding: 0 16px 80px; }
+  .mission-inner { padding-top: 40px; margin-bottom: 40px; }
+  .mission-inner h2 { font-size: 28px; }
+  .mission-inner p { font-size: 15px; }
+  .team-photos-wrap { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .team-photo-item img { height: 260px; }
+  .exp-team-wrap h2 { font-size: 26px; }
+  .exp-team-wrap p { font-size: 15px; }
+  .projects-section { padding: 60px 16px; }
+  .projects-header h2 { font-size: 26px; }
+  .project-logo-card img { height: 80px; }
+  .projects-bottom-row { grid-template-columns: 1fr 1fr; }
+  .clients-say-section { padding: 60px 0 60px; }
+  .clients-say-left h2 { font-size: 28px; }
+  .reviews-grid { gap: 12px; }
+  .rc { padding: 16px 16px 12px; }
+  .rc-text { font-size: 14px; }
+  .expertise-section { padding: 80px 16px 60px; }
+  .expertise-left h2 { font-size: 28px; }
+  .commitment-inner h2 { font-size: 28px; }
+  .badges-row img { height: 55px; }
+  .about-blog-section { padding: 60px 16px; }
+  .about-blog-header h2 { font-size: 28px; }
+  .blog-post-card { flex: 0 0 85vw; min-height: 260px; }
+  .blog-nav { display: none; }
+  .about-cta-inner h2 { font-size: 24px; }
+  .btn-cta-orange { width: 240px; font-size: 15px; }
+}
+@media (max-width: 480px) {
+  .about-hero-text h1 { font-size: 28px; }
+  .about-hero-inner { padding: 70px 16px 100px; }
+  .about-hero-image img { height: 160px; }
+  .team-photos-wrap { grid-template-columns: 1fr; max-width: 280px; margin-left: auto; margin-right: auto; }
+  .svc-row-2 { grid-template-columns: repeat(2, 1fr); }
+  .projects-side-grid { grid-template-columns: 1fr; }
+  .about-cta-inner h2 { font-size: 20px; }
+  .btn-cta-orange { width: 200px; }
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 }
 </style>
 
@@ -758,7 +1653,11 @@ html { overflow-x: hidden; }
   <div class="about-hero-inner">
     <div class="about-hero-text">
       <div class="about-eyebrow">About Us</div>
+<<<<<<< HEAD
       <h1>Taking on Big <br/>Projects for Over a Decade</h1>
+=======
+      <h1>Taking on Big Projects for Over a Decade</h1>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       <p>Based out of Olean, New York and with branches in Ohio and Montana, The Demski Group is focused on creating software applications to accelerate your business.</p>
     </div>
     <div class="about-hero-image">
@@ -777,7 +1676,11 @@ html { overflow-x: hidden; }
   </div>
 </div>
 
+<<<<<<< HEAD
 <!-- ══ GRAY: Mission + Team ══ -->
+=======
+<!-- ══ GRAY: Mission + Team + Experienced ══ -->
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 <section class="about-gray">
   <div class="mission-inner">
     <h2>Our Mission</h2>
@@ -788,13 +1691,21 @@ html { overflow-x: hidden; }
     {team.length > 0 ? team.slice(0,3).map((member: any) => {
       const img = member._embedded?.['wp:featuredmedia']?.[0]?.source_url;
       return (
+<<<<<<< HEAD
         <div class="team-photo-item">
           {img && <img src={img} alt={member.title.rendered} />}
+=======
+        <div class="team-member-wrap">
+          <div class="team-photo-item">
+            {img && <img src={img} alt={member.title.rendered} />}
+          </div>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
           <div class="team-photo-name">{member.title.rendered}</div>
         </div>
       );
     }) : (
       <>
+<<<<<<< HEAD
         <div class="team-photo-item">
           <img src="https://demskigroup.com/wp-content/uploads/2024/07/Andrew@2x-2.png" alt="Andrew Demski" />
           <div class="team-photo-name">Andrew Demski</div>
@@ -805,6 +1716,24 @@ html { overflow-x: hidden; }
         </div>
         <div class="team-photo-item">
           <img src="https://demskigroup.com/wp-content/uploads/2024/07/Aaron-1-769x1024.jpg" alt="Aaron Demski" />
+=======
+        <div class="team-member-wrap">
+          <div class="team-photo-item">
+            <img src="https://demskigroup.com/wp-content/uploads/2024/07/Andrew%402x-2.png" alt="Andrew Demski" />
+          </div>
+          <div class="team-photo-name">Andrew Demski</div>
+        </div>
+        <div class="team-member-wrap">
+          <div class="team-photo-item">
+            <img src="https://demskigroup.com/wp-content/uploads/2024/07/Color-Profile-Pic-1024x954.jpg" alt="Richard Armstrong" />
+          </div>
+          <div class="team-photo-name">Richard Armstrong</div>
+        </div>
+        <div class="team-member-wrap">
+          <div class="team-photo-item">
+            <img src="https://demskigroup.com/wp-content/uploads/2024/07/Aaron-1-769x1024.jpg" alt="Aaron Demski" />
+          </div>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
           <div class="team-photo-name">Aaron Demski</div>
         </div>
       </>
@@ -813,7 +1742,11 @@ html { overflow-x: hidden; }
 
   <div class="exp-team-wrap">
     <h2>Experienced Team</h2>
+<<<<<<< HEAD
     <p>Our team is a diverse group of passionate developers, designers, and strategists dedicated to building exceptional software solutions. With expertise across various technologies and industries, we thrive on solving complex challenges and turning ideas into reality. Collaboration is at the heart of our culture, ensuring every project benefits from a blend of creativity, technical excellence, and strategic thinking. We're not just developers — we're problem-solvers, innovators, and partners committed to your success.</p>
+=======
+    <p>Our team is a diverse group of passionate developers, designers, and strategists dedicated to building exceptional software solutions. With expertise across various technologies and industries, we thrive on solving complex challenges and turning ideas into reality. Collaboration is at the heart of our culture, ensuring every project benefits from a blend of creativity, technical excellence, and strategic thinking. We're not just developers—we're problem-solvers, innovators, and partners committed to your success.</p>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   </div>
 </section>
 
@@ -823,6 +1756,7 @@ html { overflow-x: hidden; }
     <div class="projects-header">
       <div>
         <h2>Over 600 Projects Delivered<br/>Successfully</h2>
+<<<<<<< HEAD
         <p style="margin-top:18px;font-size:16px;color:#555;">With over 12 years of software development experience, we have a lot to talk about. Here are just a few of our success stories.</p>
       </div>
       <a href="/our-clients/" class="btn-see-all-clients">See all clients <span class="ac">→</span></a>
@@ -852,10 +1786,48 @@ html { overflow-x: hidden; }
         <a class="project-logo-card" href="/our-clients/mister-quik/">
           <img src="https://demskigroup.com/wp-content/uploads/2024/07/mrquick.png" alt="Mister Quik" />
           <span>Read full case study →</span>
+=======
+        <p>With over 12 years of software development experience, we have a lot to talk about. Here are just a few of our success stories.</p>
+      </div>
+      <a href="/our-clients/" class="btn-outline">See all clients <span class="btn-arrow-icon"></span></a>
+    </div>
+
+    <!-- Featured + side 2×2 -->
+    <div class="projects-main-row">
+      <a class="project-featured" href="/our-clients/biopac/">
+        <div class="project-featured-body">
+          <img class="project-featured-logo" src="https://demskigroup.com/wp-content/uploads/2024/06/Biopac-1-e1744133149662.png" alt="BIOPAC" />
+          <div>
+            <p class="project-featured-desc">The Demski Group successfully delivered a scalable and efficient web application for Biopac, enabling users to perform and track scientific studies online.</p>
+            <div style="display:flex;justify-content:flex-end;width:100%;margin-top:-8px;">
+              <span class="project-read-link">Read full case study <span class="btn-arrow-icon"></span></span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <div class="projects-side-grid">
+        <a class="project-logo-card" href="/our-clients/shop-orthopedics/">
+          <img src="https://demskigroup.com/wp-content/uploads/2024/06/ShopOrthopedics-1.png" alt="ShopOrthopedics" />
+          <span>Read full case study <span class="btn-arrow-icon"></span></span>
+        </a>
+        <a class="project-logo-card" href="/our-clients/property-gauge/">
+          <img src="https://demskigroup.com/wp-content/uploads/2024/07/PropertyGauge.png" alt="Property Gauge" />
+          <span>Read full case study <span class="btn-arrow-icon"></span></span>
+        </a>
+        <a class="project-logo-card" href="/our-clients/pnc-bank/">
+          <img src="https://demskigroup.com/wp-content/uploads/2024/06/company-logo-4.png" alt="Neighborhood" />
+          <span>Read full case study <span class="btn-arrow-icon"></span></span>
+        </a>
+        <a class="project-logo-card" href="/our-clients/mister-quik/">
+          <img src="https://demskigroup.com/wp-content/uploads/2024/07/mrquick.png" alt="Mister Quik" />
+          <span>Read full case study <span class="btn-arrow-icon"></span></span>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </a>
       </div>
     </div>
 
+<<<<<<< HEAD
     <div class="projects-row-2">
       <a class="project-logo-card" href="/our-clients/jackson-hewitt/">
         <img src="https://demskigroup.com/wp-content/uploads/2024/06/jacksonhewitt-1.png" alt="Jackson Hewitt" />
@@ -872,6 +1844,25 @@ html { overflow-x: hidden; }
       <a class="project-logo-card" href="/our-clients/robomaster/">
         <img src="https://demskigroup.com/wp-content/uploads/2024/06/Robomaster-1.png" alt="Robomaster" />
         <span>Read full case study →</span>
+=======
+    <!-- Bottom 4 cards row -->
+    <div class="projects-bottom-row" style="margin-top:12px">
+      <a class="project-logo-card" href="/our-clients/jackson-hewitt/">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/06/jacksonhewitt-1.png" alt="Jackson Hewitt" />
+        <span>Read full case study <span class="btn-arrow-icon"></span></span>
+      </a>
+      <a class="project-logo-card" href="/our-clients/seen-dating/">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/06/SEENDating-1.png" alt="SEEN Dating" />
+        <span>Read full case study <span class="btn-arrow-icon"></span></span>
+      </a>
+      <a class="project-logo-card" href="/our-clients/willo/">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/06/Willo.png" alt="Willo" />
+        <span>Read full case study <span class="btn-arrow-icon"></span></span>
+      </a>
+      <a class="project-logo-card" href="/our-clients/robomaster/">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/06/Robomaster-1.png" alt="Robomaster" />
+        <span>Read full case study <span class="btn-arrow-icon"></span></span>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       </a>
     </div>
   </div>
@@ -879,6 +1870,7 @@ html { overflow-x: hidden; }
 
 <!-- ══ WHAT OUR CLIENTS SAY ══ -->
 <section class="clients-say-section">
+<<<<<<< HEAD
   <div>
     <div class="clients-say-top">
       <div class="clients-say-top-left">
@@ -1017,11 +2009,241 @@ html { overflow-x: hidden; }
 <!-- ══ TECHNICAL EXPERTISE + COMMITMENT ══ -->
 <section class="expertise-section">
   <div class="expertise-curve-top"></div>
+=======
+  <div class="clients-say-top">
+    <div class="clients-say-left">
+      <h2>What Our Clients Say</h2>
+      <p>We take pride in delivering innovative software solutions that drive real results. From startups to enterprises, our clients trust us to bring their ideas to life with cutting-edge technology and seamless execution. But don't just take our word for it—see what our clients have to say about working with us! Their testimonials reflect our commitment to excellence, collaboration, and delivering beyond expectations.</p>
+    </div>
+    <div class="clients-say-right">
+      <img src="https://demskigroup.com/wp-content/uploads/2024/08/selective-focus-of-happy-art-editor-looking-at-com-2023-11-27-05-36-48-utc-1024x683.webp" alt="Happy clients" />
+    </div>
+  </div>
+
+  <div class="reviews-grid">
+
+    <!-- 1 Mickey Rowe – dark (full width) -->
+    <div class="rc dark" style="grid-column: span 2; max-width: 63%; margin-left: 0; margin-right: auto; width: 63%;">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">We spoke to a few different companies as we set out to find someone to create a website/database application to augment our desktop software. We chose The Demski Group in part because we found them very easy to talk to in our interview. That first impression stuck as we have a great relationship with them now. We are currently planning to farm out another project and are not even considering looking for anyone else to take it on.</p>
+      <div><div class="rc-name">Mickey Rowe</div><div class="rc-role">Manager</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/07/Biopac-300x159.png" alt="BIOPAC" class="rc-logo" />
+        <a href="/our-clients/biopac/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 2 Amy McCord – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">The Demski Group was an absolute pleasure to work with and I will continue to hire them for my other Shopify dev projects. They scoped and quoted the project fairly, stayed within the hours they estimated, was extremely prompt in completing the tasks, extremely communicative, and quick to hop on a call. HIGHLY RECOMMEND, they're a wonderful hire! I really appreciate The Demski Group's willingness to shift quickly on projects and deadlines. The Demski Group continues to evolve the app to increase user engagement and retention. The team is available on multiple communication channels, which allows them to weigh in on various aspects of the product. They're also willing to pivot depending on the startup's needs.</p>
+      <div><div class="rc-name">Amy McCord</div><div class="rc-role">Founder</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/07/Flowermoxie-300x159.png" alt="FlowerMoxie" class="rc-logo" />
+        <a href="/our-clients/flower-moxie-case-study/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 3 David Tobin – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">Fantastic experience working with this team. They communicate regularly, understand that things can change and adapt as we sorted through the issues that came up with the project. All very important qualities when working with someone. The other elements I expect to be good, but being able to go the extra mile and be present was wonderful. Will work with them again as we continue to grow. Fantastic experience working with this team. They communicate regularly, understand that things can change and adapt as we sorted through the issues that came up with the project. All very important qualities when working with someone. The other elements I expect to be good, but being able to go the extra mile and be present was wonderful. Will work with them again as we continue to grow.</p>
+      <div><div class="rc-name">David Tobin</div><div class="rc-role">Founder</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/06/audiojackhighres-300x159.png" alt="AudioJack" class="rc-logo" />
+        <a href="/our-clients/audiojack/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 4 Candice English – DARK -->
+    <div class="rc dark">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">The Demski Group has done an outstanding job updating our website and implementing custom tools that have greatly improved our customer experience. Their expertise in SEO and PPC has also significantly increased our online visibility and sales. We are extremely pleased with the outcome and the positive feedback we've received from our customers.</p>
+      <div><div class="rc-name">Candice English</div><div class="rc-role">Owner</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/07/FarmersDaughter-300x159.png" alt="Farmer's Daughter" class="rc-logo" />
+        <a href="/our-clients/farmers-daughter-fibers/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 5 Chris Thompson – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">They delivered what they said they would, and it worked as planned. As a result of the collaboration, The Demski Group successfully launched the website, and the revenue started generating. The team regularly held weekly meetings, keeping the client updated on all tasks, plans, and feedback. Ultimately, they precisely delivered what they promised.</p>
+      <div><div class="rc-name">Chris Thompson</div><div class="rc-role">Managing Partner</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/07/Branded-300x159.png" alt="Branded" class="rc-logo" />
+        <a href="/our-clients/golf-daddy/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 6 Corning – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">The Demski Group team were great in helping out with our project and flexible with some of our changing timelines!</p>
+      <div><div class="rc-name">&nbsp;</div><div class="rc-role">&nbsp;</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/07/corning-300x201-1.png" alt="Corning" class="rc-logo" />
+        <a href="/our-clients/corning-glass/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 7 Thariq Kara – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">Code quality was very good and done in a fast, efficient manner. We are pleased with the excellent job from The Demski Group. The team was able to provide high-quality services throughout the project. They produced the deliverables in a timely manner and within budget.</p>
+      <div><div class="rc-name">Thariq Kara</div><div class="rc-role">CEO</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/08/nubordersfeatured-300x210.png" alt="Nu Borders" class="rc-logo" />
+        <a href="/our-clients/nu-borders/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 8 Danny Socolof – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">We are true believers in this team and will no doubt provide ongoing business. The Demski Group consistently produces quality work, leading our team to be true believers of their work. Their team is accountable, setting high standards for their work and delivering results.</p>
+      <div><div class="rc-name">Danny Socolof</div><div class="rc-role">CEO</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/06/Yawye-1.png" alt="Yawye" class="rc-logo" />
+        <a href="/our-clients/yawye/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 9 Slava Moshkovich – DARK -->
+    <div class="rc dark">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">After working with many development firms, I now funnel all my development to The Demski Group. The Demski Group has become our main app developer thanks to their consistency, quality of work, and high level of communication. They deliver apps with minimal bugs, remain open to feedback, and can take an app from idea to execution with next to no management on our part.</p>
+      <div><div class="rc-name">Slava Moshkovich</div><div class="rc-role">President</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2025/03/zoomifiwhite-300x159.png" alt="Zoomifi" class="rc-logo" />
+        <a href="/our-clients/zoomifi/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 10 Manish Patel – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">They are very sound at a technical skill level. The Demski Group delivered all the agreed-upon deliverables in a timely manner. They were very accessible and knowledgeable, which ensured a smooth and effective workflow. Their deep technical knowledge and expertise were hallmarks of their work.</p>
+      <div><div class="rc-name">Manish Patel</div><div class="rc-role">Principal</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/07/trickywater-300x159.png" alt="Tricky Water" class="rc-logo" />
+        <a href="/our-clients/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 11 Evans Craddock – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">I really appreciate The Demski Group's willingness to shift quickly on projects and deadlines. The Demski Group continues to evolve the app to increase user engagement and retention. The team is available on multiple communication channels, which allows them to weigh in on various aspects of the product. They're also willing to pivot depending on the startup's needs.</p>
+      <div><div class="rc-name">Evans Craddock</div><div class="rc-role">Production Coordinator</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/06/SEENDating-1-300x159.png" alt="SEEN Dating" class="rc-logo" />
+        <a href="/our-clients/seen-dating/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 12 Luke Reks – DARK -->
+    <div class="rc dark">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">We've worked with The Demski Group on some huge website development projects, and they've been amazing every time. Even with tight deadlines, they always deliver great work without cutting corners. What we really appreciate is how honest and transparent they are. They don't make promises they can't keep or set unrealistic expectations, which makes working with them stress-free. Plus, their team is super responsive and always there to answer questions or help out when we need it. If you're looking for a team that's reliable, skilled, and easy to work with, we can't recommend The Demski Group enough. They've been a fantastic partner for us in the Home Services industry!</p>
+      <div><div class="rc-name">Luke Reks</div><div class="rc-role">Marketing Manager</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2025/03/mrquickwhite-300x159.png" alt="Mister Quik" class="rc-logo" />
+        <a href="/our-clients/mister-quik/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 13 Stephanie Loike – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">It was such a pleasure working with The Demski Group. Not only were they flexible in scheduling meetings and moving deadlines but even with little information provided they knew exactly what the target outcome should be and absolutely outperformed. All of our requirements were fulfilled and they even provided us with useful documentation for future maintenance. We cannot recommend them enough and we will hire The Demski Group definitely again for any future development needs for our company.</p>
+      <div><div class="rc-name">Stephanie Loike</div><div class="rc-role">CTO</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/07/martinsorbo-300x159.png" alt="Martin &amp; Sorbo" class="rc-logo" />
+        <a href="/our-clients/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 14 Chief Data Officer – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">They listen, they're business savvy, and they're responsive. The Demski Group's work has met the mark. The team follows their assigned specifications to the letter and have had a high success rate so far. Customers can expect a professional team that follows directions well.</p>
+      <div><div class="rc-name">Chief Data Officer</div><div class="rc-role">&nbsp;</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/07/Companylogo3-300x159.png" alt="Company" class="rc-logo" />
+        <a href="/our-clients/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 15 VP Software Engineering – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">Our teams have partnered on over 20 projects, which have all been a tremendous success. The Demski Group confidentially meets any improvements or changes requested. They are able to display industry standard-excellence services. Timely and responsive, they have communicated their goals and expectations well</p>
+      <div><div class="rc-name">&nbsp;</div><div class="rc-role">VP of Software Engineering</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/07/DevelopmentCompany-300x159.png" alt="Development Company" class="rc-logo" />
+        <a href="/our-clients/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 16 Tausi – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">The Demski Group was professional and outstanding at their work. The Demski Group delivered a professional website that received positive feedback from users across many industries. They communicated effectively via Zoom and were always accessible. Customers can expect an honest team that can provide outstanding outputs.</p>
+      <div><div class="rc-name">Janice Shokrian</div><div class="rc-role">Founder &amp; CEO</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/06/Tausi-1.png" alt="Tausi" class="rc-logo" />
+        <a href="/our-clients/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 17 Linda Riddell – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">They helped us make the game more effective because they understood what we were trying to do. The Demski Group was able to implement every aspect of the requirements, including the rules, much to our delight. The team was highly communicative, and internal stakeholders were particularly impressed with the vendor's game development and technical experience.</p>
+      <div><div class="rc-name">Linda Riddell</div><div class="rc-role">Founder</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/07/GettinBy-300x159.png" alt="Gettin' By" class="rc-logo" />
+        <a href="/our-clients/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 18 Kody Smith – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">Working with The Demski Group has been an absolute pleasure! They are professional, highly skilled, and incredibly easy to work with. Throughout the development of my mobile app, they are always responsive, helpful, and willing to go the extra mile to ensure everything is perfect. I highly recommend them to anyone looking for a reliable and talented development team! I know I will be returning to them for future projects!</p>
+      <div><div class="rc-name">Kody Smith</div><div class="rc-role">&nbsp;</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2025/02/ProjectNatanLogo-300x159.png" alt="Project Natan" class="rc-logo" />
+        <a href="/our-clients/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+    <!-- 19 Delaine Mast – light -->
+    <div class="rc">
+      <div class="rc-icon">❝</div>
+      <p class="rc-text">The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. They are also very professional and timely as well as a pleasure to work with! We have worked with Andrew Demski for all of our IT needs.</p>
+      <div><div class="rc-name">Delaine Mast</div><div class="rc-role">CEO</div></div>
+      <div class="rc-footer">
+        <img src="https://demskigroup.com/wp-content/uploads/2025/02/ITTLogo-300x159.png" alt="Impact Team Tennis" class="rc-logo" />
+        <a href="/our-clients/" class="rc-link">Read full case study <span class="btn-arrow-icon"></span></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ TECHNICAL EXPERTISE ══ -->
+<section class="expertise-section">
+  <div class="exp-curve-top"></div>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 
   <div class="expertise-inner">
     <div class="expertise-left">
       <h2>Technical Expertise</h2>
       <p>We take pride in delivering innovative software solutions that drive real results. From startups to enterprises, our clients trust us to bring their ideas to life with cutting-edge technology and seamless execution. But don't just take our word for it—see what our clients have to say about working with us! Their testimonials reflect our commitment to excellence, collaboration, and delivering beyond expectations.</p>
+<<<<<<< HEAD
       <a href="https://demskigroup.com/services/" class="btn-see-services">See all services →</a>
     </div>
     <div class="expertise-right">
@@ -1059,11 +2281,50 @@ html { overflow-x: hidden; }
           style="background-image: url('https://demskigroup.com/wp-content/uploads/2025/02/2-300x200.jpg')">
           <div class="service-tile-icon"><i class="fa-solid fa-network-wired"></i></div>
           <span class="service-tile-name">IoT<br/>Development</span>
+=======
+      <a href="/services/" class="btn-outline">See all services <span class="btn-arrow-icon"></span></a>
+    </div>
+    <div class="expertise-right">
+      <div class="svc-row-1">
+        <a href="/services/custom-software/" class="svc-tile featured"
+          style="background-image:url('https://demskigroup.com/wp-content/uploads/2025/02/Tech3-768x512.jpg')">
+          <div class="svc-icon"><i class="fa-solid fa-code"></i></div>
+          <span class="svc-name">Custom Software<br/>Development</span>
+        </a>
+        <a href="/services/qa-testing/" class="svc-tile"
+          style="background-image:url('https://demskigroup.com/wp-content/uploads/2025/03/Data-3-300x200.jpg'); width: calc(100% + 40px); margin-right: -40px;">
+          <span class="svc-name">QA and Testing</span>
+        </a>
+      </div>
+      <div class="svc-row-2">
+        <a href="/services/ui-ux/" class="svc-tile"
+          style="background-image:url('https://demskigroup.com/wp-content/uploads/2025/02/Blue-Abstract-Background-1-768x432.jpg')">
+          <div class="svc-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <span class="svc-name">UI/UX Design</span>
+        </a>
+        <a href="/services/maintenance/" class="svc-tile"
+          style="background-image:url('https://demskigroup.com/wp-content/uploads/2025/02/stuff-300x200.png')">
+          <span class="svc-name">Maintenance<br/>and Support</span>
+        </a>
+        <a href="/services/mobile/" class="svc-tile"
+          style="background-image:url('https://demskigroup.com/wp-content/uploads/2025/02/Tech2-300x200.jpg')">
+          <div class="svc-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+          <span class="svc-name">Mobile<br/>Development</span>
+        </a>
+        <a href="/services/iot/" class="svc-tile"
+          style="background-image:url('https://demskigroup.com/wp-content/uploads/2025/02/2-300x200.jpg')">
+          <div class="svc-icon"><i class="fa-solid fa-network-wired"></i></div>
+          <span class="svc-name">IoT<br/>Development</span>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </a>
       </div>
     </div>
   </div>
 
+<<<<<<< HEAD
+=======
+  <!-- ══ COMMITMENT ══ -->
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   <div class="commitment-inner">
     <h2>Our Commitment to You</h2>
     <p>We pride ourselves on being more than just a software development firm — we are your dedicated software partner. With a team of highly skilled developers, designers, and project managers, we bring a wealth of experience and expertise to every project, from initial concept to final deployment. Our collaborative approach ensures seamless communication, enabling us to deliver robust, scalable, and user-friendly software solutions that empower our clients to achieve their business goals.</p>
@@ -1075,13 +2336,17 @@ html { overflow-x: hidden; }
       <img src="https://demskigroup.com/wp-content/uploads/2025/02/Clutch2024-1.png" alt="Clutch Top Software 2024" />
     </div>
   </div>
+<<<<<<< HEAD
 
   <div class="expertise-curve-bottom"></div>
+=======
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 </section>
 
 <!-- ══ BLOG ══ -->
 <section class="about-blog-section">
   <div class="about-blog-inner">
+<<<<<<< HEAD
     <div class="about-blog-header">
       <h2>From the Blog</h2>
       <a href="/blog" class="btn-see-all-blog">See all <span class="ac">→</span></a>
@@ -1089,10 +2354,22 @@ html { overflow-x: hidden; }
     <div class="blog-slider-wrap">
       <button class="blog-nav blog-nav-prev" id="about-blog-prev">←</button>
       <div class="blog-slider" id="about-blog-slider">
+=======
+    <div class="about-section-header">
+      <div>
+        <h2>From the Blog</h2>
+      </div>
+      <a href="/blog" class="btn-see-all-blog">See all <span class="btn-arrow-icon"></span></a>
+    </div>
+    <div class="about-cards-slider-wrap">
+      <button class="about-cards-nav about-cards-nav-prev" id="about-blog-prev" aria-label="Previous">←</button>
+      <div class="about-cards-slider" id="about-blog-slider">
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         {posts.map((post: any) => {
           const img = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
           const date = new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
           return (
+<<<<<<< HEAD
             <a class="blog-post-card" href={`/blog/${post.slug}`}>
               {img && <img src={img} alt={post.title.rendered} />}
               <div class="blog-post-overlay">
@@ -1100,18 +2377,32 @@ html { overflow-x: hidden; }
                 <div class="blog-post-bottom">
                   <span class="blog-post-date">{date}</span>
                   <span class="blog-post-read">Read More →</span>
+=======
+            <a class="about-post-card" href={`/blog/${post.slug}`}>
+              {img && <img src={img} alt={post.title.rendered} loading="lazy" width="600" height="450" />}
+              <div class="about-post-card-overlay">
+                <div class="about-post-card-title">{post.title.rendered}</div>
+                <div class="about-post-card-bottom">
+                  <span class="about-post-card-date">{date}</span>
+                  <span class="about-post-card-read">Read More <span class="svc-arrow"></span></span>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
                 </div>
               </div>
             </a>
           );
         })}
       </div>
+<<<<<<< HEAD
       <button class="blog-nav blog-nav-next" id="about-blog-next">→</button>
+=======
+      <button class="about-cards-nav about-cards-nav-next" id="about-blog-next" aria-label="Next">→</button>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
     </div>
   </div>
 </section>
 
 <!-- ══ FINAL CTA ══ -->
+<<<<<<< HEAD
 <section class="about-final-cta">
   <div class="about-final-cta-bg"></div>
   <div class="about-final-cta-inner">
@@ -1119,6 +2410,15 @@ html { overflow-x: hidden; }
     <div class="about-cta-btns">
       <a href="/contact-us/" class="btn-cta-orange">Contact Us</a>
       <a href="tel:+14068681034" class="btn-cta-call">
+=======
+<section class="about-cta">
+  <div class="about-cta-bg"></div>
+  <div class="about-cta-inner">
+    <h2>Transform Your Vision into Reality: Partner with Our Expert Team Today!</h2>
+    <div class="cta-btns">
+      <a href="/contact-us/" class="btn-cta-orange">Contact Us</a>
+      <a href="tel:+14068681034" class="btn-cta-orange">
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         <i class="fa-solid fa-phone-alt"></i> Call Us
       </a>
     </div>
@@ -1127,6 +2427,7 @@ html { overflow-x: hidden; }
 
 <script is:inline>
 (function () {
+<<<<<<< HEAD
   const slider = document.getElementById('about-blog-slider');
   const prev = document.getElementById('about-blog-prev');
   const next = document.getElementById('about-blog-next');
@@ -1150,3 +2451,67 @@ html { overflow-x: hidden; }
 </script>
 
 </Layout>
+=======
+  function initInfiniteSlider(sliderId, prevId, nextId) {
+    const slider = document.getElementById(sliderId);
+    const btnPrev = document.getElementById(prevId);
+    const btnNext = document.getElementById(nextId);
+    if (!slider || !btnPrev || !btnNext) return;
+
+    const cards = Array.from(slider.querySelectorAll('.about-post-card'));
+    if (!cards.length) return;
+    const gap = parseInt(getComputedStyle(slider).gap) || 20;
+
+    cards.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      slider.appendChild(clone);
+    });
+    cards.slice().reverse().forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      slider.prepend(clone);
+    });
+
+    function cardWidth() {
+      return slider.querySelector('.about-post-card').offsetWidth + gap;
+    }
+
+    slider.scrollLeft = cardWidth() * cards.length;
+
+    let busy = false;
+
+    function next() {
+      if (busy) return;
+      busy = true;
+      slider.scrollBy({ left: cardWidth(), behavior: 'smooth' });
+      setTimeout(() => {
+        if (slider.scrollLeft >= cardWidth() * cards.length * 2) {
+          slider.scrollLeft = cardWidth() * cards.length;
+        }
+        busy = false;
+      }, 450);
+    }
+
+    function prev() {
+      if (busy) return;
+      busy = true;
+      slider.scrollBy({ left: -cardWidth(), behavior: 'smooth' });
+      setTimeout(() => {
+        if (slider.scrollLeft <= cardWidth() * (cards.length - 1)) {
+          slider.scrollLeft = cardWidth() * cards.length * 2 - cardWidth();
+        }
+        busy = false;
+      }, 450);
+    }
+
+    btnNext.addEventListener('click', next);
+    btnPrev.addEventListener('click', prev);
+  }
+
+  initInfiniteSlider('about-blog-slider', 'about-blog-prev', 'about-blog-next');
+})();
+</script>
+
+</Layout>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406

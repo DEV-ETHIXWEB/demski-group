@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ---
+=======
+﻿---
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 import Layout from '../../layouts/Layout.astro';
 ---
 
@@ -328,7 +332,11 @@ html { overflow-x: hidden; }
       <div class="hero-img-card-bg" style="${style}"></div>
       <div class="hero-img-card-content">
         <div class="hero-img-card-name">${c.name}</div>
+<<<<<<< HEAD
         <span class="hero-img-card-link">Read case study →</span>
+=======
+        <span class="hero-img-card-link">Read case study <span class="btn-arrow-icon"></span></span>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       </div>
     </a>`;
   }
@@ -339,7 +347,11 @@ html { overflow-x: hidden; }
       : `<span class="client-card-name">${c.name}</span>`;
     return `<a class="client-card" href="${c.link}">
       <div class="client-card-img-wrap">${img}</div>
+<<<<<<< HEAD
       <span class="client-card-link">Read full case study →</span>
+=======
+      <span class="client-card-link">Read full case study <span class="btn-arrow-icon"></span></span>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
     </a>`;
   }
 
@@ -377,7 +389,11 @@ html { overflow-x: hidden; }
       <a class="biopac-card" href="${biopac.link}" style="grid-row:span 2">
         <div class="biopac-logo">${biopacLogoHtml}</div>
         <p class="biopac-desc">${biopacDesc}</p>
+<<<<<<< HEAD
         <span class="biopac-link">Read full case study →</span>
+=======
+        <span class="biopac-link">Read full case study <span class="btn-arrow-icon"></span></span>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       </a>
       <div class="top-four-grid">
         ${topFour.map(c => clientCard(c)).join('')}

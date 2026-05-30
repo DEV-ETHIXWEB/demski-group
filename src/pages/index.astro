@@ -1,8 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+<<<<<<< HEAD
 let posts = [];
 let results = [];
+=======
+function cleanT(str: string) {
+  return (str || '').replace(/&amp;/g,'&').replace(/&#8217;/g,"'").replace(/&#8216;/g,"'")
+    .replace(/&#8220;/g,'"').replace(/&#8221;/g,'"').replace(/&#8230;/g,'…')
+    .replace(/<[^>]*>/g,'').trim();
+}
+function normalizeLink(link: string, slug: string) {
+  return (link || '').replace('https://demskigrdev.wpenginepowered.com','').replace('https://demskigroup.com','')
+    || `/our-clients/${slug}/`;
+}
+
+let posts = [];
+let results = [];
+let testimonials: Array<{logo:string;logoAlt:string;quote:string;author:string;role:string;link:string}> = [];
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 
 try {
   const res = await fetch('https://demskigroup.com/wp-json/wp/v2/posts?_embed&per_page=6', { signal: AbortSignal.timeout(8000) });
@@ -17,6 +33,31 @@ try {
 } catch (e) {
   console.warn('Results fetch failed:', e?.message);
 }
+<<<<<<< HEAD
+=======
+
+const WP_REVIEW_URLS = [
+  'https://demskigroup.com/wp-json/wp/v2/reviews?_embed&per_page=100',
+  'https://demskigrdev.wpenginepowered.com/wp-json/wp/v2/reviews?_embed&per_page=100',
+];
+for (const url of WP_REVIEW_URLS) {
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) continue;
+    const data = await res.json();
+    if (!Array.isArray(data) || !data.length) continue;
+    testimonials = data.map((item: any) => ({
+      logo:    item._embedded?.['wp:featuredmedia']?.[0]?.source_url || '',
+      logoAlt: cleanT(item.title?.rendered),
+      quote:   cleanT(item.acf?.testimonial || item.acf?.quote || item.acf?.review || item.content?.rendered || ''),
+      author:  cleanT(item.acf?.author_name || item.acf?.name || item.title?.rendered),
+      role:    cleanT(item.acf?.author_role || item.acf?.position || item.acf?.role || ''),
+      link:    normalizeLink(item.acf?.case_study_url || item.link, item.slug),
+    }));
+    break;
+  } catch(_) { continue; }
+}
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 ---
 
 <Layout title="The Demski Group - Custom Software Development">
@@ -191,7 +232,11 @@ html, body { overflow-x: hidden; }
   display: inline-flex;
   align-items: center;
   gap: 20px;
+<<<<<<< HEAD
   border: 1.5px solid #1b1c1d;
+=======
+  border: 1.65px solid #1b1c1d;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   color: #1b1c1d;
   font-family: 'Outfit', sans-serif;
   font-size: 18px;
@@ -336,7 +381,11 @@ html, body { overflow-x: hidden; }
   display: inline-flex;
   align-items: center;
   gap: 16px;
+<<<<<<< HEAD
   border: 1.5px solid #282828;
+=======
+  border: 1.65px solid #282828;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   color: #282828;
   font-family: 'Outfit', sans-serif;
   font-size: 18px;
@@ -348,6 +397,7 @@ html, body { overflow-x: hidden; }
   white-space: nowrap;
 }
 .btn-outline-dark:hover { background: transparent; color: #0154b1; border-color: #0154b1; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(1,84,177,0.15); }
+<<<<<<< HEAD
 .btn-outline-dark .dark-arrow {
   display: inline-flex;
   align-items: center;
@@ -355,6 +405,8 @@ html, body { overflow-x: hidden; }
   font-size: 16px;
   line-height: 1;
 }
+=======
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 
 /* ─── SECTION 7: CLIENTS ─── */
 .clients-section {
@@ -373,6 +425,7 @@ html, body { overflow-x: hidden; }
 .clients-left {
   flex: 0 0 34%;
   position: relative;
+<<<<<<< HEAD
   margin-top: -60px;
   overflow: hidden;
   border-radius: 0 80px 0 0;
@@ -385,6 +438,18 @@ html, body { overflow-x: hidden; }
   display: block;
   transform: translateX(-9%) translateY(1%) scale(1.1);
   transform-origin: center center;
+=======
+  margin-top: -70px;
+  overflow: hidden;
+  border-radius: 0 16px 16px 0;
+}
+.clients-left img {
+  width: 100%;
+  height: calc(100% + 70px);
+  object-fit: cover;
+  object-position: calc(50% - 50px) center;
+  display: block;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 }
 .clients-right {
   flex: 1;
@@ -412,7 +477,11 @@ html, body { overflow-x: hidden; }
   display: inline-flex;
   align-items: center;
   gap: 24px;
+<<<<<<< HEAD
   border: 1.5px solid #000000;
+=======
+  border: 1.65px solid #000000;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   color: #000000;
   font-family: 'Outfit', sans-serif;
   font-size: 16px;
@@ -425,6 +494,7 @@ html, body { overflow-x: hidden; }
   margin-top: 92px;
 }
 .btn-outline-clients:hover { background: transparent; color: #0154b1; border-color: #0154b1; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(1,84,177,0.15); }
+<<<<<<< HEAD
 .btn-outline-clients .arrow-circle {
   display: inline-flex;
   align-items: center;
@@ -432,6 +502,8 @@ html, body { overflow-x: hidden; }
   transition: all 0.3s;
 }
 
+=======
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 /* Slider row */
 .testimonial-slider-wrap {
   position: relative;
@@ -447,7 +519,10 @@ html, body { overflow-x: hidden; }
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -ms-overflow-style: none;
+<<<<<<< HEAD
   scroll-behavior: smooth;
+=======
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   align-items: flex-start;
 }
 .testimonial-slider::-webkit-scrollbar { display: none; }
@@ -463,10 +538,18 @@ html, body { overflow-x: hidden; }
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
 }
 .testimonial-card-new:hover {
   box-shadow: 0 16px 48px rgba(0,0,0,0.28);
+=======
+  box-shadow: 0 1px 6px rgba(0,0,0,0.10), 0 0 2px rgba(0,0,0,0.06);
+  transition: box-shadow 0.25s ease;
+}
+.testimonial-card-new:hover {
+  box-shadow: 0 2px 9px rgba(0,0,0,0.16), 0 0 3px rgba(0,0,0,0.09);
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 }
 .tcard-top {
   display: flex;
@@ -483,10 +566,17 @@ html, body { overflow-x: hidden; }
   letter-spacing: -1px;
 }
 .tcard-logo img {
+<<<<<<< HEAD
   height: 28px;
   width: auto;
   object-fit: contain;
   max-width: 92px;
+=======
+  height: 35px;
+  width: auto;
+  object-fit: contain;
+  max-width: 120px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 }
 .tcard-logo-text {
   font-size: 13px;
@@ -499,9 +589,15 @@ html, body { overflow-x: hidden; }
   max-width: 150px;
 }
 .tcard-body {
+<<<<<<< HEAD
   font-size: 14px;
   color: #282828;
   line-height: 1.7;
+=======
+  font-size: 16px;
+  color: #333;
+  line-height: 1.72;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   flex: 1;
   margin-bottom: 18px;
 }
@@ -510,6 +606,7 @@ html, body { overflow-x: hidden; }
   justify-content: space-between;
   align-items: flex-end;
   margin-top: auto;
+<<<<<<< HEAD
   border-top: 1px solid #efefef;
   padding-top: 14px;
 }
@@ -525,6 +622,22 @@ html, body { overflow-x: hidden; }
   gap: 5px;
   white-space: normal;
   max-width: 80px;
+=======
+  padding-top: 14px;
+  border-top: 1px solid #e8e8e8;
+}
+.tcard-author { font-size: 14px; font-weight: 700; color: #1a1a1a; line-height: 1.4; margin-bottom: 2px; }
+.tcard-role { font-size: 13px; font-weight: 400; color: #888; line-height: 1.4; }
+.tcard-case {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   line-height: 1.3;
   transition: transform 0.25s ease, color 0.25s ease;
 }
@@ -574,7 +687,11 @@ html, body { overflow-x: hidden; }
 }
 .excellence-card {
   max-width: 1300px;
+<<<<<<< HEAD
   margin: -114px auto 0;
+=======
+  margin: -95px auto 0;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   background: #0c0c0c;
   border-radius: 25px;
   overflow: hidden;
@@ -598,7 +715,11 @@ html, body { overflow-x: hidden; }
 }
 .excellence-left h2 {
   font-family: 'Outfit', sans-serif;
+<<<<<<< HEAD
   font-size: 52px;
+=======
+  font-size: 47px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   font-weight: 700;
   color: #FFFFFF;
   line-height: 1.18;
@@ -616,7 +737,11 @@ html, body { overflow-x: hidden; }
   display: inline-flex;
   align-items: center;
   gap: 10px;
+<<<<<<< HEAD
   border: 1.5px solid #4798ed;
+=======
+  border: 1.65px solid #4798ed;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   color: #4798ed;
   background: transparent;
   font-family: 'Outfit', sans-serif;
@@ -643,6 +768,10 @@ html, body { overflow-x: hidden; }
   position: relative;
   width: 507px;
   height: 507px;
+<<<<<<< HEAD
+=======
+  overflow: hidden;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 }
 .badge-slide {
   position: absolute;
@@ -651,11 +780,17 @@ html, body { overflow-x: hidden; }
   align-items: center;
   justify-content: center;
   opacity: 0;
+<<<<<<< HEAD
   transition: opacity 0.8s ease;
+=======
+  transform: translateX(100%);
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.65s ease;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   pointer-events: none;
 }
 .badge-slide.active {
   opacity: 1;
+<<<<<<< HEAD
   pointer-events: auto;
 }
 .badge-slide img {
@@ -665,6 +800,21 @@ html, body { overflow-x: hidden; }
   height: auto;
   object-fit: contain;
   filter: brightness(0) invert(1);
+=======
+  transform: translateX(0);
+  pointer-events: auto;
+}
+.badge-slide.leaving {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.badge-slide img {
+  max-width: 420px;
+  max-height: 420px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 }
 .cissp-badge {
   background: white;
@@ -968,10 +1118,13 @@ html, body { overflow-x: hidden; }
 /* ─── SHARED: BLOG + RESULTS ─── */
 .blog-section { background: #ffffff; padding: 80px 30px; }
 .blog-section .section-header h2 { color: #3A3A3A; }
+<<<<<<< HEAD
 .blog-section .post-card { filter: none; }
 .blog-section .post-card:hover { filter: none; }
 .results-section .post-card { filter: none; }
 .results-section .post-card:hover { filter: none; }
+=======
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 /* .results-section base rule is defined in SECTION 12+13 block below */
 .results-section .section-header h2 { color: #3A3A3A; }
 .results-section .section-header p { color: #0A0000 !important; }
@@ -999,7 +1152,11 @@ html, body { overflow-x: hidden; }
   display: inline-flex;
   align-items: center;
   gap: 20px;
+<<<<<<< HEAD
   border: 1.5px solid #1a1a1a;
+=======
+  border: 1.65px solid #1a1a1a;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   color: #0A0000;
   font-size: 18px;
   font-weight: 600;
@@ -1012,6 +1169,7 @@ html, body { overflow-x: hidden; }
   margin-top: 5%;
 }
 .btn-see-all:hover { background: white; color: #0154b1; border-color: #0154b1; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(1,84,177,0.15); }
+<<<<<<< HEAD
 .btn-see-all .arrow-circle {
   display: inline-flex;
   align-items: center;
@@ -1024,6 +1182,8 @@ html, body { overflow-x: hidden; }
   height: auto;
 }
 
+=======
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 /* Slider wrapper */
 .cards-slider-wrap {
   position: relative;
@@ -1036,7 +1196,10 @@ html, body { overflow-x: hidden; }
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -ms-overflow-style: none;
+<<<<<<< HEAD
   scroll-behavior: smooth;
+=======
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   padding: 8px 4px 16px;
 }
 .cards-slider::-webkit-scrollbar { display: none; }
@@ -1053,14 +1216,23 @@ html, body { overflow-x: hidden; }
   text-decoration: none;
   display: block;
   flex-shrink: 0;
+<<<<<<< HEAD
   filter: brightness(0.55) grayscale(20%);
+=======
+  filter: grayscale(30%);
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   transition: filter 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 .post-card:hover {
+<<<<<<< HEAD
   filter: brightness(1.05) grayscale(0%);
   box-shadow: 0 15px 40px rgba(0,0,0,0.35);
   transform: translateY(-3px);
+=======
+  filter: brightness(1.05) grayscale(0%) !important;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   z-index: 2;
 }
 .post-card img {
@@ -1176,6 +1348,10 @@ html, body { overflow-x: hidden; }
   padding: 0;
   overflow: visible;
   position: relative;
+<<<<<<< HEAD
+=======
+  margin-top: -20px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 }
 .final-cta-inner {
   max-width: 100%;
@@ -1212,11 +1388,18 @@ html, body { overflow-x: hidden; }
   align-items: flex-start;
 }
 .final-cta-image img {
+<<<<<<< HEAD
   width: 112%;
   height: 352px;
   object-fit: cover;
   object-position: left center;
   transform: translateX(12%);
+=======
+  width: 926px;
+  height: 375px;
+  object-fit: cover;
+  object-position: left center;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   display: block;
   border-radius: 19px 0 0 19px;
   margin-top: -105px;
@@ -1572,6 +1755,52 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
   .excellence-section { margin-top: -80px; }
 }
 
+<<<<<<< HEAD
+=======
+/* ─── DESKTOP ONLY FIXES: CARD SHADOWS & SEE ALL ARROW ─── */
+@media (min-width: 901px) {
+  /* Top padding for shadow room; no bottom negative margin to avoid shadow bleed */
+  .cards-slider {
+    padding: 30px 0 8px 0;
+    margin-top: -30px;
+  }
+
+  .post-card {
+    box-shadow: none;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+  }
+
+  .post-card:hover {
+    box-shadow: none;
+    z-index: 2;
+  }
+
+  .btn-see-all:hover .arrow-circle {
+    transform: translateX(4px);
+  }
+
+  /* ── TESTIMONIAL CARDS: premium floating shadows, no shadow clipping ── */
+  /* Negative margin expands the clip area by 36px on all sides so shadows
+     breathe freely; equal padding pushes content back to its original position */
+  .tslider-clip {
+    overflow: hidden;
+    margin: -36px 24px;
+    padding: 36px 36px;
+  }
+
+  .testimonial-card-new {
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.10), 0 0 2px rgba(0,0,0,0.06);
+    transition: box-shadow 0.25s ease;
+  }
+
+  .testimonial-card-new:hover {
+    box-shadow: 0 2px 9px rgba(0,0,0,0.16), 0 0 3px rgba(0,0,0,0.09);
+    transform: none;
+  }
+}
+
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 /* ─── REDUCED MOTION: disable/slow heavy animations for accessibility ─── */
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
@@ -1580,7 +1809,13 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
   .btn-orange { animation: none; }
   .badge-slide { transition: none; }
   .post-card, .post-card img { transition: none; }
+<<<<<<< HEAD
 }
+=======
+  .award-marquee-track { animation: none !important; }
+}
+
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 </style>
 
 <!-- ── PAGE MAIN CONTENT ── -->
@@ -1634,7 +1869,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
   <div class="services-inner">
     <div class="services-header" data-aos="fade-up">
       <h2>Code the Future:<br class="mob-br" /> Innovative Solutions,<br />Tailored for You</h2>
+<<<<<<< HEAD
       <a href="/services/" class="btn-outline svc-btn-desktop">See all services <span class="btn-arrow-circle"><i class="fa-solid fa-arrow-right"></i></span></a>
+=======
+      <a href="/services/" class="btn-outline svc-btn-desktop">See all services <span class="btn-arrow-icon"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
     </div>
     <div class="services-grid">
       <div class="service-card" data-aos="fade-up" data-aos-delay="0">
@@ -1668,7 +1907,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
         <p><br/>Integrate smart devices and advanced technologies to create connected solutions that transform your business operations with our IoT development services.</p>
       </div>
     </div>
+<<<<<<< HEAD
     <a href="/services/" class="btn-outline svc-btn-mobile">See all services <span class="btn-arrow-circle"><i class="fa-solid fa-arrow-right"></i></span></a>
+=======
+    <a href="/services/" class="btn-outline svc-btn-mobile">See all services <span class="btn-arrow-icon"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   </div>
 </section>
 
@@ -1695,7 +1938,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
     </div>
   </div>
   <div class="tech-see-all">
+<<<<<<< HEAD
     <a href="https://demskigroup.com/technologies/" class="btn-outline-dark">See all capabilities <span class="dark-arrow">→</span></a>
+=======
+    <a href="https://demskigroup.com/technologies/" class="btn-outline-dark">See all capabilities <span class="btn-arrow-icon"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   </div>
 
 </section>
@@ -1715,7 +1962,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <h2>See the Businesses<br class="mob-br" /> That Rely<br class="desk-br" /> on Our<br class="mob-br" /> Services</h2>
       <p>Over 12 years and hundreds of projects later, we have a lot to talk about.</p>
       <a href="https://demskigroup.com/our-clients/" class="btn-outline-clients">
+<<<<<<< HEAD
         See our clients <span class="arrow-circle">→</span>
+=======
+        See our clients <span class="btn-arrow-icon"></span>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       </a>
     </div>
   </div>
@@ -1725,6 +1976,30 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
     <div class="tslider-clip">
     <div class="testimonial-slider" id="tslider">
 
+<<<<<<< HEAD
+=======
+      {testimonials.length > 0 ? testimonials.map(t => (
+        <div class="testimonial-card-new">
+          <div class="tcard-top">
+            <div class="tcard-quote">❝❝</div>
+            <div class="tcard-logo">
+              {t.logo
+                ? <img src={t.logo} alt={t.logoAlt} width="120" height="36" loading="lazy" />
+                : <span class="tcard-logo-text">{t.logoAlt}</span>
+              }
+            </div>
+          </div>
+          <p class="tcard-body">{t.quote}</p>
+          <div class="tcard-footer">
+            <div>
+              <div class="tcard-author">{t.author}</div>
+              <div class="tcard-role">{t.role}</div>
+            </div>
+            <a href={t.link} class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+          </div>
+        </div>
+      )) : (
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       <div class="testimonial-card-new">
         <div class="tcard-top">
           <div class="tcard-quote">❝❝</div>
@@ -1736,7 +2011,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Regina DeBellis</div>
             <div class="tcard-role">Owner</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1751,7 +2030,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Timilehin Bashorun</div>
             <div class="tcard-role">Owner</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1766,7 +2049,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Kody Smith</div>
             <div class="tcard-role">Owner</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1781,7 +2068,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Delaine Mast</div>
             <div class="tcard-role">CEO</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1796,7 +2087,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Mickey Rowe</div>
             <div class="tcard-role">Manager</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1811,7 +2106,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Danny Socolof</div>
             <div class="tcard-role">CEO</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1826,7 +2125,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Janice Shrokrian</div>
             <div class="tcard-role">Founder & CEO</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1841,7 +2144,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Slava Moshkovich</div>
             <div class="tcard-role">President</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1856,7 +2163,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Stephanie Loike</div>
             <div class="tcard-role">CTO</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1871,7 +2182,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Chris Thompson</div>
             <div class="tcard-role">Managing Partner</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1886,7 +2201,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">David Tobin</div>
             <div class="tcard-role">Founder</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1901,7 +2220,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">&nbsp;</div>
             <div class="tcard-role">&nbsp;</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1916,7 +2239,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Amy McCord</div>
             <div class="tcard-role">Founder</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1931,7 +2258,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Evans Craddock</div>
             <div class="tcard-role">Production Coordinator</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1946,7 +2277,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Candice English</div>
             <div class="tcard-role">Owner</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1961,7 +2296,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Linda Riddell</div>
             <div class="tcard-role">Founder</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1976,7 +2315,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Manish Patel</div>
             <div class="tcard-role">Principal</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -1991,7 +2334,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">VP of Software Engineering</div>
             <div class="tcard-role">&nbsp;</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -2006,7 +2353,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Chief Data Officer</div>
             <div class="tcard-role">&nbsp;</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </div>
       </div>
 
@@ -2021,9 +2372,16 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="tcard-author">Thariq Kara</div>
             <div class="tcard-role">CEO</div>
           </div>
+<<<<<<< HEAD
           <a href="/our-clients" class="tcard-case">Read case study →</a>
         </div>
       </div>
+=======
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+        </div>
+      </div>
+      )}
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 
     </div>
     </div>
@@ -2066,20 +2424,31 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       slider.scrollLeft = cardWidth() * cards.length;
     };
 
+<<<<<<< HEAD
     // No animation on init
     slider.style.scrollBehavior = 'auto';
     jumpToReal();
     setTimeout(() => { slider.style.scrollBehavior = 'smooth'; }, 50);
+=======
+    // No animation on init (completely static initialization)
+    jumpToReal();
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 
     function next() {
       slider.scrollBy({ left: cardWidth(), behavior: 'smooth' });
       setTimeout(() => {
+<<<<<<< HEAD
         const max = slider.scrollWidth - slider.clientWidth;
         // If we've scrolled into the appended clones zone, silently jump back
         if (slider.scrollLeft >= cardWidth() * cards.length * 2) {
           slider.style.scrollBehavior = 'auto';
           slider.scrollLeft = cardWidth() * cards.length;
           setTimeout(() => { slider.style.scrollBehavior = 'smooth'; }, 50);
+=======
+        // If we've scrolled into the appended clones zone, silently jump back
+        if (slider.scrollLeft >= cardWidth() * cards.length * 2) {
+          slider.scrollLeft = cardWidth() * cards.length;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         }
       }, 400);
     }
@@ -2089,9 +2458,13 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       setTimeout(() => {
         // If we've scrolled into the prepended clones zone, silently jump forward
         if (slider.scrollLeft <= cardWidth() * (cards.length - 1)) {
+<<<<<<< HEAD
           slider.style.scrollBehavior = 'auto';
           slider.scrollLeft = cardWidth() * cards.length * 2 - cardWidth();
           setTimeout(() => { slider.style.scrollBehavior = 'smooth'; }, 50);
+=======
+          slider.scrollLeft = cardWidth() * cards.length * 2 - cardWidth();
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         }
       }, 400);
     }
@@ -2099,10 +2472,15 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
     btnNext && btnNext.addEventListener('click', next);
     btnPrev && btnPrev.addEventListener('click', prev);
 
+<<<<<<< HEAD
     // Optional: auto-play every 4s
     let autoplay = setInterval(next, 4000);
     slider.addEventListener('mouseenter', () => clearInterval(autoplay));
     slider.addEventListener('mouseleave', () => { autoplay = setInterval(next, 4000); });
+=======
+    // Optional: auto-play disabled to keep the slider static on page load.
+    // Movement only triggers on interaction (arrows click or manual touch/drag/swipe).
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   })();
   </script>
 
@@ -2114,13 +2492,18 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
         <h2>Excellence | Our<br/>Minimum Standard</h2>
         <p>We pride ourselves on our unwavering commitment to customer satisfaction.</p>
         <a href="/our-clients" class="btn-outline-excellence">
+<<<<<<< HEAD
           See our success <i class="fa-solid fa-arrow-right" style="font-size:12px"></i>
+=======
+          See our success <span class="btn-arrow-icon"></span>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </a>
       </div>
 
       <div class="excellence-right">
         <div class="badge-rotator" id="badge-rotator">
           <div class="badge-slide active">
+<<<<<<< HEAD
             <img src="/clutchcowhite.webp" alt="Clutch Top Software Developers 2022" width="220" height="220" loading="lazy" />
           </div>
           <div class="badge-slide">
@@ -2131,6 +2514,18 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
           </div>
           <div class="badge-slide">
             <img src="/cisppwhite.webp" alt="CISSP Certified" width="200" height="200" loading="lazy" />
+=======
+            <img src="/clutchcowhite.webp" alt="Clutch Top Software Developers 2022" width="380" height="380" loading="lazy" />
+          </div>
+          <div class="badge-slide">
+            <img src="/clutch3.webp" alt="Clutch Top Software Developers 2023" width="380" height="380" loading="lazy" />
+          </div>
+          <div class="badge-slide">
+            <img src="/clutch2.webp" alt="Clutch Top App Development Company 2023" width="380" height="380" loading="lazy" />
+          </div>
+          <div class="badge-slide">
+            <img src="/cisppwhite.webp" alt="CISSP Certified" width="380" height="380" loading="lazy" />
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
           </div>
         </div>
       </div>
@@ -2150,6 +2545,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 </section>
 <script is:inline>
   (function () {
+<<<<<<< HEAD
     const slides = document.querySelectorAll('#badge-rotator .badge-slide');
     if (!slides.length) return;
     let current = 0;
@@ -2160,6 +2556,21 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
     }, 2500);
   })();
   </script>
+=======
+    const slides = Array.from(document.querySelectorAll('#badge-rotator .badge-slide'));
+    if (!slides.length) return;
+    let current = 0;
+    setInterval(() => {
+      const prev = current;
+      current = (current + 1) % slides.length;
+      slides[prev].classList.remove('active');
+      slides[prev].classList.add('leaving');
+      slides[current].classList.add('active');
+      setTimeout(() => slides[prev].classList.remove('leaving'), 700);
+    }, 2800);
+  })();
+</script>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 
 <!-- ── S9: PROCESS ── -->
 <section class="process-section" id="process-section">
@@ -2213,7 +2624,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="step-label">Step 3</div>
             <div class="step-card">
               <h4>Design</h4>
+<<<<<<< HEAD
               <p>Create low-fidelity designs to outline basic structure and functionality, develop high-fidelity designs for detailed visual representation, and build interactive prototypes for user testing and feedback.</p>
+=======
+              <p>Create low-fidelity (lo-fi) designs to outline basic structure and functionality, develop high-fidelity (hi-fi) designs for detailed visual representation, and build interactive prototypes for user testing and feedback.</p>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
             </div>
           </div>
         </div>
@@ -2226,7 +2641,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
             <div class="step-label">Step 4</div>
             <div class="step-card">
               <h4>Develop, Test, and Deploy</h4>
+<<<<<<< HEAD
               <p>Utilizing agile methodologies, involving iterative development cycles, continuous integration and testing, regular feedback sessions, and seamless deployment practices.</p>
+=======
+              <p>Utilizing agile methodologies, involving iterative development cycles, continuous integration and testing, regular feedback sessions, and seamless deployment practices to ensure the software is robust, scalable, and aligned with your expectations.</p>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
             </div>
           </div>
         </div>
@@ -2310,7 +2729,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <div>
         <h2>From the Blog</h2>
       </div>
+<<<<<<< HEAD
       <a href="/blog" class="btn-see-all">See all <span class="arrow-circle">→</span></a>
+=======
+      <a href="/blog" class="btn-see-all">See all <span class="arrow-circle"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
     </div>
 
     <div class="cards-slider-wrap">
@@ -2326,7 +2749,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
                 <div class="post-card-title">{post.title.rendered}</div>
                 <div class="post-card-bottom">
                   <span class="post-card-date">{date}</span>
+<<<<<<< HEAD
                   <span class="post-card-read">Read More →</span>
+=======
+                  <span class="post-card-read">Read More <span class="svc-arrow"></span></span>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
                 </div>
               </div>
             </a>
@@ -2347,7 +2774,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
         <h2>Real Results, Real Projects</h2>
         <p style="color:#0A0000;">See how we produced real-world returns for our clients.</p>
       </div>
+<<<<<<< HEAD
       <a href="https://demskigroup.com/results/" class="btn-see-all">See all <span class="arrow-circle">→</span></a>
+=======
+      <a href="https://demskigroup.com/results/" class="btn-see-all">See all <span class="arrow-circle"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
     </div>
 
     <div class="cards-slider-wrap">
@@ -2363,7 +2794,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
                 <div class="post-card-title">{post.title.rendered}</div>
                 <div class="post-card-bottom">
                   <span class="post-card-date">{date}</span>
+<<<<<<< HEAD
                   <span class="post-card-read">Read More →</span>
+=======
+                  <span class="post-card-read">Read More <span class="svc-arrow"></span></span>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
                 </div>
               </div>
             </a>
@@ -2403,10 +2838,15 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       return slider.querySelector('.post-card').offsetWidth + gap;
     }
 
+<<<<<<< HEAD
     // Jump silently to the real cards (skip the prepended clones)
     slider.style.scrollBehavior = 'auto';
     slider.scrollLeft = cardWidth() * cards.length;
     setTimeout(() => { slider.style.scrollBehavior = 'smooth'; }, 50);
+=======
+    // Jump silently to the real cards (skip the prepended clones - completely static on load)
+    slider.scrollLeft = cardWidth() * cards.length;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 
     let busy = false;
 
@@ -2417,9 +2857,13 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       setTimeout(() => {
         // If deep into appended clones, silently jump back to real start
         if (slider.scrollLeft >= cardWidth() * cards.length * 2) {
+<<<<<<< HEAD
           slider.style.scrollBehavior = 'auto';
           slider.scrollLeft = cardWidth() * cards.length;
           setTimeout(() => { slider.style.scrollBehavior = 'smooth'; }, 50);
+=======
+          slider.scrollLeft = cardWidth() * cards.length;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         }
         busy = false;
       }, 450);
@@ -2432,9 +2876,13 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       setTimeout(() => {
         // If deep into prepended clones, silently jump forward to real end
         if (slider.scrollLeft <= cardWidth() * (cards.length - 1)) {
+<<<<<<< HEAD
           slider.style.scrollBehavior = 'auto';
           slider.scrollLeft = cardWidth() * cards.length * 2 - cardWidth();
           setTimeout(() => { slider.style.scrollBehavior = 'smooth'; }, 50);
+=======
+          slider.scrollLeft = cardWidth() * cards.length * 2 - cardWidth();
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         }
         busy = false;
       }, 450);
@@ -2465,7 +2913,11 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       <img
         src="https://demskigroup.com/wp-content/uploads/2024/06/cropped-shot-of-a-group-of-creatives-having-a-meet-2023-11-27-04-53-10-utc-1.jpg"
         alt="Team meeting"
+<<<<<<< HEAD
         width="800" height="352"
+=======
+        width="926" height="375"
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         loading="lazy"
       />
     </div>

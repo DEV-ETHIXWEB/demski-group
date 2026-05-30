@@ -1,0 +1,196 @@
+---
+// Shared contact section — matches Software Development Services design exactly.
+// Drop-in replacement for every page that needs a contact + testimonial block.
+---
+
+<section class="shared-contact">
+  <div class="shared-contact-inner">
+
+    <!-- LEFT: Form -->
+    <div class="shared-contact-left">
+      <h2>Let's Talk About Your Business Goals</h2>
+      <form class="shared-contact-form" action="/contact-us/" method="get" novalidate>
+        <div class="scf-row">
+          <input type="text"  name="name"    placeholder="Name" />
+          <input type="email" name="email"   placeholder="Email" required />
+        </div>
+        <input type="tel"  name="phone"   placeholder="Phone" />
+        <input type="text" name="company" placeholder="Company" />
+        <input type="text" name="website" placeholder="Website" />
+        <textarea name="message" placeholder="Describe your project"></textarea>
+        <button type="submit" class="scf-submit">Contact Us</button>
+      </form>
+    </div>
+
+    <!-- RIGHT: Testimonials + image -->
+    <div class="shared-contact-right">
+      <p class="scr-label">What our customers say</p>
+      <div class="scr-carousel">
+
+        <div class="scr-slide active">
+          <div class="scr-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
+          <p class="scr-text">The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. They are also very professional and timely as well as a pleasure to work with! We have worked with Andrew Demski for all of our IT needs.</p>
+          <div class="scr-footer">
+            <div class="scr-author">Delaine Mast<span>CEO</span></div>
+            <a class="scr-link" href="/our-clients/impact-team-tennis/">Read case study →</a>
+          </div>
+        </div>
+
+        <div class="scr-slide">
+          <div class="scr-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
+          <p class="scr-text">We spoke to a few different companies as we set out to find someone to create a website/database application to augment our desktop software. We chose The Demski Group in part because we found them very easy to talk to in our interview. That first impression stuck as we have a great relationship with them now.</p>
+          <div class="scr-footer">
+            <div class="scr-author">Mickey Rowe<span>Manager</span></div>
+            <a class="scr-link" href="/our-clients/biopac/">Read case study →</a>
+          </div>
+        </div>
+
+        <div class="scr-slide">
+          <div class="scr-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
+          <p class="scr-text">Code quality was very good and done in a fast, efficient manner. We are pleased with the excellent job from The Demski Group. The team was able to provide high-quality services throughout the project. They produced the deliverables in a timely manner and within budget.</p>
+          <div class="scr-footer">
+            <div class="scr-author">Thariq Kara<span>CEO</span></div>
+            <a class="scr-link" href="/our-clients/nu-borders/">Read case study →</a>
+          </div>
+        </div>
+
+      </div>
+      <div class="scr-fraction"><span class="scr-fraction-text">2 / 3</span></div>
+      <img
+        class="scr-img"
+        src="/solutions/sales-lead-tracking-tools/two-young-intercultural-colleagues-discussing-code-2025-03-16-06-53-49-utc-1024x683.jpg"
+        alt="Developers discussing code"
+        width="1024" height="683"
+        loading="lazy"
+      />
+    </div>
+
+  </div>
+</section>
+
+<style is:global>
+/* ══ SHARED CONTACT SECTION ══ */
+.shared-contact { background-color: #001629; }
+.shared-contact-inner {
+  display: grid;
+  grid-template-columns: 62% 38%;
+  max-width: 1850px;
+  margin: 0 auto;
+  min-height: 600px;
+  align-items: stretch;
+}
+.shared-contact-left { padding: 72px 64px 72px 64px; }
+.shared-contact-left h2 {
+  font-family: 'Outfit', sans-serif;
+  color: #ffffff;
+  font-size: clamp(28px, 2.8vw, 42px);
+  margin-bottom: 46px;
+  line-height: 1.2;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.shared-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.scf-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 42px;
+}
+.shared-contact-form input,
+.shared-contact-form textarea {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+  border-radius: 0;
+  font-size: 15px;
+  font-family: 'Outfit', sans-serif;
+  outline: none;
+  background: transparent;
+  color: #ffffff;
+  transition: border-bottom-color 0.2s;
+}
+.shared-contact-form input:focus,
+.shared-contact-form textarea:focus { border-bottom-color: rgba(255,255,255,0.9); }
+.shared-contact-form input::placeholder,
+.shared-contact-form textarea::placeholder { color: rgba(255,255,255,0.65); }
+.shared-contact-form textarea { resize: none; min-height: 40px; }
+.scf-submit {
+  align-self: flex-start;
+  padding: 15px 44px;
+  background: #ffffff;
+  color: #001629;
+  border: none;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.2s;
+}
+.scf-submit:hover { background: #f0f0f0; }
+
+.shared-contact-right {
+  background-color: #f0f0f0;
+  border-radius: 25px;
+  margin: 28px 28px 28px 0;
+  padding: 40px 40px 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.14);
+}
+.scr-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 22px;
+}
+.scr-carousel { position: relative; flex: 1; }
+.scr-slide { display: none; flex-direction: column; padding: 0; background: transparent; border-radius: 0; box-shadow: none; }
+.scr-slide.active { display: flex; }
+.scr-quote { color: #005cb9; font-size: 26px; margin-bottom: 18px; line-height: 1; }
+.scr-text { color: #333; font-size: 16px; line-height: 1.72; margin: 0 0 20px; flex: 1; }
+.scr-footer { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; padding-top: 14px; border-top: 1px solid #e8e8e8; }
+.scr-author { font-size: 14px; font-weight: 700; color: #1a1a1a; line-height: 1.4; }
+.scr-author span { display: block; font-weight: 400; font-size: 13px; color: #888; }
+.scr-link { color: #1a1a1a; text-decoration: none; font-size: 13px; font-weight: 500; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; }
+.scr-fraction { text-align: center; font-size: 20px; color: #000; padding: 14px 0 8px; position: relative; z-index: 2; transform: translateY(-100px); }
+.scr-img { width: 100%; height: 220px; object-fit: cover; object-position: center top; display: block; border-radius: 16px 16px 22px 22px; transform: translateY(-50px); }
+
+@media (max-width: 900px) {
+  .shared-contact-inner { grid-template-columns: 1fr; }
+  .shared-contact-left { padding: 48px 32px; }
+  .shared-contact-left h2 { font-size: 32px; white-space: normal; }
+  .shared-contact-right { margin: 0 24px 24px; }
+}
+@media (max-width: 600px) {
+  .scf-row { grid-template-columns: 1fr; gap: 0; }
+  .shared-contact-left { padding: 36px 22px; }
+}
+</style>
+
+<script is:inline>
+(function () {
+  const sections = document.querySelectorAll('.shared-contact');
+  sections.forEach(function(section) {
+    const slides = section.querySelectorAll('.scr-slide');
+    const fractionEl = section.querySelector('.scr-fraction-text');
+    if (!slides.length) return;
+    let current = 0;
+    const total = slides.length;
+
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      current = (n + total) % total;
+      slides[current].classList.add('active');
+      if (fractionEl) fractionEl.textContent = (current + 1) + ' / ' + total;
+    }
+
+    setInterval(function() { goTo(current + 1); }, 4000);
+  });
+})();
+</script>

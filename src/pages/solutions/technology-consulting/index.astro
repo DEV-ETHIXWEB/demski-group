@@ -1,5 +1,9 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+<<<<<<< HEAD
+=======
+import ContactSection from '../../../components/ContactSection.astro';
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 
 const assetBase = '/solutions/technology-consulting';
 
@@ -32,6 +36,7 @@ const contactTestimonials = [
   { quote: "Code quality was very good and done in a fast, efficient manner. We are pleased with the excellent job from The Demski Group. The team was able to provide high-quality services throughout the project. They produced the deliverables in a timely manner and within budget.", name: "Thariq Kara", role: "CEO", link: "/our-clients/nu-borders/" }
 ];
 
+<<<<<<< HEAD
 const cases = [
   { tag: 'Biotechnology', name: 'BIOPAC Systems, Inc.', description: 'The Demski Group successfully delivered a scalable and efficient web application for Biopac, enabling users to perform and track scientific studies online.', image: 'Biopac-white.png', tone: 'dark', link: '/our-clients/biopac' },
   { tag: 'Sports', name: 'Impact Team Tennis', description: '', image: 'ImpactTennis-e1744403805766.png', tone: 'green', link: '/our-clients/impact-team-tennis/' },
@@ -43,6 +48,61 @@ const cases = [
   { tag: 'Logistics', name: 'Bite', description: '', image: 'Bite-e1746208787498.png', tone: 'violet', link: '/our-clients/bite/' },
   { tag: 'Manufacturing', name: 'Saputo', description: '', image: 'Saputo.png', tone: 'sand', link: '/our-clients/' }
 ];
+=======
+const CASE_TONES = ['dark', 'green', 'purple', 'rose', 'pink', 'sky', 'yellow', 'violet', 'sand'];
+
+function cleanHtml(str) {
+  return (str || '').replace(/&amp;/g,'&').replace(/&#8217;/g,"'")
+    .replace(/&#8216;/g,"'").replace(/&#8230;/g,'…').replace(/<[^>]*>/g,'').trim();
+}
+function normalizeClientLink(link, slug) {
+  return (link || '')
+    .replace('https://demskigrdev.wpenginepowered.com','')
+    .replace('https://demskigroup.com','')
+    || `/our-clients/${slug}/`;
+}
+
+const WP_CLIENT_URLS = [
+  'https://demskigroup.com/wp-json/wp/v2/our-clients',
+  'https://demskigrdev.wpenginepowered.com/wp-json/wp/v2/our-clients',
+];
+
+let cases: Array<{ tag: string; name: string; description: string; image: string; tone: string; link: string }> = [];
+
+for (const base of WP_CLIENT_URLS) {
+  try {
+    const res = await fetch(`${base}?_embed&per_page=100&orderby=menu_order&order=asc`, {
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) continue;
+    const data = await res.json();
+    if (!Array.isArray(data) || !data.length) continue;
+    cases = data.map((item: any, i: number) => ({
+      tag:         cleanHtml(item._embedded?.['wp:term']?.[0]?.[0]?.name || ''),
+      name:        cleanHtml(item.title?.rendered),
+      description: cleanHtml(item.excerpt?.rendered).replace(/\[…\]/g,'').replace(/\[&hellip;\]/g,''),
+      image:       item._embedded?.['wp:featuredmedia']?.[0]?.source_url || '',
+      tone:        CASE_TONES[i % CASE_TONES.length],
+      link:        normalizeClientLink(item.link, item.slug),
+    }));
+    break;
+  } catch(_) { continue; }
+}
+
+if (!cases.length) {
+  cases = [
+    { tag: 'Biotechnology', name: 'BIOPAC Systems, Inc.', description: 'The Demski Group successfully delivered a scalable and efficient web application for Biopac, enabling users to perform and track scientific studies online.', image: '/solutions/sales-lead-tracking-tools/Biopac-white.png', tone: 'dark', link: '/our-clients/biopac/' },
+    { tag: 'Sports', name: 'Impact Team Tennis', description: '', image: '/solutions/sales-lead-tracking-tools/ImpactTennis-e1744403805766.png', tone: 'green', link: '/our-clients/impact-team-tennis/' },
+    { tag: 'Health & Wellness', name: 'Prefusion Health', description: '', image: '/solutions/sales-lead-tracking-tools/PrefusionHealth.png', tone: 'purple', link: '/our-clients/prefusion-health/' },
+    { tag: 'Insurance', name: 'Adaptrack', description: '', image: '/solutions/sales-lead-tracking-tools/ADAPTRACK.png', tone: 'rose', link: '/our-clients/' },
+    { tag: 'Retail', name: 'Zoomifi', description: '', image: '/solutions/sales-lead-tracking-tools/Zoomifi-2-e1744403389524.png', tone: 'pink', link: '/our-clients/zoomifi/' },
+    { tag: 'Real Estate', name: 'Property Gauge', description: '', image: '/solutions/sales-lead-tracking-tools/PropertyGauge.png', tone: 'sky', link: '/our-clients/property-gauge/' },
+    { tag: 'Energy & Utilities', name: 'Corning', description: '', image: '/solutions/sales-lead-tracking-tools/Corning-e1744401647484.png', tone: 'yellow', link: '/our-clients/corning-glass/' },
+    { tag: 'Logistics', name: 'Bite', description: '', image: '/solutions/sales-lead-tracking-tools/Bite-e1746208787498.png', tone: 'violet', link: '/our-clients/bite/' },
+    { tag: 'Manufacturing', name: 'Saputo', description: '', image: '/solutions/sales-lead-tracking-tools/Saputo.png', tone: 'sand', link: '/our-clients/' },
+  ];
+}
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 ---
 
 <Layout
@@ -148,7 +208,11 @@ const cases = [
       padding-left: 113px;
       padding-right: 80px;
       background:
+<<<<<<< HEAD
   linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.22) 100%),
+=======
+  linear-gradient(to right, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.10) 100%),
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
   url('https://demskigrdev.wpenginepowered.com/wp-content/uploads/2025/07/team-discussing-automotive-design-project-in-moder-2025-10-19-03-58-54-utc-scaled.jpg') center 39% / cover no-repeat;
       color: #fff;
       display: flex;
@@ -176,7 +240,10 @@ const cases = [
     .hero p {
       max-width: 500px;
       margin: 0 0 30px;
+<<<<<<< HEAD
       margin-left: 100px;
+=======
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       font-size: 16px;
       font-weight: 400;
       line-height: 1.6;
@@ -186,7 +253,11 @@ const cases = [
       display: inline-flex;
       align-items: center;
       gap: 12px;
+<<<<<<< HEAD
       background: #f0f0f0;
+=======
+      background: #ffffff;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       color: #1a1a1a;
       padding: 14px 26px;
       border-radius: 10px;
@@ -195,13 +266,17 @@ const cases = [
       text-decoration: none;
       transition: transform 0.18s ease, background 0.18s ease;
       white-space: nowrap;
+<<<<<<< HEAD
       margin-left: 100px;
+=======
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
     }
     .hero-btn:hover { transform: translateY(-2px); background: #e0e0e0; }
     .hero-btn i { font-size: 14px; }
     .hero-badges {
       position: absolute;
       top: 135px;
+<<<<<<< HEAD
       right: 157px;
       display: flex;
       flex-direction: column;
@@ -210,6 +285,16 @@ const cases = [
     }
     .hero-badges img {
       width: 222px;
+=======
+      right: 137px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 66px;
+    }
+    .hero-badges img {
+      width: 142px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       height: auto;
       object-fit: contain;
       display: block;
@@ -254,11 +339,20 @@ const cases = [
       line-height: 1.26;
       letter-spacing: 0;
     }
+<<<<<<< HEAD
     .intro-grid .section-title { max-width: 440px; font-size: clamp(33px, 3.85vw, 55px); margin-left: 5%; }
     .copy {
       color: #282828;
       font-size: 16px;
       line-height: 1.65;
+=======
+    .intro-grid .section-title { max-width: 440px; font-size: clamp(28px, 3.5vw, 50px); font-weight: 600; margin-left: 5%; }
+    .copy {
+      color: #000;
+      font-size: 16px;
+      line-height: 1.65;
+      padding-top: 100px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
     }
     .copy p { margin: 0 0 18px; }
     .copy ul {
@@ -267,7 +361,11 @@ const cases = [
     }
     .copy li {
       margin-bottom: 8px;
+<<<<<<< HEAD
       color: #282828;
+=======
+      color: #000;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       font-size: 16px;
       line-height: 1.65;
       list-style: disc;
@@ -391,8 +489,13 @@ const cases = [
       padding-bottom: 50px;
     }
     .services-grid-section .section-title {
+<<<<<<< HEAD
       max-width: 300px;
       font-size: 40px;
+=======
+      max-width: 460px;
+      font-size: 50px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       color: #1b1c1d;
       font-family: 'Outfit', sans-serif;
     }
@@ -427,11 +530,16 @@ const cases = [
     /* ── Why Choose ── */
     .why-section-wrap {
       position: relative;
+<<<<<<< HEAD
       padding: 0 70px;
       margin: 50px 0;
       max-width: 1416px;
       margin-left: auto;
       margin-right: auto;
+=======
+      padding: 0;
+      margin: 50px 100px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
     }
     .why-section {
       display: block;
@@ -490,7 +598,11 @@ const cases = [
       margin: 0 0 30px;
       max-width: 1040px;
       color: #282828;
+<<<<<<< HEAD
       font-size: 28px;
+=======
+      font-size: 25px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       font-weight: 400;
       font-family: 'Outfit', sans-serif;
       line-height: 1.65;
@@ -504,13 +616,21 @@ const cases = [
     }
     .testimonial-footer p {
       margin: 0;
+<<<<<<< HEAD
       font-size: 14px;
+=======
+      font-size: 16px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       line-height: 1.55;
       color: #333;
     }
     .testi-fraction {
       text-align: center;
+<<<<<<< HEAD
       font-size: 13px;
+=======
+      font-size: 16px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       color: #888;
       margin-top: 22px;
     }
@@ -519,17 +639,28 @@ const cases = [
       text-decoration: none;
       font-weight: 600;
       white-space: nowrap;
+<<<<<<< HEAD
       font-size: 14px;
+=======
+      font-size: 16px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
     }
 
     /* ── Why card: right navy column ── */
     .why-card {
       position: absolute;
       top: -14px;
+<<<<<<< HEAD
       right: 56px;
       bottom: -14px;
       width: 355px;
       margin: 14px;
+=======
+      right: 0;
+      bottom: -14px;
+      width: 355px;
+      margin: 14px 0 14px 14px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       background-color: #001629 !important;
       color: #ffffff;
       display: flex;
@@ -879,7 +1010,11 @@ const cases = [
       .tech-consulting-page .logo img { height: 36px; }
       .tech-section { padding: 40px 20px; }
       .hero {
+<<<<<<< HEAD
         min-height: auto;
+=======
+        min-height: 460px;
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         margin-left: 16px;
         margin-right: 16px;
         padding-top: 44px;
@@ -890,10 +1025,17 @@ const cases = [
         border-radius: 16px;
         align-items: flex-start;
       }
+<<<<<<< HEAD
       .hero-content { flex: none; }
       .hero h1 { font-size: clamp(30px, 8vw, 38px); max-width: 100%; line-height: 1.15; }
       .hero p { font-size: 16px; max-width: 100%; margin-left: 0; line-height: 1.6; }
       .hero-btn { margin-left: 0; font-size: 16px; padding: 14px 24px; }
+=======
+      .hero-content { flex: none; max-width: 100%; }
+      .hero h1 { font-size: clamp(30px, 8vw, 38px); max-width: 100%; line-height: 1.15; }
+      .hero p { font-size: 16px; max-width: 100%; margin-left: 0; line-height: 1.6; }
+      .hero-btn { margin-left: 0; font-size: 16px; padding: 14px 24px; white-space: nowrap; }
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       .hero-badges { position: static; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 24px; }
       .hero-badges img { width: 110px; }
       .acc-btn { grid-template-columns: 48px 1fr 20px; gap: 12px; }
@@ -916,10 +1058,18 @@ const cases = [
     /* ── Responsive: ≤600px ── */
     @media (max-width: 600px) {
       .tech-section { padding: 32px 16px; }
+<<<<<<< HEAD
       .hero { margin-left: 12px; margin-right: 12px; padding: 36px 20px 36px; border-radius: 14px; min-height: auto; }
       .hero h1 { font-size: clamp(28px, 7.5vw, 36px); line-height: 1.15; }
       .hero p { font-size: 15px; margin-left: 0; line-height: 1.6; }
       .hero-btn { font-size: 15px; padding: 13px 22px; margin-left: 0; white-space: normal; }
+=======
+      .hero { margin-left: 12px; margin-right: 12px; padding: 36px 20px 36px; border-radius: 14px; min-height: 420px; }
+      .hero-content { max-width: 100%; }
+      .hero h1 { font-size: clamp(28px, 7.5vw, 36px); line-height: 1.15; }
+      .hero p { font-size: 15px; margin-left: 0; line-height: 1.6; }
+      .hero-btn { font-size: 15px; padding: 13px 22px; margin-left: 0; white-space: nowrap; }
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       .hero-badges { position: static; display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
       .hero-badges img { width: 100px; }
       .intro-grid { gap: 24px; }
@@ -980,9 +1130,16 @@ const cases = [
     @media (max-width: 430px) {
       .tech-section { padding: 28px 16px; }
       .hero { padding: 32px 18px; margin-left: 10px; margin-right: 10px; }
+<<<<<<< HEAD
       .hero h1 { font-size: clamp(26px, 7vw, 32px); line-height: 1.15; }
       .hero p { font-size: 14px; line-height: 1.55; }
       .hero-btn { font-size: 14px; padding: 12px 20px; }
+=======
+      .hero-content { max-width: 100%; }
+      .hero h1 { font-size: clamp(26px, 7vw, 32px); line-height: 1.15; }
+      .hero p { font-size: 14px; line-height: 1.55; }
+      .hero-btn { font-size: 14px; padding: 12px 20px; white-space: nowrap; }
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
       .hero-badges img { width: 90px; }
       .intro-grid .section-title { font-size: clamp(22px, 6vw, 28px); }
       .accordion-copy .section-title { font-size: clamp(20px, 5.5vw, 26px); }
@@ -1006,7 +1163,11 @@ const cases = [
         <h1>Expert Technology Guidance for Growing Businesses</h1>
         <p>We help small and mid-sized businesses make smarter tech decisions — from digital strategy to software selection and IT architecture — with consulting tailored to your goals and budget.</p>
         <a class="hero-btn" href="/contact-us/">
+<<<<<<< HEAD
           <i class="fa-solid fa-square-arrow-up-right"></i> Schedule a Consultation
+=======
+          Schedule a Consultation <i class="fa-solid fa-square-arrow-up-right"></i>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
         </a>
       </div>
       <div class="hero-badges" aria-label="Review badges">
@@ -1124,7 +1285,11 @@ const cases = [
             <blockquote>The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. They are also very professional and timely as well as a pleasure to work with! We have worked with Andrew Demski for all of our IT needs.</blockquote>
             <div class="testimonial-footer">
               <p>Delaine Mast<br />CEO</p>
+<<<<<<< HEAD
               <a class="text-link" href="/our-clients/impact-team-tennis/">Learn more →</a>
+=======
+              <a class="text-link" href="/our-clients/impact-team-tennis/">Learn more <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
             </div>
             <div class="testi-fraction">1 / 1</div>
           </div>
@@ -1157,14 +1322,21 @@ const cases = [
         {cases.map(({ tag, name, description, image, tone, link }) => (
           <article class={`case-card ${tone === 'dark' ? 'featured' : tone}`}>
             <span class="case-tag">{tag}</span>
+<<<<<<< HEAD
             <img src={`/solutions/sales-lead-tracking-tools/${image}`} alt={`${name} logo`} width="300" height="92" loading="lazy" />
             {description && <p>{description}</p>}
             <a class="case-link" href={link}>Read full case study →</a>
+=======
+            {image && <img src={image} alt={`${name} logo`} width="300" height="92" loading="lazy" />}
+            {description && <p>{description}</p>}
+            <a class="case-link" href={link}>Read full case study <span class="svc-arrow"></span></a>
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
           </article>
         ))}
       </div>
     </section>
 
+<<<<<<< HEAD
     <!-- ══ CONTACT ══ -->
     <section class="contact-section">
       <div class="contact-inner">
@@ -1214,6 +1386,9 @@ const cases = [
 
       </div>
     </section>
+=======
+    <ContactSection />
+>>>>>>> 4aa603e7c7adf2be4d337229814ff9d8a3ad1406
 
   </main>
 
