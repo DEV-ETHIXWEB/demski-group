@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import ContactSection from '../../../components/ContactSection.astro';
 
 const assetBase = '/solutions/sales-lead-tracking-tools';
 
@@ -415,66 +416,7 @@ const cases = [
     </div>
 
     <!-- ══ CASE STUDIES ══ -->
-    <section class="ims-section case-section">
-      <div class="eyebrow acc-eyebrow">Case Studies</div>
-      <h2 class="section-title">Over 600 Projects Delivered Successfully</h2>
-      <p class="case-intro">With over 12 years of software development experience across many industries, we have a lot to talk about. Here are just a few of our success stories.</p>
-      <div class="case-grid">
-        {cases.map(({ tag, name, description, image, tone, link }) => (
-          <article class={`case-card ${tone === 'dark' ? 'featured' : tone}`}>
-            <span class="case-tag">{tag}</span>
-            <img src={`${assetBase}/${image}`} alt={`${name} logo`} width="300" height="92" loading="lazy" />
-            {description && <p>{description}</p>}
-            <a class="case-link" href={link}>Read full case study &rarr;</a>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <!-- ══ CONTACT ══ -->
-    <section class="contact-section">
-      <div class="contact-inner">
-        <div class="contact-form-col">
-          <h2 class="section-title">Let's Talk About Your Business Goals</h2>
-          <form class="contact-form" action="/contact-us/" method="get" novalidate>
-            <div class="form-row">
-              <input type="text"  name="name"    placeholder="Name" />
-              <input type="email" name="email"   placeholder="Email" required />
-            </div>
-            <input type="tel"  name="phone"   placeholder="Phone" />
-            <input type="text" name="company" placeholder="Company" />
-            <input type="text" name="website" placeholder="Website" />
-            <textarea name="message" placeholder="Describe your project"></textarea>
-            <button type="submit" class="form-submit">Contact Us</button>
-          </form>
-        </div>
-        <div class="contact-right-col">
-          <p class="contact-right-label">What our customers say</p>
-          <div class="tc-carousel" id="tcCarousel">
-            {contactTestimonials.map((t, i) => (
-              <div class={`tc-slide${i === 0 ? ' active' : ''}`} data-tc-slide>
-                <div class="tc-quote-icon"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
-                <p class="tc-text">{t.quote}</p>
-                <div class="tc-footer">
-                  <div class="tc-author">{t.name}<span>{t.role}</span></div>
-                  <a class="tc-link" href={t.link}>Read case study &rarr;</a>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div class="tc-fraction-bar">
-            <span id="tcFraction">1 / {contactTestimonials.length}</span>
-          </div>
-          <img
-            class="contact-right-img"
-            src="https://demskigrdev.wpenginepowered.com/wp-content/uploads/2025/05/two-young-intercultural-colleagues-discussing-code-2025-03-16-06-53-49-utc-1024x683.jpg"
-            alt="Colleagues collaborating on a project"
-            width="1024" height="683"
-            loading="lazy"
-          />
-        </div>
-      </div>
-    </section>
+    <ContactSection testimonials={contactTestimonials} />
 
   </main>
 
