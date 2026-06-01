@@ -24,4 +24,5 @@ pnpm-debug.log*
 .idea/
 
 .vercel
+.vercel/output
 .env*.local
