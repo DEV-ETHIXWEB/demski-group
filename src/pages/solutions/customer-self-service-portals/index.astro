@@ -46,6 +46,7 @@ const cases = [
   { tag: 'Logistics',        name: 'Bite',                  description: '', image: 'Bite-e1746208787498.png',               tone: 'violet', link: '/our-clients/bite/' },
   { tag: 'Manufacturing',    name: 'Saputo',                description: '', image: 'Saputo.png',                            tone: 'sand',   link: '/our-clients/' }
 ];
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-revalidate=3600');
 ---
 
 <Layout
@@ -146,7 +147,7 @@ const cases = [
     .why-copy>p{color:#111;font-size:16px;line-height:1.7;margin-bottom:10px;max-width:830px}
     .testimonial{margin-top:30px;padding-left:18px;border-left:3px solid #001629}
     .testimonial h3{margin:0 0 18px;font-size:clamp(22px,2.2vw,33px);font-weight:600;line-height:1.25;color:#1b1c1d}
-    .quote-mark{color:#005cb9;font-size:26px;line-height:1;margin-bottom:14px;letter-spacing:-3px}
+    .quote-mark{color:#005cb9;font-size:26px;line-height:1;margin-bottom:18px}
     .testimonial blockquote{margin:0 0 30px;max-width:1040px;color:#282828;font-size: 25px;font-weight:400;font-family:'Outfit',sans-serif;line-height:1.65}
     .testimonial-footer{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding-top:4px}
     .testimonial-footer p{margin:0;font-size:14px;line-height:1.55;color:#333}
@@ -395,7 +396,7 @@ const cases = [
           </ul>
           <div class="testimonial">
             <h3>Client Success Stories</h3>
-            <div class="quote-mark">&ldquo;&ldquo;</div>
+            <div class="quote-mark"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
             <blockquote>The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. They are also very professional and timely as well as a pleasure to work with!</blockquote>
             <div class="testimonial-footer">
               <p>Delaine Mast<br />CEO</p>

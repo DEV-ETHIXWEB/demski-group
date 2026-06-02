@@ -8,6 +8,7 @@ const WP_URLS = [
   `https://demskigrdev.wpenginepowered.com/wp-json/wp/v2/our-clients?slug=${slug}&_embed`,
 ];
 
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=86400');
 let client: any = null;
 for (const url of WP_URLS) {
   try {

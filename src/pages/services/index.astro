@@ -1,5 +1,6 @@
 ﻿---
 import Layout from '../../layouts/Layout.astro';
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-revalidate=3600');
 ---
 
 <Layout title="Software Services - The Demski Group">
@@ -969,7 +970,7 @@ h1, h2, h3, h4, h5, h6 {
 .tc-slide { display: none; flex-direction: column; padding: 0; background: transparent; border-radius: 0; box-shadow: none; }
 .tc-slide.active { display: flex; }
 .tc-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
-.tc-quote-icon { font-size: 22px; color: #7ab0cf; line-height: 1; font-family: Georgia, serif; font-weight: 700; letter-spacing: -1px; }
+.tc-quote-icon { font-size: 26px; color: #005cb9; line-height: 1; margin-bottom: 18px; }
 .tc-logo { display: flex; align-items: center; height: 35px; }
 .tc-logo img { height: 35px; width: auto; object-fit: contain; max-width: 120px; }
 .tc-text { color: #333; font-size: 16px; line-height: 1.72; margin: 0 0 20px; flex: 1; }
@@ -1382,7 +1383,7 @@ h1, h2, h3, h4, h5, h6 {
       <div class="tc-carousel" id="svcTcCarousel">
         <div class="tc-slide active" data-tc-slide>
           <div class="tc-top">
-            <div class="tc-quote-icon">❝❝</div>
+            <div class="tc-quote-icon"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
             <div class="tc-logo"></div>
           </div>
           <p class="tc-text">The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. They are also very professional and timely as well as a pleasure to work with! We have worked with Andrew Demski for all of our IT needs.</p>
@@ -1396,7 +1397,7 @@ h1, h2, h3, h4, h5, h6 {
         </div>
         <div class="tc-slide" data-tc-slide>
           <div class="tc-top">
-            <div class="tc-quote-icon">❝❝</div>
+            <div class="tc-quote-icon"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
             <div class="tc-logo"></div>
           </div>
           <p class="tc-text">We spoke to a few different companies as we set out to find someone to create a website/database application to augment our desktop software. We chose The Demski Group in part because we found them very easy to talk to in our interview. That first impression stuck as we have a great relationship with them now. We are currently planning to farm out another project and are not even considering looking for anyone else to take it on.</p>
@@ -1410,7 +1411,7 @@ h1, h2, h3, h4, h5, h6 {
         </div>
         <div class="tc-slide" data-tc-slide>
           <div class="tc-top">
-            <div class="tc-quote-icon">❝❝</div>
+            <div class="tc-quote-icon"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
             <div class="tc-logo"></div>
           </div>
           <p class="tc-text">Code quality was very good and done in a fast, efficient manner. We are pleased with the excellent job from The Demski Group. The team was able to provide high-quality services throughout the project. They produced the deliverables in a timely manner and within budget.</p>

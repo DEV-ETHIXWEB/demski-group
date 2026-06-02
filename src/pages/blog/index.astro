@@ -1,21 +1,25 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-
-const page = Number(Astro.url.searchParams.get('page') || 1);
+const searchQuery = Astro.url.searchParams.get('s')?.trim() || '';
+const page = searchQuery ? 1 : Number(Astro.url.searchParams.get('page') || 1);
 const perPage = 10;
 
-const res = await fetch(`https://demskigroup.com/wp-json/wp/v2/posts?_embed&per_page=${perPage}&page=${page}`);
-const posts = await res.json();
+const [postsRes, totalRes, catRes, tagRes] = await Promise.allSettled([
+  searchQuery
+    ? fetch(`https://demskigroup.com/wp-json/wp/v2/posts?search=${encodeURIComponent(searchQuery)}&_embed&per_page=10`, { signal: AbortSignal.timeout(6000) })
+    : fetch(`https://demskigroup.com/wp-json/wp/v2/posts?_embed&per_page=${perPage}&page=${page}`, { signal: AbortSignal.timeout(6000) }),
+  fetch('https://demskigroup.com/wp-json/wp/v2/posts?per_page=1', { signal: AbortSignal.timeout(6000) }),
+  fetch('https://demskigroup.com/wp-json/wp/v2/categories?per_page=20', { signal: AbortSignal.timeout(6000) }),
+  fetch('https://demskigroup.com/wp-json/wp/v2/tags?per_page=100&orderby=name&order=asc', { signal: AbortSignal.timeout(6000) }),
+]);
 
-const totalRes = await fetch('https://demskigroup.com/wp-json/wp/v2/posts?per_page=10');
-const totalPages = Number(totalRes.headers.get('X-WP-TotalPages') || 1);
+const posts = postsRes.status === 'fulfilled' && postsRes.value.ok ? await postsRes.value.json() : [];
+const totalPages = totalRes.status === 'fulfilled' && totalRes.value.ok ? Number(totalRes.value.headers.get('X-WP-TotalPages') || 1) : 1;
+const categories = catRes.status === 'fulfilled' && catRes.value.ok ? await catRes.value.json() : [];
+const tags = tagRes.status === 'fulfilled' && tagRes.value.ok ? await tagRes.value.json() : [];
 
-const catRes = await fetch('https://demskigroup.com/wp-json/wp/v2/categories?per_page=20');
-const categories = await catRes.json();
-
-const tagRes = await fetch('https://demskigroup.com/wp-json/wp/v2/tags?per_page=100&orderby=name&order=asc');
-const tags = await tagRes.json();
+Astro.response.headers.set('Cache-Control', searchQuery ? 'no-store' : 'public, s-maxage=120, stale-while-revalidate=3600');
 ---
 
 <Layout title="Our Blog - Demski Group">
@@ -52,7 +56,7 @@ const tags = await tagRes.json();
     .search-form { display: flex; align-items: center; border: 1.5px solid #e0e0e0; border-radius: 50px; overflow: hidden; background: #fff; padding: 6px 18px; gap: 8px; }
     .search-form .search-icon { display: flex; align-items: center; flex-shrink: 0; }
     .search-form input { border: none; outline: none; padding: 8px 0; font-size: 16px; width: 100%; font-family: 'Outfit', sans-serif; background: transparent; color: #333; }
-    .search-form input::placeholder { color: transparent; }
+    .search-form input::placeholder { color: #aaa; }
     .search-form button { display: none; }
     .recent-ul { list-style: none; padding: 0; margin: 0; }
     .recent-ul li { padding: 15px 0; border-bottom: 1px solid #f5f5f5; }
@@ -87,6 +91,14 @@ const tags = await tagRes.json();
 
   <div class="main-wrap">
     <div class="posts-col">
+      {searchQuery && (
+        <div style="margin-bottom:24px;font-size:18px;font-family:'Outfit',sans-serif;color:#333;">
+          {posts.length > 0
+            ? <>{posts.length} result{posts.length !== 1 ? 's' : ''} for <strong>"{searchQuery}"</strong> &nbsp;<a href="/blog" style="font-size:15px;color:#003087;">Clear search</a></>
+            : <>No results for <strong>"{searchQuery}"</strong> &nbsp;<a href="/blog" style="font-size:15px;color:#003087;">Clear search</a></>
+          }
+        </div>
+      )}
       {posts.map((post: any) => {
         const img = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
         const date = new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -112,22 +124,22 @@ const tags = await tagRes.json();
         );
       })}
 
-      <div class="pagination">
+      {!searchQuery && <div class="pagination">
         {page === 1 ? <span class="active">1</span> : <a href="?page=1">1</a>}
         {page === 2 ? <span class="active">2</span> : <a href="?page=2">2</a>}
         {page === 3 ? <span class="active">3</span> : <a href="?page=3">3</a>}
         <span class="dots">...</span>
         {page === totalPages ? <span class="active">{totalPages}</span> : <a href={`?page=${totalPages}`}>{totalPages}</a>}
         {page < totalPages && <a href={`?page=${page + 1}`} class="pagination-next">›</a>}
-      </div>
+      </div>}
     </div>
 
     <div class="sidebar-col">
       <div class="sb-box">
-        <form class="search-form" action="#" method="get">
+        <form class="search-form" action="/blog" method="get">
           <span class="search-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></span>
-          <input type="search" name="s" placeholder="" />
-          <button type="submit"></button>
+          <input type="search" name="s" placeholder="Search posts…" value={searchQuery} />
+          <button type="submit" aria-label="Search"></button>
         </form>
       </div>
       <div class="sb-box">
@@ -139,10 +151,10 @@ const tags = await tagRes.json();
         </ul>
       </div>
       <div class="sb-box">
-        <form class="search-form" action="#" method="get">
+        <form class="search-form" action="/blog" method="get">
           <span class="search-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></span>
-          <input type="search" name="s" placeholder="" />
-          <button type="submit"></button>
+          <input type="search" name="s" placeholder="Search posts…" value={searchQuery} />
+          <button type="submit" aria-label="Search"></button>
         </form>
       </div>
       <div class="sb-box">

@@ -46,6 +46,7 @@ const cases = [
   { tag: 'Logistics', name: 'Bite', description: '', image: 'Bite-e1746208787498.png', tone: 'violet', link: '/our-clients/bite/' },
   { tag: 'Manufacturing', name: 'Saputo', description: '', image: 'Saputo.png', tone: 'sand', link: '/our-clients/' }
 ];
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-revalidate=3600');
 ---
 
 <Layout

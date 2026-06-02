@@ -73,6 +73,7 @@ for (const base of WP_CLIENT_URLS) {
   } catch(_) { continue; }
 }
 
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-revalidate=3600');
 if (!cases.length) {
   cases = [
     { tag: 'Biotechnology', name: 'BIOPAC Systems, Inc.', description: 'The Demski Group successfully delivered a scalable and efficient web application for Biopac, enabling users to perform and track scientific studies online.', image: '/solutions/sales-lead-tracking-tools/Biopac-white.png', tone: 'dark', link: '/our-clients/biopac/' },
@@ -526,8 +527,7 @@ if (!cases.length) {
       color: #005cb9;
       font-size: 26px;
       line-height: 1;
-      margin-bottom: 14px;
-      letter-spacing: -3px;
+      margin-bottom: 18px;
     }
     .testimonial blockquote {
       margin: 0 0 30px;
@@ -1165,7 +1165,7 @@ if (!cases.length) {
           </ul>
           <div class="testimonial">
             <h3>Client Success Stories</h3>
-            <div class="quote-mark">&ldquo;&ldquo;</div>
+            <div class="quote-mark"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
             <blockquote>The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. They are also very professional and timely as well as a pleasure to work with! We have worked with Andrew Demski for all of our IT needs.</blockquote>
             <div class="testimonial-footer">
               <p>Delaine Mast<br />CEO</p>

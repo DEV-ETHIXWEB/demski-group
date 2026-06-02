@@ -15,30 +15,22 @@ let posts = [];
 let results = [];
 let testimonials: Array<{logo:string;logoAlt:string;quote:string;author:string;role:string;link:string}> = [];
 
-try {
-  const res = await fetch('https://demskigroup.com/wp-json/wp/v2/posts?_embed&per_page=6', { signal: AbortSignal.timeout(8000) });
-  if (res.ok) posts = await res.json();
-} catch (e) {
-  console.warn('Blog posts fetch failed:', e?.message);
-}
+// Parallel fetches — saves sequential WP API round-trips
+const [postsResult, resultsResult, reviewsResult] = await Promise.allSettled([
+  fetch('https://demskigroup.com/wp-json/wp/v2/posts?_embed&per_page=6&_fields=id,slug,date,title,excerpt,_links,_embedded', { signal: AbortSignal.timeout(6000) }),
+  fetch('https://demskigroup.com/wp-json/wp/v2/results?_embed&per_page=6', { signal: AbortSignal.timeout(6000) }),
+  fetch('https://demskigroup.com/wp-json/wp/v2/reviews?_embed&per_page=100', { signal: AbortSignal.timeout(6000) }),
+]);
 
-try {
-  const resultsRes = await fetch('https://demskigroup.com/wp-json/wp/v2/results?_embed&per_page=6', { signal: AbortSignal.timeout(8000) });
-  if (resultsRes.ok) results = await resultsRes.json();
-} catch (e) {
-  console.warn('Results fetch failed:', e?.message);
+if (postsResult.status === 'fulfilled' && postsResult.value.ok) {
+  posts = await postsResult.value.json();
 }
-
-const WP_REVIEW_URLS = [
-  'https://demskigroup.com/wp-json/wp/v2/reviews?_embed&per_page=100',
-  'https://demskigrdev.wpenginepowered.com/wp-json/wp/v2/reviews?_embed&per_page=100',
-];
-for (const url of WP_REVIEW_URLS) {
-  try {
-    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
-    if (!res.ok) continue;
-    const data = await res.json();
-    if (!Array.isArray(data) || !data.length) continue;
+if (resultsResult.status === 'fulfilled' && resultsResult.value.ok) {
+  results = await resultsResult.value.json();
+}
+if (reviewsResult.status === 'fulfilled' && reviewsResult.value.ok) {
+  const data = await reviewsResult.value.json();
+  if (Array.isArray(data) && data.length) {
     testimonials = data.map((item: any) => ({
       logo:    item._embedded?.['wp:featuredmedia']?.[0]?.source_url || '',
       logoAlt: cleanT(item.title?.rendered),
@@ -47,16 +39,17 @@ for (const url of WP_REVIEW_URLS) {
       role:    cleanT(item.acf?.author_role || item.acf?.position || item.acf?.role || ''),
       link:    normalizeLink(item.acf?.case_study_url || item.link, item.slug),
     }));
-    break;
-  } catch(_) { continue; }
+  }
 }
+
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-revalidate=3600');
 ---
 
 <Layout title="The Demski Group - Custom Software Development">
 <!-- Preload hero background image (LCP resource) -->
 <link rel="preload" href="/hero-bg.jpg" as="image" slot="head" />
-<link rel="preconnect" href="https://cdn.jsdelivr.net" slot="head" />
-<link rel="preconnect" href="https://api.fontshare.com" slot="head" />
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net" slot="head" />
+<link rel="dns-prefetch" href="https://api.fontshare.com" slot="head" />
 <!-- AOS CSS loaded non-blocking -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" media="print" onload="this.media='all'" slot="head" />
 <!-- noscript fallback for AOS (rendered inline, not in head slot) -->
@@ -492,12 +485,10 @@ html, body { overflow-x: hidden; }
   margin-bottom: 16px;
 }
 .tcard-quote {
-  font-size: 22px;
-  color: #7ab0cf;
+  font-size: 26px;
+  color: #005cb9;
   line-height: 1;
-  font-family: Georgia, serif;
-  font-weight: 700;
-  letter-spacing: -1px;
+  margin-bottom: 18px;
 }
 .tcard-logo img {
   height: 35px;
@@ -1777,7 +1768,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       {testimonials.length > 0 ? testimonials.map(t => (
         <div class="testimonial-card-new">
           <div class="tcard-top">
-            <div class="tcard-quote">❝❝</div>
+            <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
             <div class="tcard-logo">
               {t.logo
                 ? <img src={t.logo} alt={t.logoAlt} width="120" height="36" loading="lazy" />
@@ -1797,7 +1788,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
       )) : (
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/Tausi.png" alt="Tausi" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">I've been working with the Demski team for a while now on building my app, and so far, the experience has been excellent! They are communicative, knowledgeable, and truly dedicated to bringing my vision to life. Their expertise and support have made this process smooth, enjoyable and nothing short of exciting. I'm looking forward to the launch and seeing everything come together. Highly recommended!</p>
@@ -1812,7 +1803,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/Zoomifi.png" alt="Zoomifi" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">My company partnered with The Demski Group for mobile application development, and their work exceeded our expectations. Their professionalism, attention to detail, and quality are unmatched. They provided valuable infrastructure advice, maintained excellent communication, and quickly resolved any issues or bugs. We are confident in their expertise.</p>
@@ -1827,7 +1818,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/BrandedAF.png" alt="Branded AF" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">Working with The Demski Group has been an absolute pleasure! They are professional, highly skilled, and incredibly easy to work with. Throughout the development of my mobile app, they are always responsive, helpful, and willing to go the extra mile to ensure everything is perfect. I highly recommend them to anyone looking for a reliable and talented development team! I know I will be returning to them for future projects!</p>
@@ -1842,7 +1833,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/ImpactTennis.png" alt="Impact Team Tennis" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. Their professionalism and attention to detail are unmatched.</p>
@@ -1857,7 +1848,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="https://demskigroup.com/wp-content/uploads/2024/07/Companylogo3-300x159.png" alt="Biopac" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">We spoke to a few different companies as we set out to find someone to create a website/database application. We chose The Demski Group in part because we found them very easy to talk to. That first impression stuck as we have a great relationship with them now. We are not even considering looking for anyone else.</p>
@@ -1872,7 +1863,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/Yawye.png" alt="Yawye" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">We are true believers in this team and will no doubt provide ongoing business. The Demski Group consistently produces quality work, leading our team to be true believers of their work. Their team is accountable, setting high standards for their work and delivering results.</p>
@@ -1887,7 +1878,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/Tausi.png" alt="Tausi" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">The Demski Group was professional and outstanding at their work. The Demski Group delivered a professional website that received positive feedback from users across many industries. They communicated effectively via Zoom and were always accessible. Customers can expect an honest team that can provide outstanding outputs.</p>
@@ -1902,7 +1893,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/Zoomifi.png" alt="Zoomifi" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">After working with many development firms, I now funnel all my development to The Demski Group. The Demski Group has become our main app developer thanks to their consistency, quality of work, and high level of communication. They deliver apps with minimal bugs, remain open to feedback, and can take an app from idea to execution with next to no management on our part.</p>
@@ -1917,7 +1908,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/MartinSorbo.png" alt="Martin &amp; Sorbo" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">It was such a pleasure working with The Demski Group. Not only were they flexible in scheduling meetings and moving deadlines but even with little information provided they knew exactly what the target outcome should be and absolutely outperformed. All of our requirements were fulfilled and they even provided us with useful documentation for future maintenance. We cannot recommend them enough and we will hire The Demski Group definitely again for any future development needs for our company.</p>
@@ -1932,7 +1923,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/BrandedAF.png" alt="Branded AF" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">They delivered what they said they would, and it worked as planned. As a result of the collaboration, The Demski Group successfully launched the website, and the revenue started generating. The team regularly held weekly meetings, keeping the client updated on all tasks, plans, and feedback. Ultimately, they precisely delivered what they promised.</p>
@@ -1947,7 +1938,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/Audiojack.png" alt="AudioJack" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">Fantastic experience working with this team. They communicate regularly, understand that things can change and adapt as we sorted through the issues that came up with the project. All very important qualities when working with someone. The other elements I expect to be good, but being able to go the extra mile and be present was wonderful. Will work with them again as we continue to grow.</p>
@@ -1962,7 +1953,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/Corning.png" alt="Corning" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">The Demski Group team were great in helping out with our project and flexible with some of our changing timelines!</p>
@@ -1977,7 +1968,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/FlowerMoxie.png" alt="Flower Moxie" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">The Demski Group was an absolute pleasure to work with and I will continue to hire them for my other Shopify dev projects. They scoped and quoted the project fairly, stayed within the hours they estimated, was extremely prompt in completing the tasks, extremely communicative, and quick to hop on a call. HIGHLY RECOMMEND, they're a wonderful hire!</p>
@@ -1992,7 +1983,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/SEEN.png" alt="SEEN" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">I really appreciate The Demski Group's willingness to shift quickly on projects and deadlines. The Demski Group continues to evolve the app to increase user engagement and retention. The team is available on multiple communication channels, which allows them to weigh in on various aspects of the product. They're also willing to pivot depending on the startup's needs.</p>
@@ -2007,7 +1998,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/FarmersDaughter.png" alt="Farmer's Daughter" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">The Demski Group has done an outstanding job updating our website and implementing custom tools that have greatly improved our customer experience. Their expertise in SEO and PPC has also significantly increased our online visibility and sales. We are extremely pleased with the outcome and the positive feedback we've received from our customers.</p>
@@ -2022,7 +2013,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/GettinBy.png" alt="Gettin' By" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">They helped us make the game more effective because they understood what we were trying to do. The Demski Group was able to implement every aspect of the requirements, including the rules, much to our delight. The team was highly communicative, and internal stakeholders were particularly impressed with the vendor's game development and technical experience.</p>
@@ -2037,7 +2028,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo"><img src="/logos/TrickyWater.png" alt="Tricky Water" width="120" height="36" loading="lazy" /></div>
         </div>
         <p class="tcard-body">They are very sound at a technical skill level. The Demski Group delivered all the agreed-upon deliverables in a timely manner. They were very accessible and knowledgeable, which ensured a smooth and effective workflow. Their deep technical knowledge and expertise were hallmarks of their work.</p>
@@ -2052,7 +2043,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo-text">&nbsp;</div>
         </div>
         <p class="tcard-body">Our teams have partnered on over 20 projects, which have all been a tremendous success. The Demski Group confidentially meets any improvements or changes requested. They are able to display industry standard-excellence services. Timely and responsive, they have communicated their goals and expectations well.</p>
@@ -2067,7 +2058,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo-text">&nbsp;</div>
         </div>
         <p class="tcard-body">They listen, they're business savvy, and they're responsive. The Demski Group's work has met the mark. The team follows their assigned specifications to the letter and have had a high success rate so far. Customers can expect a professional team that follows directions well.</p>
@@ -2082,7 +2073,7 @@ footer { background: #ffffff; color: #282828; padding: 0; margin-top: 0 !importa
 
       <div class="testimonial-card-new">
         <div class="tcard-top">
-          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-quote"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
           <div class="tcard-logo-text">&nbsp;</div>
         </div>
         <p class="tcard-body">Code quality was very good and done in a fast, efficient manner. We are pleased with the excellent job from The Demski Group. The team was able to provide high-quality services throughout the project. They produced the deliverables in a timely manner and within budget.</p>
