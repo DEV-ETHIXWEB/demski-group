@@ -561,5 +561,572 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
       })();
     </script>
 
+
+  <!-- ══ CHATBOT ══ -->
+  <div id="bot-launcher" onclick="toggleBot()" style="display:none;">
+    <img src="/72e79b86-c143-495c-b6bb-c10553e75cd3.png" alt="" onerror="this.src='https://ethixweb.com/wp-content/uploads/2026/03/avatar-woman-smiling-lady-portrait-250nw-2692286767.webp'" />
+    <span class="online-dot"></span>
+  </div>
+
+  <div id="lead-bot" style="display:none;">
+    <div class="chat-card">
+
+      <!-- Compact header (before expand) -->
+      <div class="chat-header" id="chat-header">
+        <div class="chat-user">
+          <div class="chat-avatar-wrap">
+            <img src="/72e79b86-c143-495c-b6bb-c10553e75cd3.png" alt="Erin" />
+            <span class="hdr-dot"></span>
+          </div>
+          <div>
+            <div class="ch-name">Erin</div>
+            <div class="ch-status">Online · The Demski Group</div>
+          </div>
+        </div>
+        <span class="close-btn" onclick="toggleBot()">&#x00D7;</span>
+      </div>
+
+      <!-- Expanded top section -->
+      <div id="top-section">
+        <div class="top-header-row">
+          <span class="top-brand">The Demski Group</span>
+          <span class="close-btn" onclick="toggleBot()">&#x00D7;</span>
+        </div>
+        <div class="top-avatar-wrap">
+          <img src="/72e79b86-c143-495c-b6bb-c10553e75cd3.png" class="top-avatar" alt="Erin" />
+          <span class="top-dot"></span>
+        </div>
+        <div class="top-name">Erin</div>
+        <div class="top-sub">Customer Success · Just now</div>
+        <div class="terms-box">By continuing, you agree to our <u>terms</u> and <u>privacy policy</u>.</div>
+      </div>
+
+      <!-- Messages -->
+      <div id="bot-messages" class="chat-body">
+        <div class="bot-msg-wrap">
+          <img src="/72e79b86-c143-495c-b6bb-c10553e75cd3.png" class="msg-avatar" alt="" width="26" height="26" style="width:26px;height:26px;min-width:26px;flex-shrink:0;" />
+          <div class="bot-msg">Hi there! 👋 What brings you here today?</div>
+        </div>
+        <div id="step1-btns" class="quick-btns">
+          <button onclick="handleStep1('🚀 New startup or app idea')">🚀 New startup or app idea</button>
+          <button onclick="handleStep1('🏢 Software for my business')">🏢 Software for my business</button>
+          <button onclick="handleStep1('📈 Digital marketing help')">📈 Digital marketing help</button>
+          <button onclick="handleStep1('🤔 Just exploring')">🤔 Just exploring</button>
+        </div>
+      </div>
+
+      <!-- Input -->
+      <div class="chat-input">
+        <input type="text" id="bot-input" placeholder="Ask a question…" />
+        <button onclick="handleInput()" aria-label="Send">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        </button>
+      </div>
+
+      <!-- CTA -->
+      <a href="https://calendly.com/shreya-ethixweb/30min" target="_blank" class="sticky-schedule-btn">
+        📅 Schedule a Free Consultation
+      </a>
+    </div>
+  </div>
+
+  <style>
+    /* ─── Launcher ─── */
+    #bot-launcher {
+      position: fixed; bottom: 30px; right: 30px; width: 110px; height: 110px;
+      border-radius: 50%; cursor: pointer; z-index: 10001;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent;
+      opacity: 0; transform: translateY(60px) scale(0.7);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    #bot-launcher.launcher-visible { opacity: 1; transform: translateY(0) scale(1); }
+    #bot-launcher::before {
+      content: ''; position: absolute; inset: -3px; border-radius: 50%;
+      background: linear-gradient(135deg, #0154B1, #4facfe, #0154B1);
+      z-index: -1;
+    }
+    #bot-launcher img {
+      width: 104px; height: 104px; border-radius: 50%; object-fit: cover;
+      border: 3px solid #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+    #bot-launcher:hover img { transform: scale(1.04); }
+    .online-dot {
+      position: absolute; bottom: 6px; right: 6px;
+      width: 16px; height: 16px; background: #22c55e;
+      border-radius: 50%; border: 3px solid #fff;
+      box-shadow: 0 0 0 2px rgba(34,197,94,0.3);
+    }
+
+    /* ─── Greeting bubble ─── */
+    #greeting-bubble {
+      position: fixed; bottom: 155px; right: 150px; z-index: 10000;
+      background: #fff; border-radius: 14px 14px 4px 14px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12); padding: 14px 16px 12px;
+      max-width: 215px; border: 1px solid #f0f2f5; font-family: 'Outfit', sans-serif;
+      opacity: 0; transform: translateY(8px) scale(0.95);
+      transition: opacity 0.3s, transform 0.3s; pointer-events: none;
+    }
+    #greeting-bubble.bubble-visible { opacity: 1; transform: none; pointer-events: all; }
+    #greeting-bubble.bubble-hide { opacity: 0; transform: translateY(8px) scale(0.95); pointer-events: none; }
+    #greeting-bubble p { font-size: 13px; color: #333; margin: 0 0 10px; line-height: 1.5; padding-right: 12px; }
+    #greeting-bubble button {
+      background: #0154B1; color: #fff; border: none; padding: 8px 14px;
+      border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
+      width: 100%; font-family: 'Outfit', sans-serif; transition: background 0.2s;
+    }
+    #greeting-bubble button:hover { background: #0146a0; }
+    .bubble-close { position: absolute; top: 8px; right: 10px; font-size: 15px; color: #bbb; cursor: pointer; }
+    .bubble-close:hover { color: #666; }
+
+    /* ─── Chat window ─── */
+    #lead-bot { position: fixed; bottom: 155px; right: 30px; z-index: 10001; }
+    .chat-card {
+      width: 360px; border-radius: 20px; overflow: hidden;
+      background: #fff;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.14), 0 4px 16px rgba(0,0,0,0.06);
+      display: flex; flex-direction: column;
+      max-height: calc(100vh - 200px);
+      font-family: 'Outfit', sans-serif;
+      outline: 2px solid transparent;
+      background-clip: padding-box;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    /* ─── Compact header ─── */
+    .chat-header {
+      background: #fff; padding: 14px 16px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-shrink: 0; border-bottom: 1px solid #f0f2f5;
+    }
+    .chat-user { display: flex; gap: 11px; align-items: center; }
+    .chat-avatar-wrap { position: relative; flex-shrink: 0; }
+    .chat-avatar-wrap img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; display: block; }
+    .hdr-dot {
+      position: absolute; bottom: 1px; right: 1px;
+      width: 10px; height: 10px; background: #22c55e;
+      border-radius: 50%; border: 2px solid #fff;
+    }
+    .ch-name { font-weight: 700; color: #111; font-size: 14px; }
+    .ch-status { font-size: 11px; color: #22c55e; margin-top: 1px; font-weight: 500; }
+    .close-btn {
+      cursor: pointer; font-size: 18px; color: #999; line-height: 1;
+      width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; transition: background 0.15s, color 0.15s; user-select: none;
+    }
+    .close-btn:hover { background: #f5f5f5; color: #333; }
+
+    /* ─── Expanded top section ─── */
+    #top-section {
+      display: none; text-align: center; padding: 0 16px 12px;
+      background: #fff; flex-shrink: 0; border-bottom: 1px solid #f0f2f5;
+    }
+    .top-header-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0 10px;
+    }
+    .top-brand { font-size: 13px; font-weight: 600; color: #555; letter-spacing: 0.2px; }
+    .top-avatar-wrap { position: relative; display: inline-block; margin-bottom: 6px; }
+    .top-avatar {
+      width: 52px; height: 52px; border-radius: 50%; object-fit: cover;
+      border: 2px solid #fff; box-shadow: 0 0 0 2.5px #0154B1;
+    }
+    .top-dot {
+      position: absolute; bottom: 2px; right: 2px;
+      width: 11px; height: 11px; background: #22c55e;
+      border-radius: 50%; border: 2px solid #fff;
+    }
+    .top-name { font-weight: 700; color: #111; font-size: 15px; margin-bottom: 2px; }
+    .top-sub { font-size: 11px; color: #888; margin-bottom: 8px; }
+    .terms-box {
+      background: #f7f8fa; padding: 8px 10px; border-radius: 8px;
+      font-size: 10.5px; color: #999; line-height: 1.55; text-align: left;
+      border: 1px solid #eee;
+    }
+
+    /* ─── Messages ─── */
+    .chat-body {
+      flex: 1; overflow-y: auto; overflow-x: hidden;
+      display: flex; flex-direction: column; gap: 10px;
+      padding: 14px 12px; min-height: 100px; max-height: 260px;
+      background: #f9fafb;
+    }
+    .bot-msg-wrap { display: flex; align-items: flex-end; gap: 8px; max-width: 90%; overflow: hidden; }
+    #lead-bot img.msg-avatar, #bot-messages img.msg-avatar {
+      width: 26px !important; height: 26px !important;
+      min-width: 26px !important; max-width: 26px !important;
+      min-height: 26px !important; max-height: 26px !important;
+      border-radius: 50% !important; object-fit: cover !important;
+      flex-shrink: 0 !important; flex-grow: 0 !important;
+      border: 1.5px solid #e8ecf0 !important;
+      display: block !important; align-self: flex-end !important;
+    }
+    .bot-msg {
+      background: #fff; padding: 10px 14px; border-radius: 4px 16px 16px 16px;
+      font-size: 13.5px; color: #1a1a1a; line-height: 1.6;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07); flex: 1;
+    }
+    .user-msg {
+      background: #0154B1; color: #fff; padding: 9px 15px;
+      border-radius: 18px 4px 18px 18px; align-self: flex-end;
+      max-width: 75%; font-size: 13px; line-height: 1.5;
+      box-shadow: 0 2px 8px rgba(1,84,177,0.2);
+    }
+
+    /* ─── Option buttons ─── */
+    .quick-btns, .budget-btns {
+      display: flex !important; flex-direction: column !important; flex-wrap: nowrap !important;
+      gap: 7px; align-items: flex-end !important; width: 100%;
+    }
+    .quick-btns button, .budget-btns button {
+      background: #fff; color: #1a1a1a;
+      border: none;
+      padding: 10px 18px; border-radius: 10px; cursor: pointer;
+      font-size: 13px; font-family: 'Outfit', sans-serif; font-weight: 500;
+      transition: all 0.18s ease; text-align: right;
+      max-width: 82%; white-space: normal; line-height: 1.4;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .quick-btns button:hover, .budget-btns button:hover {
+      background: #0154B1; color: #fff;
+      box-shadow: 0 3px 10px rgba(1,84,177,0.25);
+      transform: translateY(-1px);
+    }
+    .cta-btns { display: flex; flex-direction: column; gap: 8px; }
+    .cta-btns button {
+      border: none; padding: 12px; border-radius: 12px; cursor: pointer;
+      font-size: 13.5px; font-weight: 600; font-family: 'Outfit', sans-serif;
+      transition: all 0.2s; width: 100%; text-align: center;
+    }
+    .cta-btn-primary { background: #F09300; color: #fff; box-shadow: 0 3px 12px rgba(240,147,0,0.35); }
+    .cta-btn-primary:hover { background: #d98200; }
+    .cta-btn-secondary { background: #f0f6ff; color: #0154B1; border: 1.5px solid #cce0f5; }
+    .cta-btn-secondary:hover { background: #0154B1; color: #fff; }
+
+    /* ─── Typing ─── */
+    .cb-typing { display: flex; gap: 4px; padding: 4px 2px; align-items: center; }
+    .cb-typing span { width: 7px; height: 7px; background: #c0c4cc; border-radius: 50%; animation: cb-blink 1.4s infinite; }
+    .cb-typing span:nth-child(2) { animation-delay: .2s; }
+    .cb-typing span:nth-child(3) { animation-delay: .4s; }
+    @keyframes cb-blink { 0%,100%{opacity:.3;transform:scale(0.8);} 50%{opacity:1;transform:scale(1);} }
+
+    /* ─── Input ─── */
+    .chat-input {
+      display: flex; align-items: center; gap: 8px; padding: 10px 12px;
+      border-top: 1px solid #f0f2f5; background: #fff; flex-shrink: 0;
+    }
+    .chat-input input {
+      flex: 1; border: 1.5px solid #eaecf0; outline: none; border-radius: 24px;
+      padding: 9px 16px; font-family: 'Outfit', sans-serif; font-size: 13px;
+      color: #1a1a1a; background: #f9fafb; transition: border 0.2s, background 0.2s;
+    }
+    .chat-input input:focus { border-color: #0154B1; background: #fff; }
+    .chat-input input::placeholder { color: #b0b5be; }
+    .chat-input button {
+      width: 36px; height: 36px; border-radius: 50%; background: #0154B1; color: #fff;
+      border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 2px 8px rgba(1,84,177,0.3);
+    }
+    .chat-input button:hover { background: #0146a0; transform: scale(1.05); }
+
+    /* ─── Schedule CTA ─── */
+    .sticky-schedule-btn {
+      display: block; text-align: center; background: #F09300; color: #fff;
+      font-weight: 700; font-size: 13px; font-family: 'Outfit', sans-serif;
+      text-decoration: none; padding: 13px; letter-spacing: 0.2px;
+      transition: background 0.2s; flex-shrink: 0;
+    }
+    .sticky-schedule-btn:hover { background: #d98200; color: #fff; }
+
+    /* ─── Mobile ─── */
+    @media(max-width:480px){
+      #lead-bot { bottom: 0; right: 0; left: 0; width: 100%; }
+      .chat-card { width: 100%; border-radius: 20px 20px 0 0; max-height: 82vh; border: none; }
+      .chat-body { max-height: 38vh; }
+      .quick-btns { padding-left: 0; }
+      .quick-btns button { max-width: 100%; }
+      #greeting-bubble { right: 8px; bottom: 155px; max-width: calc(100vw - 90px); }
+      #bot-launcher { bottom: 16px; right: 16px; width: 80px; height: 80px; }
+      #bot-launcher img { width: 74px; height: 74px; }
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+  (function(){
+    /* Inject button styles last so they beat every global override */
+    const _s = document.createElement('style');
+    _s.textContent = `
+      #lead-bot .quick-btns,#lead-bot .budget-btns{
+        display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;
+        gap:6px!important;align-items:flex-end!important;width:100%!important;
+      }
+      #lead-bot .quick-btns button,#lead-bot .budget-btns button{
+        background:#fff!important;color:#0154B1!important;
+        border:1.5px solid #d4e6f7!important;
+        padding:9px 16px!important;border-radius:8px!important;
+        cursor:pointer!important;font-size:13px!important;
+        font-family:'Outfit',sans-serif!important;font-weight:500!important;
+        box-shadow:0 1px 3px rgba(0,0,0,0.08)!important;
+        display:block!important;text-align:center!important;
+        width:auto!important;max-width:85%!important;
+        transition:background 0.18s,color 0.18s,border-color 0.18s!important;
+        line-height:1.4!important;
+      }
+      #lead-bot .quick-btns button:hover,#lead-bot .budget-btns button:hover{
+        background:#0154B1!important;color:#fff!important;border-color:#0154B1!important;
+        box-shadow:0 3px 10px rgba(1,84,177,0.2)!important;
+      }
+    `;
+    document.head.appendChild(_s);
+
+    const botMessages = document.getElementById("bot-messages");
+    const botInput    = document.getElementById("bot-input");
+    const USER_CONFIRM_TEMPLATE = "template_7kz7hgj";
+
+    let step = 0, expanded = false, idleTimer = null, idlePromptShown = false, awaitingIdleResponse = false;
+
+    const intentFollowUp = {
+      "🚀 New startup or app idea":   "Love it! Tell me more — what kind of app are you thinking about?",
+      "🏢 Software for my business":  "Great! What problem are you trying to solve in your business?",
+      "📈 Digital marketing help":    "Nice! What are you hoping to improve — traffic, leads, or sales?",
+      "🤔 Just exploring":            "That's totally fine! Are you researching for a future project, or just browsing ideas?"
+    };
+
+    emailjs.init("nedYqWwwPWVZZVX0_");
+
+    function getParams() {
+      const p = {};
+      try { new URL(window.location.href).searchParams.forEach((v,k) => { p[k]=v; }); } catch(e){}
+      return p;
+    }
+    const urlParams   = getParams();
+    const savedParams = JSON.parse(localStorage.getItem("utmData")||"{}");
+    localStorage.setItem("utmData", JSON.stringify({...savedParams,...urlParams}));
+    const finalParams = JSON.parse(localStorage.getItem("utmData")||"{}");
+
+    const leadData = {
+      page: window.location.href, page_name: document.title,
+      utm_source: finalParams.utm_source||"", utm_campaign: finalParams.utm_campaign||"",
+      utm_medium: finalParams.utm_medium||"", utm_term: finalParams.utm_term||"",
+      utm_content: finalParams.utm_content||"", gclid: finalParams.gclid||"",
+      intent:"", intent_detail:"", timeline:"", budget:"", name:"", phone:"", email:"", cta_choice:""
+    };
+
+    window.addEventListener("load", () => {
+      const launcher = document.getElementById("bot-launcher");
+      launcher.style.display = "flex";
+      setTimeout(() => {
+        launcher.classList.add("launcher-visible");
+        setTimeout(() => { if (!expanded) showGreetingBubble(); }, 1000);
+      }, 3000);
+    });
+
+    function showGreetingBubble() {
+      if (document.getElementById("greeting-bubble")) return;
+      const b = document.createElement("div");
+      b.id = "greeting-bubble";
+      b.innerHTML = `<span class="bubble-close" onclick="dismissBubble()">&#x00D7;</span><p>👋 Hi! Need help with software or app development?</p><button onclick="openFromBubble()">Let's Chat!</button>`;
+      document.body.appendChild(b);
+      requestAnimationFrame(() => requestAnimationFrame(() => b.classList.add("bubble-visible")));
+      setTimeout(() => dismissBubble(), 8000);
+    }
+
+    function dismissBubble() {
+      const b = document.getElementById("greeting-bubble");
+      if (!b) return;
+      b.classList.remove("bubble-visible"); b.classList.add("bubble-hide");
+      setTimeout(() => { if (b.parentNode) b.remove(); }, 400);
+    }
+
+    function openFromBubble() {
+      dismissBubble();
+      setTimeout(() => { document.getElementById("lead-bot").style.display="block"; resetIdleTimer(); }, 200);
+    }
+
+    window.toggleBot = function() {
+      const win = document.getElementById("lead-bot");
+      const isOpen = win.style.display === "none";
+      win.style.display = isOpen ? "block" : "none";
+      if (isOpen) { dismissBubble(); resetIdleTimer(); } else clearTimeout(idleTimer);
+    };
+
+    function resetIdleTimer() {
+      clearTimeout(idleTimer); idlePromptShown = false;
+      const win = document.getElementById("lead-bot");
+      if (win && win.style.display !== "none" && step < 7) {
+        idleTimer = setTimeout(() => {
+          if (!idlePromptShown) { idlePromptShown=true; awaitingIdleResponse=true; addBotMessage("Hi, are you still there? 👀"); showIdleButtons(); }
+        }, 60000);
+      }
+    }
+
+    function expandUI() {
+      if (expanded) return; expanded = true;
+      document.getElementById("chat-header").style.display = "none";
+      document.getElementById("top-section").style.display = "block";
+    }
+
+    function addBotMessage(text) {
+      const wrap = document.createElement("div"); wrap.className="bot-msg-wrap";
+      wrap.innerHTML=`<img src="/72e79b86-c143-495c-b6bb-c10553e75cd3.png" class="msg-avatar" alt="" width="26" height="26" style="width:26px;height:26px;min-width:26px;flex-shrink:0;border-radius:50%;object-fit:cover;" onerror="this.style.display='none'" /><div class="bot-msg">${text}</div>`;
+      botMessages.appendChild(wrap); botMessages.scrollTop = botMessages.scrollHeight;
+    }
+    function addUserMessage(text) {
+      const d = document.createElement("div"); d.className="user-msg"; d.textContent=text;
+      botMessages.appendChild(d); botMessages.scrollTop = botMessages.scrollHeight;
+    }
+    function showTyping() {
+      const d = document.createElement("div"); d.className="cb-typing"; d.id="cb-typing";
+      d.innerHTML="<span></span><span></span><span></span>";
+      botMessages.appendChild(d); botMessages.scrollTop = botMessages.scrollHeight;
+    }
+    function hideTyping() { const t=document.getElementById("cb-typing"); if(t) t.remove(); }
+    function botReply(msg, cb, delay) {
+      showTyping();
+      setTimeout(() => { hideTyping(); addBotMessage(msg); if(cb) cb(); }, delay||1000);
+    }
+
+    function getResumeMessage() {
+      if(step===7) return "Our team already has your details and will be in touch shortly! 🎉";
+      if(step===1) return "No problem! Go ahead — what are you looking to accomplish?";
+      if(step===2) return "No problem! When would you like to go live with the project?";
+      if(step===3) return "No problem! Do you have a budget range in mind?";
+      if(step===4) return "No problem! What's your name?";
+      if(step===5) return "No problem! What's the best phone number to reach you?";
+      if(step===6) return "No problem! What's the best email to reach you?";
+      return "No problem! Take your time. 😊";
+    }
+
+    function showIdleButtons() {
+      const div = document.createElement("div"); div.className="quick-btns"; div.id="idleBtns";
+      const yes = document.createElement("button"); yes.textContent="Yes, still here!";
+      yes.onclick = () => { document.getElementById("idleBtns").remove(); addUserMessage("Yes, still here!"); awaitingIdleResponse=false; botReply(getResumeMessage()); resetIdleTimer(); };
+      const no = document.createElement("button"); no.textContent="No, I'm done";
+      no.onclick = () => { document.getElementById("idleBtns").remove(); addUserMessage("No, I'm done"); awaitingIdleResponse=false; botReply("No problem! Feel free to come back anytime. 😊"); clearTimeout(idleTimer); };
+      div.appendChild(yes); div.appendChild(no); botMessages.appendChild(div);
+      botMessages.scrollTop = botMessages.scrollHeight;
+    }
+
+    const intentOptions = {
+      "🚀 New startup or app idea":  ["📱 Mobile App","🌐 Web App","☁️ SaaS Platform","🛒 eCommerce","🔧 Other"],
+      "🏢 Software for my business": ["⚙️ Automate Workflows","👥 Customer Management","📊 Reporting & Analytics","🗂️ Employee Tools","🔧 Other"],
+      "📈 Digital marketing help":   ["📈 Increase Website Traffic","🎯 Generate More Leads","📣 Social Media Growth","💰 Paid Advertising","🔧 Other"],
+      "🤔 Just exploring":           ["🔭 Planning a Future Project","🔍 Comparing Vendors","💡 Learning About Tech","👀 Just Curious"]
+    };
+
+    function showIntentOptions(intent) {
+      const opts = intentOptions[intent] || ["Mobile App","Web App","Something else"];
+      const div = document.createElement("div"); div.className="quick-btns"; div.id="intentOptBtns";
+      opts.forEach(o => {
+        const b = document.createElement("button"); b.textContent = o;
+        b.onclick = () => {
+          document.getElementById("intentOptBtns")?.remove();
+          addUserMessage(o); leadData.intent_detail = o;
+          botReply("Great choice! Let's figure out the best way to help. 😊", () => showTimelineStep());
+        };
+        div.appendChild(b);
+      });
+      botMessages.appendChild(div); botMessages.scrollTop = botMessages.scrollHeight;
+    }
+
+    window.handleStep1 = function(val) {
+      expandUI();
+      const btns = document.getElementById("step1-btns"); if(btns) btns.remove();
+      addUserMessage(val); leadData.intent=val; step=1; resetIdleTimer();
+      botReply(intentFollowUp[val]||"Tell me more about what you're looking for!", () => showIntentOptions(val));
+    };
+
+    function showTimelineStep() {
+      step=2; resetIdleTimer();
+      botReply("When would you like to go live with the project?", () => {
+        const div = document.createElement("div"); div.className="quick-btns"; div.id="timelineBtns";
+        ["⚡ ASAP (ready to start now)","📅 1–3 months","🗓️ 3–6 months","🔮 6+ months","🤷 Not sure yet"].forEach(t => {
+          const b=document.createElement("button"); b.textContent=t; b.onclick=()=>handleTimeline(t); div.appendChild(b);
+        });
+        botMessages.appendChild(div); botMessages.scrollTop=botMessages.scrollHeight;
+      });
+    }
+
+    function handleTimeline(val) {
+      const btns=document.getElementById("timelineBtns"); if(btns) btns.remove();
+      addUserMessage(val); leadData.timeline=val; showBudgetStep();
+    }
+
+    function showBudgetStep() {
+      step=3; resetIdleTimer();
+      botReply("Do you have a budget range in mind for this project?", () => {
+        const div=document.createElement("div"); div.className="budget-btns"; div.id="budgetBtns";
+        ["⭐ Under $10k","⭐⭐ $10k – $25k","⭐⭐⭐ $25k – $50k","⭐⭐⭐⭐ $50k+","🤷 Not sure yet"].forEach(b => {
+          const btn=document.createElement("button"); btn.textContent=b; btn.onclick=()=>handleBudget(b); div.appendChild(btn);
+        });
+        botMessages.appendChild(div); botMessages.scrollTop=botMessages.scrollHeight;
+      });
+    }
+
+    function handleBudget(val) {
+      const btns=document.getElementById("budgetBtns"); if(btns) btns.remove();
+      addUserMessage(val); leadData.budget=val; showContactStep();
+    }
+
+    function showContactStep() {
+      step=4; resetIdleTimer();
+      botReply("Thanks, this helps a lot! 😊 Let me grab your details so a team member can reach out.<br><br>What's your name?");
+    }
+
+    function showFinalCTA() {
+      step=7; clearTimeout(idleTimer);
+      botReply("Awesome! Based on what you've shared, the best next step is a quick call or Google Meet to go over your project! 🎉", () => {
+        const div=document.createElement("div"); div.className="cta-btns"; div.id="ctaBtns";
+        const book=document.createElement("button"); book.className="cta-btn-primary"; book.textContent="📅 Book a Google Meet";
+        book.onclick=()=>{ handleCTA("Book a Google Meet"); window.open("https://calendly.com/shreya-ethixweb/30min","_blank"); };
+        const email=document.createElement("button"); email.className="cta-btn-secondary"; email.textContent="📩 Send me info by email";
+        email.onclick=()=>handleCTA("Send me info by email");
+        div.appendChild(book); div.appendChild(email); botMessages.appendChild(div);
+        botMessages.scrollTop=botMessages.scrollHeight;
+      }, 1200);
+    }
+
+    function handleCTA(choice) {
+      const btns=document.getElementById("ctaBtns"); if(btns) btns.remove();
+      addUserMessage(choice); leadData.cta_choice=choice;
+      botInput.disabled=true; botInput.placeholder="Chat complete";
+      document.querySelector(".chat-input button").disabled=true;
+      botReply(choice==="Book a Google Meet"
+        ? "Great! We're opening Calendly now 🎉 — pick a time that works for you. A confirmation will also be sent to "+leadData.email+"! 😊"
+        : "Perfect! We'll send everything over to "+leadData.email+" shortly. Talk soon! 😊");
+      submitLead();
+    }
+
+    function submitLead() {
+      const params = { intent:leadData.intent, intent_detail:leadData.intent_detail, timeline:leadData.timeline, budget:leadData.budget, name:leadData.name, phone:leadData.phone, email:leadData.email, cta_choice:leadData.cta_choice, page:leadData.page, page_name:leadData.page_name, utm_source:leadData.utm_source, utm_campaign:leadData.utm_campaign, utm_medium:leadData.utm_medium, utm_term:leadData.utm_term, utm_content:leadData.utm_content, gclid:leadData.gclid };
+      emailjs.send("service_f4tf0yn","template_c6hi8ir", params).then(r=>console.log("Lead sent",r.status)).catch(e=>console.log("Lead failed",e));
+      emailjs.send("service_f4tf0yn", USER_CONFIRM_TEMPLATE, { user_name:leadData.name, user_email:leadData.email, cta_choice:leadData.cta_choice }).then(r=>console.log("Confirm sent",r.status)).catch(e=>console.log("Confirm failed",e));
+    }
+
+    const offTopicKeywords = ["price","pricing","cost","how much","what do you","who are you","services","what is","can you","help","support","contact","discount","trial"];
+    function isOffTopic(v) { return offTopicKeywords.some(k=>v.toLowerCase().includes(k)); }
+
+    window.handleInput = function() {
+      const val = botInput.value.trim(); if(!val) return;
+      if(awaitingIdleResponse) { awaitingIdleResponse=false; addUserMessage(val); botInput.value=""; botReply(getResumeMessage()); resetIdleTimer(); return; }
+      addUserMessage(val); botInput.value=""; resetIdleTimer();
+      if(step===0) { botReply("Please use the buttons above to get started! 👆"); return; }
+      if(step===1||step===2||step===3) { botReply("Please choose one of the options above 😊"); return; }
+      if((step===4||step===5||step===6)&&isOffTopic(val)) {
+        botReply("Great question! Our team will cover all that on the call. For now: "+(step===4?"What's your name?":step===5?"What's your phone number?":"What's your email address?")); return;
+      }
+      if(step===4) { if(val.length<2){botReply("Could you enter your full name please? 😊");return;} leadData.name=val; step=5; botReply("Nice to meet you, "+val.split(" ")[0]+"! 😊 What's the best phone number to reach you?"); return; }
+      if(step===5) { const d=val.replace(/\D/g,""); if(d.length<7){botReply("That doesn't look like a valid phone number — could you double-check? 😊");return;} leadData.phone=val; step=6; botReply("Got it! And what's the best email address to reach you?"); return; }
+      if(step===6) { if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)){botReply("That doesn't look right — could you double-check your email address?");return;} leadData.email=val; showFinalCTA(); return; }
+    };
+
+    botInput.addEventListener("keypress", e => { if(e.key==="Enter") window.handleInput(); });
+  })();
+  </script>
+  <!-- ══ END CHATBOT ══ -->
+
   </body>
 </html>

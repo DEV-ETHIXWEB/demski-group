@@ -274,11 +274,7 @@ html { overflow-x: hidden; }
 
 <script is:inline>
 (async function() {
-  // ── Fetch from WP REST API (browser-side, works on any host) ──
-  const WP_URLS = [
-    'https://demskigroup.com/wp-json/wp/v2/our-clients',
-    'https://demskigrdev.wpenginepowered.com/wp-json/wp/v2/our-clients',
-  ];
+  const WP_BASE = 'https://demskigroup.com/wp-json/wp/v2/our-clients';
 
   function clean(str) {
     return (str || '').replace(/&amp;/g,'&').replace(/&#8217;/g,"'")
@@ -286,41 +282,53 @@ html { overflow-x: hidden; }
   }
 
   function normalizeLink(link, slug) {
-    return (link || '')
-      .replace('https://demskigrdev.wpenginepowered.com','')
-      .replace('https://demskigroup.com','')
-      || `/our-clients/${slug}/`;
+    return (link || '').replace('https://demskigroup.com','') || `/our-clients/${slug}/`;
+  }
+
+  function extractPhoto(item) {
+    // Try featured media first, then ACF fields, then any embedded image
+    return item._embedded?.['wp:featuredmedia']?.[0]?.source_url
+      || item.acf?.featured_image?.url
+      || item.acf?.image?.url
+      || item.meta?.thumbnail
+      || '';
   }
 
   async function fetchClients() {
-    for (const base of WP_URLS) {
-      try {
-        let all = [], page = 1, totalPages = 1;
-        do {
-          const res = await fetch(
-            `${base}?_embed&per_page=100&page=${page}`
-          );
-          if (!res.ok) break;
-          const tp = res.headers.get('X-WP-TotalPages');
-          if (tp) totalPages = parseInt(tp);
-          const data = await res.json();
-          if (!Array.isArray(data) || !data.length) break;
-          all = [...all, ...data];
-          page++;
-        } while (page <= totalPages);
+    try {
+      let all = [], page = 1, totalPages = 1;
+      do {
+        const res = await fetch(
+          `${WP_BASE}?_embed&per_page=100&page=${page}`,
+          { signal: AbortSignal.timeout(10000) }
+        );
+        if (!res.ok) break;
+        const tp = res.headers.get('X-WP-TotalPages');
+        if (tp) totalPages = parseInt(tp);
+        const data = await res.json();
+        if (!Array.isArray(data) || !data.length) break;
+        all = [...all, ...data];
+        page++;
+      } while (page <= totalPages);
 
-        if (all.length > 0) return all.map(item => ({
-          id:    item.id,
-          name:  clean(item.title?.rendered),
-          slug:  item.slug || '',
-          link:  normalizeLink(item.link, item.slug),
-          photo: item._embedded?.['wp:featuredmedia']?.[0]?.source_url || '',
-          desc:  clean(item.excerpt?.rendered).replace(/\[&hellip;\]/g,''),
-        }));
-      } catch(e) { continue; }
-    }
+      if (all.length > 0) return all.map(item => ({
+        id:    item.id,
+        name:  clean(item.title?.rendered),
+        slug:  item.slug || '',
+        link:  normalizeLink(item.link, item.slug),
+        photo: extractPhoto(item),
+        desc:  clean(item.excerpt?.rendered).replace(/\[&hellip;\]/g,''),
+      }));
+    } catch(e) { console.warn('Clients fetch error:', e?.message); }
     return [];
   }
+
+  // Known hero clients with hardcoded images as reliable fallback
+  const KNOWN_HEROES = [
+    { slug: 'hewlett-packard-enterprise', photo: 'https://demskigroup.com/wp-content/uploads/2024/07/HP-1.png' },
+    { slug: 'willo',                      photo: 'https://demskigroup.com/wp-content/uploads/2024/07/Willo-1.png' },
+    { slug: 'farmers-daughter-fibers',    photo: 'https://demskigroup.com/wp-content/uploads/2024/07/FarmersDaughter.png' },
+  ];
 
   function heroCard(c, tall) {
     const style = c.photo ? `background-image:url('${c.photo}')` : 'background:#0a1628';
@@ -333,9 +341,36 @@ html { overflow-x: hidden; }
     </a>`;
   }
 
+  // Known card images as fallback when API returns no photo
+  const KNOWN_IMAGES = {
+    'biopac':               'https://demskigroup.com/wp-content/uploads/2024/07/Biopac.png',
+    'shop-orthopedics':     'https://demskigroup.com/wp-content/uploads/2024/06/ShopOrthopedics-1.png',
+    'property-gauge':       'https://demskigroup.com/wp-content/uploads/2024/07/PropertyGauge.png',
+    'mister-quik':          'https://demskigroup.com/wp-content/uploads/2024/07/mrquick.png',
+    'pnc-bank':             'https://demskigroup.com/wp-content/uploads/2024/06/company-logo-4.png',
+    'jackson-hewitt':       'https://demskigroup.com/wp-content/uploads/2024/06/jacksonhewitt-1.png',
+    'seen-dating':          'https://demskigroup.com/wp-content/uploads/2024/06/SEENDating-1.png',
+    'nu-borders':           'https://demskigroup.com/wp-content/uploads/2024/07/Nuborders.png',
+    'robomaster':           'https://demskigroup.com/wp-content/uploads/2024/06/Robomaster-1.png',
+    'zoomifi':              'https://demskigroup.com/wp-content/uploads/2024/06/Zoomifi-1.png',
+    'yawye':                'https://demskigroup.com/wp-content/uploads/2024/06/Yawye-1.png',
+    'tausi-brands':         'https://demskigroup.com/wp-content/uploads/2024/06/Tausi-1.png',
+    'corning-glass':        'https://demskigroup.com/wp-content/uploads/2024/07/corning-300x201-1.png',
+    'flower-moxie-case-study': 'https://demskigroup.com/wp-content/uploads/2024/07/Flowermoxie.png',
+    'golf-daddy':           'https://demskigroup.com/wp-content/uploads/2024/07/Branded-300x159.png',
+    'audiojack':            'https://demskigroup.com/wp-content/uploads/2024/06/audiojackhighres-300x159.png',
+    'willo':                'https://demskigroup.com/wp-content/uploads/2024/07/Willo-1.png',
+    'impact-team-tennis':   'https://demskigroup.com/wp-content/uploads/2025/02/ITTLogo-300x159.png',
+    'bite':                 'https://demskigroup.com/wp-content/uploads/2024/08/newbitelogo.png',
+    'zoomifi':              'https://demskigroup.com/wp-content/uploads/2024/06/Zoomifi-1.png',
+    'hewlett-packard-enterprise': 'https://demskigroup.com/wp-content/uploads/2024/07/HP-1.png',
+    'farmers-daughter-fibers': 'https://demskigroup.com/wp-content/uploads/2024/07/FarmersDaughter.png',
+  };
+
   function clientCard(c) {
-    const img = c.photo
-      ? `<img src="${c.photo}" alt="${c.name}" loading="lazy" />`
+    const photo = c.photo || KNOWN_IMAGES[c.slug] || '';
+    const img = photo
+      ? `<img src="${photo}" alt="${c.name}" loading="lazy" />`
       : `<span class="client-card-name">${c.name}</span>`;
     return `<a class="client-card" href="${c.link}">
       <div class="client-card-img-wrap">${img}</div>
@@ -343,19 +378,21 @@ html { overflow-x: hidden; }
     </a>`;
   }
 
-  // Fetch
-  const clients = await fetchClients();
-  if (!clients.length) return;
-
-  // ── Hero cards ──
-  const biopacSlugs = ['hewlett-packard-enterprise', 'willo', 'farmers-daughter-fibers'];
-  let heroCards = biopacSlugs.map(s => clients.find(c => c.slug === s)).filter(Boolean);
-  if (heroCards.length < 2) heroCards = clients.filter(c => c.photo).slice(0, 3);
-
+  // ── Hero cards: inject IMMEDIATELY from KNOWN_HEROES — no API wait ──
+  const HERO_CARDS_DATA = [
+    { slug: 'hewlett-packard-enterprise', name: 'Hewlett Packard Enterprise', link: '/our-clients/hewlett-packard-enterprise/', photo: 'https://demskigroup.com/wp-content/uploads/2024/07/HP-1.png' },
+    { slug: 'willo',                      name: 'Willo',                      link: '/our-clients/willo/',                      photo: 'https://demskigroup.com/wp-content/uploads/2024/07/Willo-1.png' },
+    { slug: 'farmers-daughter-fibers',    name: "Farmer's Daughter Fibers",   link: '/our-clients/farmers-daughter-fibers/',    photo: 'https://demskigroup.com/wp-content/uploads/2024/07/FarmersDaughter.png' },
+  ];
   const heroEl = document.getElementById('hero-cards');
-  if (heroEl && heroCards.length) {
-    heroEl.innerHTML = heroCards.slice(0,3).map((c,i) => heroCard(c, i===0)).join('');
+  if (heroEl) {
+    heroEl.innerHTML = HERO_CARDS_DATA.map((c, i) => heroCard(c, i === 0)).join('');
   }
+
+  // ── Fetch remaining clients from API (non-blocking) ──
+  const clients = await fetchClients();
+
+  if (!clients.length) return;
 
   // ── BIOPAC section ──
   const biopac = clients.find(c => c.slug?.includes('biopac')) || clients[0];
@@ -367,8 +404,9 @@ html { overflow-x: hidden; }
     ? biopac.desc
     : 'The Demski Group successfully delivered a scalable and efficient web application for Biopac, enabling users to perform and track scientific studies online.';
 
-  const biopacLogoHtml = biopac?.photo
-    ? `<img src="${biopac.photo}" alt="${biopac.name}" style="height:64px;object-fit:contain;filter:brightness(0) invert(1)" />`
+  const biopacPhoto = biopac?.photo || KNOWN_IMAGES[biopac?.slug] || '';
+  const biopacLogoHtml = biopacPhoto
+    ? `<img src="${biopacPhoto}" alt="${biopac.name}" style="height:64px;object-fit:contain;filter:brightness(0) invert(1)" />`
     : `<span class="biopac-name-text">${biopac?.name || ''}</span>`;
 
   const biopacSection = document.getElementById('biopac-section');
