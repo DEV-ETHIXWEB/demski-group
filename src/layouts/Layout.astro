@@ -517,6 +517,7 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
   <div id="bot-launcher" onclick="toggleBot()" style="display:none;">
     <img src="/72e79b86-c143-495c-b6bb-c10553e75cd3.png" alt="" onerror="this.src='https://ethixweb.com/wp-content/uploads/2026/03/avatar-woman-smiling-lady-portrait-250nw-2692286767.webp'" />
     <span class="online-dot"></span>
+    <span class="launcher-badge" id="launcher-badge">1</span>
   </div>
 
   <div id="lead-bot" style="display:none;">
@@ -531,43 +532,56 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
           </div>
           <div>
             <div class="ch-name">Erin</div>
-            <div class="ch-status">Online · The Demski Group</div>
+            <div class="ch-status">The Demski Group</div>
           </div>
         </div>
         <span class="close-btn" onclick="toggleBot()">&#x00D7;</span>
       </div>
 
-      <!-- Expanded top section -->
+      <!-- Expanded top section (compact inline header) -->
       <div id="top-section">
         <div class="top-header-row">
-          <span class="top-brand">The Demski Group</span>
-          <span class="close-btn" onclick="toggleBot()">&#x00D7;</span>
+          <div class="chat-user">
+            <div class="chat-avatar-wrap">
+              <img src="/72e79b86-c143-495c-b6bb-c10553e75cd3.png" alt="Erin" />
+              <span class="hdr-dot"></span>
+            </div>
+            <div>
+              <div class="ch-name">Erin</div>
+              <div class="ch-status">The Demski Group</div>
+            </div>
+          </div>
+          <span class="close-btn" id="top-close-btn" onclick="toggleBot()">&#x00D7;</span>
         </div>
-        <div class="top-avatar-wrap">
-          <img src="/72e79b86-c143-495c-b6bb-c10553e75cd3.png" class="top-avatar" alt="Erin" />
-          <span class="top-dot"></span>
+      </div>
+
+      <!-- Welcome screen -->
+      <div id="welcome-screen">
+        <div class="welcome-avatar-wrap">
+          <img src="/72e79b86-c143-495c-b6bb-c10553e75cd3.png" alt="Erin" class="welcome-avatar" />
+          <span class="welcome-dot"></span>
         </div>
-        <div class="top-name">Erin</div>
-        <div class="top-sub">Customer Success · Just now</div>
-        <div class="terms-box">By continuing, you agree to our <u>terms</u> and <u>privacy policy</u>.</div>
+        <div class="welcome-name">Erin</div>
+        <div class="welcome-role">Customer Success · The Demski Group</div>
+        <p class="welcome-fine-print">By using this chat, you agree to our terms and privacy policy.</p>
       </div>
 
       <!-- Messages -->
-      <div id="bot-messages" class="chat-body">
-        <div class="bot-msg-wrap">
-          <img src="/72e79b86-c143-495c-b6bb-c10553e75cd3.png" class="msg-avatar" alt="" width="26" height="26" style="width:26px;height:26px;min-width:26px;flex-shrink:0;" />
-          <div class="bot-msg">Hi there! 👋 What brings you here today?</div>
+      <div id="bot-messages" class="chat-body chat-body--hidden" style="background:rgba(255,255,255,0.18)!important;overflow:hidden auto!important;">
+        <div class="bot-msg-wrap" style="display:flex;align-items:flex-end;gap:8px;max-width:88%;">
+          <img src="/72e79b86-c143-495c-b6bb-c10553e75cd3.png" class="msg-avatar" alt="" style="width:28px!important;height:28px!important;min-width:28px!important;max-width:28px!important;border-radius:50%!important;object-fit:cover!important;flex-shrink:0!important;border:2px solid #fff!important;display:block!important;" />
+          <div class="bot-msg" style="background:rgba(255,255,255,0.88);padding:10px 14px;border-radius:4px 18px 18px 18px;font-size:13.5px;color:#1e2024;line-height:1.65;box-shadow:0 2px 8px rgba(0,0,0,0.06);flex:1;">Hi there! 👋 What brings you here today?</div>
         </div>
-        <div id="step1-btns" class="quick-btns">
-          <button onclick="handleStep1('🚀 New startup or app idea')">🚀 New startup or app idea</button>
-          <button onclick="handleStep1('🏢 Software for my business')">🏢 Software for my business</button>
-          <button onclick="handleStep1('📈 Digital marketing help')">📈 Digital marketing help</button>
-          <button onclick="handleStep1('🤔 Just exploring')">🤔 Just exploring</button>
+        <div id="step1-btns" class="quick-btns grid-btns">
+          <button onclick="handleStep1('New startup or app idea')">New startup or app idea</button>
+          <button onclick="handleStep1('Software for my business')">Software for my business</button>
+          <button onclick="handleStep1('Digital marketing help')">Digital marketing help</button>
+          <button onclick="handleStep1('Just exploring')">Just exploring</button>
         </div>
       </div>
 
       <!-- Input -->
-      <div class="chat-input">
+      <div class="chat-input" id="chat-input-bar" style="display:none;">
         <input type="text" id="bot-input" placeholder="Ask a question…" />
         <button onclick="handleInput()" aria-label="Send">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
@@ -575,7 +589,7 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
       </div>
 
       <!-- CTA -->
-      <a href="https://calendly.com/shreya-ethixweb/30min" target="_blank" class="sticky-schedule-btn">
+      <a href="https://calendly.com/shreya-ethixweb/30min" target="_blank" class="sticky-schedule-btn" id="chat-cta-bar" style="display:none;">
         📅 Schedule a Free Consultation
       </a>
     </div>
@@ -584,223 +598,313 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
   <style>
     /* ─── Launcher ─── */
     #bot-launcher {
-      position: fixed; bottom: 30px; right: 30px; width: 110px; height: 110px;
+      position: fixed; bottom: 32px; right: 32px; width: 98px; height: 98px;
       border-radius: 50%; cursor: pointer; z-index: 10001;
       display: flex; align-items: center; justify-content: center;
       background: transparent;
       opacity: 0; transform: translateY(60px) scale(0.7);
-      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
     }
     #bot-launcher.launcher-visible { opacity: 1; transform: translateY(0) scale(1); }
     #bot-launcher::before {
       content: ''; position: absolute; inset: -3px; border-radius: 50%;
       background: linear-gradient(135deg, #0154B1, #4facfe, #0154B1);
-      z-index: -1;
+      z-index: -1; animation: ring-spin 4s linear infinite;
     }
+    @keyframes ring-spin { to { transform: rotate(360deg); } }
     #bot-launcher img {
-      width: 104px; height: 104px; border-radius: 50%; object-fit: cover;
-      border: 3px solid #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      width: 92px; height: 92px; border-radius: 50%; object-fit: cover;
+      border: 3px solid #fff; box-shadow: 0 6px 24px rgba(1,84,177,0.28);
       transition: transform 0.3s ease;
     }
-    #bot-launcher:hover img { transform: scale(1.04); }
+    #bot-launcher:hover img { transform: scale(1.06); }
     .online-dot {
-      position: absolute; bottom: 6px; right: 6px;
-      width: 16px; height: 16px; background: #22c55e;
-      border-radius: 50%; border: 3px solid #fff;
-      box-shadow: 0 0 0 2px rgba(34,197,94,0.3);
+      position: absolute; bottom: 4px; right: 4px;
+      width: 14px; height: 14px; background: #22c55e;
+      border-radius: 50%; border: 2.5px solid #fff;
+      box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
     }
+    .launcher-badge {
+      position: absolute; top: 2px; right: 2px;
+      width: 22px; height: 22px; background: #e53e3e; color: #fff;
+      border-radius: 50%; border: 2px solid #fff;
+      font-size: 12px; font-weight: 700; font-family: 'Outfit', sans-serif;
+      display: none; align-items: center; justify-content: center;
+      box-shadow: 0 2px 6px rgba(229,62,62,0.5);
+      animation: badge-pop 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    .launcher-badge.badge-visible { display: flex !important; }
+    @keyframes badge-pop { from { transform: scale(0); } to { transform: scale(1); } }
 
     /* ─── Greeting bubble ─── */
     #greeting-bubble {
-      position: fixed; bottom: 155px; right: 150px; z-index: 10000;
-      background: #fff; border-radius: 14px 14px 4px 14px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.12); padding: 14px 16px 12px;
-      max-width: 215px; border: 1px solid #f0f2f5; font-family: 'Outfit', sans-serif;
-      opacity: 0; transform: translateY(8px) scale(0.95);
+      position: fixed; bottom: 110px; right: 100px; z-index: 10000;
+      background: #fff; border-radius: 16px 16px 4px 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.13); padding: 14px 16px 12px;
+      max-width: 220px; border: 1px solid #eef0f4; font-family: 'Outfit', sans-serif;
+      opacity: 0; transform: translateY(10px) scale(0.94);
       transition: opacity 0.3s, transform 0.3s; pointer-events: none;
     }
     #greeting-bubble.bubble-visible { opacity: 1; transform: none; pointer-events: all; }
-    #greeting-bubble.bubble-hide { opacity: 0; transform: translateY(8px) scale(0.95); pointer-events: none; }
-    #greeting-bubble p { font-size: 13px; color: #333; margin: 0 0 10px; line-height: 1.5; padding-right: 12px; }
+    #greeting-bubble.bubble-hide { opacity: 0; transform: translateY(10px) scale(0.94); pointer-events: none; }
+    #greeting-bubble p { font-size: 13px; color: #333; margin: 0 0 10px; line-height: 1.5; padding-right: 14px; }
     #greeting-bubble button {
       background: #0154B1; color: #fff; border: none; padding: 8px 14px;
-      border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
+      border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer;
       width: 100%; font-family: 'Outfit', sans-serif; transition: background 0.2s;
     }
     #greeting-bubble button:hover { background: #0146a0; }
-    .bubble-close { position: absolute; top: 8px; right: 10px; font-size: 15px; color: #bbb; cursor: pointer; }
+    .bubble-close { position: absolute; top: 8px; right: 10px; font-size: 16px; color: #ccc; cursor: pointer; line-height: 1; }
     .bubble-close:hover { color: #666; }
 
     /* ─── Chat window ─── */
-    #lead-bot { position: fixed; bottom: 155px; right: 30px; z-index: 10001; }
+    #lead-bot {
+      position: fixed; bottom: 108px; right: 28px; z-index: 10001;
+      animation: bot-pop-in 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes bot-pop-in { from { opacity:0; transform: translateY(20px) scale(0.96); } to { opacity:1; transform: none; } }
     .chat-card {
-      width: 360px; border-radius: 20px; overflow: hidden;
-      background: #fff;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.14), 0 4px 16px rgba(0,0,0,0.06);
+      width: 370px; border-radius: 22px; overflow: hidden;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.12), 0 6px 20px rgba(1,84,177,0.06);
       display: flex; flex-direction: column;
-      max-height: calc(100vh - 200px);
+      max-height: calc(100vh - 160px);
       font-family: 'Outfit', sans-serif;
-      outline: 2px solid transparent;
-      background-clip: padding-box;
-      border: 1px solid rgba(0,0,0,0.06);
+      border: 1px solid rgba(255,255,255,0.3);
     }
 
     /* ─── Compact header ─── */
     .chat-header {
-      background: #fff; padding: 14px 16px;
+      background: linear-gradient(135deg, #0154B1 0%, #1a7fe8 100%);
+      padding: 14px 16px;
       display: flex; justify-content: space-between; align-items: center;
-      flex-shrink: 0; border-bottom: 1px solid #f0f2f5;
+      flex-shrink: 0;
     }
     .chat-user { display: flex; gap: 11px; align-items: center; }
     .chat-avatar-wrap { position: relative; flex-shrink: 0; }
-    .chat-avatar-wrap img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; display: block; }
+    .chat-avatar-wrap img {
+      width: 40px; height: 40px; border-radius: 50%; object-fit: cover;
+      border: 2px solid rgba(255,255,255,0.5); display: block;
+    }
     .hdr-dot {
       position: absolute; bottom: 1px; right: 1px;
       width: 10px; height: 10px; background: #22c55e;
-      border-radius: 50%; border: 2px solid #fff;
+      border-radius: 50%; border: 2px solid #0154B1;
     }
-    .ch-name { font-weight: 700; color: #111; font-size: 14px; }
-    .ch-status { font-size: 11px; color: #22c55e; margin-top: 1px; font-weight: 500; }
+    .ch-name { font-weight: 700; color: #fff; font-size: 14px; letter-spacing: 0.1px; }
+    .ch-status { font-size: 11px; color: rgba(255,255,255,0.75); margin-top: 2px; font-weight: 400; display: flex; align-items: center; gap: 4px; }
+    .ch-status::before { content:''; display:inline-block; width:6px; height:6px; background:#22c55e; border-radius:50%; }
     .close-btn {
-      cursor: pointer; font-size: 18px; color: #999; line-height: 1;
+      cursor: pointer; font-size: 20px; color: rgba(255,255,255,0.7); line-height: 1;
       width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
       border-radius: 50%; transition: background 0.15s, color 0.15s; user-select: none;
     }
-    .close-btn:hover { background: #f5f5f5; color: #333; }
+    .close-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
 
-    /* ─── Expanded top section ─── */
+    /* ─── Expanded top section (reuses compact header styles) ─── */
     #top-section {
-      display: none; text-align: center; padding: 0 16px 12px;
-      background: #fff; flex-shrink: 0; border-bottom: 1px solid #f0f2f5;
+      display: none;
+      background: linear-gradient(135deg, #0154B1 0%, #1a7fe8 100%);
+      flex-shrink: 0;
     }
     .top-header-row {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 10px 0 10px;
-    }
-    .top-brand { font-size: 13px; font-weight: 600; color: #555; letter-spacing: 0.2px; }
-    .top-avatar-wrap { position: relative; display: inline-block; margin-bottom: 6px; }
-    .top-avatar {
-      width: 52px; height: 52px; border-radius: 50%; object-fit: cover;
-      border: 2px solid #fff; box-shadow: 0 0 0 2.5px #0154B1;
-    }
-    .top-dot {
-      position: absolute; bottom: 2px; right: 2px;
-      width: 11px; height: 11px; background: #22c55e;
-      border-radius: 50%; border: 2px solid #fff;
-    }
-    .top-name { font-weight: 700; color: #111; font-size: 15px; margin-bottom: 2px; }
-    .top-sub { font-size: 11px; color: #888; margin-bottom: 8px; }
-    .terms-box {
-      background: #f7f8fa; padding: 8px 10px; border-radius: 8px;
-      font-size: 10.5px; color: #999; line-height: 1.55; text-align: left;
-      border: 1px solid #eee;
+      padding: 14px 16px;
     }
 
-    /* ─── Messages ─── */
-    .chat-body {
-      flex: 1; overflow-y: auto; overflow-x: hidden;
-      display: flex; flex-direction: column; gap: 10px;
-      padding: 14px 12px; min-height: 100px; max-height: 260px;
-      background: #f9fafb;
+    /* ─── Welcome screen ─── */
+    #welcome-screen {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 32px 24px 28px;
+      background: transparent; flex: 1; text-align: center;
     }
-    .bot-msg-wrap { display: flex; align-items: flex-end; gap: 8px; max-width: 90%; overflow: hidden; }
+    .welcome-avatar-wrap {
+      position: relative; display: inline-block; margin-bottom: 14px;
+    }
+    .welcome-avatar {
+      width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 3px #0154B1, 0 8px 28px rgba(1,84,177,0.18);
+    }
+    .welcome-dot {
+      position: absolute; bottom: 4px; right: 4px;
+      width: 14px; height: 14px; background: #22c55e;
+      border-radius: 50%; border: 2.5px solid #fff;
+      box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
+    }
+    .welcome-name {
+      font-size: 18px; font-weight: 700; color: #111; margin-bottom: 4px;
+    }
+    .welcome-role {
+      font-size: 12px; color: #888; margin-bottom: 20px;
+    }
+    .welcome-fine-print {
+      font-size: 10.5px; color: #bbb; text-align: center;
+      margin-top: 10px; line-height: 1.5;
+    }
+
+    /* ─── Messages area ─── */
+    #lead-bot .chat-body--hidden { display: none !important; }
+    #lead-bot .chat-body {
+      flex: 1; overflow-y: auto !important; overflow-x: hidden !important;
+      display: flex; flex-direction: column !important; gap: 8px !important;
+      padding: 16px 14px 10px !important; min-height: 120px !important; max-height: 400px !important;
+      background: #f4f6f9 !important;
+      scrollbar-width: thin; scrollbar-color: #dde1e9 transparent;
+    }
+    .chat-body::-webkit-scrollbar { width: 4px; }
+    .chat-body::-webkit-scrollbar-thumb { background: #dde1e9; border-radius: 4px; }
+
+    /* message entrance animation */
+    @keyframes msg-in { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: none; } }
+
+    #lead-bot .bot-msg-wrap {
+      display: flex !important; align-items: flex-end !important; gap: 8px !important;
+      max-width: 88% !important; animation: msg-in 0.25s ease both;
+    }
     #lead-bot img.msg-avatar, #bot-messages img.msg-avatar {
-      width: 26px !important; height: 26px !important;
-      min-width: 26px !important; max-width: 26px !important;
-      min-height: 26px !important; max-height: 26px !important;
+      width: 28px !important; height: 28px !important;
+      min-width: 28px !important; max-width: 28px !important;
+      min-height: 28px !important; max-height: 28px !important;
       border-radius: 50% !important; object-fit: cover !important;
       flex-shrink: 0 !important; flex-grow: 0 !important;
-      border: 1.5px solid #e8ecf0 !important;
+      border: 2px solid #fff !important;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1) !important;
       display: block !important; align-self: flex-end !important;
     }
-    .bot-msg {
-      background: #fff; padding: 10px 14px; border-radius: 4px 16px 16px 16px;
-      font-size: 13.5px; color: #1a1a1a; line-height: 1.6;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.07); flex: 1;
+    #lead-bot .bot-msg {
+      background: #ffffff !important;
+      padding: 10px 14px !important; border-radius: 4px 18px 18px 18px !important;
+      font-size: 13.5px !important; color: #1e2024 !important; line-height: 1.65 !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+      flex: 1 !important; animation: msg-in 0.25s ease both;
+      display: block !important; word-break: break-word !important;
     }
-    .user-msg {
-      background: #0154B1; color: #fff; padding: 9px 15px;
-      border-radius: 18px 4px 18px 18px; align-self: flex-end;
-      max-width: 75%; font-size: 13px; line-height: 1.5;
-      box-shadow: 0 2px 8px rgba(1,84,177,0.2);
+    #lead-bot .user-msg {
+      background: linear-gradient(135deg, #0154B1, #1a7fe8) !important;
+      color: #fff !important; padding: 10px 16px !important;
+      border-radius: 18px 18px 4px 18px !important; align-self: flex-end !important;
+      max-width: 76% !important; font-size: 13.5px !important; line-height: 1.55 !important;
+      box-shadow: 0 4px 14px rgba(1,84,177,0.25) !important;
+      animation: msg-in 0.25s ease both;
+      display: block !important; word-break: break-word !important;
+    }
+
+    /* ─── Typing indicator ─── */
+    .cb-typing-wrap {
+      display: flex; align-items: flex-end; gap: 8px;
+      max-width: 88%; animation: msg-in 0.2s ease both;
+    }
+    .cb-typing-wrap .typing-avatar {
+      width: 28px; height: 28px; border-radius: 50%; object-fit: cover;
+      border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      flex-shrink: 0; align-self: flex-end;
+    }
+    .cb-typing {
+      display: flex; gap: 5px; padding: 12px 16px; align-items: center;
+      background: #fff; border-radius: 4px 18px 18px 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .cb-typing span {
+      width: 7px; height: 7px; background: #b0b8c8; border-radius: 50%;
+      animation: cb-blink 1.3s ease-in-out infinite;
+    }
+    .cb-typing span:nth-child(2) { animation-delay: .18s; }
+    .cb-typing span:nth-child(3) { animation-delay: .36s; }
+    @keyframes cb-blink {
+      0%,80%,100% { opacity:0.3; transform:scale(0.75); }
+      40% { opacity:1; transform:scale(1); }
     }
 
     /* ─── Option buttons ─── */
     .quick-btns, .budget-btns {
       display: flex !important; flex-direction: column !important; flex-wrap: nowrap !important;
-      gap: 7px; align-items: flex-end !important; width: 100%;
+      gap: 7px; align-items: stretch !important; width: 100%;
+      animation: msg-in 0.3s ease both;
     }
     .quick-btns button, .budget-btns button {
-      background: #fff; color: #1a1a1a;
-      border: none;
-      padding: 10px 18px; border-radius: 10px; cursor: pointer;
+      background: #fff; color: #0154B1;
+      border: 1.5px solid #d4e4f7;
+      padding: 10px 14px; border-radius: 22px; cursor: pointer;
       font-size: 13px; font-family: 'Outfit', sans-serif; font-weight: 500;
-      transition: all 0.18s ease; text-align: right;
-      max-width: 82%; white-space: normal; line-height: 1.4;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      transition: all 0.18s ease; text-align: center;
+      width: 100%; white-space: normal; line-height: 1.4;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
     .quick-btns button:hover, .budget-btns button:hover {
-      background: #0154B1; color: #fff;
-      box-shadow: 0 3px 10px rgba(1,84,177,0.25);
+      background: #0154B1; color: #fff; border-color: #0154B1;
+      box-shadow: 0 4px 14px rgba(1,84,177,0.22);
       transform: translateY(-1px);
     }
-    .cta-btns { display: flex; flex-direction: column; gap: 8px; }
+    .quick-btns.grid-btns, .budget-btns.grid-btns {
+      display: grid !important; grid-template-columns: 1fr 1fr !important;
+      flex-direction: unset !important; align-items: unset !important;
+    }
+    .cta-btns { display: flex; flex-direction: column; gap: 8px; animation: msg-in 0.3s ease both; }
     .cta-btns button {
-      border: none; padding: 12px; border-radius: 12px; cursor: pointer;
+      border: none; padding: 12px 16px; border-radius: 14px; cursor: pointer;
       font-size: 13.5px; font-weight: 600; font-family: 'Outfit', sans-serif;
       transition: all 0.2s; width: 100%; text-align: center;
     }
-    .cta-btn-primary { background: #F09300; color: #fff; box-shadow: 0 3px 12px rgba(240,147,0,0.35); }
-    .cta-btn-primary:hover { background: #d98200; }
+    .cta-btn-primary {
+      background: linear-gradient(135deg, #F09300, #f5a623);
+      color: #fff; box-shadow: 0 4px 14px rgba(240,147,0,0.35);
+    }
+    .cta-btn-primary:hover { background: linear-gradient(135deg, #d98200, #e8961a); transform: translateY(-1px); }
     .cta-btn-secondary { background: #f0f6ff; color: #0154B1; border: 1.5px solid #cce0f5; }
-    .cta-btn-secondary:hover { background: #0154B1; color: #fff; }
+    .cta-btn-secondary:hover { background: #0154B1; color: #fff; border-color: #0154B1; }
 
-    /* ─── Typing ─── */
-    .cb-typing { display: flex; gap: 4px; padding: 4px 2px; align-items: center; }
-    .cb-typing span { width: 7px; height: 7px; background: #c0c4cc; border-radius: 50%; animation: cb-blink 1.4s infinite; }
-    .cb-typing span:nth-child(2) { animation-delay: .2s; }
-    .cb-typing span:nth-child(3) { animation-delay: .4s; }
-    @keyframes cb-blink { 0%,100%{opacity:.3;transform:scale(0.8);} 50%{opacity:1;transform:scale(1);} }
-
-    /* ─── Input ─── */
+    /* ─── Input area ─── */
     .chat-input {
-      display: flex; align-items: center; gap: 8px; padding: 10px 12px;
-      border-top: 1px solid #f0f2f5; background: #fff; flex-shrink: 0;
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 12px 10px;
+      border-top: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.75); flex-shrink: 0;
     }
     .chat-input input {
-      flex: 1; border: 1.5px solid #eaecf0; outline: none; border-radius: 24px;
-      padding: 9px 16px; font-family: 'Outfit', sans-serif; font-size: 13px;
-      color: #1a1a1a; background: #f9fafb; transition: border 0.2s, background 0.2s;
+      flex: 1; border: 1.5px solid rgba(255,255,255,0.5); outline: none; border-radius: 24px;
+      padding: 10px 16px; font-family: 'Outfit', sans-serif; font-size: 13.5px;
+      color: #111827; background: rgba(255,255,255,0.82);
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
     }
-    .chat-input input:focus { border-color: #0154B1; background: #fff; }
-    .chat-input input::placeholder { color: #b0b5be; }
+    .chat-input input:focus {
+      border-color: #0154B1; background: rgba(255,255,255,0.95);
+      box-shadow: 0 0 0 3px rgba(1,84,177,0.1);
+    }
+    .chat-input input::placeholder { color: #aab0bc; }
     .chat-input button {
-      width: 36px; height: 36px; border-radius: 50%; background: #0154B1; color: #fff;
-      border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; transition: background 0.2s, transform 0.15s;
-      box-shadow: 0 2px 8px rgba(1,84,177,0.3);
+      width: 38px; height: 38px; border-radius: 50%;
+      background: linear-gradient(135deg, #0154B1, #1a7fe8);
+      color: #fff; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all 0.2s;
+      box-shadow: 0 3px 10px rgba(1,84,177,0.32);
     }
-    .chat-input button:hover { background: #0146a0; transform: scale(1.05); }
+    .chat-input button:hover { transform: scale(1.08); box-shadow: 0 5px 16px rgba(1,84,177,0.38); }
+    .chat-input button:active { transform: scale(0.95); }
 
     /* ─── Schedule CTA ─── */
     .sticky-schedule-btn {
-      display: block; text-align: center; background: #F09300; color: #fff;
-      font-weight: 700; font-size: 13px; font-family: 'Outfit', sans-serif;
+      display: block; text-align: center;
+      background: linear-gradient(135deg, #F09300, #f5a623);
+      color: #fff; font-weight: 700; font-size: 13.5px;
+      font-family: 'Outfit', sans-serif;
       text-decoration: none; padding: 13px; letter-spacing: 0.2px;
-      transition: background 0.2s; flex-shrink: 0;
+      transition: filter 0.2s; flex-shrink: 0;
     }
-    .sticky-schedule-btn:hover { background: #d98200; color: #fff; }
+    .sticky-schedule-btn:hover { filter: brightness(0.92); color: #fff; }
 
     /* ─── Mobile ─── */
     @media(max-width:480px){
-      #lead-bot { bottom: 0; right: 0; left: 0; width: 100%; }
-      .chat-card { width: 100%; border-radius: 20px 20px 0 0; max-height: 82vh; border: none; }
-      .chat-body { max-height: 38vh; }
-      .quick-btns { padding-left: 0; }
-      .quick-btns button { max-width: 100%; }
-      #greeting-bubble { right: 8px; bottom: 155px; max-width: calc(100vw - 90px); }
-      #bot-launcher { bottom: 16px; right: 16px; width: 80px; height: 80px; }
-      #bot-launcher img { width: 74px; height: 74px; }
+      #lead-bot { bottom: 0; right: 0; left: 0; width: 100%; animation: none; }
+      .chat-card { width: 100%; border-radius: 24px 24px 0 0; max-height: 88vh; border: none; }
+      .chat-body { max-height: 42vh; }
+      .quick-btns, .quick-btns.grid-btns { grid-template-columns: 1fr 1fr; }
+      .quick-btns button { font-size: 12px; padding: 9px 10px; }
+      #greeting-bubble { right: 8px; bottom: 100px; max-width: calc(100vw - 80px); }
+      #bot-launcher { bottom: 16px; right: 16px; width: 60px; height: 60px; }
+      #bot-launcher img { width: 54px; height: 54px; }
+      .online-dot { bottom: 2px; right: 2px; width: 12px; height: 12px; }
     }
   </style>
 
@@ -810,25 +914,72 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
     /* Inject button styles last so they beat every global override */
     const _s = document.createElement('style');
     _s.textContent = `
+      #lead-bot .chat-body--hidden{
+        display:none!important;
+      }
+      #lead-bot .chat-body{
+        background:rgba(255,255,255,0.18)!important;overflow-x:hidden!important;
+      }
+      #lead-bot .bot-msg-wrap{
+        display:flex!important;align-items:flex-end!important;gap:8px!important;
+        max-width:88%!important;
+      }
+      #lead-bot .bot-msg{
+        background:rgba(255,255,255,0.88)!important;color:#111827!important;
+        padding:10px 14px!important;border-radius:4px 18px 18px 18px!important;
+        font-size:13.5px!important;line-height:1.65!important;
+        box-shadow:0 2px 8px rgba(0,0,0,0.06)!important;
+        flex:1!important;display:block!important;word-break:break-word!important;
+      }
+      #lead-bot .user-msg{
+        background:linear-gradient(135deg,#0154B1,#1a7fe8)!important;
+        color:#fff!important;padding:10px 16px!important;
+        border-radius:18px 18px 4px 18px!important;
+        align-self:flex-end!important;max-width:76%!important;
+        font-size:13.5px!important;line-height:1.55!important;
+        box-shadow:0 4px 14px rgba(1,84,177,0.25)!important;
+        display:block!important;word-break:break-word!important;
+      }
       #lead-bot .quick-btns,#lead-bot .budget-btns{
         display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;
-        gap:6px!important;align-items:flex-end!important;width:100%!important;
+        gap:7px!important;align-items:stretch!important;
+        width:90%!important;margin-left:auto!important;margin-right:0!important;
+      }
+      #lead-bot .quick-btns.grid-btns,#lead-bot .budget-btns.grid-btns{
+        display:grid!important;grid-template-columns:1fr 1fr!important;
+        grid-auto-rows:1fr!important;
+        align-items:stretch!important;
       }
       #lead-bot .quick-btns button,#lead-bot .budget-btns button{
-        background:#fff!important;color:#0154B1!important;
-        border:1.5px solid #d4e6f7!important;
-        padding:9px 16px!important;border-radius:8px!important;
+        background:rgba(255,255,255,0.88)!important;color:#0154B1!important;
+        border:1.5px solid #d4e4f7!important;
+        padding:10px 14px!important;border-radius:22px!important;
         cursor:pointer!important;font-size:13px!important;
         font-family:'Outfit',sans-serif!important;font-weight:500!important;
-        box-shadow:0 1px 3px rgba(0,0,0,0.08)!important;
-        display:block!important;text-align:center!important;
-        width:auto!important;max-width:85%!important;
-        transition:background 0.18s,color 0.18s,border-color 0.18s!important;
+        box-shadow:0 1px 4px rgba(0,0,0,0.05)!important;
+        display:flex!important;align-items:center!important;justify-content:center!important;
+        text-align:center!important;
+        width:100%!important;height:100%!important;
+        transition:background 0.18s,color 0.18s,border-color 0.18s,transform 0.15s!important;
         line-height:1.4!important;
       }
       #lead-bot .quick-btns button:hover,#lead-bot .budget-btns button:hover{
         background:#0154B1!important;color:#fff!important;border-color:#0154B1!important;
-        box-shadow:0 3px 10px rgba(1,84,177,0.2)!important;
+        box-shadow:0 4px 14px rgba(1,84,177,0.22)!important;
+        transform:translateY(-1px)!important;
+      }
+      #lead-bot .back-btn{
+        background:transparent!important;color:#888!important;
+        border:1.5px solid #ddd!important;
+        padding:8px 18px!important;border-radius:22px!important;
+        cursor:pointer!important;font-size:12px!important;
+        font-family:'Outfit',sans-serif!important;font-weight:500!important;
+        display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;
+        margin-top:2px!important;align-self:flex-start!important;
+        transition:all 0.15s!important;line-height:1!important;
+      }
+      #lead-bot .back-btn:hover{
+        background:rgba(0,0,0,0.06)!important;color:#444!important;border-color:#bbb!important;
       }
     `;
     document.head.appendChild(_s);
@@ -840,10 +991,10 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
     let step = 0, expanded = false, idleTimer = null, idlePromptShown = false, awaitingIdleResponse = false;
 
     const intentFollowUp = {
-      "🚀 New startup or app idea":   "Love it! Tell me more — what kind of app are you thinking about?",
-      "🏢 Software for my business":  "Great! What problem are you trying to solve in your business?",
-      "📈 Digital marketing help":    "Nice! What are you hoping to improve — traffic, leads, or sales?",
-      "🤔 Just exploring":            "That's totally fine! Are you researching for a future project, or just browsing ideas?"
+      "New startup or app idea":   "Love it! Tell me more. What kind of app are you thinking about?",
+      "Software for my business":  "Great! What problem are you trying to solve in your business?",
+      "Digital marketing help":    "Nice! What are you hoping to improve: traffic, leads, or sales?",
+      "Just exploring":            "That's totally fine! Are you researching for a future project, or just browsing ideas?"
     };
 
     emailjs.init("nedYqWwwPWVZZVX0_");
@@ -879,7 +1030,7 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
       if (document.getElementById("greeting-bubble")) return;
       const b = document.createElement("div");
       b.id = "greeting-bubble";
-      b.innerHTML = `<span class="bubble-close" onclick="dismissBubble()">&#x00D7;</span><p>👋 Hi! Need help with software or app development?</p><button onclick="openFromBubble()">Let's Chat!</button>`;
+      b.innerHTML = `<span class="bubble-close" onclick="dismissBubble()">&#x00D7;</span><p>Hi! Need help with software or app development?</p><button onclick="openFromBubble()">Let's Chat!</button>`;
       document.body.appendChild(b);
       requestAnimationFrame(() => requestAnimationFrame(() => b.classList.add("bubble-visible")));
       setTimeout(() => dismissBubble(), 8000);
@@ -894,22 +1045,50 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
 
     function openFromBubble() {
       dismissBubble();
-      setTimeout(() => { document.getElementById("lead-bot").style.display="block"; resetIdleTimer(); }, 200);
+      setTimeout(() => {
+        document.getElementById("lead-bot").style.display="block";
+        window.startChat();
+      }, 200);
     }
+
+    window.startChat = function() {
+      document.getElementById("welcome-screen").style.display = "none";
+      const msgs = document.getElementById("bot-messages");
+      msgs.classList.remove("chat-body--hidden");
+      document.getElementById("chat-input-bar").style.display = "flex";
+      document.getElementById("chat-cta-bar").style.display = "block";
+      resetIdleTimer();
+    };
 
     window.toggleBot = function() {
       const win = document.getElementById("lead-bot");
+      const badge = document.getElementById("launcher-badge");
       const isOpen = win.style.display === "none";
       win.style.display = isOpen ? "block" : "none";
-      if (isOpen) { dismissBubble(); resetIdleTimer(); } else clearTimeout(idleTimer);
+      if (isOpen) {
+        dismissBubble();
+        const hadBadge = badge.classList.contains("badge-visible");
+        badge.classList.remove("badge-visible");
+        setTimeout(() => {
+          window.startChat();
+          if (hadBadge) { addBotMessage("Hi, are you still there?"); showIdleButtons(); }
+        }, 400);
+      }
     };
 
     function resetIdleTimer() {
       clearTimeout(idleTimer); idlePromptShown = false;
-      const win = document.getElementById("lead-bot");
-      if (win && win.style.display !== "none" && step < 7) {
+      if (step < 7) {
         idleTimer = setTimeout(() => {
-          if (!idlePromptShown) { idlePromptShown=true; awaitingIdleResponse=true; addBotMessage("Hi, are you still there? 👀"); showIdleButtons(); }
+          if (!idlePromptShown) {
+            idlePromptShown=true; awaitingIdleResponse=true;
+            const win=document.getElementById("lead-bot");
+            if(win && win.style.display==="none") {
+              document.getElementById("launcher-badge").classList.add("badge-visible");
+            } else {
+              addBotMessage("Hi, are you still there?"); showIdleButtons();
+            }
+          }
         }, 60000);
       }
     }
@@ -920,66 +1099,91 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
       document.getElementById("top-section").style.display = "block";
     }
 
+    const AVATAR_SRC = "/72e79b86-c143-495c-b6bb-c10553e75cd3.png";
+    const AVATAR_STYLE = "width:28px!important;height:28px!important;min-width:28px!important;max-width:28px!important;min-height:28px!important;max-height:28px!important;border-radius:50%!important;object-fit:cover!important;flex-shrink:0!important;display:block!important;border:2px solid #fff!important;align-self:flex-end;";
+    const BOT_WRAP_STYLE = "display:flex!important;align-items:flex-end!important;gap:8px!important;max-width:88%!important;";
+    const BOT_MSG_STYLE = "background:rgba(255,255,255,0.88)!important;padding:10px 14px!important;border-radius:4px 18px 18px 18px!important;font-size:13.5px!important;color:#1e2024!important;line-height:1.65!important;box-shadow:0 2px 8px rgba(0,0,0,0.06)!important;flex:1!important;display:block!important;word-break:break-word!important;";
+    const USER_MSG_STYLE = "background:linear-gradient(135deg,#0154B1,#1a7fe8)!important;color:#fff!important;padding:10px 16px!important;border-radius:18px 18px 4px 18px!important;align-self:flex-end!important;max-width:76%!important;font-size:13.5px!important;line-height:1.55!important;box-shadow:0 4px 14px rgba(1,84,177,0.25)!important;display:block!important;word-break:break-word!important;";
+
     function addBotMessage(text) {
-      const wrap = document.createElement("div"); wrap.className="bot-msg-wrap";
-      wrap.innerHTML=`<img src="/72e79b86-c143-495c-b6bb-c10553e75cd3.png" class="msg-avatar" alt="" width="26" height="26" style="width:26px;height:26px;min-width:26px;flex-shrink:0;border-radius:50%;object-fit:cover;" onerror="this.style.display='none'" /><div class="bot-msg">${text}</div>`;
+      const wrap = document.createElement("div"); wrap.className="bot-msg-wrap"; wrap.setAttribute("style", BOT_WRAP_STYLE);
+      wrap.innerHTML=`<img src="${AVATAR_SRC}" style="${AVATAR_STYLE}" alt="" onerror="this.style.display='none'" /><div class="bot-msg" style="${BOT_MSG_STYLE}">${text}</div>`;
       botMessages.appendChild(wrap); botMessages.scrollTop = botMessages.scrollHeight;
     }
     function addUserMessage(text) {
-      const d = document.createElement("div"); d.className="user-msg"; d.textContent=text;
+      const d = document.createElement("div"); d.className="user-msg"; d.setAttribute("style", USER_MSG_STYLE); d.textContent=text;
       botMessages.appendChild(d); botMessages.scrollTop = botMessages.scrollHeight;
     }
     function showTyping() {
-      const d = document.createElement("div"); d.className="cb-typing"; d.id="cb-typing";
-      d.innerHTML="<span></span><span></span><span></span>";
-      botMessages.appendChild(d); botMessages.scrollTop = botMessages.scrollHeight;
+      const wrap = document.createElement("div"); wrap.className="cb-typing-wrap"; wrap.id="cb-typing"; wrap.setAttribute("style", BOT_WRAP_STYLE);
+      wrap.innerHTML=`<img src="${AVATAR_SRC}" style="${AVATAR_STYLE}" alt="" onerror="this.style.display='none'" /><div class="cb-typing"><span></span><span></span><span></span></div>`;
+      botMessages.appendChild(wrap); botMessages.scrollTop = botMessages.scrollHeight;
     }
     function hideTyping() { const t=document.getElementById("cb-typing"); if(t) t.remove(); }
     function botReply(msg, cb, delay) {
       showTyping();
-      setTimeout(() => { hideTyping(); addBotMessage(msg); if(cb) cb(); }, delay||1000);
+      setTimeout(() => { hideTyping(); addBotMessage(msg); if(cb) cb(); }, delay||1200);
     }
 
-    function getResumeMessage() {
-      if(step===7) return "Our team already has your details and will be in touch shortly! 🎉";
-      if(step===1) return "No problem! Go ahead — what are you looking to accomplish?";
-      if(step===2) return "No problem! When would you like to go live with the project?";
-      if(step===3) return "No problem! Do you have a budget range in mind?";
-      if(step===4) return "No problem! What's your name?";
-      if(step===5) return "No problem! What's the best phone number to reach you?";
-      if(step===6) return "No problem! What's the best email to reach you?";
-      return "No problem! Take your time. 😊";
+    function resumeStep() {
+      awaitingIdleResponse = false; resetIdleTimer();
+      if(step===1) { botReply("No problem! What type of solution are you looking for?", () => showIntentOptions(leadData.intent)); return; }
+      if(step===2) { botReply("When would you like to go live with the project?", () => { const div=document.createElement("div"); div.className="quick-btns grid-btns"; div.id="timelineBtns"; ["ASAP (ready to start now)","1–3 months","3–6 months","6+ months","Not sure yet"].forEach(t=>{const b=document.createElement("button");b.textContent=t;b.onclick=()=>handleTimeline(t);div.appendChild(b);}); const back=makeBackBtn("Back",()=>{document.getElementById("timelineBtns")?.remove();leadData.timeline="";step=1;botReply("What type of solution are you looking for?",()=>showIntentOptions(leadData.intent));}); div.appendChild(back); botMessages.appendChild(div); botMessages.scrollTop=botMessages.scrollHeight; }); return; }
+      if(step===3) { botReply("Do you have a budget range in mind?", () => { const div=document.createElement("div"); div.className="budget-btns grid-btns"; div.id="budgetBtns"; ["Under $10k","$10k – $25k","$25k – $50k","$50k+","Not sure yet"].forEach(b=>{const btn=document.createElement("button");btn.textContent=b;btn.onclick=()=>handleBudget(b);div.appendChild(btn);}); const back=makeBackBtn("Back",()=>{document.getElementById("budgetBtns")?.remove();leadData.budget="";step=2;showTimelineStep();}); div.appendChild(back); botMessages.appendChild(div); botMessages.scrollTop=botMessages.scrollHeight; }); return; }
+      if(step===4) { botReply("What's your name?"); return; }
+      if(step===5) { botReply("What's the best phone number to reach you?"); return; }
+      if(step===6) { botReply("What's the best email to reach you?"); return; }
+      if(step===7) { botReply("Our team already has your details and will be in touch shortly!"); return; }
+      botReply("No problem! Take your time.");
     }
 
     function showIdleButtons() {
-      const div = document.createElement("div"); div.className="quick-btns"; div.id="idleBtns";
+      const div = document.createElement("div"); div.className="quick-btns grid-btns"; div.id="idleBtns";
       const yes = document.createElement("button"); yes.textContent="Yes, still here!";
-      yes.onclick = () => { document.getElementById("idleBtns").remove(); addUserMessage("Yes, still here!"); awaitingIdleResponse=false; botReply(getResumeMessage()); resetIdleTimer(); };
+      yes.onclick = () => { document.getElementById("idleBtns")?.remove(); addUserMessage("Yes, still here!"); resumeStep(); };
       const no = document.createElement("button"); no.textContent="No, I'm done";
-      no.onclick = () => { document.getElementById("idleBtns").remove(); addUserMessage("No, I'm done"); awaitingIdleResponse=false; botReply("No problem! Feel free to come back anytime. 😊"); clearTimeout(idleTimer); };
+      no.onclick = () => { document.getElementById("idleBtns")?.remove(); addUserMessage("No, I'm done"); awaitingIdleResponse=false; botReply("No problem! Feel free to come back anytime."); clearTimeout(idleTimer); };
       div.appendChild(yes); div.appendChild(no); botMessages.appendChild(div);
       botMessages.scrollTop = botMessages.scrollHeight;
     }
 
     const intentOptions = {
-      "🚀 New startup or app idea":  ["📱 Mobile App","🌐 Web App","☁️ SaaS Platform","🛒 eCommerce","🔧 Other"],
-      "🏢 Software for my business": ["⚙️ Automate Workflows","👥 Customer Management","📊 Reporting & Analytics","🗂️ Employee Tools","🔧 Other"],
-      "📈 Digital marketing help":   ["📈 Increase Website Traffic","🎯 Generate More Leads","📣 Social Media Growth","💰 Paid Advertising","🔧 Other"],
-      "🤔 Just exploring":           ["🔭 Planning a Future Project","🔍 Comparing Vendors","💡 Learning About Tech","👀 Just Curious"]
+      "New startup or app idea":  ["Mobile App","Web App","SaaS Platform","eCommerce","Other"],
+      "Software for my business": ["Automate Workflows","Customer Management","Reporting & Analytics","Employee Tools","Other"],
+      "Digital marketing help":   ["Increase Website Traffic","Generate More Leads","Social Media Growth","Paid Advertising","Other"],
+      "Just exploring":           ["Planning a Future Project","Comparing Vendors","Learning About Tech","Just Curious"]
     };
+
+    function makeBackBtn(label, onClick) {
+      const b = document.createElement("button"); b.className="back-btn";
+      b.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;display:block;"><polyline points="15 18 9 12 15 6"/></svg><span>${label}</span>`;
+      b.onclick = onClick; return b;
+    }
 
     function showIntentOptions(intent) {
       const opts = intentOptions[intent] || ["Mobile App","Web App","Something else"];
-      const div = document.createElement("div"); div.className="quick-btns"; div.id="intentOptBtns";
+      const div = document.createElement("div"); div.className="quick-btns grid-btns"; div.id="intentOptBtns";
       opts.forEach(o => {
         const b = document.createElement("button"); b.textContent = o;
         b.onclick = () => {
           document.getElementById("intentOptBtns")?.remove();
           addUserMessage(o); leadData.intent_detail = o;
-          botReply("Great choice! Let's figure out the best way to help. 😊", () => showTimelineStep());
+          botReply("Great choice! Let's figure out the best way to help.", () => showTimelineStep());
         };
         div.appendChild(b);
       });
+      const back = makeBackBtn("Back", () => {
+        document.getElementById("intentOptBtns")?.remove();
+        leadData.intent = ""; step = 0;
+        botReply("No problem! What brings you here today?", () => {
+          const s1 = document.createElement("div"); s1.className="quick-btns grid-btns"; s1.id="step1-btns";
+          ["New startup or app idea","Software for my business","Digital marketing help","Just exploring"].forEach(v => {
+            const b=document.createElement("button"); b.textContent=v; b.onclick=()=>window.handleStep1(v); s1.appendChild(b);
+          });
+          botMessages.appendChild(s1); botMessages.scrollTop=botMessages.scrollHeight;
+        });
+      });
+      div.appendChild(back);
       botMessages.appendChild(div); botMessages.scrollTop = botMessages.scrollHeight;
     }
 
@@ -993,10 +1197,16 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
     function showTimelineStep() {
       step=2; resetIdleTimer();
       botReply("When would you like to go live with the project?", () => {
-        const div = document.createElement("div"); div.className="quick-btns"; div.id="timelineBtns";
-        ["⚡ ASAP (ready to start now)","📅 1–3 months","🗓️ 3–6 months","🔮 6+ months","🤷 Not sure yet"].forEach(t => {
+        const div = document.createElement("div"); div.className="quick-btns grid-btns"; div.id="timelineBtns";
+        ["ASAP (ready to start now)","1–3 months","3–6 months","6+ months","Not sure yet"].forEach(t => {
           const b=document.createElement("button"); b.textContent=t; b.onclick=()=>handleTimeline(t); div.appendChild(b);
         });
+        const back = makeBackBtn("Back", () => {
+          document.getElementById("timelineBtns")?.remove();
+          leadData.timeline=""; step=1;
+          botReply("Sure! What type of solution are you looking for?", () => showIntentOptions(leadData.intent));
+        });
+        div.appendChild(back);
         botMessages.appendChild(div); botMessages.scrollTop=botMessages.scrollHeight;
       });
     }
@@ -1009,10 +1219,15 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
     function showBudgetStep() {
       step=3; resetIdleTimer();
       botReply("Do you have a budget range in mind for this project?", () => {
-        const div=document.createElement("div"); div.className="budget-btns"; div.id="budgetBtns";
-        ["⭐ Under $10k","⭐⭐ $10k – $25k","⭐⭐⭐ $25k – $50k","⭐⭐⭐⭐ $50k+","🤷 Not sure yet"].forEach(b => {
+        const div=document.createElement("div"); div.className="budget-btns grid-btns"; div.id="budgetBtns";
+        ["Under $10k","$10k – $25k","$25k – $50k","$50k+","Not sure yet"].forEach(b => {
           const btn=document.createElement("button"); btn.textContent=b; btn.onclick=()=>handleBudget(b); div.appendChild(btn);
         });
+        const back = makeBackBtn("Back", () => {
+          document.getElementById("budgetBtns")?.remove();
+          leadData.budget=""; step=2; showTimelineStep();
+        });
+        div.appendChild(back);
         botMessages.appendChild(div); botMessages.scrollTop=botMessages.scrollHeight;
       });
     }
@@ -1024,16 +1239,16 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
 
     function showContactStep() {
       step=4; resetIdleTimer();
-      botReply("Thanks, this helps a lot! 😊 Let me grab your details so a team member can reach out.<br><br>What's your name?");
+      botReply("Thanks, this helps a lot! Let me grab your details so a team member can reach out.<br><br>What's your name?");
     }
 
     function showFinalCTA() {
       step=7; clearTimeout(idleTimer);
-      botReply("Awesome! Based on what you've shared, the best next step is a quick call or Google Meet to go over your project! 🎉", () => {
+      botReply("Awesome! Based on what you've shared, the best next step is a quick call or Google Meet to go over your project!", () => {
         const div=document.createElement("div"); div.className="cta-btns"; div.id="ctaBtns";
-        const book=document.createElement("button"); book.className="cta-btn-primary"; book.textContent="📅 Book a Google Meet";
+        const book=document.createElement("button"); book.className="cta-btn-primary"; book.textContent="Book a Google Meet";
         book.onclick=()=>{ handleCTA("Book a Google Meet"); window.open("https://calendly.com/shreya-ethixweb/30min","_blank"); };
-        const email=document.createElement("button"); email.className="cta-btn-secondary"; email.textContent="📩 Send me info by email";
+        const email=document.createElement("button"); email.className="cta-btn-secondary"; email.textContent="Send me info by email";
         email.onclick=()=>handleCTA("Send me info by email");
         div.appendChild(book); div.appendChild(email); botMessages.appendChild(div);
         botMessages.scrollTop=botMessages.scrollHeight;
@@ -1046,8 +1261,8 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
       botInput.disabled=true; botInput.placeholder="Chat complete";
       document.querySelector(".chat-input button").disabled=true;
       botReply(choice==="Book a Google Meet"
-        ? "Great! We're opening Calendly now 🎉 — pick a time that works for you. A confirmation will also be sent to "+leadData.email+"! 😊"
-        : "Perfect! We'll send everything over to "+leadData.email+" shortly. Talk soon! 😊");
+        ? "Great! We're opening Calendly now. Pick a time that works for you. A confirmation will also be sent to "+leadData.email+"!"
+        : "Perfect! We'll send everything over to "+leadData.email+" shortly. Talk soon!");
       submitLead();
     }
 
@@ -1062,16 +1277,18 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
 
     window.handleInput = function() {
       const val = botInput.value.trim(); if(!val) return;
-      if(awaitingIdleResponse) { awaitingIdleResponse=false; addUserMessage(val); botInput.value=""; botReply(getResumeMessage()); resetIdleTimer(); return; }
+      if(awaitingIdleResponse) { document.getElementById("idleBtns")?.remove(); addUserMessage(val); botInput.value=""; resumeStep(); return; }
       addUserMessage(val); botInput.value=""; resetIdleTimer();
-      if(step===0) { botReply("Please use the buttons above to get started! 👆"); return; }
-      if(step===1||step===2||step===3) { botReply("Please choose one of the options above 😊"); return; }
+      if(step===0) { botReply("Please use the buttons above to get started!"); return; }
+      if(step===1) { document.getElementById("intentOptBtns")?.remove(); botReply("No problem! What type of solution are you looking for?", () => showIntentOptions(leadData.intent)); return; }
+      if(step===2) { document.getElementById("timelineBtns")?.remove(); botReply("When would you like to go live with the project?", () => { const div=document.createElement("div"); div.className="quick-btns grid-btns"; div.id="timelineBtns"; ["ASAP (ready to start now)","1–3 months","3–6 months","6+ months","Not sure yet"].forEach(t=>{const b=document.createElement("button");b.textContent=t;b.onclick=()=>handleTimeline(t);div.appendChild(b);}); const back=makeBackBtn("Back",()=>{document.getElementById("timelineBtns")?.remove();leadData.timeline="";step=1;botReply("What type of solution are you looking for?",()=>showIntentOptions(leadData.intent));}); div.appendChild(back); botMessages.appendChild(div); botMessages.scrollTop=botMessages.scrollHeight; }); return; }
+      if(step===3) { document.getElementById("budgetBtns")?.remove(); botReply("Do you have a budget range in mind?", () => { const div=document.createElement("div"); div.className="budget-btns grid-btns"; div.id="budgetBtns"; ["Under $10k","$10k – $25k","$25k – $50k","$50k+","Not sure yet"].forEach(b=>{const btn=document.createElement("button");btn.textContent=b;btn.onclick=()=>handleBudget(b);div.appendChild(btn);}); const back=makeBackBtn("Back",()=>{document.getElementById("budgetBtns")?.remove();leadData.budget="";step=2;showTimelineStep();}); div.appendChild(back); botMessages.appendChild(div); botMessages.scrollTop=botMessages.scrollHeight; }); return; }
       if((step===4||step===5||step===6)&&isOffTopic(val)) {
         botReply("Great question! Our team will cover all that on the call. For now: "+(step===4?"What's your name?":step===5?"What's your phone number?":"What's your email address?")); return;
       }
-      if(step===4) { if(val.length<2){botReply("Could you enter your full name please? 😊");return;} leadData.name=val; step=5; botReply("Nice to meet you, "+val.split(" ")[0]+"! 😊 What's the best phone number to reach you?"); return; }
-      if(step===5) { const d=val.replace(/\D/g,""); if(d.length<7){botReply("That doesn't look like a valid phone number — could you double-check? 😊");return;} leadData.phone=val; step=6; botReply("Got it! And what's the best email address to reach you?"); return; }
-      if(step===6) { if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)){botReply("That doesn't look right — could you double-check your email address?");return;} leadData.email=val; showFinalCTA(); return; }
+      if(step===4) { if(val.length<2){botReply("Could you enter your full name please?");return;} leadData.name=val; step=5; botReply("Nice to meet you, "+val.split(" ")[0]+"! What's the best phone number to reach you?"); return; }
+      if(step===5) { const d=val.replace(/\D/g,""); if(d.length<7){botReply("That doesn't look like a valid phone number. Could you double-check?");return;} leadData.phone=val; step=6; botReply("Got it! And what's the best email address to reach you?"); return; }
+      if(step===6) { if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)){botReply("That doesn't look right. Could you double-check your email address?");return;} leadData.email=val; showFinalCTA(); return; }
     };
 
     botInput.addEventListener("keypress", e => { if(e.key==="Enter") window.handleInput(); });
