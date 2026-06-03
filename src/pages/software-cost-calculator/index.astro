@@ -1,0 +1,451 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const wp = 'https://demskigrdev.wpenginepowered.com/wp-content/uploads';
+
+const badges = [
+  { src: `${wp}/2025/01/Clutch2.png`, alt: 'Clutch Top App Development Company 2024' },
+  { src: `${wp}/2025/01/ClutchAward3.png`, alt: 'Clutch Top App Development Company 2023' },
+  { src: `${wp}/2025/01/GoogleReviews.png`, alt: 'Google 5-Star Reviews' },
+  { src: `${wp}/2025/01/Trophy-1.png`, alt: 'Best Software Developer 2024' }
+];
+
+const calcScreenshots = [1,2,3,4,5].map(n => `${wp}/2025/03/calculator-${n}.png`);
+
+const steps = [
+  { icon: 'fa-pen-to-square', title: 'Step 1', desc: 'Answer a few quick questions about your project\'s features, complexity, and timeline.' },
+  { icon: 'fa-calculator', title: 'Step 2', desc: 'Our experts generate a transparent cost estimate based on real industry data.' },
+  { icon: 'fa-envelope', title: 'Step 3', desc: 'We\'ll follow up to discuss your project in detail and refine the estimate if needed.' }
+];
+
+const whyBenefits = [
+  'Fast & Easy – Get an estimate in 24 hours, not days.',
+  'Transparent Pricing – No hidden fees or unexpected costs.',
+  'Tailored to Your Needs – Estimates based on your specific project requirements.',
+  'Expert Support – Our team is ready to answer questions and refine your estimate.'
+];
+
+const whoFor = [
+  'Startups – Budget for your MVP with confidence.',
+  'Businesses – Plan software investments with clarity.',
+  'Agencies & Consultants – Get quick estimates for client projects.'
+];
+
+const faqs = [
+  { id: 'how-accurate', q: 'How accurate is the estimate?', a: 'Our calculator provides a solid starting point based on real-world pricing and industry standards. While the estimate gives you a reliable cost range, final pricing may vary depending on your project\'s complexity, specific requirements, and any additional features you may need.' },
+  { id: 'after-estimate', q: 'What happens after I get my estimate?', a: 'Once you complete the form, we\'ll review your estimate and reach out to discuss your project in more detail. This allows us to refine the estimate, answer your questions, and explore the best approach to bring your idea to life.' },
+  { id: 'really-free', q: 'Is the estimate really free?', a: 'Yes! Our cost calculator is completely free to use, and there\'s no obligation to move forward. We believe in transparency and helping you make informed decisions before committing to development.' },
+  { id: 'detailed-breakdown', q: 'Can I get a more detailed breakdown of costs?', a: 'Absolutely! After you receive your initial estimate, we\'ll work with you to refine the details and provide a more in-depth breakdown based on your specific needs and goals.' },
+  { id: 'how-long', q: 'How long does it take to get my estimate?', a: 'It only takes a minute to fill out the form! Simply answer a few questions about your project, and you\'ll receive an estimate within 24 hours.' },
+  { id: 'not-sure', q: 'What if I\'m not sure about my project details?', a: 'No problem! Just provide as much information as you can. If you\'re unsure about certain aspects, our team will be happy to guide you through the process and help define your requirements.' },
+  { id: 'get-started', q: 'How do I get started?', a: 'Simply click the button below to use the calculator and get your free estimate. It\'s quick, easy, and the first step toward bringing your software project to life!' }
+];
+---
+
+<Layout
+  title="Get a Software Development Cost Estimate – Free & Instant"
+  description="Quickly estimate your software development costs with our free cost calculator. Get an instant, transparent estimate in minutes—no guesswork, no obligations. Try it now!"
+  pageClass="calc-page-class"
+>
+  <style slot="head">
+    .calc-page-class {
+      --blue:#005cb9; --orange:#f09300; --navy:#001629; --ink:#282828; --muted:#f0f0f0;
+      font-family:'Outfit',sans-serif; color:var(--ink);
+    }
+
+    /* ── HEADER override: white logo on dark hero ── */
+    .calc-page-class .site-header { background: transparent !important; position: absolute; width: 100%; z-index: 100; }
+    .calc-page-class .site-header.custom-header-fixed { background: #fff !important; position: fixed; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+    .calc-page-class .site-header nav a,
+    .calc-page-class .site-header .nav-trigger { color: #fff !important; }
+    .calc-page-class .site-header.custom-header-fixed nav a,
+    .calc-page-class .site-header.custom-header-fixed .nav-trigger { color: #282828 !important; }
+    .calc-page-class .site-header .logo img { content: url('https://demskigrdev.wpenginepowered.com/wp-content/uploads/2025/01/logowhite-768x137.png'); }
+    .calc-page-class .site-header.custom-header-fixed .logo img { content: url('https://demskigrdev.wpenginepowered.com/wp-content/uploads/2024/06/Logo3-768x137.png'); }
+    .calc-page-class .btn-cta { border-color: #fff !important; color: #fff !important; }
+    .calc-page-class .site-header.custom-header-fixed .btn-cta { border-color: var(--orange) !important; background: var(--orange) !important; color: #fff !important; }
+
+    /* ── HERO ── */
+    .calc-hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #001629 0%, #003366 60%, #001a3d 100%);
+      display: flex; align-items: center;
+      padding: 120px 50px 80px;
+      position: relative; overflow: hidden;
+    }
+    .calc-hero::after {
+      content: '';
+      position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 80px;
+      background: #fff;
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .calc-hero-inner {
+      max-width: 1200px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .calc-hero h1 {
+      font-size: clamp(32px, 3.8vw, 54px);
+      font-weight: 700; color: #fff; line-height: 1.2;
+      margin: 0 0 18px;
+    }
+    .calc-hero-sub {
+      font-size: 18px; color: rgba(255,255,255,0.8);
+      margin: 0 0 32px; line-height: 1.6;
+    }
+    .calc-cta-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--orange); color: #fff;
+      padding: 16px 32px; border-radius: 8px;
+      font-size: 17px; font-weight: 600; text-decoration: none;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .calc-cta-btn:hover { transform: translateY(-2px); background: #d98200; }
+    .calc-badges {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+      margin-top: 32px;
+    }
+    .calc-badges img { width: 100%; max-width: 160px; height: auto; object-fit: contain; }
+
+    /* ── HERO RIGHT: badges grid ── */
+    .calc-hero-right { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .calc-badge-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .calc-badge-grid img { width: 100%; max-width: 180px; height: auto; object-fit: contain; transition: transform 0.3s; }
+    .calc-badge-grid img:hover { transform: scale(1.05); }
+
+    /* ── SECTION WRAPPER ── */
+    .calc-section { max-width: 1200px; margin: 0 auto; padding: 70px 30px; }
+
+    /* ── BRAND LOGOS ── */
+    .brand-logos-section { background: #f9f9f9; }
+    .brand-logos-inner { max-width: 1200px; margin: 0 auto; padding: 50px 30px; text-align: center; }
+    .brand-logos-inner p { font-size: 18px; font-weight: 600; color: #282828; margin: 0 0 24px; }
+    .brand-logos-inner p span { color: var(--blue); }
+    .brand-logos-inner img { max-width: 100%; height: auto; }
+
+    /* ── 2-COL SECTION ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+    .two-col.reverse .two-col-img { order: -1; }
+    .two-col-img img { width: 100%; height: 420px; object-fit: cover; border-radius: 16px; display: block; }
+    .two-col-text h2 { font-size: clamp(26px, 2.8vw, 38px); font-weight: 700; color: #1b1c1d; margin: 0 0 16px; }
+    .two-col-text p { font-size: 16px; line-height: 1.7; color: #444; margin: 0 0 16px; }
+    .two-col-text strong { color: #282828; }
+    .two-col-list { list-style: none; margin: 12px 0 20px; padding: 0; }
+    .two-col-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 10px;
+    }
+    .two-col-list li::before {
+      content: ''; width: 8px; height: 8px; min-width: 8px;
+      border: 1.5px solid var(--blue); border-radius: 50%;
+      margin-top: 6px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      background: linear-gradient(135deg, #001629 0%, #002b50 100%);
+      position: relative; padding: 0;
+    }
+    .how-section-inner { max-width: 1200px; margin: 0 auto; padding: 80px 30px; }
+    .how-section h2 { color: #fff; font-size: clamp(26px, 2.8vw, 38px); font-weight: 700; text-align: center; margin: 0 0 50px; }
+    .how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: flex-start; }
+    .steps-col { display: flex; flex-direction: column; gap: 30px; }
+    .step-card {
+      background: rgba(255,255,255,0.08); border-radius: 16px; padding: 28px 24px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .step-icon {
+      width: 52px; height: 52px; background: var(--blue); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; color: #fff; margin-bottom: 16px;
+    }
+    .step-card h3 { color: #fff; font-size: 18px; font-weight: 700; margin: 0 0 8px; }
+    .step-card p { color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1.6; margin: 0; }
+    .how-cta { margin-top: 30px; }
+    .how-cta-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--orange); color: #fff;
+      padding: 14px 28px; border-radius: 8px;
+      font-size: 16px; font-weight: 600; text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .how-cta-btn:hover { transform: translateY(-2px); }
+
+    /* Calculator screenshot slider */
+    .calc-screenshots { position: relative; }
+    .calc-screenshots a { display: block; }
+    .calc-screenshots img {
+      width: 100%; border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      display: block;
+    }
+    .calc-screenshots-nav { display: flex; gap: 8px; margin-top: 16px; justify-content: center; }
+    .calc-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.3); cursor: pointer; border: none;
+      transition: background 0.2s;
+    }
+    .calc-dot.active { background: #fff; }
+
+    /* ── FAQ ── */
+    .faq-section { background: #f9f9f9; }
+    .faq-inner { max-width: 860px; margin: 0 auto; padding: 70px 30px; }
+    .faq-inner h2 { font-size: clamp(26px, 2.8vw, 38px); font-weight: 700; color: #1b1c1d; text-align: center; margin: 0 0 40px; }
+    .faq-list { display: flex; flex-direction: column; gap: 0; }
+    .faq-item { border-bottom: 1px solid #e0e0e0; }
+    .faq-btn {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 18px 0; cursor: pointer;
+      background: transparent; border: none; text-align: left;
+      font-family: inherit;
+    }
+    .faq-q { font-size: 17px; font-weight: 600; color: #1b1c1d; line-height: 1.35; }
+    .faq-icon {
+      width: 26px; height: 26px; min-width: 26px;
+      border: 1.5px solid #ccc; border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: #555; transition: all 0.2s; line-height: 1;
+    }
+    .faq-icon::before { content: '+'; }
+    .faq-item.active .faq-icon { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .faq-item.active .faq-icon::before { content: '−'; }
+    .faq-panel { max-height: 0; overflow: hidden; transition: max-height 0.28s ease; }
+    .faq-item.active .faq-panel { max-height: 300px; }
+    .faq-body { padding: 0 0 18px; font-size: 15px; line-height: 1.7; color: #555; max-width: 780px; }
+
+    /* ── FINAL CTA ── */
+    .final-cta {
+      background: linear-gradient(135deg, #001629 0%, #002b50 100%);
+      padding: 70px 30px; text-align: center;
+    }
+    .final-cta p { font-size: clamp(22px, 2.5vw, 34px); font-weight: 700; color: #fff; margin: 0 0 30px; }
+    .final-cta-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--orange); color: #fff;
+      padding: 16px 36px; border-radius: 8px;
+      font-size: 17px; font-weight: 600; text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .final-cta-btn:hover { transform: translateY(-2px); }
+
+    /* responsive */
+    @media (max-width: 1024px) {
+      .calc-hero { padding: 100px 30px 80px; }
+      .calc-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .how-grid { grid-template-columns: 1fr; }
+      .calc-screenshots { display: none; }
+    }
+    @media (max-width: 768px) {
+      .two-col { grid-template-columns: 1fr; gap: 30px; }
+      .two-col.reverse .two-col-img { order: 0; }
+      .two-col-img img { height: 260px; }
+      .calc-hero { padding: 90px 20px 70px; min-height: auto; }
+      .calc-badge-grid { grid-template-columns: repeat(2, 1fr); }
+      .calc-section { padding: 50px 20px; }
+    }
+  </style>
+
+  <!-- ══ HERO ══ -->
+  <section class="calc-hero">
+    <div class="calc-hero-inner">
+      <div class="calc-hero-left">
+        <h1>Get Free Quotes With Our Software Project Cost Calculator</h1>
+        <p class="calc-hero-sub">Quickly estimate the cost of your project and plan with confidence.</p>
+        <a class="calc-cta-btn" href="/calculator-form/">
+          <i class="fas fa-arrow-right"></i> Calculate Your Project Cost
+        </a>
+      </div>
+      <div class="calc-hero-right">
+        <div class="calc-badge-grid">
+          {badges.map((b, i) => (
+            <img src={b.src} alt={b.alt} width="482" height="415" loading={i === 0 ? 'eager' : 'lazy'} />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ BRAND LOGOS ══ -->
+  <div class="brand-logos-section">
+    <div class="brand-logos-inner">
+      <p>Companies that trust <span>our experienced team</span>.</p>
+      <img
+        src="https://demskigrdev.wpenginepowered.com/wp-content/uploads/2024/07/brandlogos.png"
+        alt="Companies we work with"
+        width="1019" height="303" loading="lazy"
+      />
+    </div>
+  </div>
+
+  <!-- ══ WHY CHALLENGING ══ -->
+  <section class="calc-section">
+    <div class="two-col">
+      <div class="two-col-text">
+        <h2>Why Estimating Software Costs Can Be Challenging</h2>
+        <p>Budgeting for a software project can feel overwhelming. Hidden costs, evolving requirements, and industry-specific pricing structures make it difficult to get a clear picture.</p>
+        <p><strong>Common Challenges:</strong></p>
+        <ul class="two-col-list">
+          <li>Uncertainty about pricing models</li>
+          <li>Unexpected development costs</li>
+          <li>Time-consuming consultations</li>
+        </ul>
+        <h3 style="font-size:20px;margin:20px 0 10px;color:#1b1c1d;">The Solution: Quick, Accurate Estimates</h3>
+        <p>Simply fill out a brief questionnaire with your project details. Our team then provides a detailed estimate of your development cost, ensuring your information remains anonymous for privacy.</p>
+        <p>After completing the questionnaire, you'll swiftly receive your estimate via email. Our experts review your project details with precision, generating a comprehensive breakdown of estimated costs tailored to your specific requirements.</p>
+        <a class="calc-cta-btn" href="/calculator-form/" style="margin-top:8px;">Get Your Free Estimate</a>
+      </div>
+      <div class="two-col-img">
+        <img
+          src="https://demskigrdev.wpenginepowered.com/wp-content/uploads/2024/12/Accountant_Drazen_Zigic_Getty-1024x683.jpg"
+          alt="Software cost estimation"
+          width="1024" height="683" loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ HOW IT WORKS ══ -->
+  <section class="how-section">
+    <div class="how-section-inner">
+      <h2>How it Works</h2>
+      <div class="how-grid">
+        <div class="steps-col">
+          {steps.map(s => (
+            <div class="step-card">
+              <div class="step-icon"><i class={`fa-solid ${s.icon}`} aria-hidden="true"></i></div>
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+            </div>
+          ))}
+          <div class="how-cta">
+            <a class="how-cta-btn" href="/calculator-form/">
+              <i class="hm hm-arrow-right"></i> Start Your Free Estimate Now
+            </a>
+          </div>
+        </div>
+        <div class="calc-screenshots" id="calcScreenshots">
+          {calcScreenshots.map((src, i) => (
+            <a href="/calculator-form/" class={`calc-slide${i === 0 ? ' active-slide' : ''}`} style={i !== 0 ? 'display:none' : ''} data-calc-slide>
+              <img src={src} alt={`Calculator step ${i+1}`} width="600" height="450" loading="lazy" />
+            </a>
+          ))}
+          <div class="calc-screenshots-nav">
+            {calcScreenshots.map((_, i) => (
+              <button class={`calc-dot${i === 0 ? ' active' : ''}`} data-calc-dot={i} aria-label={`Screenshot ${i+1}`}></button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ WHY USE CALCULATOR ══ -->
+  <section class="calc-section">
+    <div class="two-col">
+      <div class="two-col-img">
+        <img
+          src="https://demskigrdev.wpenginepowered.com/wp-content/uploads/2024/12/Accountant_Drazen_Zigic_Getty-1024x683.jpg"
+          alt="Why use our cost calculator"
+          width="1024" height="683" loading="lazy"
+        />
+      </div>
+      <div class="two-col-text">
+        <h2>Why Use Our Cost Calculator?</h2>
+        <ul class="two-col-list">
+          {whyBenefits.map(b => <li>{b}</li>)}
+        </ul>
+        <p>Planning a software project shouldn't be stressful. Our cost calculator simplifies the process by providing you with a clear, data-driven estimate upfront. Instead of spending weeks gathering quotes or worrying about unexpected expenses, you'll get a solid starting point that allows you to budget with confidence and take the next steps toward development.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ WHO IS THIS FOR ══ -->
+  <section class="calc-section" style="padding-top:0">
+    <div class="two-col">
+      <div class="two-col-text">
+        <h2>Who is This For?</h2>
+        <ul class="two-col-list">
+          {whoFor.map(w => <li>{w}</li>)}
+        </ul>
+        <p>Whether you're launching a new product, upgrading an existing system, or exploring a custom software solution, our cost calculator helps you gain clarity on potential costs. It's designed for anyone who wants to make informed financial decisions before diving into development. If you need a reliable estimate to align stakeholders, secure funding, or refine your project scope, this tool is for you!</p>
+      </div>
+      <div class="two-col-img">
+        <img
+          src="https://demskigrdev.wpenginepowered.com/wp-content/uploads/2025/02/executives-shaking-hands-in-the-meeting-2023-11-27-04-58-12-utc-1-1024x683.jpg"
+          alt="Executives shaking hands — partnership and project planning"
+          width="1024" height="683" loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FAQ ══ -->
+  <section class="faq-section">
+    <div class="faq-inner">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list" data-faq>
+        {faqs.map((f, i) => (
+          <div class={`faq-item${i === 0 ? ' active' : ''}`}>
+            <button class="faq-btn" type="button" aria-expanded={i === 0 ? 'true' : 'false'}>
+              <span class="faq-q">{f.q}</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-panel" style={i === 0 ? 'max-height:300px' : ''}>
+              <div class="faq-body">{f.a}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FINAL CTA ══ -->
+  <section class="final-cta">
+    <p>Find Out How Much Your Software Idea Will Cost</p>
+    <a class="final-cta-btn" href="/calculator-form/">
+      <i class="hm hm-arrow-right"></i> Try The Cost Calculator Now
+    </a>
+  </section>
+
+  <script is:inline>
+    /* FAQ accordion */
+    (function () {
+      var faq = document.querySelector('[data-faq]');
+      if (!faq) return;
+      faq.querySelectorAll('.faq-item').forEach(function (item) {
+        var btn = item.querySelector('.faq-btn');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+          var open = item.classList.contains('active');
+          faq.querySelectorAll('.faq-item').forEach(function (i) {
+            i.classList.remove('active');
+            var b = i.querySelector('.faq-btn'); if (b) b.setAttribute('aria-expanded', 'false');
+            var p = i.querySelector('.faq-panel'); if (p) p.style.maxHeight = '';
+          });
+          if (!open) {
+            item.classList.add('active');
+            btn.setAttribute('aria-expanded', 'true');
+            var panel = item.querySelector('.faq-panel');
+            if (panel) panel.style.maxHeight = '300px';
+          }
+        });
+      });
+
+      /* Calculator screenshots slider */
+      var slides = Array.from(document.querySelectorAll('[data-calc-slide]'));
+      var dots   = Array.from(document.querySelectorAll('[data-calc-dot]'));
+      var cur = 0;
+      function showCalc(n) {
+        slides[cur].style.display = 'none';
+        dots[cur].classList.remove('active');
+        cur = (n + slides.length) % slides.length;
+        slides[cur].style.display = '';
+        dots[cur].classList.add('active');
+      }
+      dots.forEach(function (d) {
+        d.addEventListener('click', function () { showCalc(parseInt(d.dataset.calcDot)); });
+      });
+      setInterval(function () { showCalc(cur + 1); }, 3000);
+    })();
+  </script>
+</Layout>

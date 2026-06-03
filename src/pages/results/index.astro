@@ -1,0 +1,426 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const posts = [
+  {
+    id: 40550,
+    slug: 'making-property-listings-and-home-buying-simpler-with-a-well-organized-online-platform',
+    title: 'Making Property Listings and Home Buying Simpler with a Well-Organized Online Platform',
+    excerpt: 'When you are buying or selling a home, it\'s a huge step. The online tools you use should make it simpler, not more complicated. But if property listings are all...',
+    date: 'May 27, 2026',
+    img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/05/young-woman-calculates-finances-at-home-office-2026-03-17-09-03-36-utc-1024x683.jpg',
+    alt: 'Making Property Listings and Home Buying Simpler'
+  },
+  {
+    id: 40547,
+    slug: 'automating-aircraft-appraisal-with-a-smart-web-platform',
+    title: 'Automating Aircraft Appraisal with a Smart Web Platform',
+    excerpt: 'The aircraft appraisal process is multifaceted and requires a structured, accurate, and properly documented system. A comprehensive appraisal report should be generated for each aircraft assessed, and this documentation must...',
+    date: 'May 23, 2026',
+    img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/05/aircraft-mechanic-inspecting-engine-with-tablet-de-2026-03-26-08-38-07-utc-1024x683.jpg',
+    alt: 'Automating Aircraft Appraisal with a Smart Web Platform'
+  },
+  {
+    id: 40535,
+    slug: 'combining-campaigns-products-and-communities-in-one-platform',
+    title: 'Combining Campaigns, Products, and Communities in One Platform',
+    excerpt: 'Crowdfunding operates best when people unite around one common purpose. However, vendors need a dedicated platform for showcasing their products, and clients require a place that looks reliable and straightforward...',
+    date: 'May 17, 2026',
+    img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/05/crowdsourcing-concept-on-a-laptop-on-a-desk-2026-03-18-11-48-41-utc-1024x681.jpg',
+    alt: 'Combining Campaigns, Products, and Communities in One Platform'
+  },
+  {
+    id: 40521,
+    slug: 'managing-the-complexities-of-vehicle-repossession-with-a-mobile-first-application',
+    title: 'Managing the Complexities of Vehicle Repossession with a Mobile-First Application',
+    excerpt: 'Working in the field of vehicle repossession management involves constant movement, coordination, and communication between different employees and management. In addition, managing field teams is a complex task in itself,...',
+    date: 'May 10, 2026',
+    img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/05/man-on-phone-with-car-on-tow-truck-2026-03-25-09-09-37-utc-1024x683.jpg',
+    alt: 'Managing the Complexities of Vehicle Repossession'
+  },
+  {
+    id: 40514,
+    slug: 'making-insect-identification-faster-and-easier-with-ai',
+    title: 'Making Insect Identification Faster and Easier with AI',
+    excerpt: 'The identification of insect species has been a low paced and elaborate process. It takes expertise, visual comparisons, and time to search for references. It has always been difficult to...',
+    date: 'May 2, 2026',
+    img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/05/kenya-small-insects-macro-animals-fauna-plants-flo-2026-03-10-03-12-55-utc-1024x683.jpg',
+    alt: 'Making Insect Identification Faster and Easier with AI'
+  },
+  {
+    id: 40479,
+    slug: 'transforming-collectible-grading-into-a-more-automated-and-efficient-process',
+    title: 'Transforming Collectible Grading Into a More Automated and Efficient Process',
+    excerpt: 'The grading of collectible items has traditionally been a highly manual process involving detailed evaluation, consistent judgment, and a great deal of time spent looking through images one by one....',
+    date: 'April 25, 2026',
+    img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/04/bijouterie-speciaist-taking-a-picture-of-working-t-2026-01-05-06-14-06-utc-1024x683.jpg',
+    alt: 'Transforming Collectible Grading Into a More Automated and Efficient Process'
+  },
+  {
+    id: 40471,
+    slug: 'how-to-tame-complex-operations-with-a-custom-erp-solution',
+    title: 'How to Tame Complex Operations with a Custom ERP Solution?',
+    excerpt: 'It is often the case that running enterprise operations can get very chaotic as time goes by. As a result, companies may face the issue of having multiple different systems,...',
+    date: 'April 19, 2026',
+    img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/04/asian-business-adviser-meeting-to-analyze-and-disc-2026-01-07-00-50-52-utc-1024x656.jpg',
+    alt: 'Tame Complex Operations with a Custom ERP Solution'
+  },
+  {
+    id: 40460,
+    slug: 'building-safer-workplaces-with-smarter-safety-training-and-compliance-tools',
+    title: 'Building Safer Workplaces with Smarter Safety Training and Compliance Tools',
+    excerpt: 'Safety of employees is not something you write down in a policy book. For companies it is something they have to think about every day because it affects the people...',
+    date: 'April 8, 2026',
+    img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/04/middle-aged-caucasian-foreman-supervising-diverse-2026-03-05-11-50-35-utc-1024x683.jpg',
+    alt: 'Building Safer Workplaces with Smarter Safety Training'
+  },
+  {
+    id: 40452,
+    slug: 'bringing-league-operations-under-one-roof',
+    title: 'Bringing League Operations Under One Roof',
+    excerpt: 'A sports league has to be managed beyond just games, fixtures and results. Behind every match, there are registrations, payments, schedules, messages, and a myriad of other small tasks that...',
+    date: 'March 27, 2026',
+    img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/03/soccer-coach-explaining-strategy-to-an-internation-2026-03-26-23-08-30-utc-1024x683.jpg',
+    alt: 'Bringing League Operations Under One Roof'
+  },
+  {
+    id: 40422,
+    slug: 'modernizing-home-appraisals-with-a-mobile-workflow-system',
+    title: 'Modernizing Home Appraisals with a Mobile Workflow System',
+    excerpt: 'In real estate, home appraisals are a linchpin for buying, selling, and lending — yet for years, the process has been stuck in the past. Appraisers used to fill out...',
+    date: 'March 15, 2026',
+    img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/03/serious-professional-architect-design-engineer-wor-2026-01-09-09-37-59-utc-1024x740.jpg',
+    alt: 'Modernizing Home Appraisals with a Mobile Workflow System'
+  }
+];
+
+const recentPosts = [
+  { title: 'Low-Code Platforms vs Custom Development: Pros, Cons, and When to Choose', slug: 'low-code-platforms-vs-custom-development-pros-cons-and-when-to-choose' },
+  { title: 'Why Off-the-Shelf Software Stops Working as You Grow', slug: 'why-off-the-shelf-software-stops-working-as-you-grow' },
+  { title: 'Why Your Business Processes Break at Scale (and How Software Fixes It)', slug: 'why-your-business-processes-break-at-scale-and-how-software-fixes-it' },
+  { title: 'What Tech Stack Should You Choose for Your Custom Software Project?', slug: 'what-tech-stack-should-you-choose-for-your-custom-software-project' },
+  { title: 'How Poor Software Decisions Slow Down Business Growth', slug: 'how-poor-software-decisions-slow-down-business-growth' }
+];
+
+const categories = [
+  { name: 'Business', count: 38, slug: 'business' },
+  { name: 'Design', count: 2, slug: 'design' },
+  { name: 'Development', count: 93, slug: 'development' },
+  { name: 'Enterprise', count: 5, slug: 'enterprise' },
+  { name: 'New Features', count: 2, slug: 'new-features' },
+  { name: 'Uncategorized', count: 10, slug: 'uncategorized' }
+];
+
+const technologies = [
+  'Agile','AI','Android','App Development','Automation','AWS','Blockchain','Business App',
+  'Business Dashboard','business development','Cross-Platform Development','Custom Dashboards',
+  'Custom Software','Drupal','ecommerce','Enterprise Development','Enterprise Software','Flutter',
+  'Government Software','iOS','Java','Javascript','Kotlin','Machine Learning','Mongo','Native',
+  'Node.js','PHP','Project Management','Python','React','React.js','ReactNative','Ruby',
+  'Serverless','Shopify','Software Development','Software Maintenance','Staff Augmentation',
+  'Swift','Typescript','Unity','Web Development','WooCommerce','Wordpress'
+];
+---
+
+<Layout title="Results Archive - The Demski Group" description="Explore case studies and project results from The Demski Group — custom software development success stories across industries." pageClass="results-archive-page">
+
+  <style slot="head">
+    .results-archive-page { font-family:'Outfit',sans-serif; color:#282828; }
+
+    /* breadcrumb banner */
+    .blog-breadcrumb {
+      position: relative;
+      background-color: #001629;
+      padding: 70px 0 60px;
+      text-align: center;
+    }
+    .blog-breadcrumb .overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.35);
+    }
+    .blog-breadcrumb .container { position: relative; z-index: 1; }
+    .blog-breadcrumb h1.post__title {
+      color: #fff;
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 700;
+      margin: 0 0 12px;
+      font-family: 'Outfit', sans-serif;
+    }
+    .breadcrumbs { font-size: 14px; color: rgba(255,255,255,0.7); }
+    .breadcrumbs a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    .breadcrumbs a:hover { color: #fff; }
+
+    /* layout */
+    .content-block { padding: 60px 0 80px; background: #fff; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .blog-content-row { display: flex; gap: 40px; align-items: flex-start; }
+    .post_col { flex: 0 0 66.666%; max-width: 66.666%; }
+    .blog-sidebar-col { flex: 0 0 33.333%; max-width: 33.333%; }
+    .posts-row { display: flex; flex-direction: column; gap: 0; }
+
+    /* single post item */
+    .single-post-item.one-column { margin-bottom: 50px; }
+    .post-thumbnail { overflow: hidden; border-radius: 8px; margin-bottom: 20px; }
+    .post-thumbnail img {
+      width: 100%; height: 280px;
+      object-fit: cover; object-position: center;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .single-post-item:hover .post-thumbnail img { transform: scale(1.04); }
+    .entry-title {
+      font-size: 22px; font-weight: 600; line-height: 1.35;
+      margin: 0 0 12px;
+      font-family: 'Outfit', sans-serif;
+      color: #282828;
+    }
+    .entry-title a { color: inherit; text-decoration: none; }
+    .entry-title a:hover { color: #005cb9; }
+    .post-content p { color: #555; font-size: 15px; line-height: 1.65; margin: 0 0 14px; }
+    .post-read-more a {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: #005cb9; font-size: 15px; font-weight: 600;
+      text-decoration: none; transition: gap 0.2s;
+    }
+    .post-read-more a:hover { gap: 12px; }
+    .post-read-more svg { flex-shrink: 0; }
+    hr.post-divider { border: none; border-top: 1px solid #e8e8e8; margin: 0 0 50px; }
+
+    /* pagination */
+    .masco-navigation { margin-top: 20px; }
+    .nav-links { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .page-numbers {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 38px; height: 38px; border-radius: 6px;
+      font-size: 15px; font-weight: 500; text-decoration: none;
+      color: #282828; background: #f5f5f5; transition: all 0.2s;
+    }
+    .page-numbers.current { background: #005cb9; color: #fff; }
+    .page-numbers:not(.current):hover { background: #e0e0e0; }
+    .page-numbers.next { width: auto; padding: 0 14px; }
+
+    /* sidebar */
+    .widget-area { position: sticky; top: 100px; }
+    .widget { margin-bottom: 36px; }
+    .wp-block-heading {
+      font-size: 18px; font-weight: 700; color: #1b1c1d;
+      margin: 0 0 16px; padding-bottom: 10px;
+      border-bottom: 2px solid #005cb9;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* search widget */
+    .wp-block-search { display: flex; gap: 0; }
+    .wp-block-search__label { display: none; }
+    .wp-block-search__inside-wrapper { display: flex; width: 100%; }
+    .wp-block-search__input {
+      flex: 1; padding: 10px 14px;
+      border: 1px solid #ddd; border-right: none;
+      border-radius: 6px 0 0 6px;
+      font-size: 14px; font-family: 'Outfit', sans-serif;
+      outline: none; color: #282828;
+    }
+    .wp-block-search__input:focus { border-color: #005cb9; }
+    .wp-block-search__button {
+      padding: 10px 16px; background: #005cb9; color: #fff;
+      border: none; border-radius: 0 6px 6px 0;
+      font-size: 14px; cursor: pointer; font-family: 'Outfit', sans-serif;
+      font-weight: 500; white-space: nowrap;
+    }
+    .wp-block-search__button:hover { background: #0047a3; }
+
+    /* recent posts */
+    .wp-block-latest-posts__list { list-style: none; margin: 0; padding: 0; }
+    .wp-block-latest-posts__list li { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #f0f0f0; }
+    .wp-block-latest-posts__list li:last-child { border-bottom: none; margin-bottom: 0; }
+    .wp-block-latest-posts__post-title {
+      color: #282828; text-decoration: none; font-size: 14px; line-height: 1.5;
+    }
+    .wp-block-latest-posts__post-title:hover { color: #005cb9; }
+
+    /* categories */
+    .wp-block-categories-list { list-style: none; margin: 0; padding: 0; }
+    .wp-block-categories-list li { margin-bottom: 8px; }
+    .wp-block-categories-list a { color: #282828; text-decoration: none; font-size: 14px; }
+    .wp-block-categories-list a:hover { color: #005cb9; }
+
+    /* tag cloud */
+    .wp-block-tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag-cloud-link {
+      display: inline-block;
+      padding: 4px 10px; border-radius: 4px;
+      background: #f5f5f5; color: #444;
+      text-decoration: none; font-size: 12px !important;
+      transition: background 0.2s, color 0.2s;
+    }
+    .tag-cloud-link:hover { background: #005cb9; color: #fff; }
+
+    /* responsive */
+    @media (max-width: 992px) {
+      .blog-content-row { flex-direction: column; }
+      .post_col, .blog-sidebar-col { flex: 0 0 100%; max-width: 100%; }
+      .widget-area { position: static; }
+    }
+    @media (max-width: 600px) {
+      .post-thumbnail img { height: 200px; }
+      .entry-title { font-size: 18px; }
+    }
+  </style>
+
+  <!-- Breadcrumb Banner -->
+  <div class="blog-breadcrumb" style="background-image: url()">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row text-center justify-content-center">
+        <div class="col-lg-8">
+          <h1 class="post__title">Results</h1>
+          <div class="breadcrumbs">
+            <span><a href="/" class="home"><span>Home</span></a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content-block">
+    <div class="container">
+      <div class="row blog-content-row">
+
+        <!-- Main Posts Column -->
+        <div class="col-lg-8 col-md-12 one-column post_col">
+          <div class="row posts-row">
+            {posts.map((post, i) => (
+              <div class="col-12">
+                <div id={`post-${post.id}`} class="single-post-item one-column">
+                  <div class="post-thumbnail-wrapper">
+                    <div class="post-thumbnail">
+                      <img
+                        src={post.img}
+                        alt={post.alt}
+                        width="1024" height="683"
+                        loading={i === 0 ? 'eager' : 'lazy'}
+                      />
+                    </div>
+                  </div>
+                  <div class="post-content">
+                    <h2 class="entry-title">
+                      <a href={`/results/${post.slug}/`}>{post.title}</a>
+                    </h2>
+                    <p>{post.excerpt}</p>
+                    <div class="post-read-more">
+                      <a href={`/results/${post.slug}/`}>
+                        Read More
+                        <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M0 6C0 5.77271 0.0902897 5.55473 0.251006 5.39402C0.411723 5.2333 0.629701 5.14301 0.856988 5.14301H10.7861L7.10615 1.46482C6.94523 1.3039 6.85482 1.08565 6.85482 0.858071C6.85482 0.630497 6.94523 0.412243 7.10615 0.251323C7.26707 0.0904038 7.48532 0 7.71289 0C7.94047 0 8.15872 0.0904038 8.31964 0.251323L13.4616 5.39325C13.5414 5.47286 13.6047 5.56743 13.6479 5.67154C13.6911 5.77566 13.7133 5.88728 13.7133 6C13.7133 6.11272 13.6911 6.22434 13.6479 6.32845C13.6047 6.43257 13.5414 6.52714 13.4616 6.60675L8.31964 11.7487C8.15872 11.9096 7.94047 12 7.71289 12C7.48532 12 7.26707 11.9096 7.10615 11.7487C6.94523 11.5878 6.85482 11.3695 6.85482 11.1419C6.85482 10.9144 6.94523 10.6961 7.10615 10.5352L10.7861 6.85699H0.856988C0.629701 6.85699 0.411723 6.7667 0.251006 6.60598C0.0902897 6.44527 0 6.22729 0 6Z" fill="#5B7486" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                {i < posts.length - 1 && <hr class="post-divider" />}
+              </div>
+            ))}
+          </div>
+
+          <!-- Pagination -->
+          <div class="row">
+            <div class="col-12">
+              <div class="masco-navigation">
+                <nav class="navigation pagination" aria-label="Posts pagination">
+                  <h2 class="screen-reader-text">Posts pagination</h2>
+                  <div class="nav-links">
+                    <span aria-current="page" class="page-numbers current">1</span>
+                    <a class="page-numbers" href="/results/page/2/">2</a>
+                    <a class="page-numbers" href="/results/page/3/">3</a>
+                    <a class="page-numbers" href="/results/page/4/">4</a>
+                    <a class="page-numbers next" href="/results/page/2/">
+                      <i class="fa fa-angle-right"></i>
+                    </a>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4 col-md-12 right-sidebar blog-sidebar-col">
+          <aside id="secondary" class="widget-area">
+
+            <!-- Search -->
+            <section class="widget widget_block widget_search">
+              <form role="search" method="get" action="/" class="wp-block-search">
+                <label class="wp-block-search__label" for="search-1">Search</label>
+                <div class="wp-block-search__inside-wrapper">
+                  <input class="wp-block-search__input" id="search-1" placeholder="" type="search" name="s" required />
+                  <button aria-label="Search" class="wp-block-search__button" type="submit">Search</button>
+                </div>
+              </form>
+            </section>
+
+            <!-- Recent Posts -->
+            <section class="widget widget_block">
+              <div class="wp-block-group">
+                <div class="wp-block-group__inner-container">
+                  <h2 class="wp-block-heading">Recent Posts</h2>
+                  <ul class="wp-block-latest-posts__list">
+                    {recentPosts.map(p => (
+                      <li>
+                        <a class="wp-block-latest-posts__post-title" href={`/${p.slug}/`}>{p.title}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <!-- Search 2 -->
+            <section class="widget widget_block widget_search">
+              <form role="search" method="get" action="/" class="wp-block-search">
+                <label class="wp-block-search__label" for="search-2">Search</label>
+                <div class="wp-block-search__inside-wrapper">
+                  <input class="wp-block-search__input" id="search-2" placeholder="Type to search..." type="search" name="s" required />
+                  <button aria-label="Search" class="wp-block-search__button" type="submit">Search</button>
+                </div>
+              </form>
+            </section>
+
+            <!-- Categories -->
+            <section class="widget widget_block">
+              <div class="wp-block-group">
+                <div class="wp-block-group__inner-container">
+                  <h2 class="wp-block-heading">Blog Categories</h2>
+                  <ul class="wp-block-categories-list">
+                    {categories.map(cat => (
+                      <li class="cat-item">
+                        <a href={`/category/${cat.slug}/`}>{cat.name}</a> ({cat.count})
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <!-- Tag Cloud -->
+            <section class="widget widget_block">
+              <div class="wp-block-group">
+                <div class="wp-block-group__inner-container">
+                  <h2 class="wp-block-heading">Technologies</h2>
+                  <p class="wp-block-tag-cloud">
+                    {technologies.map(tag => (
+                      <a href={`/technology/${tag.toLowerCase().replace(/\s+/g,'-').replace(/\./g,'')}/`} class="tag-cloud-link">{tag}</a>
+                    ))}
+                  </p>
+                </div>
+              </div>
+            </section>
+
+          </aside>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</Layout>
