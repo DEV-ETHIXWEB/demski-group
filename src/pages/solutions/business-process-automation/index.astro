@@ -5,20 +5,19 @@ import ContactSection from '../../../components/ContactSection.astro';
 const assetBase = '/solutions/sales-lead-tracking-tools';
 
 const strategicBenefits = [
-  ['fa-table-cells-large', 'Eliminate Manual Bottlenecks', 'Replace slow, error-prone manual steps with automated workflows that move tasks through your organization instantly and accurately.'],
-  ['fa-square-check', 'Reduce Operational Costs', 'Automation reduces the overhead of repetitive back-office work — cutting labor costs, minimizing rework, and freeing your team for higher-value tasks.'],
-  ['fa-layer-group', 'Improve Process Consistency', 'Standardized automated processes ensure every task follows the same rules every time — no missed steps, no human variation, no compliance gaps.'],
-  ['fa-laptop-code', 'Gain Real-Time Visibility', 'Track the status of every process, task, and approval in real time with dashboards and automated reporting built into your workflows.'],
-  ['fa-shield-halved', 'Scale Without Growing Headcount', 'As your business grows, your automated processes scale with you — handling higher volumes without requiring proportional increases in staff.']
+  ["fa-table-cells-large", "Save Time & Lower Costs", "Manual data entry, report generation, and follow-ups drain time and budget. BPA removes these tasks from your team’s plate, improving productivity and reducing labor costs without adding headcount."],
+  ["fa-square-check", "AI-Enhanced Decision Support", "Our AI models help interpret patterns in your data and provide next-step recommendations, trend analysis, and natural language summaries. You don’t just automate steps — you elevate insight."],
+  ["fa-layer-group", "Automated, Error-Free Reporting", "Reporting is often tedious and error-prone. We automate the collection, transformation, and distribution of reporting data, ensuring timely and accurate outputs with zero manual formatting."],
+  ["fa-laptop-code", "Improved Accuracy & Compliance", "Automation eliminates common human errors and builds in safeguards to ensure processes are audit-ready, traceable, and consistent — ideal for regulated industries."],
+  ["fa-shield-halved", "Scale Without Friction", "Whether you’re onboarding 10 new clients or expanding to new teams, automation scales effortlessly — without overhauling your systems or hiring more staff."]
 ];
 
 const services = [
-  ['fa-sitemap', 'Process Discovery & Mapping', 'We audit your current workflows end-to-end, identifying inefficiencies, redundancies, and high-impact automation opportunities before writing a single line of code.'],
-  ['fa-robot', 'Robotic Process Automation (RPA)', 'Deploy software bots that handle repetitive, rules-based tasks — data entry, document processing, system updates — with speed and precision.'],
-  ['fa-gears', 'Workflow Engine Development', 'Custom-built workflow engines that route tasks, trigger approvals, send notifications, and escalate exceptions automatically across your teams.'],
-  ['fa-diagram-project', 'System Integration & API Connectivity', 'Connect your CRM, ERP, accounting software, and other platforms so data flows seamlessly between systems without manual re-entry.'],
-  ['fa-chart-bar', 'Reporting & Analytics Automation', 'Automated data collection and scheduled report generation keep stakeholders informed without anyone having to pull numbers manually.'],
-  ['fa-shield-halved', 'Compliance & Audit Trail Automation', 'Build compliance checkpoints directly into your workflows and generate automatic audit logs that satisfy regulatory requirements.']
+  ['fa-sitemap', 'Step 1: Workflow Discovery', 'We begin by mapping your existing processes and identifying friction points and automation opportunities.'],
+  ['fa-laptop-code', 'Step 2: Automation Design', 'We create logic-driven flows powered by APIs, AI models, or triggers — whether it\'s scheduling, report generation, or task delegation.'],
+  ['fa-chart-line', 'Step 3: AI-Driven Reporting Automation', 'Using natural language generation (NLG), our systems can summarize complex metrics into executive-ready insights. This turns rows of data into readable reports sent to your team automatically.'],
+  ['fa-diagram-project', 'Step 4: System Integration', 'Connect seamlessly to your tools — CRMs, ERPs, Slack, Airtable, Google Sheets, and more — so automations can pull and push data intelligently.'],
+  ['fa-bell', 'Step 5: Real-Time Alerts & Human Review', 'Automations can pause for approvals, tag users in workflows, or issue alerts when thresholds are met — giving you full control with minimal effort.']
 ];
 
 const coreServices = [
@@ -84,7 +83,7 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
     .bpa-section { max-width: var(--max); margin: 0 auto; padding: 60px 50px; }
 
     /* ── Eyebrow ── */
-    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--blue); font-size: 14px; line-height: 1.2; font-weight: 500; margin: 0 0 20px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--blue); font-size: 15px; font-family: 'Outfit', sans-serif; line-height: 1.2; font-weight: 500; margin: 0 0 20px; }
     .eyebrow::before { content: ''; width: 11px; height: 11px; border: 1.5px solid currentColor; border-radius: 3px; transform: rotate(45deg); flex-shrink: 0; }
     .acc-eyebrow { font-size: 18px; font-family: 'Outfit', sans-serif; color: #0154B1; }
 
@@ -110,10 +109,10 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
       overflow: hidden;
     }
     .hero-content { flex: 0 1 610px; }
-    .hero .eyebrow { color: rgba(255,255,255,0.92); font-size: 15px; margin-bottom: 20px; }
+    .hero .eyebrow { color: #FFFFFF; font-size: 18px; font-family: 'Outfit', sans-serif; margin-bottom: 20px; }
     .hero .eyebrow::before { border-color: rgba(255,255,255,0.70); }
     .hero h1 { max-width: 610px; margin: 0 0 22px; font-size: clamp(40px, 4.2vw, 60px); font-weight: 700; line-height: 1.18; letter-spacing: -0.5px; color: #fff; }
-    .hero p { max-width: 500px; margin: 0 0 30px; font-size: 16px; font-weight: 400; line-height: 1.6; color: rgba(255,255,255,0.88); }
+    .hero p { max-width: 540px; margin: 0 0 30px; font-size: 18px; font-family: 'Outfit', sans-serif; font-weight: 400; line-height: 1.6; color: #FFFFFF; }
     .hero-btn { display: inline-flex; align-items: center; gap: 12px; background: #f0f0f0; color: #1a1a1a; padding: 14px 26px; border-radius: 10px; font-size: 20px; font-weight: 500; text-decoration: none; transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease; white-space: nowrap; }
     .hero-btn:hover { transform: translateY(-3px); background: #0154b1; color: #fff; }
     .hero-btn i { font-size: 14px; }
@@ -396,17 +395,18 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
 
     <!-- ══ INTRO GRID ══ -->
     <section class="bpa-section intro-grid">
-      <h2 class="section-title">What Is Business Process Automation?</h2>
+      <h2 class="section-title">Overview of<br />Business Process<br />Automation</h2>
       <div class="copy">
-        <p>Business Process Automation (BPA) uses software, rules-based logic, and AI to execute routine tasks automatically — without human intervention. Unlike one-off tools, BPA connects your entire operation into a coordinated, self-running system.</p>
-        <p>The Demski Group designs and builds BPA solutions that integrate with your existing systems and adapt to your specific workflows. Whether you need to automate onboarding, invoicing, approvals, or reporting, we build it to fit:</p>
+        <p>Business process automation (BPA) transforms the way your organization operates. We help you replace repetitive, time-consuming tasks with AI-driven automation — freeing up your team to focus on what matters most.</p>
+        <p>From generating weekly reports to triggering workflows based on custom logic, our tailored automation solutions optimize performance across departments. Unlike generic automation platforms, our BPA systems are built around your existing tools, people, and goals — not the other way around.</p>
+        <p>This includes:</p>
         <ul>
-          <li>Automate multi-step workflows across departments</li>
-          <li>Reduce manual data entry and processing errors</li>
-          <li>Trigger actions automatically based on rules or events</li>
-          <li>Connect siloed systems so data flows without re-entry</li>
+          <li>Smart data routing and logic flows</li>
+          <li>AI-generated report summaries</li>
+          <li>Automated task assignments and alerts</li>
+          <li>Multi-system integrations and custom scripting</li>
         </ul>
-        <p>The result is a leaner, faster operation — with your team focused on work that actually requires human judgment.</p>
+        <p>With BPA, you don’t just speed up processes — you increase consistency, eliminate bottlenecks, and enable real-time decision-making.</p>
       </div>
     </section>
 
@@ -414,7 +414,7 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
     <section class="bpa-section media-accordion">
       <div class="accordion-copy">
         <div class="eyebrow acc-eyebrow">Service Benefits</div>
-        <h2 class="section-title">Why Automate Your Business Processes?</h2>
+        <h2 class="section-title">How You Can Benefit from Business<br /> Process Automation</h2>
         <div class="acc-list" data-acc>
           {strategicBenefits.map(([icon, title, text], i) => (
             <div class={`acc-item${i === 0 ? ' active' : ''}`}>
@@ -441,7 +441,7 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
 
     <!-- ══ KEY FEATURES GRID ══ -->
     <section class="bpa-section services-grid-section">
-      <h2 class="section-title">What We Automate</h2>
+      <h2 class="section-title">How Business Process Automation Works</h2>
       <div class="service-grid">
         {services.map(([icon, title, text]) => (
           <article class="service-card">

@@ -1,0 +1,201 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ContactSection from '../../components/ContactSection.astro';
+
+const offices = [
+  { city: 'Olean, NY', address: '237 Delaware Ave #7, Olean, NY 14760', phone: '716-379-3285' },
+  { city: 'Cincinnati, OH', address: '250 East 5th Street 15th floor, Cincinnati, OH 45202', phone: '513-562-1500' },
+  { city: 'Kalispell, MT', address: '1001 S. Main St. #8131, Kalispell, MT 59901', phone: '406-868-1034' },
+];
+---
+
+<Layout title="Schedule a Free Consultation - The Demski Group">
+<style slot="head">
+html { overflow-x: hidden; }
+*, *::before, *::after { box-sizing: border-box; }
+
+.cu-hero {
+  background: #001629;
+  padding: 90px 100px 80px;
+}
+.cu-hero-inner {
+  max-width: 1650px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 70px;
+  align-items: start;
+}
+.cu-eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f09300;
+  margin-bottom: 18px;
+}
+.cu-hero h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 48px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.18;
+  margin: 0 0 20px;
+}
+.cu-hero-sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 0 36px;
+}
+
+.cu-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-width: 460px;
+}
+.cu-form input[type="tel"] {
+  width: 100%;
+  padding: 14px 0;
+  border: none;
+  border-bottom: 1.5px solid rgba(255,255,255,0.9);
+  border-radius: 0;
+  font-size: 16px;
+  font-family: 'Outfit', sans-serif;
+  outline: none;
+  background: transparent;
+  color: #ffffff;
+}
+.cu-form input::placeholder { color: rgba(255,255,255,0.65); }
+.cu-form-submit {
+  align-self: flex-start;
+  padding: 15px 44px;
+  background: #f09300;
+  color: #001629;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.cu-form-submit:hover { background: #ffa726; }
+.cu-disclaimer {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cu-offices {
+  background: #f0f0f0;
+  border-radius: 25px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.14);
+}
+.cu-offices h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #001629;
+  margin: 0;
+}
+.cu-office {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 22px;
+}
+.cu-office:first-of-type { border-top: none; padding-top: 0; }
+.cu-office-city {
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #005cb9;
+  margin: 0 0 8px;
+}
+.cu-office-line {
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  color: #444;
+  line-height: 1.6;
+  margin: 0;
+}
+.cu-office-line a { color: #444; text-decoration: none; }
+.cu-office-line a:hover { color: #005cb9; }
+.cu-email {
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  color: #444;
+  margin: 0;
+  padding-top: 22px;
+  border-top: 1px solid #e0e0e0;
+}
+.cu-email a { color: #005cb9; text-decoration: none; font-weight: 600; }
+.cu-email a:hover { text-decoration: underline; }
+
+@media (max-width: 1100px) {
+  .cu-hero { padding: 64px 32px; }
+  .cu-hero-inner { grid-template-columns: 1fr; gap: 44px; }
+  .cu-hero h1 { font-size: 36px; }
+}
+@media (max-width: 600px) {
+  .cu-hero { padding: 48px 22px; }
+  .cu-form { max-width: 100%; }
+  .cu-form-submit { align-self: center; }
+}
+</style>
+
+<section class="cu-hero">
+  <div class="cu-hero-inner">
+    <div>
+      <div class="cu-eyebrow">Get In Touch</div>
+      <h1>Schedule a Free Consultation With One of Our Experts</h1>
+      <p class="cu-hero-sub">Tell us a bit about your project and one of our experts will reach out to discuss how we can help your business grow.</p>
+      <form class="cu-form" action="/contact-us/" method="get" novalidate>
+        <input type="tel" name="phone" placeholder="Phone Number" required />
+        <button type="submit" class="cu-form-submit">Start Your Project</button>
+        <p class="cu-disclaimer">*By providing your phone number, you agree to receive text messages related to your inquiry. Message &amp; data rates may apply. Reply STOP to opt out.</p>
+      </form>
+    </div>
+
+    <div class="cu-offices">
+      <h2>Our Offices</h2>
+      {offices.map(o => (
+        <div class="cu-office">
+          <p class="cu-office-city">{o.city}</p>
+          <p class="cu-office-line">{o.address}</p>
+          <p class="cu-office-line"><a href={`tel:${o.phone.replace(/-/g, '')}`}>{o.phone}</a></p>
+        </div>
+      ))}
+      <p class="cu-email">Email us at <a href="mailto:info@demskigroup.com">info@demskigroup.com</a></p>
+    </div>
+  </div>
+</section>
+
+<ContactSection />
+
+<script is:inline define:vars={{ serviceId: 'service_f4tf0yn', leadTemplate: 'template_c6hi8ir', confirmTemplate: 'template_7kz7hgj' }}>
+(function () {
+  const form = document.querySelector('.cu-form');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const phone = form.querySelector('input[name="phone"]').value.trim();
+    if (!phone) return;
+    if (typeof emailjs === 'undefined') { window.location.href = '/contact-us/?phone=' + encodeURIComponent(phone); return; }
+    const params = { user_phone: phone, cta_choice: 'Schedule a Free Consultation' };
+    emailjs.send(serviceId, leadTemplate, params).then(r => console.log('Lead sent', r.status)).catch(e => console.log('Lead failed', e));
+    emailjs.send(serviceId, confirmTemplate, { user_phone: phone, cta_choice: 'Schedule a Free Consultation' }).then(r => console.log('Confirm sent', r.status)).catch(e => console.log('Confirm failed', e));
+    form.innerHTML = '<p style="font-family:\'Outfit\',sans-serif;color:#fff;font-size:17px;">Thanks! One of our experts will reach out shortly.</p>';
+  });
+})();
+</script>
+</Layout>

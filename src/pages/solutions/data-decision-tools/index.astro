@@ -5,20 +5,18 @@ import ContactSection from '../../../components/ContactSection.astro';
 const assetBase = '/solutions/sales-lead-tracking-tools';
 
 const strategicBenefits = [
-  ['fa-chart-line', 'Decisions Backed by Data, Not Gut Feel', 'When the right metrics are surfaced at the right time, your team stops guessing and starts acting with confidence. We build tools that turn raw data into clear signals — so every decision, from daily operations to long-term strategy, is grounded in reality.'],
-  ['fa-bolt', 'Speed Without Sacrificing Accuracy', 'Manual reporting cycles take days. By the time the data reaches decision-makers, it\'s already outdated. Our tools deliver accurate, real-time intelligence so you can move faster than your competition without compromising on quality.'],
-  ['fa-layer-group', 'One Source of Truth Across the Business', 'Fragmented data across spreadsheets, platforms, and departments creates conflicting numbers and erodes trust. We unify your data into a single, authoritative source that everyone in your organization can rely on.'],
-  ['fa-users', 'The Right Data for Every Role', 'Executives need trend summaries. Operations teams need live workflow data. Sales managers need pipeline metrics. We design tools that surface the right information for each role — not a one-size-fits-all dashboard that nobody uses.'],
-  ['fa-shield-halved', 'Proactive Alerts Before Problems Escalate', 'Don\'t wait for a weekly review to discover an issue. Our tools monitor your key metrics continuously and alert the right people when thresholds are crossed — turning reactive firefighting into proactive management.']
+  ['fa-table-cells-large', 'Turn Data into Action', 'Surface insights in a usable format — not just reports, but tools that recommend, alert, and prioritize actions.'],
+  ['fa-square-check', 'Custom-Fit to Your Business Logic', 'We build tools around your unique metrics, constraints, and thresholds — not someone else\'s defaults.'],
+  ['fa-display', 'Visual & Intuitive Interfaces', 'Interactive dashboards and visual decision trees let your team explore options without relying on analysts or coders.'],
+  ['fa-shield-halved', 'Real-Time, Always-On Analysis', 'As your data updates, so do your insights — helping you stay ahead of problems, not behind them.']
 ];
 
 const services = [
-  ['fa-table-cells-large', 'Custom Analytics Dashboards', 'Purpose-built dashboards that surface the KPIs your team cares about most — updated in real time, accessible from any device, and designed around how your business actually operates.'],
-  ['fa-filter', 'Data Aggregation & Cleansing', 'We pull data from all your sources — CRMs, ERPs, spreadsheets, APIs, databases — normalize it, and build clean pipelines that feed your tools with accurate, consistent information.'],
-  ['fa-magnifying-glass-chart', 'Predictive Analytics & Forecasting', 'Move beyond historical reporting. We build models that identify trends, forecast outcomes, and surface risks before they materialize — giving your team a forward-looking edge.'],
-  ['fa-bell', 'Threshold Alerts & Automated Reporting', 'Configure rules that trigger alerts when metrics cross defined limits, and schedule automated reports delivered to the right people at the right time — no manual pulling required.'],
-  ['fa-database', 'Data Warehouse & ETL Pipelines', 'For complex, high-volume data environments, we design and build lightweight data warehouses and ETL pipelines that aggregate, transform, and structure your data reliably at scale.'],
-  ['fa-plug', 'BI Tool Integration & Enhancement', 'Already using Power BI, Tableau, or Looker? We extend and optimize your existing BI setup — building custom connectors, improving data models, and unlocking capabilities your current implementation is missing.']
+  ['fa-route', 'Decision Modeling & Logic Flows', 'We help define the core questions your team needs to answer — then build logic-driven tools to guide that process using inputs from live data sources.'],
+  ['fa-brain', 'Scenario Planning Interfaces', 'Let your team model outcomes based on different variables: cost inputs, inventory levels, timelines, etc.'],
+  ['fa-arrow-trend-up', 'AI-Powered Recommendations', 'Trained models analyze historical data and output ranked options, risk scores, or next-step suggestions — ideal for budgeting, forecasting, and planning.'],
+  ['fa-chart-line', 'KPI & Alert Dashboards', 'Get live visibility into thresholds, bottlenecks, or anomalies — all visualized in intuitive, role-specific dashboards.'],
+  ['fa-headset', 'Embedded Reporting and Export Tools', 'One-click exports to PDF, Excel, or presentation-ready decks keep stakeholders aligned without manual work.']
 ];
 
 const coreServices = [
@@ -72,7 +70,7 @@ const cases = [
     .ddt-page{overflow-x:clip}
     .ddt-section{max-width:var(--max);margin:0 auto;padding:60px 50px}
 
-    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--blue);font-size:14px;line-height:1.2;font-weight:500;margin:0 0 20px}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--blue);font-size:15px;font-family:'Outfit', sans-serif;line-height:1.2;font-weight:500;margin:0 0 20px}
     .eyebrow::before{content:'';width:11px;height:11px;border:1.5px solid currentColor;border-radius:3px;transform:rotate(45deg);flex-shrink:0}
     .acc-eyebrow { font-size: 18px; font-family: 'Outfit', sans-serif; color: #0154B1; }
 
@@ -86,10 +84,10 @@ const cases = [
       border-radius:24px;overflow:hidden;
     }
     .hero-content{flex:0 1 720px}
-    .hero .eyebrow{color:rgba(255,255,255,0.92);font-size:15px;margin-bottom:20px}
+    .hero .eyebrow{color:#FFFFFF;font-size:18px;font-family:'Outfit', sans-serif;margin-bottom:20px}
     .hero .eyebrow::before{border-color:rgba(255,255,255,0.70)}
     .hero h1{max-width:720px;margin:0 0 22px;font-size:clamp(40px,4.2vw,60px);font-weight:700;line-height:1.18;letter-spacing:-0.5px;color:#fff}
-    .hero p{max-width:500px;margin:0 0 30px;font-size:16px;font-weight:400;line-height:1.6;color:rgba(255,255,255,0.88)}
+    .hero p{max-width:540px;margin:0 0 30px;font-size:18px;font-family:'Outfit', sans-serif;font-weight:400;line-height:1.6;color:#FFFFFF}
     .hero-btn{display:inline-flex;align-items:center;gap:12px;background:#f0f0f0;color:#1a1a1a;padding:14px 26px;border-radius:10px;font-size:20px;font-weight:500;text-decoration:none;transition:transform 0.18s ease,background 0.18s ease,color 0.18s ease;white-space:nowrap}
     .hero-btn:hover{ transform: translateY(-3px);background:#0154b1;color:#fff}
     .hero-btn i{font-size:14px}
@@ -154,7 +152,7 @@ const cases = [
     .why-card h3{margin:0 0 60px;color:#fff!important;font-size:25px;font-weight:600;line-height:1.35;text-align:left;font-family:'Outfit',sans-serif;white-space:nowrap}
     .button-light{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:auto;min-height:41px;background-color:#fff;color:#282828;padding:12px 20px;font-size:20px;font-weight:500;font-family:'Outfit',sans-serif;border-radius:10px;text-decoration:none;text-align:center;white-space:nowrap}
     .button-light:hover{transform:translateY(-3px)}
-    .why-card .button-light{font-size:20px;padding:12px 22px;min-height:auto}
+    .why-card .button-light{font-size:20px;padding:12px 22px;min-height:auto;width:100%;white-space:normal;box-sizing:border-box}
 
     .case-section{padding-top:60px;padding-bottom:50px}
     .case-section .section-title{max-width: 800px;margin-bottom:14px;font-size: 50px}
@@ -270,8 +268,8 @@ const cases = [
     <section class="ddt-section hero">
       <div class="hero-content">
         <div class="eyebrow">Solutions</div>
-        <h1>Stop Reporting on the Past. Start Acting on the Present.</h1>
-        <p>We build custom data decision tools that surface the right information, to the right people, at the right time — so your business moves on accurate intelligence instead of outdated reports and gut instinct.</p>
+        <h1>Make Smarter, Faster Decisions with Tailored Data Tools</h1>
+        <p>Empower your team with custom-built data decision tools that surface the insights you need — from forecasting models to real-time dashboards and scenario planning systems.</p>
         <a class="hero-btn" href="/contact-us/">
           Schedule a Consultation <span class="btn-icon-box"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
         </a>
@@ -285,18 +283,11 @@ const cases = [
 
     <!-- ══ INTRO GRID ══ -->
     <section class="ddt-section intro-grid">
-      <h2 class="section-title">What Are Data Decision Tools?</h2>
+      <h2 class="section-title">Overview of Data Decision Tools</h2>
       <div class="copy">
-        <p>Data decision tools are custom-built applications, dashboards, and reporting systems that connect your data sources, process raw information, and present it in formats that drive faster, smarter business decisions.</p>
-        <p>Unlike generic BI platforms that require months of configuration and rarely get adopted, our tools are purpose-built for your business — designed around the questions you actually need to answer every day. They can include:</p>
-        <ul>
-          <li>Real-time KPI dashboards for executives and department heads</li>
-          <li>Operational reporting for live workflow and performance monitoring</li>
-          <li>Predictive models and trend analysis for forward-looking decisions</li>
-          <li>Automated alerts when metrics deviate from expected ranges</li>
-          <li>Data pipelines that unify siloed sources into a single view</li>
-        </ul>
-        <p>The result is a business that reacts faster, plans smarter, and wastes less time hunting for numbers across disconnected systems.</p>
+        <p>In a world overwhelmed by data, the right tools make all the difference. Our Data Decision Tools are designed to cut through noise and deliver clarity — helping business leaders, analysts, and teams make confident decisions grounded in real insight.</p>
+        <p>We don't offer one-size-fits-all BI. Instead, we build custom solutions that combine real-time analytics, predictive modeling, and AI-powered logic to guide decisions in areas like finance, operations, sales, and product development.</p>
+        <p>Whether you're choosing where to allocate budget, how to price your services, or which region to expand into, our tools deliver the answers backed by your own data.</p>
       </div>
     </section>
 
@@ -304,7 +295,7 @@ const cases = [
     <section class="ddt-section media-accordion">
       <div class="accordion-copy">
         <div class="eyebrow acc-eyebrow">Service Benefits</div>
-        <h2 class="section-title">How Data Decision Tools Transform Your Business</h2>
+        <h2 class="section-title">How Data Decision Tools Can Benefit Your Business</h2>
         <div class="acc-list" data-acc>
           {strategicBenefits.map(([icon, title, text], i) => (
             <div class={`acc-item${i === 0 ? ' active' : ''}`}>
@@ -331,7 +322,7 @@ const cases = [
 
     <!-- ══ SERVICES GRID ══ -->
     <section class="ddt-section services-grid-section">
-      <h2 class="section-title">Data Decision Tools We Build</h2>
+      <h2 class="section-title">How Data Decision Tools Elevate Your Business</h2>
       <div class="service-grid">
         {services.map(([icon, title, text]) => (
           <article class="service-card">
@@ -378,19 +369,17 @@ const cases = [
         <div class="why-copy" style="padding-right:410px;">
           <div class="eyebrow acc-eyebrow">Choose Us</div>
           <h2 class="section-title">Why Choose the Demski Group?</h2>
-          <p>Most data tools fail not because of bad technology, but because they weren't built for how your business actually works. We start every engagement by understanding your data landscape, your decision-making process, and the gaps that cost you time and money — before we build anything.</p>
-          <p>We've delivered data and reporting solutions across biotechnology, retail, logistics, real estate, manufacturing, and more. Each one purpose-built. Each one adopted by the teams it was built for.</p>
-          <p><strong>What sets our approach apart:</strong></p>
+          <p>Most BI tools show you what happened. We help you decide what to do next. With a blend of custom development, machine learning, and UX-first design, we create data solutions that go beyond charts and metrics — they drive action.</p>
           <ul style="margin:14px 0 24px 22px;padding:0;">
-            <li style="color:#111;font-size:16px;line-height:1.7;margin-bottom:7px;list-style:disc;">Business-first — we understand your decisions before touching your data</li>
-            <li style="color:#111;font-size:16px;line-height:1.7;margin-bottom:7px;list-style:disc;">Connects to any source — CRMs, ERPs, databases, APIs, spreadsheets</li>
-            <li style="color:#111;font-size:16px;line-height:1.7;margin-bottom:7px;list-style:disc;">Built for adoption — designed for the people who will actually use it</li>
-            <li style="color:#111;font-size:16px;line-height:1.7;margin-bottom:7px;list-style:disc;">Maintained and evolved as your data environment changes</li>
+            <li style="color:#111;font-size:16px;line-height:1.7;margin-bottom:7px;list-style:disc;">Custom-built decision tools, not generic dashboards</li>
+            <li style="color:#111;font-size:16px;line-height:1.7;margin-bottom:7px;list-style:disc;">Expertise in Python, R, SQL, and predictive modeling</li>
+            <li style="color:#111;font-size:16px;line-height:1.7;margin-bottom:7px;list-style:disc;">Strong design sense — we make complex logic easy to use</li>
+            <li style="color:#111;font-size:16px;line-height:1.7;margin-bottom:7px;list-style:disc;">Proven across finance, retail, SaaS, logistics, and healthcare</li>
           </ul>
           <div class="testimonial">
-            <h3>Client Success Stories</h3>
-            <div class="quote-mark">&ldquo;&ldquo;</div>
-            <blockquote>The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. They are also very professional and timely as well as a pleasure to work with!</blockquote>
+            <h3>What Our Clients Say</h3>
+            <div class="quote-mark"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
+            <blockquote>The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. They are also very professional and timely as well as a pleasure to work with! We have worked with Andrew Demski for all of our IT needs.</blockquote>
             <div class="testimonial-footer">
               <p>Delaine Mast<br />CEO</p>
               <a class="text-link" href="/our-clients/impact-team-tennis/">Learn more &rarr;</a>
@@ -409,15 +398,31 @@ const cases = [
           />
         </div>
         <div class="why-card-body">
-          <h3>Ready to Make Smarter<br/>Decisions, Faster?</h3>
+          <h3>Decisions Should Be<br />Data-Driven — Not Guesswork</h3>
           <a class="button-light" href="/contact-us/">
-            Contact Us <span class="btn-icon-box"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            Request a Free Data<br /> Strategy Session <span class="btn-icon-box"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
           </a>
         </div>
       </aside>
     </div>
 
     <!-- ══ CASE STUDIES ══ -->
+    <section class="ddt-section case-section">
+      <div class="eyebrow acc-eyebrow">Case Studies</div>
+      <h2 class="section-title">Over 600 Projects Delivered Successfully</h2>
+      <p class="case-intro">With over 12 years of software development experience in many industries, we have a lot to talk about. Here are just a few of our success stories.</p>
+      <div class="case-grid">
+        {cases.map(({ tag, name, description, image, tone, link }) => (
+          <article class={`case-card ${tone === 'dark' ? 'featured' : tone}`}>
+            <span class="case-tag">{tag}</span>
+            <img src={`${assetBase}/${image}`} alt={`${name} logo`} width="300" height="92" loading="lazy" />
+            {description && <p>{description}</p>}
+            <a class="case-link" href={link}>Read full case study &rarr;</a>
+          </article>
+        ))}
+      </div>
+    </section>
+
     <ContactSection testimonials={contactTestimonials} />
 
   </main>

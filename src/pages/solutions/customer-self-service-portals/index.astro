@@ -72,7 +72,7 @@ const cases = [
     .cssp-page{overflow-x:clip}
     .cssp-section{max-width:var(--max);margin:0 auto;padding:60px 50px}
 
-    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--blue);font-size:14px;line-height:1.2;font-weight:500;margin:0 0 20px}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--blue);font-size:15px;font-family:'Outfit', sans-serif;line-height:1.2;font-weight:500;margin:0 0 20px}
     .eyebrow::before{content:'';width:11px;height:11px;border:1.5px solid currentColor;border-radius:3px;transform:rotate(45deg);flex-shrink:0}
     .acc-eyebrow { font-size: 18px; font-family: 'Outfit', sans-serif; color: #0154B1; }
 
@@ -87,10 +87,10 @@ const cases = [
       border-radius:24px;overflow:hidden;
     }
     .hero-content{flex:0 1 720px}
-    .hero .eyebrow{color:rgba(255,255,255,0.92);font-size:15px;margin-bottom:20px}
+    .hero .eyebrow{color:#FFFFFF;font-size:18px;font-family:'Outfit', sans-serif;margin-bottom:20px}
     .hero .eyebrow::before{border-color:rgba(255,255,255,0.70)}
     .hero h1{max-width:720px;margin:0 0 22px;font-size:clamp(40px,4.2vw,60px);font-weight:700;line-height:1.18;letter-spacing:-0.5px;color:#fff}
-    .hero p{max-width:500px;margin:0 0 30px;font-size:16px;font-weight:400;line-height:1.6;color:rgba(255,255,255,0.88)}
+    .hero p{max-width:540px;margin:0 0 30px;font-size:18px;font-family:'Outfit', sans-serif;font-weight:400;line-height:1.6;color:#FFFFFF}
     .hero-btn{display:inline-flex;align-items:center;gap:12px;background:#f0f0f0;color:#1a1a1a;padding:14px 26px;border-radius:10px;font-size:20px;font-weight:500;text-decoration:none;transition:transform 0.18s ease,background 0.18s ease,color 0.18s ease;white-space:nowrap}
     .hero-btn:hover{ transform: translateY(-3px);background:#0154b1;color:#fff}
     .hero-btn i{font-size:14px}
@@ -278,8 +278,8 @@ const cases = [
     <section class="cssp-section hero">
       <div class="hero-content">
         <div class="eyebrow">Solutions</div>
-        <h1>Empower Your Customers. Free Your Support Team.</h1>
-        <p>Give customers a branded, always-on portal to manage their account, find answers, submit requests, and resolve issues on their own — without waiting on your team.</p>
+        <h1>Customer Self-Service Portals</h1>
+        <p>At The Demski Group, we design and implement custom self-service portals that streamline customer interactions, automate routine requests, and integrate seamlessly into your existing business systems.</p>
         <a class="hero-btn" href="/contact-us/">
           Schedule a Consultation <span class="btn-icon-box"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
         </a>
@@ -381,6 +381,33 @@ const cases = [
       />
     </section>
 
+    <!-- ══ INDUSTRY SPECIFIC ══ -->
+    <section class="cssp-section" style="text-align:center; padding-top:70px; padding-bottom:70px;">
+      <h2 style="font-size:50px; font-weight:700; color:#0154B1; font-family:'Outfit',sans-serif; margin:0 0 40px;">Secure, Scalable, and Industry-Specific</h2>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px 24px;">
+        <div style="text-align:center;">
+          <i class="fa-solid fa-person-walking-arrow-right" style="font-size:50px; color:#999; margin-bottom:12px; display:block;"></i>
+          <h3 style="font-size:18px; font-weight:600; margin:0 0 8px; color:#000000;">Healthcare</h3>
+          <p style="font-size:18px; color:#000000; line-height:1.5; margin:0;">HIPAA-compliant patient portals for appointments, prescriptions, and secure messaging</p>
+        </div>
+        <div style="text-align:center;">
+          <i class="fa-solid fa-code" style="font-size:50px; color:#999; margin-bottom:12px; display:block;"></i>
+          <h3 style="font-size:18px; font-weight:600; margin:0 0 8px; color:#000000;">Financial Services</h3>
+          <p style="font-size:18px; color:#000000; line-height:1.5; margin:0;">Document exchange, tax workflows, and client collaboration platforms built with robust encryption.</p>
+        </div>
+        <div style="text-align:center;">
+          <i class="fa-solid fa-arrow-trend-up" style="font-size:50px; color:#999; margin-bottom:12px; display:block;"></i>
+          <h3 style="font-size:18px; font-weight:600; margin:0 0 8px; color:#000000;">Retail & Ecommerce</h3>
+          <p style="font-size:18px; color:#000000; line-height:1.5; margin:0;">Customer order tracking, returns management, and integrated payment flows</p>
+        </div>
+        <div style="text-align:center;">
+          <i class="fa-solid fa-bezier-curve" style="font-size:50px; color:#999; margin-bottom:12px; display:block;"></i>
+          <h3 style="font-size:18px; font-weight:600; margin:0 0 8px; color:#000000;">Education & Training</h3>
+          <p style="font-size:18px; color:#000000; line-height:1.5; margin:0;">Student learning portals with course access, assessments, and mobile-first design.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ══ WHY CHOOSE ══ -->
     <div class="why-section-wrap">
       <section class="why-section">
@@ -398,7 +425,7 @@ const cases = [
           </ul>
           <div class="testimonial">
             <h3>Client Success Stories</h3>
-            <div class="quote-mark">&ldquo;&ldquo;</div>
+            <div class="quote-mark"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
             <blockquote>The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. They are also very professional and timely as well as a pleasure to work with!</blockquote>
             <div class="testimonial-footer">
               <p>Delaine Mast<br />CEO</p>

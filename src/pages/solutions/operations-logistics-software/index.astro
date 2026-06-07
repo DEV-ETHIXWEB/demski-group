@@ -12,6 +12,15 @@ const strategicBenefits = [
   ['fa-shield-halved', 'Compliance, Documentation & Audit Trails', 'Regulatory compliance, customs documentation, carrier contracts, and proof-of-delivery records need to be accurate and accessible. Custom systems bake your compliance requirements into every workflow — reducing risk and making audits straightforward.']
 ];
 
+const buildingBlocks = [
+  ['fa-link-slash', 'System Integration', 'Connect to ERPs, CRMs, WMS, TMS, and other tools to unify operations.'],
+  ['fa-brain', 'IoT & Real-Time Tracking', 'Monitor vehicle health, asset location, and delivery status with live data.'],
+  ['fa-arrow-trend-up', 'Facial Recognition & Time Tracking', 'Boost accuracy in labor management and compliance.'],
+  ['fa-route', 'AI-Powered Route Optimization', 'Reduce fuel costs and improve delivery times with smarter dispatching.'],
+  ['fa-headset', 'Role-Based Access Controls', 'Set permissions and workflows by department, location, or team.'],
+  ['fa-clipboard-list', 'Automated Reporting & Alerts', 'Keep your ops team informed with real-time alerts and scheduled reports.']
+];
+
 const services = [
   ['fa-truck', 'Transportation Management (TMS)', 'Carrier selection, load planning, freight rate comparison, shipment tracking, and proof-of-delivery — all in one system built around your carrier network and delivery commitments.'],
   ['fa-warehouse', 'Warehouse Management (WMS)', 'Receiving, putaway, pick-and-pack, inventory location tracking, cycle counts, and outbound processing — designed around your facility layout and fulfillment workflows.'],
@@ -72,7 +81,7 @@ const cases = [
     .ols-page{overflow-x:clip}
     .ols-section{max-width:var(--max);margin:0 auto;padding:60px 50px}
 
-    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--blue);font-size:14px;line-height:1.2;font-weight:500;margin:0 0 20px}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--blue);font-size:15px;font-family:'Outfit', sans-serif;line-height:1.2;font-weight:500;margin:0 0 20px}
     .eyebrow::before{content:'';width:11px;height:11px;border:1.5px solid currentColor;border-radius:3px;transform:rotate(45deg);flex-shrink:0}
     .acc-eyebrow { font-size: 18px; font-family: 'Outfit', sans-serif; color: #0154B1; }
 
@@ -86,10 +95,10 @@ const cases = [
       border-radius:24px;overflow:hidden;
     }
     .hero-content{flex:0 1 720px}
-    .hero .eyebrow{color:rgba(255,255,255,0.92);font-size:15px;margin-bottom:20px}
+    .hero .eyebrow{color:#FFFFFF;font-size:18px;font-family:'Outfit', sans-serif;margin-bottom:20px}
     .hero .eyebrow::before{border-color:rgba(255,255,255,0.70)}
     .hero h1{max-width:720px;margin:0 0 22px;font-size:clamp(40px,4.2vw,60px);font-weight:700;line-height:1.18;letter-spacing:-0.5px;color:#fff}
-    .hero p{max-width:500px;margin:0 0 30px;font-size:16px;font-weight:400;line-height:1.6;color:rgba(255,255,255,0.88)}
+    .hero p{max-width:540px;margin:0 0 30px;font-size:18px;font-family:'Outfit', sans-serif;font-weight:400;line-height:1.6;color:#FFFFFF}
     .hero-btn{display:inline-flex;align-items:center;gap:12px;background:#f0f0f0;color:#1a1a1a;padding:14px 26px;border-radius:10px;font-size:20px;font-weight:500;text-decoration:none;transition:transform 0.18s ease,background 0.18s ease,color 0.18s ease;white-space:nowrap}
     .hero-btn:hover{ transform: translateY(-3px);background:#0154b1;color:#fff}
     .hero-btn i{font-size:14px}
@@ -132,6 +141,15 @@ const cases = [
     .service-card i{display:block;margin-bottom:14px;color:#005cb9;font-size:28px;line-height:1}
     .service-card h3{margin:0 0 10px;font-size:25px;font-weight:500;line-height:1.3;color:#282828;font-family:'Outfit',sans-serif}
     .service-card p{margin:0;color:#000;font-size:16px;line-height:1.55}
+
+    .bb-section{padding:60px 100px;text-align:center}
+    .bb-section .section-title{font-size:46px;font-weight:700;color:#005cb9;font-family:'Outfit',sans-serif;margin:0 0 50px;text-align:center}
+    .bb-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:30px;max-width:1650px;margin:0 auto}
+    .bb-item i{display:block;margin-bottom:14px;color:#888;font-size:30px;line-height:1}
+    .bb-item h3{margin:0 0 10px;font-size:18px;font-weight:600;line-height:1.3;color:#1b1c1d;font-family:'Outfit',sans-serif}
+    .bb-item p{margin:0;color:#444;font-size:15px;line-height:1.55}
+    @media (max-width:1100px){.bb-grid{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:680px){.bb-grid{grid-template-columns:repeat(1,1fr)}.bb-section{padding:40px 24px}}
 
     .why-section-wrap{position:relative;padding:0;margin:50px 100px}
     .why-section{display:block;border-radius:22px;overflow:hidden;background-color:#f0f0f0}
@@ -373,6 +391,20 @@ const cases = [
       />
     </section>
 
+    <!-- ══ BUILDING BLOCKS ══ -->
+    <section class="ols-section bb-section">
+      <h2 class="section-title">Building Blocks of Your Custom Logistics Platform</h2>
+      <div class="bb-grid">
+        {buildingBlocks.map(([icon, title, text]) => (
+          <article class="bb-item">
+            <i class={`fa-solid ${icon}`} aria-hidden="true"></i>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
     <!-- ══ WHY CHOOSE ══ -->
     <div class="why-section-wrap">
       <section class="why-section">
@@ -390,7 +422,7 @@ const cases = [
           </ul>
           <div class="testimonial">
             <h3>Client Success Stories</h3>
-            <div class="quote-mark">&ldquo;&ldquo;</div>
+            <div class="quote-mark"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
             <blockquote>The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. They are also very professional and timely as well as a pleasure to work with!</blockquote>
             <div class="testimonial-footer">
               <p>Delaine Mast<br />CEO</p>
@@ -419,6 +451,22 @@ const cases = [
     </div>
 
     <!-- ══ CASE STUDIES ══ -->
+    <section class="ols-section case-section">
+      <div class="eyebrow acc-eyebrow">Case Studies</div>
+      <h2 class="section-title">Over 600 Projects Delivered Successfully</h2>
+      <p class="case-intro">With over 12 years of software development experience in many industries, we have a lot to talk about. Here are just a few of our success stories.</p>
+      <div class="case-grid">
+        {cases.map(({ tag, name, description, image, tone, link }) => (
+          <article class={`case-card ${tone === 'dark' ? 'featured' : tone}`}>
+            <span class="case-tag">{tag}</span>
+            <img src={`${assetBase}/${image}`} alt={`${name} logo`} width="300" height="92" loading="lazy" />
+            {description && <p>{description}</p>}
+            <a class="case-link" href={link}>Read full case study &rarr;</a>
+          </article>
+        ))}
+      </div>
+    </section>
+
     <ContactSection testimonials={contactTestimonials} />
 
   </main>

@@ -5,11 +5,11 @@ import ContactSection from '../../../components/ContactSection.astro';
 const assetBase = '/solutions/sales-lead-tracking-tools';
 
 const strategicBenefits = [
-  ['fa-table-cells-large', 'Real-Time Data Visibility', 'Stop waiting for weekly reports. Custom dashboards surface live KPIs, trends, and operational metrics the moment they change — so your team always operates on current information.'],
-  ['fa-square-check', 'Faster, Smarter Decisions', 'When the right data is in front of the right people at the right time, decision-making accelerates. Replace gut-feel choices with evidence-backed actions tied directly to your goals.'],
-  ['fa-layer-group', 'Unified Data Across Systems', 'Most businesses run on 5–10 disconnected tools. We pull data from your CRM, ERP, marketing platforms, finance systems, and more into a single, coherent view.'],
-  ['fa-laptop-code', 'Role-Based Dashboards', 'Executives need high-level trends. Operations teams need granular workflow data. Sales managers need pipeline metrics. We build dashboards that show each person exactly what they need.'],
-  ['fa-shield-halved', 'Accountability & Performance Tracking', 'Build dashboards that track team and individual performance, monitor SLAs, and flag issues before they escalate — turning accountability into a system, not a conversation.']
+  ["fa-table-cells-large", "Unified Data View", "Integrate data from multiple sources — including CRMs, ERPs, cloud services, and spreadsheets — into one cohesive, real-time dashboard. By eliminating data silos, you create a unified source of truth that provides your teams with consistent and accurate information.\n\nThis holistic view not only enhances visibility but also accelerates decision-making by giving stakeholders access to critical insights at a glance.\n\nFrom Shopify and WooCommerce to Amazon and Walmart Marketplace, we make your eCommerce backend as powerful as your front-end"],
+  ["fa-square-check", "Tailored to Your Needs", "No two businesses are the same — and your dashboards shouldn’t be either. We work closely with you to design custom dashboards that mirror your key performance indicators (KPIs), processes, and unique business objectives.\n\nWhether you need granular data for operational performance or high-level metrics for executive decision-making, our dashboards are built to deliver relevant and actionable insights for every department."],
+  ["fa-layer-group", "Interactive Visualizations", "Data should inform, not overwhelm. Our dashboards leverage powerful visualization tools — from dynamic charts and heatmaps to trend lines and custom graphics — to transform complex datasets into clear, intuitive visuals.\n\nThese interactive visuals make it easy to spot trends, monitor performance, and identify opportunities, helping you act on your data faster and with greater confidence.\n\nUser experience isn’t just a priority — it’s built into the architecture of every solution we create."],
+  ["fa-laptop-code", "Responsive Design", "In today’s flexible work environment, your data needs to be accessible wherever you are. Our dashboards are built with responsive layouts that adapt seamlessly to any device — desktop, tablet, or mobile.\n\nWhether you’re in the office, at home, or on the move, you’ll have a consistent and user-friendly experience, ensuring you’re always connected to your most important metrics."],
+  ["fa-shield-halved", "Secure and Scalable", "As your business grows, so does your data. Our dashboards are designed to scale alongside your organization, handling increased data volumes and evolving needs with ease. Security is paramount — we implement industry-standard encryption and access controls to protect your sensitive information and maintain compliance.\n\nWith a robust, future-proofed architecture, you can rely on your dashboards to keep pace with your success.Whether you’re in the office, at home, or on the move, you’ll have a consistent and user-friendly experience, ensuring you’re always connected to your most important metrics."]
 ];
 
 const services = [
@@ -73,7 +73,7 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
     .cbd-page { overflow-x: clip; }
     .cbd-section { max-width: var(--max); margin: 0 auto; padding: 60px 50px; }
 
-    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--blue); font-size: 14px; line-height: 1.2; font-weight: 500; margin: 0 0 20px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--blue); font-size: 15px; font-family: 'Outfit', sans-serif; line-height: 1.2; font-weight: 500; margin: 0 0 20px; }
     .eyebrow::before { content: ''; width: 11px; height: 11px; border: 1.5px solid currentColor; border-radius: 3px; transform: rotate(45deg); flex-shrink: 0; }
     .acc-eyebrow { font-size: 18px; font-family: 'Outfit', sans-serif; color: #0154B1; }
 
@@ -88,10 +88,10 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
       border-radius: 24px; overflow: hidden;
     }
     .hero-content { flex: 0 1 610px; }
-    .hero .eyebrow { color: rgba(255,255,255,0.92); font-size: 15px; margin-bottom: 20px; }
+    .hero .eyebrow { color: #FFFFFF; font-size: 18px; font-family: 'Outfit', sans-serif; margin-bottom: 20px; }
     .hero .eyebrow::before { border-color: rgba(255,255,255,0.70); }
     .hero h1 { max-width: 610px; margin: 0 0 22px; font-size: clamp(40px,4.2vw,60px); font-weight: 700; line-height: 1.18; letter-spacing: -0.5px; color: #fff; }
-    .hero p { max-width: 500px; margin: 0 0 30px; font-size: 16px; font-weight: 400; line-height: 1.6; color: rgba(255,255,255,0.88); }
+    .hero p { max-width: 540px; margin: 0 0 30px; font-size: 18px; font-family: 'Outfit', sans-serif; font-weight: 400; line-height: 1.6; color: #FFFFFF; }
     .hero-btn { display: inline-flex; align-items: center; gap: 12px; background: #f0f0f0; color: #1a1a1a; padding: 14px 26px; border-radius: 10px; font-size: 20px; font-weight: 500; text-decoration: none; transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease; white-space: nowrap; }
     .hero-btn:hover { transform: translateY(-3px); background: #0154b1; color: #fff; }
     .hero-btn i { font-size: 14px; }
@@ -290,8 +290,8 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
     <section class="cbd-section hero">
       <div class="hero-content">
         <div class="eyebrow">Solutions</div>
-        <h1>See Every Number That Matters, In Real Time</h1>
-        <p>Stop digging through spreadsheets and disconnected reports. We build custom business dashboards that bring all your data together, surface the right KPIs, and give every role in your company a clear picture of what's happening right now.</p>
+        <h1>Custom Business Dashboards Built for Smarter Decisions</h1>
+        <p>Transform your data into actionable insights with tailored dashboards that align seamlessly with your business objectives.</p>
         <a class="hero-btn" href="/contact-us/">
           Schedule a Consultation <span class="btn-icon-box"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
         </a>
@@ -305,17 +305,15 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
 
     <!-- ══ INTRO GRID ══ -->
     <section class="cbd-section intro-grid">
-      <h2 class="section-title">What Is a Custom Business Dashboard?</h2>
+      <h2 class="section-title">Custom<br />Dashboards<br />Tailored to Your Specific Needs</h2>
       <div class="copy">
-        <p>A custom business dashboard is a live, visual interface that connects to your data sources and displays the metrics that matter most to your business — updated automatically, without manual exports or copy-pasting.</p>
-        <p>Unlike generic BI tools that require heavy configuration, our dashboards are purpose-built around your workflows, your data sources, and the specific questions your team needs to answer every day. This includes:</p>
-        <ul>
-          <li>Live KPI tracking across departments and locations</li>
-          <li>Automated reports delivered on schedule</li>
-          <li>Drill-down views for root cause analysis</li>
-          <li>Alerts when metrics cross defined thresholds</li>
+        <p>Custom business dashboards let you consolidate and visualize your most important data in one place. Whether you need a custom analytics dashboard for executive oversight or a custom reporting dashboard for departmental metrics, we help you turn complexity into clarity.</p>
+        <p>Our dashboards integrate with your data sources and business processes to give you accurate, real-time insights you can trust.</p>
+        <ul style="list-style: none; margin-left: 0; padding: 0;">
+          <li style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px;"><i class="fa-regular fa-square-check" style="font-size: 18px; color: #282828; flex-shrink: 0;"></i> Consolidate data</li>
+          <li style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px;"><i class="fa-regular fa-square-check" style="font-size: 18px; color: #282828; flex-shrink: 0;"></i> Visualize KPIs</li>
+          <li style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px;"><i class="fa-regular fa-square-check" style="font-size: 18px; color: #282828; flex-shrink: 0;"></i> Gain actionable insights</li>
         </ul>
-        <p>The result is a single source of truth that replaces scattered spreadsheets, siloed reports, and delayed data — giving everyone in your organization the clarity to act with confidence.</p>
       </div>
     </section>
 
@@ -323,7 +321,7 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
     <section class="cbd-section media-accordion">
       <div class="accordion-copy">
         <div class="eyebrow acc-eyebrow">Service Benefits</div>
-        <h2 class="section-title">How Custom Dashboards Benefit Your Business</h2>
+        <h2 class="section-title">The Strategic Benefits of Custom<br /> Business Dashboards</h2>
         <div class="acc-list" data-acc>
           {strategicBenefits.map(([icon, title, text], i) => (
             <div class={`acc-item${i === 0 ? ' active' : ''}`}>
@@ -332,8 +330,8 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
                 <span class="acc-title">{title}</span>
                 <span class="acc-toggle" aria-hidden="true"></span>
               </button>
-              <div class="acc-panel" style={i === 0 ? 'max-height:500px' : ''}>
-                <div class="acc-body">{text}</div>
+              <div class="acc-panel" style={i === 0 ? 'max-height:600px' : ''}>
+                <div class="acc-body">{text.split('\n\n').map((para: string) => <p style="margin:0 0 12px;">{para}</p>)}</div>
               </div>
             </div>
           ))}
@@ -435,6 +433,33 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
         </div>
       </aside>
     </div>
+
+    <!-- ══ BUILDING BLOCKS GRID ══ -->
+    <section class="cbd-section services-grid-section">
+      <h2 class="section-title">The Building Blocks of Your Custom Dashboard</h2>
+      <div class="service-grid">
+        <article class="service-card">
+          <i class="fa-solid fa-database" aria-hidden="true"></i>
+          <h3>Connect with Any Data Source</h3>
+          <p>CRMs, ERPs, cloud services, spreadsheets — we integrate them all to feed your custom business dashboard software.</p>
+        </article>
+        <article class="service-card">
+          <i class="fa-solid fa-chart-area" aria-hidden="true"></i>
+          <h3>Interactive Visuals</h3>
+          <p>Charts, graphs, heatmaps, and trend lines powered by advanced data visualizer capabilities.</p>
+        </article>
+        <article class="service-card">
+          <i class="fa-solid fa-user-lock" aria-hidden="true"></i>
+          <h3>User Roles & Access Controls</h3>
+          <p>Define what each team member sees with permissions tied to roles and departments.</p>
+        </article>
+        <article class="service-card">
+          <i class="fa-solid fa-chart-column" aria-hidden="true"></i>
+          <h3>Real-Time Reporting</h3>
+          <p>Dashboards auto-refresh with the latest data so your decisions are always up to date.</p>
+        </article>
+      </div>
+    </section>
 
     <!-- ══ CASE STUDIES ══ -->
     <section class="cbd-section case-section">

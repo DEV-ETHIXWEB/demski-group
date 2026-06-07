@@ -72,7 +72,7 @@ const cases = [
     .es-page{overflow-x:clip}
     .es-section{max-width:var(--max);margin:0 auto;padding:60px 50px}
 
-    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--blue);font-size:14px;line-height:1.2;font-weight:500;margin:0 0 20px}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--blue);font-size:15px;font-family:'Outfit', sans-serif;line-height:1.2;font-weight:500;margin:0 0 20px}
     .eyebrow::before{content:'';width:11px;height:11px;border:1.5px solid currentColor;border-radius:3px;transform:rotate(45deg);flex-shrink:0}
     .acc-eyebrow { font-size: 18px; font-family: 'Outfit', sans-serif; color: #0154B1; }
 
@@ -86,10 +86,10 @@ const cases = [
       border-radius:24px;overflow:hidden;
     }
     .hero-content{flex:0 1 720px}
-    .hero .eyebrow{color:rgba(255,255,255,0.92);font-size:15px;margin-bottom:20px}
+    .hero .eyebrow{color:#FFFFFF;font-size:18px;font-family:'Outfit', sans-serif;margin-bottom:20px}
     .hero .eyebrow::before{border-color:rgba(255,255,255,0.70)}
     .hero h1{max-width:720px;margin:0 0 22px;font-size:clamp(40px,4.2vw,60px);font-weight:700;line-height:1.18;letter-spacing:-0.5px;color:#fff}
-    .hero p{max-width:500px;margin:0 0 30px;font-size:16px;font-weight:400;line-height:1.6;color:rgba(255,255,255,0.88)}
+    .hero p{max-width:540px;margin:0 0 30px;font-size:18px;font-family:'Outfit', sans-serif;font-weight:400;line-height:1.6;color:#FFFFFF}
     .hero-btn{display:inline-flex;align-items:center;gap:12px;background:#f0f0f0;color:#1a1a1a;padding:14px 26px;border-radius:10px;font-size:20px;font-weight:500;text-decoration:none;transition:transform 0.18s ease,background 0.18s ease,color 0.18s ease;white-space:nowrap}
     .hero-btn:hover{ transform: translateY(-3px);background:#0154b1;color:#fff}
     .hero-btn i{font-size:14px}
@@ -106,6 +106,25 @@ const cases = [
     .copy p{margin:0 0 18px}
     .copy ul{margin:10px 0 18px 20px;padding:0}
     .copy li{margin-bottom:8px;color:#282828;font-size:16px;line-height:1.65;list-style:disc}
+
+    .trust-section{padding-top:50px;padding-bottom:50px}
+    .trust-wrap{position:relative;background:#fff;border:20px solid #E1EFFC;border-radius:28px;padding:90px 60px 60px}
+    .trust-banner{position:absolute;top:-88px;right:-21px;display:flex;align-items:stretch;background:#001629;border-radius:20px;overflow:hidden}
+    .trust-banner-text{color:#fff;font-size:20px;font-weight:600;line-height:1.35;font-family:'Outfit',sans-serif;display:flex;align-items:center;justify-content:center;text-align:center;padding:23px 45px;width:360px;border-right:3px solid #fff}
+    .trust-banner-logos{display:flex;align-items:center;padding:23px 52px 23px 45px}
+    .trust-banner-logos img{height:106px;width:auto;object-fit:contain;display:block}
+    .industries-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:48px 24px;justify-items:center;text-align:center}
+    .industry-item{display:flex;flex-direction:column;align-items:center;gap:14px;text-decoration:none;color:#1b1c1d}
+    .industry-item .industry-icon{font-size:20px;color:#005cb9;font-weight:300}
+    .industry-item span{display:inline-flex;align-items:center;gap:6px;font-size:25px;font-weight:400;color:#282828;font-family:'Outfit',sans-serif}
+    .industry-item span .arrow-box{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid currentColor;border-radius:8px;font-size:12px;line-height:1;margin-left:8px}
+    @media (max-width:900px){
+      .industries-grid{grid-template-columns:repeat(2,1fr)}
+      .trust-banner{position:static;margin-bottom:30px;flex-direction:column;align-items:flex-start;gap:16px}
+      .trust-banner-text{border-right:none;border-bottom:1px solid rgba(255,255,255,0.25);padding-right:0;padding-bottom:16px;width:100%;max-width:none}
+      .trust-banner-logos{padding-left:0}
+      .trust-wrap{padding:30px}
+    }
 
     .media-accordion{display:grid;grid-template-columns:31% 1fr;gap:60px;align-items:stretch;padding-top:60px;padding-bottom:60px}
     .media-accordion .feature-image{order:-1}
@@ -270,7 +289,7 @@ const cases = [
     <section class="es-section hero">
       <div class="hero-content">
         <div class="eyebrow">Solutions</div>
-        <h1>Scheduling Software Built Around How Your Team Actually Works</h1>
+        <h1>Employee Scheduling & Time Tracking Software That Works the Way You Do</h1>
         <p>Stop building schedules in spreadsheets. We build custom employee scheduling and time tracking systems that automate the routine, enforce your rules, and give your managers their time back.</p>
         <a class="hero-btn" href="/contact-us/">
           Schedule a Consultation <span class="btn-icon-box"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
@@ -298,6 +317,30 @@ const cases = [
           <li>Direct integration with your payroll and HR platforms</li>
         </ul>
         <p>The result is a scheduling operation that runs itself — with managers reviewing exceptions rather than building schedules from scratch every week.</p>
+      </div>
+    </section>
+
+    <!-- ══ TRUSTED BY / INDUSTRIES ══ -->
+    <section class="es-section trust-section">
+      <div class="trust-wrap">
+        <div class="trust-banner">
+          <div class="trust-banner-text">Companies that trust our experienced<br />team</div>
+          <div class="trust-banner-logos">
+            <img src="/logoswhite-492x176.webp" alt="Companies: Hewlett Packard Enterprise, Riot Games, Allstate, Bank of America, Herbalife Nutrition, Rinnai" width="492" height="176" loading="lazy" />
+          </div>
+        </div>
+        <div class="industries-grid">
+          <a class="industry-item" href="/our-clients/"><i class="fa-regular fa-hospital industry-icon" aria-hidden="true"></i><span>Healthcare <span class="arrow-box" aria-hidden="true">&#8599;</span></span></a>
+          <a class="industry-item" href="/our-clients/"><i class="fa-regular fa-handshake industry-icon" aria-hidden="true"></i><span>Retail <span class="arrow-box" aria-hidden="true">&#8599;</span></span></a>
+          <a class="industry-item" href="/our-clients/"><i class="fa-regular fa-credit-card industry-icon" aria-hidden="true"></i><span>Finance <span class="arrow-box" aria-hidden="true">&#8599;</span></span></a>
+          <a class="industry-item" href="/our-clients/"><i class="fa-regular fa-building industry-icon" aria-hidden="true"></i><span>Manufacturing <span class="arrow-box" aria-hidden="true">&#8599;</span></span></a>
+          <a class="industry-item" href="/our-clients/"><i class="fa-regular fa-compass industry-icon" aria-hidden="true"></i><span>Logistics <span class="arrow-box" aria-hidden="true">&#8599;</span></span></a>
+          <a class="industry-item" href="/our-clients/"><i class="fa-regular fa-comments industry-icon" aria-hidden="true"></i><span>Marketing <span class="arrow-box" aria-hidden="true">&#8599;</span></span></a>
+          <a class="industry-item" href="/our-clients/"><i class="fa-regular fa-window-maximize industry-icon" aria-hidden="true"></i><span>SaaS <span class="arrow-box" aria-hidden="true">&#8599;</span></span></a>
+          <a class="industry-item" href="/our-clients/"><i class="fa-regular fa-rectangle-list industry-icon" aria-hidden="true"></i><span>Education <span class="arrow-box" aria-hidden="true">&#8599;</span></span></a>
+          <a class="industry-item" href="/our-clients/"><i class="fa-regular fa-house industry-icon" aria-hidden="true"></i><span>Real Estate <span class="arrow-box" aria-hidden="true">&#8599;</span></span></a>
+          <a class="industry-item" href="/our-clients/"><i class="fa-regular fa-lightbulb industry-icon" aria-hidden="true"></i><span>Energy & Utilities <span class="arrow-box" aria-hidden="true">&#8599;</span></span></a>
+        </div>
       </div>
     </section>
 
@@ -390,7 +433,7 @@ const cases = [
           </ul>
           <div class="testimonial">
             <h3>Client Success Stories</h3>
-            <div class="quote-mark">&ldquo;&ldquo;</div>
+            <div class="quote-mark"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
             <blockquote>The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. They are also very professional and timely as well as a pleasure to work with!</blockquote>
             <div class="testimonial-footer">
               <p>Delaine Mast<br />CEO</p>

@@ -5,9 +5,9 @@ import ContactSection from '../../../components/ContactSection.astro';
 const assetBase = '/solutions/sales-lead-tracking-tools';
 
 const strategicBenefits = [
-  ['fa-grid-2', 'Centralized Operations, Seamless Experience', `Today's eCommerce landscape demands more than a shopping cart. Our solutions unify your sales channels, inventory systems, and fulfillment partners into one cohesive ecosystem — reducing errors, improving speed, and creating a consistent experience across every touchpoint. From Shopify and WooCommerce to Amazon and Walmart Marketplace, we make your eCommerce backend as powerful as your front-end.`],
-  ['fa-square-check', 'Built for Scale and Flexibility', `Off-the-shelf tools often fall short when your needs evolve. Our software grows with your business, enabling you to launch new product lines, enter new markets, or expand to B2B models — all without outgrowing your tech stack. We design for flexibility — whether you need multi-store functionality, international shipping logic, or custom pricing engines.`],
-  ['fa-layer-group', 'Optimized Customer Journeys', `From the moment a customer lands on your site to the second their order is delivered, every touchpoint is optimized. We help you personalize product recommendations, streamline checkout flows, and connect marketing automation platforms to drive loyalty and repeat purchases. User experience isn't just a priority — it's built into the architecture of every solution we create.`],
+  ['fa-grid-2', 'Centralized Operations, Seamless Experience', `Today's eCommerce landscape demands more than a shopping cart. Our solutions unify your sales channels, inventory systems, and fulfillment partners into one cohesive ecosystem — reducing errors, improving speed, and creating a consistent experience across every touchpoint.\n\nFrom Shopify and WooCommerce to Amazon and Walmart Marketplace, we make your eCommerce backend as powerful as your front-end.`],
+  ['fa-square-check', 'Built for Scale and Flexibility', `Off-the-shelf tools often fall short when your needs evolve. Our software grows with your business, enabling you to launch new product lines, enter new markets, or expand to B2B models — all without outgrowing your tech stack.\n\nWe design for flexibility — whether you need multi-store functionality, international shipping logic, or custom pricing engines.`],
+  ['fa-layer-group', 'Optimized Customer Journeys', `From the moment a customer lands on your site to the second their order is delivered, every touchpoint is optimized. We help you personalize product recommendations, streamline checkout flows, and connect marketing automation platforms to drive loyalty and repeat purchases.\n\nUser experience isn't just a priority — it's built into the architecture of every solution we create.`],
   ['fa-chart-line', 'Real-Time Data & Performance Visibility', `Track orders, inventory, customer behavior, and sales metrics in real-time with built-in analytics dashboards customized to your KPIs. No more switching between platforms or reconciling spreadsheets — just accurate, actionable insights.`]
 ];
 
@@ -64,7 +64,7 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
     .ec-page{overflow-x:clip}
     .ec-section{max-width:var(--max);margin:0 auto;padding:60px 50px}
 
-    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--blue);font-size:14px;line-height:1.2;font-weight:500;margin:0 0 20px}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--blue);font-size:15px;font-family:'Outfit', sans-serif;line-height:1.2;font-weight:500;margin:0 0 20px}
     .eyebrow::before{content:'';width:11px;height:11px;border:1.5px solid currentColor;border-radius:3px;transform:rotate(45deg);flex-shrink:0}
     .acc-eyebrow { font-size: 18px; font-family: 'Outfit', sans-serif; color: #0154B1; }
 
@@ -79,10 +79,10 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
       border-radius:24px;overflow:hidden;
     }
     .hero-content{flex:0 1 610px}
-    .hero .eyebrow{color:rgba(255,255,255,0.92);font-size:15px;margin-bottom:20px}
+    .hero .eyebrow{color:#FFFFFF;font-size:18px;font-family:'Outfit', sans-serif;margin-bottom:20px}
     .hero .eyebrow::before{border-color:rgba(255,255,255,0.70)}
     .hero h1{max-width:610px;margin:0 0 22px;font-size:clamp(40px,4.2vw,60px);font-weight:700;line-height:1.18;letter-spacing:-0.5px;color:#fff}
-    .hero p{max-width:500px;margin:0 0 30px;font-size:16px;font-weight:400;line-height:1.6;color:rgba(255,255,255,0.88)}
+    .hero p{max-width:540px;margin:0 0 30px;font-size:18px;font-family:'Outfit', sans-serif;font-weight:400;line-height:1.6;color:#FFFFFF}
     .hero-btn{display:inline-flex;align-items:center;gap:12px;background:#f0f0f0;color:#1a1a1a;padding:14px 26px;border-radius:10px;font-size:20px;font-weight:500;text-decoration:none;transition:transform 0.18s ease,background 0.18s ease,color 0.18s ease;white-space:nowrap}
     .hero-btn:hover{ transform: translateY(-3px);background:#0154b1;color:#fff}
     .hero-btn i{font-size:14px}
@@ -304,8 +304,8 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-r
                 <span class="acc-title">{title}</span>
                 <span class="acc-toggle" aria-hidden="true"></span>
               </button>
-              <div class="acc-panel" style={i === 0 ? 'max-height:500px' : ''}>
-                <div class="acc-body">{text}</div>
+              <div class="acc-panel" style={i === 0 ? 'max-height:600px' : ''}>
+                <div class="acc-body">{text.split('\n\n').map((para: string) => <p style="margin:0 0 12px;">{para}</p>)}</div>
               </div>
             </div>
           ))}
