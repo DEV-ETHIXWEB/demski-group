@@ -580,7 +580,7 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
 
   <!-- ══ CHATBOT ══ -->
   <div id="bot-launcher" onclick="toggleBot()" style="display:none;">
-    <img src="/72e79b86-c143-495c-b6bb-c10553e75cd3.png" alt="" onerror="this.src='https://ethixweb.com/wp-content/uploads/2026/03/avatar-woman-smiling-lady-portrait-250nw-2692286767.webp'" />
+    <img src="/72e79b86-c143-495c-b6bb-c10553e75cd3.png" alt="" width="92" height="92" loading="eager" decoding="async" onerror="this.src='https://ethixweb.com/wp-content/uploads/2026/03/avatar-woman-smiling-lady-portrait-250nw-2692286767.webp'" />
     <span class="online-dot"></span>
     <span class="launcher-badge" id="launcher-badge">1</span>
   </div>
@@ -1091,11 +1091,16 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
 
     window.addEventListener("load", () => {
       const launcher = document.getElementById("bot-launcher");
-      launcher.style.display = "flex";
-      setTimeout(() => {
-        launcher.classList.add("launcher-visible");
-        setTimeout(() => { if (!expanded) showGreetingBubble(); }, 1000);
-      }, 3000);
+      const avatar = launcher.querySelector("img");
+      const reveal = () => {
+        launcher.style.display = "flex";
+        setTimeout(() => {
+          launcher.classList.add("launcher-visible");
+          setTimeout(() => { if (!expanded) showGreetingBubble(); }, 1000);
+        }, 3000);
+      };
+      if (avatar.complete) reveal();
+      else { avatar.addEventListener("load", reveal, { once: true }); avatar.addEventListener("error", reveal, { once: true }); }
     });
 
     function showGreetingBubble() {
