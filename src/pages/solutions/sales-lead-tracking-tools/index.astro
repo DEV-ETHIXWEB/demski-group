@@ -129,7 +129,8 @@ const cases = [
       align-items: center;
       gap: 10px;
       color: var(--blue);
-      font-size: 14px;
+      font-size: 15px;
+      font-family: 'Outfit', sans-serif;
       line-height: 1.2;
       font-weight: 500;
       margin: 0 0 20px;
@@ -144,6 +145,7 @@ const cases = [
       transform: rotate(45deg);
       flex-shrink: 0;
     }
+    .acc-eyebrow { font-size: 18px; font-family: 'Outfit', sans-serif; color: #0154B1; }
 
     /* ── Hero ── */
     .hero {
@@ -170,8 +172,9 @@ const cases = [
     .hero-content { flex: 0 1 610px; }
 
     .hero .eyebrow {
-      color: rgba(255,255,255,0.92);
-      font-size: 15px;
+      color: #FFFFFF;
+      font-size: 18px;
+      font-family: 'Outfit', sans-serif;
       margin-bottom: 20px;
     }
 
@@ -188,12 +191,13 @@ const cases = [
     }
 
     .hero p {
-      max-width: 500px;
+      max-width: 540px;
       margin: 0 0 30px;
-      font-size: 16px;
+      font-size: 18px;
+      font-family: 'Outfit', sans-serif;
       font-weight: 400;
       line-height: 1.6;
-      color: rgba(255,255,255,0.88);
+      color: #FFFFFF;
     }
 
     .hero-btn {
@@ -204,15 +208,18 @@ const cases = [
       color: #1a1a1a;
       padding: 14px 26px;
       border-radius: 10px;
-      font-size: 17px;
+      font-size: 20px;
       font-weight: 500;
       text-decoration: none;
-      transition: transform 0.18s ease, background 0.18s ease;
+      transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
       white-space: nowrap;
     }
 
-    .hero-btn:hover { transform: translateY(-2px); background: #e0e0e0; }
+    .hero-btn:hover { transform: translateY(-3px); background: #0154b1; color: #fff; }
     .hero-btn i     { font-size: 14px; }
+    .btn-icon-box { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: transparent; border-radius: 7px; border: none; box-shadow: none; flex-shrink: 0; }
+    .btn-icon-box i { font-size: 13px; color: inherit; }
+    .hero-btn:hover .btn-icon-box i { color: #fff; }
 
     .hero-badges {
       position: absolute;
@@ -254,7 +261,7 @@ const cases = [
     }
 
     .button-orange:hover { transform: translateY(-3px); }
-    .button-light:hover  { transform: translateY(-3px); }
+    .button-light:hover  { }
 
     .trust-row { display: none; }
 
@@ -276,7 +283,7 @@ const cases = [
       letter-spacing: 0;
     }
 
-    .intro-grid .section-title { max-width: 440px; font-size: clamp(33px, 3.85vw, 55px); margin-left: 5%; }
+    .intro-grid .section-title { max-width: 500px; font-size: clamp(33px, 3.5vw, 50px); font-family: 'Outfit', sans-serif; margin-left: 5%; }
 
     .copy {
       color: #282828;
@@ -313,7 +320,7 @@ const cases = [
 
     .accordion-copy .section-title {
       max-width: 900px;
-      margin-bottom: 35px;
+      margin-bottom: 55px;
       font-size: clamp(28px, 3.2vw, 46px);
     }
 
@@ -421,8 +428,8 @@ const cases = [
     }
 
     .services-grid-section .section-title {
-      max-width: 300px;
-      font-size: 40px;
+      max-width: 430px;
+      font-size: 46px;
       color: #1b1c1d;
       font-family: 'Outfit', sans-serif;
     }
@@ -561,15 +568,7 @@ const cases = [
       margin-top: 22px;
     }
 
-    .tc-fraction-bar {
-      text-align: center;
-      font-size: 18px;
-      font-weight: 600;
-      color: #1a1a1a;
-      padding: 8px 0 12px;
-      margin-top: auto;
-      margin-bottom: 28px;
-    }
+    .tc-fraction-bar { text-align: center; font-size: 20px; color: #000; padding: 14px 0 8px; position: relative; z-index: 2; transform: translateY(-100px); }
 
     .text-link {
       color: #282828;
@@ -655,16 +654,16 @@ const cases = [
     }
 
     .case-section .section-title {
-      max-width: 600px;
+      max-width: 800px;
       margin-bottom: 14px;
-      font-size: clamp(24px, 2.8vw, 40px);
+      font-size: 50px;
     }
 
     .case-intro {
       max-width: 660px;
       margin: 0 0 36px;
       color: #000;
-      font-size: 14px;
+      font-size: 16px;
       line-height: 1.55;
     }
 
@@ -710,7 +709,7 @@ const cases = [
       border-radius: 0 0 6px 0;
       background: #8ce9ac;
       color: #000;
-      font-size: 12px;
+      font-size: 16px;
       font-weight: 700;
       text-align: center;
     }
@@ -739,8 +738,8 @@ const cases = [
 
     .case-card.featured img {
       align-self: flex-start;
-      max-width: 322px;     /* +15%: 280 → 322 */
-      max-height: 115px;    /* +15%: 100 → 115 */
+      max-width: 410px;     /* +15%: 280 → 322 */
+      max-height: 135px;    /* +15%: 100 → 115 */
       margin: 44px 0 16px;  /* top: 28 + 15% of ~100px = 28+15 = 43 → 44 */
     }
 
@@ -781,8 +780,7 @@ const cases = [
       align-items: stretch;
     }
 
-    .contact-form-col {
-      padding: 72px 64px 72px 64px;
+    .contact-form-col {padding: 72px 140px 72px 64px;
     }
 
     .contact-form-col .section-title {
@@ -791,6 +789,7 @@ const cases = [
       margin-bottom: 44px;
       line-height: 1.2;
       font-weight: 600;
+  white-space: nowrap;
     }
 
     .contact-form {
@@ -810,7 +809,7 @@ const cases = [
       width: 100%;
       padding: 10px 0;
       border: none;
-      border-bottom: 1px solid rgba(255,255,255,0.3);
+      border-bottom: 1.5px solid rgba(255,255,255,0.9);
       border-radius: 0;
       font-size: 14px;
       font-family: inherit;
@@ -822,17 +821,17 @@ const cases = [
 
     .contact-form input:focus,
     .contact-form textarea:focus {
-      border-bottom-color: rgba(255,255,255,0.75);
+      border-bottom-color: rgba(255,255,255,0.9);
     }
 
     .contact-form input::placeholder,
     .contact-form textarea::placeholder {
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.65);
     }
 
     .contact-form textarea {
       resize: none;
-      min-height: 80px;
+      min-height: 40px;
     }
 
     /* Button is self-sized — flex-start prevents full-width stretch */
@@ -983,7 +982,7 @@ const cases = [
       display: block;
       margin-top: 0;
       margin-bottom: 26px;
-      border-radius: 16px 16px 22px 22px;
+      border-radius: 16px 16px 22px 22px; transform: translateY(-50px);
     }
 
     /* ── Chat bubble ── */
@@ -1103,8 +1102,8 @@ const cases = [
         background-color: #005cb9 !important;
       }
 
-      .acc-title { font-size: 14px; }
-      .acc-body { padding-left: 60px; font-size: 13px; }
+      .acc-title { font-size: 20px; }
+      .acc-body { padding-left: 60px; font-size: 16px; }
 
       .service-grid,
       .case-grid { grid-template-columns: 1fr; }
@@ -1150,8 +1149,21 @@ const cases = [
       .hero h1 { font-size: clamp(28px, 7.5vw, 36px); line-height: 1.15; }
       .hero p   { font-size: 15px; margin-left: 0; line-height: 1.6; }
       .hero-btn { font-size: 15px; padding: 13px 22px; margin-left: 0; white-space: nowrap; }
-      .hero-badges { position: static; display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-      .hero-badges img { width: 100px; }
+      .hero-badges {
+        position: static;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 14px;
+        row-gap: 18px;
+        justify-items: center;
+        align-items: center;
+        margin-top: 28px;
+        width: 100%;
+      }
+      .hero-badges img { width: 100%; max-width: 140px; height: auto; }
+      .hero-badges img:nth-child(1) { grid-column: 1; grid-row: 1; }
+      .hero-badges img:nth-child(2) { grid-column: 2; grid-row: 1; }
+      .hero-badges img:nth-child(3) { grid-column: 1 / 3; grid-row: 2; justify-self: center; max-width: 140px; }
 
       /* Intro */
       .intro-grid { gap: 24px; }
@@ -1160,11 +1172,11 @@ const cases = [
 
       /* Accordion section */
       .media-accordion { padding-top: 24px; padding-bottom: 24px; gap: 24px; }
-      .accordion-copy .section-title { font-size: clamp(20px, 6vw, 28px); margin-bottom: 20px; }
+      .accordion-copy .section-title { max-width: 900px; font-size: clamp(28px, 3.2vw, 46px); margin-bottom: 20px; }
       .acc-btn { grid-template-columns: 42px 1fr 18px; gap: 10px; min-height: 54px; }
       .acc-icon-box { width: 42px !important; min-width: 42px !important; height: 36px !important; font-size: 14px; }
-      .acc-title { font-size: 13px; }
-      .acc-body { padding-left: 52px; font-size: 13px; }
+      .acc-title { font-size: 20px; }
+      .acc-body { padding-left: 52px; font-size: 16px; }
 
       /* Services */
       .services-grid-section { gap: 20px; padding-top: 24px; padding-bottom: 24px; }
@@ -1198,7 +1210,7 @@ const cases = [
 
       /* Case studies */
       .case-section { padding-top: 32px; padding-bottom: 32px; }
-      .case-section .section-title { font-size: clamp(20px, 6vw, 28px); }
+      .case-section .section-title { font-size: 50px; }
       .case-intro { font-size: 13px; }
       .case-grid { grid-template-columns: 1fr; gap: 12px; }
       .case-card.featured { grid-column: span 1; grid-row: span 1; min-height: 200px; }
@@ -1235,15 +1247,15 @@ const cases = [
       .hero h1 { font-size: clamp(26px, 7vw, 32px); line-height: 1.15; }
       .hero p   { font-size: 14px; line-height: 1.55; }
       .hero-btn { font-size: 14px; padding: 12px 20px; white-space: nowrap; }
-      .hero-badges img { width: 90px; }
+      .hero-badges img { width: 100%; max-width: 130px; }
       .intro-grid .section-title { font-size: clamp(22px, 6vw, 28px); }
-      .accordion-copy .section-title { font-size: clamp(20px, 5.5vw, 26px); }
-      .acc-title { font-size: 13px; }
+      .accordion-copy .section-title { max-width: 900px; font-size: clamp(28px, 3.2vw, 46px); }
+      .acc-title { font-size: 20px; }
       .services-grid-section .section-title { font-size: clamp(22px, 6vw, 28px); }
       .service-card h3 { font-size: 17px; }
       .why-copy .section-title { font-size: clamp(20px, 5.5vw, 26px); }
       .why-copy > p, .why-copy li { font-size: 14px; }
-      .case-section .section-title { font-size: clamp(20px, 5.5vw, 26px); }
+      .case-section .section-title { font-size: 50px; }
       .contact-form-col .section-title { font-size: clamp(20px, 5.5vw, 26px); }
       .contact-form input, .contact-form textarea { font-size: 14px; }
     }
@@ -1259,7 +1271,7 @@ const cases = [
         <h1>Sales &amp; Lead Tracking Tools that Power Your Pipeline</h1>
         <p>Drive more qualified leads, streamline sales operations, and close deals faster with custom-built sales and lead tracking tools designed for your business.</p>
         <a class="hero-btn" href="/contact-us/">
-          <i class="fa-solid fa-square-arrow-up-right"></i> Request a Free Consultation
+          Request a Free Consultation <span class="btn-icon-box"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
         </a>
       </div>
       <!-- RIGHT: stacked trust badges — inside hero matching reference -->
@@ -1283,7 +1295,7 @@ const cases = [
     <section class="sales-section media-accordion">
       <!-- img (second in DOM) renders LEFT via CSS order:-1 -->
       <div class="accordion-copy">
-        <div class="eyebrow">Service Benefits</div>
+        <div class="eyebrow acc-eyebrow">Service Benefits</div>
         <h2 class="section-title">What Our Sales &amp; Lead Tracking Tools Deliver</h2>
         <div class="acc-list" data-acc>
           {deliverables.map(([icon, title, text], i) => (
@@ -1326,7 +1338,7 @@ const cases = [
     <!-- ══ STRATEGIC BENEFITS ACCORDION ══ -->
     <section class="sales-section media-accordion">
       <div class="accordion-copy">
-        <div class="eyebrow">Service Benefits</div>
+        <div class="eyebrow acc-eyebrow">Service Benefits</div>
         <h2 class="section-title">Strategic Benefits for Your Business</h2>
         <div class="acc-list" data-acc>
           {strategicBenefits.map(([icon, title, text], i) => (
@@ -1356,7 +1368,7 @@ const cases = [
     <div class="why-section-wrap">
       <section class="why-section">
         <div class="why-copy" style="padding-right: 410px;">
-          <div class="eyebrow">Choose Us</div>
+          <div class="eyebrow acc-eyebrow">Choose Us</div>
           <h2 class="section-title">Why Choose the Demski Group?</h2>
           <p>We don't just implement tools — we architect solutions. Whether you're upgrading from spreadsheets or pushing past the limitations of your CRM, we build custom software that mirrors your business logic, workflows, and goals.</p>
           <p><strong>What sets us apart:</strong></p>
@@ -1368,7 +1380,7 @@ const cases = [
           </ul>
           <div class="testimonial">
             <h3>Client Success Stories</h3>
-            <div class="quote-mark">&ldquo;&ldquo;</div>
+            <div class="quote-mark"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
             <blockquote>The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. They are also very professional and timely as well as a pleasure to work with! We have worked with Andrew Demski for all of our IT needs.</blockquote>
             <div class="testimonial-footer">
               <p>Delaine Mast<br />CEO</p>
@@ -1398,7 +1410,7 @@ const cases = [
 
     <!-- ══ CASE STUDIES ══ -->
     <section class="sales-section case-section">
-      <div class="eyebrow">Case Studies</div>
+      <div class="eyebrow acc-eyebrow">Case Studies</div>
       <h2 class="section-title">Over 600 Projects Delivered Successfully</h2>
       <p class="case-intro">With over 12 years of software development experience in many industries, we have a lot to talk about. Here are just a few of our success stories.</p>
       <div class="case-grid">

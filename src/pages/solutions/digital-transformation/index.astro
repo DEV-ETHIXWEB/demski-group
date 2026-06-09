@@ -46,6 +46,7 @@ const cases = [
   { tag: 'Logistics',       name: 'Bite',                  description: '', image: 'Bite-e1746208787498.png',                tone: 'violet', link: '/our-clients/bite/' },
   { tag: 'Manufacturing',   name: 'Saputo',                description: '', image: 'Saputo.png',                             tone: 'sand',   link: '/our-clients/' }
 ];
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-revalidate=3600');
 ---
 
 <Layout
@@ -72,8 +73,9 @@ const cases = [
     .dt-page{overflow-x:clip}
     .dt-section{max-width:var(--max);margin:0 auto;padding:60px 50px}
 
-    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--blue);font-size:14px;line-height:1.2;font-weight:500;margin:0 0 20px}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--blue);font-size:15px;font-family:'Outfit', sans-serif;line-height:1.2;font-weight:500;margin:0 0 20px}
     .eyebrow::before{content:'';width:11px;height:11px;border:1.5px solid currentColor;border-radius:3px;transform:rotate(45deg);flex-shrink:0}
+    .acc-eyebrow { font-size: 18px; font-family: 'Outfit', sans-serif; color: #0154B1; }
 
     /* ── Hero ── */
     .hero{
@@ -86,20 +88,23 @@ const cases = [
       border-radius:24px;overflow:hidden;
     }
     .hero-content{flex:0 1 610px}
-    .hero .eyebrow{color:rgba(255,255,255,0.92);font-size:15px;margin-bottom:20px}
+    .hero .eyebrow{color:#FFFFFF;font-size:18px;font-family:'Outfit', sans-serif;margin-bottom:20px}
     .hero .eyebrow::before{border-color:rgba(255,255,255,0.70)}
     .hero h1{max-width:610px;margin:0 0 22px;font-size:clamp(40px,4.2vw,60px);font-weight:700;line-height:1.18;letter-spacing:-0.5px;color:#fff}
-    .hero p{max-width:500px;margin:0 0 30px;margin-left:100px;font-size:16px;font-weight:400;line-height:1.6;color:rgba(255,255,255,0.88)}
-    .hero-btn{display:inline-flex;align-items:center;gap:12px;background:#f0f0f0;color:#1a1a1a;padding:14px 26px;border-radius:10px;font-size:17px;font-weight:500;text-decoration:none;transition:transform 0.18s ease,background 0.18s ease;white-space:nowrap;margin-left:100px}
-    .hero-btn:hover{transform:translateY(-2px);background:#e0e0e0}
+    .hero p{max-width:540px;margin:0 0 30px;font-size:18px;font-family:'Outfit', sans-serif;font-weight:400;line-height:1.6;color:#FFFFFF}
+    .hero-btn{display:inline-flex;align-items:center;gap:12px;background:#f0f0f0;color:#1a1a1a;padding:14px 26px;border-radius:10px;font-size:20px;font-weight:500;text-decoration:none;transition:transform 0.18s ease,background 0.18s ease,color 0.18s ease;white-space:nowrap}
+    .hero-btn:hover{ transform: translateY(-3px);background:#0154b1;color:#fff}
     .hero-btn i{font-size:14px}
+    .btn-icon-box {display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:transparent;border-radius:7px;border:none;box-shadow:none;flex-shrink:0;}
+    .btn-icon-box i{font-size:13px;color:inherit;transition:color 0.2s ease}
+    .hero-btn:hover .btn-icon-box i{color:#fff}
     .hero-badges{position:absolute;top:135px;right:137px;display:flex;flex-direction:column;align-items:flex-end;gap:66px}
     .hero-badges img{width:142px;height:auto;object-fit:contain;display:block}
 
     /* ── Intro grid ── */
     .intro-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:100px;align-items:center;min-height:340px}
     .section-title{margin:0;color:#1b1c1d;font-size:clamp(26px,2.6vw,38px);font-weight:600;line-height:1.26}
-    .intro-grid .section-title{max-width:440px;font-size:clamp(33px,3.85vw,55px);margin-left:5%}
+    .intro-grid .section-title{max-width: 500px;font-size: clamp(33px, 3.5vw, 50px);font-family: 'Outfit', sans-serif; margin-left: 5%}
     .copy{color:#282828;font-size:16px;line-height:1.65}
     .copy p{margin:0 0 18px}
     .copy ul{margin:10px 0 18px 20px;padding:0}
@@ -110,7 +115,7 @@ const cases = [
     .media-accordion .feature-image{order:-1}
     .feature-image{width:100%;height:680px;border-radius:25px;object-fit:cover;object-position:center;display:block}
     .accordion-copy{padding-top:4px}
-    .accordion-copy .section-title{max-width:900px;margin-bottom:35px;font-size:clamp(28px,3.2vw,46px)}
+    .accordion-copy .section-title{max-width:900px;margin-bottom: 55px;font-size:clamp(28px,3.2vw,46px)}
     .acc-list{width:100%}
     .acc-item{border-bottom:1px solid rgba(2,20,40,0.35)}
     .acc-btn{width:100%;display:grid;grid-template-columns:56px 1fr 22px;gap:16px;align-items:center;min-height:62px;padding:6px 0;cursor:pointer;background:transparent;border:none;text-align:left;font-family:inherit;box-sizing:border-box;-webkit-appearance:none;appearance:none}
@@ -127,7 +132,7 @@ const cases = [
 
     /* ── Services grid ── */
     .services-grid-section{display:grid;grid-template-columns:31% 1fr;gap:50px;padding-top:50px;padding-bottom:50px}
-    .services-grid-section .section-title{max-width:300px;font-size:40px;color:#1b1c1d}
+    .services-grid-section .section-title{max-width: 430px;font-size: 46px; font-family: 'Outfit', sans-serif;color:#1b1c1d}
     .service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 70px;padding-left:100px}
     .service-card i{display:block;margin-bottom:14px;color:#005cb9;font-size:28px;line-height:1}
     .service-card h3{margin:0 0 10px;font-size:25px;font-weight:500;line-height:1.3;color:#282828;font-family:'Outfit',sans-serif}
@@ -142,7 +147,7 @@ const cases = [
     .why-copy>p{color:#111;font-size:16px;line-height:1.7;margin-bottom:10px;max-width:830px}
     .testimonial{margin-top:30px;padding-left:18px;border-left:3px solid #001629}
     .testimonial h3{margin:0 0 18px;font-size:clamp(22px,2.2vw,33px);font-weight:600;line-height:1.25;color:#1b1c1d}
-    .quote-mark{color:#005cb9;font-size:26px;line-height:1;margin-bottom:14px;letter-spacing:-3px}
+    .quote-mark{color:#005cb9;font-size:26px;line-height:1;margin-bottom:18px}
     .testimonial blockquote{margin:0 0 30px;max-width:1040px;color:#282828;font-size:25px;font-weight:400;font-family:'Outfit',sans-serif;line-height:1.65}
     .testimonial-footer{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding-top:4px}
     .testimonial-footer p{margin:0;font-size:16px;line-height:1.55;color:#333}
@@ -158,13 +163,13 @@ const cases = [
 
     /* ── Case studies ── */
     .case-section{padding-top:60px;padding-bottom:50px}
-    .case-section .section-title{max-width:600px;margin-bottom:14px;font-size:clamp(24px,2.8vw,40px)}
-    .case-intro{max-width:660px;margin:0 0 36px;color:#000;font-size:14px;line-height:1.55}
+    .case-section .section-title{max-width: 800px;margin-bottom:14px;font-size: 50px}
+    .case-intro{max-width:660px;margin:0 0 36px;color:#000;font-size: 16px;line-height:1.55}
     .case-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
     .case-card{position:relative;min-height:148px;padding:32px 22px 18px;border-radius:16px;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,0.14);overflow:hidden;display:flex;flex-direction:column;justify-content:center;transition:box-shadow 0.25s ease}
     .case-card:hover{box-shadow:0 9px 44px rgba(0,0,0,0.24)}
     .case-card.featured{grid-column:span 2;grid-row:span 2;min-height:310px;background:#282828;color:#fff;justify-content:flex-start}
-    .case-tag{position:absolute;top:0;left:0;width:136px;padding:5px 10px;border-radius:0 0 6px 0;background:#8ce9ac;color:#000;font-size:12px;font-weight:700;text-align:center}
+    .case-tag{position:absolute;top:0;left:0;width:136px;padding:5px 10px;border-radius:0 0 6px 0;background:#8ce9ac;color:#000;font-size: 16px;font-weight:700;text-align:center}
     .case-card.featured .case-tag{width:270px;background:#001a34;color:#fff}
     .case-card.purple .case-tag{background:#686de4;color:#fff}
     .case-card.rose   .case-tag{background:#f2969d}
@@ -174,7 +179,7 @@ const cases = [
     .case-card.violet .case-tag{background:#c47aeb}
     .case-card.sand   .case-tag{background:#f1c88b}
     .case-card img{align-self:center;max-width:75%;max-height:92px;object-fit:contain;margin-top:29px}
-    .case-card.featured img{align-self:flex-start;max-width:322px;max-height:115px;margin:44px 0 16px}
+    .case-card.featured img{align-self:flex-start;max-width: 410px;max-height: 135px;margin:44px 0 16px}
     .case-card p{margin:0 0 8px;color:#fff;font-size:14px;line-height:1.5}
     .case-card .case-link{align-self:flex-end;margin-top:auto;color:inherit;text-decoration:none;font-weight:600;white-space:nowrap;font-size:13px;display:inline-flex;align-items:center;gap:4px}
     .case-card:not(.featured) .case-link{color:#005cb9}
@@ -182,14 +187,14 @@ const cases = [
     /* ── Contact ── */
     .contact-section{background-color:#001629;margin-top:50px}
     .contact-inner{display:grid;grid-template-columns:62% 38%;max-width:var(--max);margin:0 auto;min-height:600px;align-items:stretch}
-    .contact-form-col{padding:72px 64px}
-    .contact-form-col .section-title{color:#fff;font-size:clamp(28px,3.2vw,46px);margin-bottom:44px;line-height:1.2;font-weight:600}
-    .contact-form{display:flex;flex-direction:column;gap:28px}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-    .contact-form input,.contact-form textarea{width:100%;padding:10px 0;border:none;border-bottom:1px solid rgba(255,255,255,0.3);border-radius:0;font-size:14px;font-family:inherit;outline:none;background:transparent;color:#fff;transition:border-bottom-color 0.2s}
-    .contact-form input:focus,.contact-form textarea:focus{border-bottom-color:rgba(255,255,255,0.75)}
-    .contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(255,255,255,0.45)}
-    .contact-form textarea{resize:none;min-height:80px}
+    .contact-form-col{padding:72px 140px}
+    .contact-form-col .section-title{color:#fff;font-size:clamp(28px,3.2vw,46px);margin-bottom:44px;line-height:1.2;font-weight:600;white-space:nowrap}
+    .contact-form{display:flex;flex-direction:column;gap:30px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:42px}
+    .contact-form input,.contact-form textarea{width:100%;padding:12px 0;border:none;border-bottom:1.5px solid rgba(255,255,255,0.9);border-radius:0;font-size:15px;font-family:inherit;outline:none;background:transparent;color:#fff;transition:border-bottom-color 0.2s}
+    .contact-form input:focus,.contact-form textarea:focus{border-bottom-color:rgba(255,255,255,0.9)}
+    .contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(255,255,255,0.65)}
+    .contact-form textarea{resize:none;min-height:40px}
     .form-submit{align-self:flex-start;padding:15px 44px;background:#fff;color:#001629;border:none;border-radius:8px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:12px;transition:background 0.2s}
     .form-submit:hover{background:#f0f0f0}
     .contact-right-col{background-color:#f0f0f0;border-radius:25px;margin:28px 28px 28px 0;padding:40px 40px 0;display:flex;flex-direction:column;box-shadow:0 4px 32px rgba(0,0,0,0.14)}
@@ -203,7 +208,7 @@ const cases = [
     .tc-author{font-size:14px;font-weight:700;color:#1a1a1a;line-height:1.4}
     .tc-author span{display:block;font-weight:400;font-size:13px;color:#888}
     .tc-link{color:#1a1a1a;text-decoration:none;font-size:13px;font-weight:500;white-space:nowrap}
-    .tc-fraction-bar{text-align:center;font-size:18px;font-weight:600;color:#1a1a1a;padding:8px 0 12px;margin-top:auto;margin-bottom:28px}
+    .tc-fraction-bar { text-align: center; font-size: 20px; color: #000; padding: 14px 0 8px; position: relative; z-index: 2; transform: translateY(-100px); }
     .contact-right-img{width:100%;height:220px;object-fit:cover;object-position:center top;display:block;border-radius:16px 16px 22px 22px}
     .dt-page-class footer{margin-top:0;position:relative;z-index:1}
 
@@ -218,7 +223,7 @@ const cases = [
       .contact-form-col{padding:44px 36px}
       .contact-right-col{margin:22px 22px 0 0;padding:32px 32px 0;border-radius:22px}
       .why-section-wrap{padding:0 20px}
-      .why-copy{padding:42px 36px 38px}
+      .why-copy{padding:42px 36px 38px !important}
     }
     @media(max-width:1100px){
       .hero{flex-direction:column;align-items:flex-start;gap:28px}
@@ -232,15 +237,18 @@ const cases = [
       .hero{min-height:auto;margin-left:16px;margin-right:16px;padding:44px 32px;border-radius:16px}
       .hero h1{font-size:clamp(30px,8vw,38px)}
       .hero p,.hero-btn{margin-left:0}
-      .hero-badges{position:static;flex-wrap:wrap;gap:12px;margin-top:24px}
-      .hero-badges img{width:110px}
+      .hero-badges{position:static;display:grid;grid-template-columns:1fr 1fr;column-gap:14px;row-gap:18px;justify-items:center;align-items:center;margin-top:28px;width:100%;flex-wrap:initial}
+      .hero-badges img{width:100%;max-width:140px;height:auto}
+      .hero-badges img:nth-child(1){grid-column:1;grid-row:1}
+      .hero-badges img:nth-child(2){grid-column:2;grid-row:1}
+      .hero-badges img:nth-child(3){grid-column:1/3;grid-row:2;justify-self:center;max-width:140px}
       .acc-btn{grid-template-columns:48px 1fr 20px;gap:12px}
       .acc-icon-box{width:48px!important;min-width:48px!important;height:38px!important}
-      .acc-title{font-size:14px}
-      .acc-body{padding-left:60px;font-size:13px}
+      .acc-title{font-size: 20px}
+      .acc-body{padding-left:60px;font-size: 16px}
       .service-grid,.case-grid{grid-template-columns:1fr}
       .case-card.featured{grid-column:span 1}
-      .why-copy{padding:28px 20px}
+      .why-copy{padding:28px 20px !important}
       .why-section-wrap{padding:0 12px;margin:30px 0}
       .form-row{grid-template-columns:1fr}
       .contact-form-col{padding:36px 22px}
@@ -273,7 +281,7 @@ const cases = [
         <h1>Build the Business You Need for What's Next</h1>
         <p>Digital transformation isn't about chasing technology trends — it's about removing the friction that holds your business back. We help you modernize systems, digitize workflows, and build scalable infrastructure that grows with you.</p>
         <a class="hero-btn" href="/contact-us/">
-          <i class="fa-solid fa-square-arrow-up-right"></i> Schedule a Consultation
+          Schedule a Consultation <span class="btn-icon-box"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
         </a>
       </div>
       <div class="hero-badges" aria-label="Review badges">
@@ -303,7 +311,7 @@ const cases = [
     <!-- ══ STRATEGIC BENEFITS ACCORDION ══ -->
     <section class="dt-section media-accordion">
       <div class="accordion-copy">
-        <div class="eyebrow">Service Benefits</div>
+        <div class="eyebrow acc-eyebrow">Service Benefits</div>
         <h2 class="section-title">How Digital Transformation Drives Business Growth</h2>
         <div class="acc-list" data-acc>
           {strategicBenefits.map(([icon, title, text], i) => (
@@ -346,7 +354,7 @@ const cases = [
     <!-- ══ OUR PROCESS ACCORDION ══ -->
     <section class="dt-section media-accordion">
       <div class="accordion-copy">
-        <div class="eyebrow">Our Process</div>
+        <div class="eyebrow acc-eyebrow">Our Process</div>
         <h2 class="section-title">How We Lead Your Transformation</h2>
         <div class="acc-list" data-acc>
           {coreServices.map(([icon, title, text], i) => (
@@ -365,7 +373,7 @@ const cases = [
       </div>
       <img
         class="feature-image"
-        src="https://demskigrdev.wpenginepowered.com/wp-content/uploads/2025/07/engineer-working-on-chip-development-2025-03-06-13-42-24-utc-1024x683.jpg"
+        src="https://demskigrdev.wpenginepowered.com/wp-content/uploads/2025/04/engineer-working-on-chip-development-2025-03-06-13-42-24-utc-1024x683.jpg"
         alt="Engineer working on technology development"
         width="1024" height="683"
         loading="lazy"
@@ -376,7 +384,7 @@ const cases = [
     <div class="why-section-wrap">
       <section class="why-section">
         <div class="why-copy" style="padding-right:410px;">
-          <div class="eyebrow">Choose Us</div>
+          <div class="eyebrow acc-eyebrow">Choose Us</div>
           <h2 class="section-title">Why Choose the Demski Group?</h2>
           <p>Most consultants hand you a strategy deck and leave. We stay through the build, the integration, and the rollout — because a transformation plan that doesn't get implemented isn't worth much.</p>
           <p>We've led digital transformations across biotechnology, retail, logistics, real estate, manufacturing, and more. Each engagement starts with a deep understanding of your business before we touch a single system.</p>
@@ -389,7 +397,7 @@ const cases = [
           </ul>
           <div class="testimonial">
             <h3>Client Success Stories</h3>
-            <div class="quote-mark">&ldquo;&ldquo;</div>
+            <div class="quote-mark"><i class="fa-solid fa-quote-left" aria-hidden="true"></i></div>
             <blockquote>The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. They are also very professional and timely as well as a pleasure to work with!</blockquote>
             <div class="testimonial-footer">
               <p>Delaine Mast<br />CEO</p>
@@ -419,7 +427,7 @@ const cases = [
 
     <!-- ══ CASE STUDIES ══ -->
     <section class="dt-section case-section">
-      <div class="eyebrow">Case Studies</div>
+      <div class="eyebrow acc-eyebrow">Case Studies</div>
       <h2 class="section-title">Over 600 Projects Delivered Successfully</h2>
       <p class="case-intro">With over 12 years of software development experience across many industries, we have a lot to talk about. Here are just a few of our success stories.</p>
       <div class="case-grid">

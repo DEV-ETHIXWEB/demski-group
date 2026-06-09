@@ -2,12 +2,15 @@
 import Layout from '../../layouts/Layout.astro';
 
 const { slug } = Astro.params;
-const tagRes = await fetch(`https://demskigroup.com/wp-json/wp/v2/tags?slug=${slug}`);
-const tags = await tagRes.json();
+const tagRes = await fetch(`https://demskigroup.com/wp-json/wp/v2/tags?slug=${slug}`, { signal: AbortSignal.timeout(6000) });
+const tags = tagRes.ok ? await tagRes.json() : [];
 const tag = tags[0];
 
-const postsRes = await fetch(`https://demskigroup.com/wp-json/wp/v2/posts?_embed&tags=${tag.id}&per_page=10`);
-const posts = await postsRes.json();
+const postsRes = tag?.id
+  ? await fetch(`https://demskigroup.com/wp-json/wp/v2/posts?_embed&tags=${tag.id}&per_page=10`, { signal: AbortSignal.timeout(6000) })
+  : null;
+const posts = postsRes?.ok ? await postsRes.json() : [];
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-revalidate=3600');
 ---
 
 <Layout title={`${tag?.name ?? slug} - Demski Group Blog`}>
@@ -44,7 +47,7 @@ const posts = await postsRes.json();
           <div class="info">
             <div class="meta">{date}</div>
             <h2>{post.title.rendered}</h2>
-            <a class="read-more" href={`/blog/${post.slug}`}>Read More →</a>
+            <a class="read-more" href={`/blog/${post.slug}`}>Read More <span class="btn-arrow-icon"></span></a>
           </div>
         </div>
       );

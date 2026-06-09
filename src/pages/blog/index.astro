@@ -1,14 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
+
 const page = Number(Astro.url.searchParams.get('page') || 1);
+const search = (Astro.url.searchParams.get('s') || '').trim();
 const perPage = 10;
 
-const res = await fetch(`https://demskigroup.com/wp-json/wp/v2/posts?_embed&per_page=${perPage}&page=${page}`);
-const posts = await res.json();
+const searchParam = search ? `&search=${encodeURIComponent(search)}` : '';
+const res = await fetch(`https://demskigroup.com/wp-json/wp/v2/posts?_embed&per_page=${perPage}&page=${page}${searchParam}`);
+const posts = res.ok ? await res.json() : [];
 
-const totalRes = await fetch('https://demskigroup.com/wp-json/wp/v2/posts?per_page=1');
-const totalPages = Number(totalRes.headers.get('X-WP-TotalPages') || 1);
+const totalPages = Number(res.headers.get('X-WP-TotalPages') || 1);
+const totalResults = Number(res.headers.get('X-WP-Total') || 0);
 
 const catRes = await fetch('https://demskigroup.com/wp-json/wp/v2/categories?per_page=20');
 const categories = await catRes.json();
@@ -24,8 +27,15 @@ const tags = await tagRes.json();
     .hero h1 { font-size: 74px; font-weight: 800; color: #0A0000; line-height: 1.1; letter-spacing: 0.7px; margin: 0px 40px 20px; font-family: 'Outfit', sans-serif; }
     .breadcrumb { font-size: 18px; font-family: 'Outfit', sans-serif; color: #000; margin-top: 30px; }
     .breadcrumb a { color: #000; font-family: 'Outfit', sans-serif; font-size: 18px; text-decoration: none; }
-    .main-wrap { max-width: 1280px; margin: 50px auto; padding: 0 60px; display: flex; flex-direction: row; gap: 40px; align-items: flex-start; }
+    .top-search-wrap { width: 100%; margin: 40px 0 0; padding: 0 20px; display: flex; justify-content: center; box-sizing: border-box; }
+    .top-search-form { width: 100%; max-width: 720px; margin: 0 auto; }
+    .top-search-form input::placeholder { color: #888 !important; }
+    .main-wrap { max-width: 1280px; margin: 40px auto 50px; padding: 0 60px; display: flex; flex-direction: row; gap: 40px; align-items: flex-start; }
     .posts-col { width: 65%; min-width: 0; flex: none; }
+    .search-results-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; font-size: 18px; color: #0A0000; font-family: 'Outfit', sans-serif; }
+    .search-results-header .clear-search { color: #003087; text-decoration: underline; font-weight: 600; }
+    .search-results-header .clear-search:hover { color: #001f5c; }
+    .no-results { padding: 40px 0; font-size: 18px; color: #555; font-family: 'Outfit', sans-serif; }
     .post-card { background: white; margin-bottom: 30px; overflow: hidden; border: 1px solid #ebebeb; border-radius: 12px; }
     .post-card img { width: 100%; height: 450px; object-fit: cover; display: block; max-width: 100%; }
     .post-info { padding: 20px 22px 22px; }
@@ -51,7 +61,7 @@ const tags = await tagRes.json();
     .search-form { display: flex; align-items: center; border: 1.5px solid #e0e0e0; border-radius: 50px; overflow: hidden; background: #fff; padding: 6px 18px; gap: 8px; }
     .search-form .search-icon { display: flex; align-items: center; flex-shrink: 0; }
     .search-form input { border: none; outline: none; padding: 8px 0; font-size: 16px; width: 100%; font-family: 'Outfit', sans-serif; background: transparent; color: #333; }
-    .search-form input::placeholder { color: #aaa; }
+    .search-form input::placeholder { color: transparent; }
     .search-form button { display: none; }
     .recent-ul { list-style: none; padding: 0; margin: 0; }
     .recent-ul li { padding: 15px 0; border-bottom: 1px solid #f5f5f5; }
@@ -70,7 +80,8 @@ const tags = await tagRes.json();
     @media (max-width: 768px) {
       .hero { padding: 50px 20px; }
       .hero h1 { font-size: 36px; }
-      .main-wrap { flex-direction: column !important; padding: 0 15px; margin: 30px auto; gap: 20px; }
+      .top-search-wrap { padding: 0 15px; margin-top: 25px; }
+      .main-wrap { flex-direction: column !important; padding: 0 15px; margin: 25px auto 30px; gap: 20px; }
       .posts-col, .sidebar-col { width: 100% !important; }
       .post-card img { height: 200px; }
       .post-card h2 { font-size: 16px; }
@@ -80,12 +91,29 @@ const tags = await tagRes.json();
   <div class="hero">
     <h1>Our blog</h1>
     <div class="breadcrumb">
-      <a href="#">Home</a> &nbsp;&nbsp;&nbsp;›&nbsp;&nbsp;&nbsp; The Demski Group Blog
+      <a href="/">Home</a> &nbsp;&nbsp;&nbsp;›&nbsp;&nbsp;&nbsp; The Demski Group Blog
     </div>
+  </div>
+
+  <div class="top-search-wrap">
+    <form class="search-form top-search-form" action="/blog" method="get">
+      <span class="search-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg></span>
+      <input type="search" name="s" value={search} placeholder="Search the blog..." aria-label="Search" />
+      <button type="submit" aria-label="Submit search"></button>
+    </form>
   </div>
 
   <div class="main-wrap">
     <div class="posts-col">
+      {search && (
+        <div class="search-results-header">
+          <span><strong>{totalResults}</strong> results for <strong>"{search}"</strong></span>
+          <a href="/blog" class="clear-search">Clear search</a>
+        </div>
+      )}
+      {search && posts.length === 0 && (
+        <div class="no-results">No posts found matching "{search}".</div>
+      )}
       {posts.map((post: any) => {
         const img = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
         const date = new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -96,14 +124,10 @@ const tags = await tagRes.json();
             {img && <img src={img} alt={post.title.rendered} />}
             <div class="post-info">
               <div class="post-meta-row">
-                <span class="post-date-txt">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:5px;margin-bottom:2px"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  {date}
-                </span>
+                <span class="post-date-txt"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:5px;margin-bottom:2px"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>{date}</span>
                 {cat && <a href={`/category/${cat.slug}`} class="cat-tag">{cat.name}</a>}
               </div>
               <h2><a href={`/blog/${post.slug}`}>{post.title.rendered}</a></h2>
-              <p class="post-excerpt">{excerpt}</p>
               <a class="read-more-link" href={`/blog/${post.slug}`}>
                 Read More
                 <svg width="14" height="12" viewBox="0 0 14 12" fill="none">
@@ -115,32 +139,19 @@ const tags = await tagRes.json();
         );
       })}
 
-      <div class="pagination">
-        {page > 1 && <a href={`?page=${page - 1}`}>‹</a>}
-        {page > 2 && <a href="?page=1">1</a>}
-        {page > 3 && <span class="dots">...</span>}
-        {page > 1 && <a href={`?page=${page - 1}`}>{page - 1}</a>}
-        <span class="active">{page}</span>
-        {page < totalPages && <a href={`?page=${page + 1}`}>{page + 1}</a>}
-        {page < totalPages - 2 && <span class="dots">...</span>}
-        {page < totalPages - 1 && <a href={`?page=${totalPages}`}>{totalPages}</a>}
-        {page < totalPages && <a href={`?page=${page + 1}`} class="pagination-next">›</a>}
-      </div>
+      {totalPages > 1 && (
+        <div class="pagination">
+          {page === 1 ? <span class="active">1</span> : <a href={`?page=1${searchParam}`}>1</a>}
+          {totalPages >= 2 && (page === 2 ? <span class="active">2</span> : <a href={`?page=2${searchParam}`}>2</a>)}
+          {totalPages >= 3 && (page === 3 ? <span class="active">3</span> : <a href={`?page=3${searchParam}`}>3</a>)}
+          {totalPages > 4 && <span class="dots">...</span>}
+          {totalPages > 3 && (page === totalPages ? <span class="active">{totalPages}</span> : <a href={`?page=${totalPages}${searchParam}`}>{totalPages}</a>)}
+          {page < totalPages && <a href={`?page=${page + 1}${searchParam}`} class="pagination-next">›</a>}
+        </div>
+      )}
     </div>
 
     <div class="sidebar-col">
-      <div class="sb-box">
-        <form class="search-form" action="#" method="get">
-          <span class="search-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/>
-            </svg>
-          </span>
-          <input type="search" name="s" placeholder="Search..." />
-          <button type="submit"></button>
-        </form>
-      </div>
-
       <div class="sb-box">
         <h3>Recent Posts</h3>
         <ul class="recent-ul">
@@ -149,19 +160,6 @@ const tags = await tagRes.json();
           ))}
         </ul>
       </div>
-
-      <div class="sb-box">
-        <form class="search-form" action="#" method="get">
-          <span class="search-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/>
-            </svg>
-          </span>
-          <input type="search" name="s" placeholder="Type to search..." />
-          <button type="submit"></button>
-        </form>
-      </div>
-
       <div class="sb-box">
         <h3>Blog Categories</h3>
         <ul class="cat-ul">
@@ -173,7 +171,6 @@ const tags = await tagRes.json();
           ))}
         </ul>
       </div>
-
       <div class="sb-box">
         <h3>Technologies</h3>
         <div class="tech-cloud">

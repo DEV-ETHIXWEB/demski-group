@@ -469,7 +469,7 @@ html { overflow-x: hidden; }
   max-width: 1200px;
   margin: -380px auto 80px;
   padding: 0 60px;
-  transform: translateX(-9%);
+  transform: translateX(-10.5%);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
@@ -564,7 +564,7 @@ html { overflow-x: hidden; }
   position: relative;
   overflow: hidden;
   padding: 110px 40px 100px;
-  background: #F0F0F0;
+  background: #F7F7F7;
 }
 .expertise-section::before {
   content: '';
@@ -581,7 +581,7 @@ html { overflow-x: hidden; }
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(240,240,240,0.5);
+  background: rgba(247,247,247,0.55);
   z-index: 1;
 }
 /* top straight line into expertise section */
@@ -749,6 +749,7 @@ html { overflow-x: hidden; }
   margin-top: 5%;
 }
 .btn-see-all-blog:hover { background: white; color: #0154b1; border-color: #0154b1; }
+.btn-see-all-blog-mobile { display: none; }
 .about-cards-slider-wrap { position: relative; margin-top: 36px; }
 .about-cards-slider {
   display: flex;
@@ -919,8 +920,10 @@ html { overflow-x: hidden; }
 }
 @media (max-width: 768px) {
   .about-hero-inner { flex-direction: column; padding: 80px 24px 120px; gap: 28px; }
+  .about-hero-text { width: 100%; margin-left: 0; }
   .about-hero-text h1 { font-size: 36px; }
-  .about-hero-text p { font-size: 16px; }
+  .about-hero-text p { font-size: 16px; max-width: 100%; }
+  .about-hero-image { margin-left: 0; }
   .about-hero-image img { height: 200px; }
   .about-hero::after { height: 100px; bottom: -60px; }
   .about-brands-outer { padding: 0 16px; }
@@ -929,8 +932,8 @@ html { overflow-x: hidden; }
   .mission-inner { padding-top: 40px; margin-bottom: 40px; }
   .mission-inner h2 { font-size: 28px; }
   .mission-inner p { font-size: 15px; }
-  .team-photos-wrap { grid-template-columns: 1fr 1fr; gap: 16px; }
-  .team-photo-item img { height: 260px; }
+  .team-photos-wrap { grid-template-columns: 1fr 1fr; gap: 31px; }
+  .team-photo-item img { height: 375px; }
   .exp-team-wrap h2 { font-size: 26px; }
   .exp-team-wrap p { font-size: 15px; }
   .projects-section { padding: 60px 16px; }
@@ -939,14 +942,75 @@ html { overflow-x: hidden; }
   .projects-bottom-row { grid-template-columns: 1fr 1fr; }
   .clients-say-section { padding: 60px 0 60px; }
   .clients-say-left h2 { font-size: 28px; }
-  .reviews-grid { gap: 12px; }
-  .rc { padding: 16px 16px 12px; }
-  .rc-text { font-size: 14px; }
-  .expertise-section { padding: 80px 16px 60px; }
+  .clients-say-top { gap: 0 !important; margin-bottom: 0 !important; }
+  .clients-say-left { padding-top: 0 !important; margin-top: 0 !important; }
+  .clients-say-right { display: none !important; }
+  .reviews-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+    padding: 0 16px;
+    margin: 20px auto 0;
+    transform: none !important;
+  }
+  .clients-say-section { padding-bottom: 0 !important; }
+  .reviews-grid .rc,
+  .reviews-grid .rc:not(:first-child),
+  .reviews-grid .rc:nth-child(even),
+  .reviews-grid .rc:nth-child(odd):not(:first-child) {
+    width: 100% !important;
+    max-width: 100% !important;
+    grid-column: auto !important;
+    margin: 0 !important;
+    padding: 24px 22px 20px !important;
+    font-size: 100% !important;
+    border-radius: 22px !important;
+  }
+  .reviews-grid .rc-text { font-size: 14px; }
+  .reviews-grid .rc-icon { font-size: 32px; }
+  .reviews-grid .rc-footer { flex-wrap: wrap; gap: 12px; }
+  .reviews-grid .rc-logo { height: 40px; max-width: 110px; }
+  .reviews-grid .rc-link { font-size: 13px; white-space: nowrap; }
+  .expertise-section { padding: 30px 16px 0; }
   .expertise-left h2 { font-size: 28px; }
+  .commitment-inner {
+    background: #ffffff;
+    margin: 40px -16px 0 !important;
+    padding: 40px 20px 60px !important;
+    border-top: none !important;
+    max-width: none !important;
+  }
   .commitment-inner h2 { font-size: 28px; }
-  .badges-row img { height: 55px; }
+  .badges-row { flex-direction: column; gap: 48px; flex-wrap: wrap; }
+  .badges-row img { height: 180px !important; max-width: 240px !important; }
+  .badges-row img:nth-child(2) { height: 140px !important; max-width: 200px !important; }
   .about-blog-section { padding: 60px 16px; }
+  .about-blog-inner { display: flex; flex-direction: column; }
+  .about-blog-inner .about-section-header { order: 1; }
+  .about-blog-inner .about-cards-slider-wrap { order: 2; }
+  .about-blog-inner .btn-see-all-blog-mobile { order: 3; align-self: center; display: inline-flex; margin: 28px auto 0; }
+  .about-section-header .btn-see-all-blog:not(.btn-see-all-blog-mobile) { display: none; }
+  .about-section-header h2 { font-size: 25.2px !important; }
+  .about-cards-slider-wrap { margin-top: 20px; }
+  .about-cards-slider {
+    flex-direction: column;
+    overflow: visible;
+    gap: 14px;
+    scroll-snap-type: none;
+    padding: 0;
+  }
+  .about-post-card {
+    flex: none !important;
+    width: 100%;
+    height: 150px !important;
+    border-radius: 14px !important;
+    filter: none !important;
+  }
+  .about-cards-slider .about-post-card[aria-hidden="true"] { display: none !important; }
+  /* Show only first 3 original cards on mobile (clones are hidden above) */
+  .about-cards-slider .about-post-card:not([aria-hidden="true"]):nth-child(n+10) { display: none !important; }
+  .about-post-card-overlay { justify-content: flex-end; padding: 18px 22px 16px; }
+  .about-post-card-title { margin-top: auto; margin-bottom: auto; font-size: 20.9px; }
+  .about-cards-nav { display: none !important; }
   .about-blog-header h2 { font-size: 28px; }
   .blog-post-card { flex: 0 0 85vw; min-height: 260px; }
   .blog-nav { display: none; }
@@ -957,8 +1021,16 @@ html { overflow-x: hidden; }
   .about-hero-text h1 { font-size: 28px; }
   .about-hero-inner { padding: 70px 16px 100px; }
   .about-hero-image img { height: 160px; }
-  .team-photos-wrap { grid-template-columns: 1fr; max-width: 280px; margin-left: auto; margin-right: auto; }
-  .svc-row-2 { grid-template-columns: repeat(2, 1fr); }
+  .team-photos-wrap { grid-template-columns: 1fr; max-width: 336px; margin-left: auto; margin-right: auto; }
+  .expertise-right { width: 100% !important; max-width: 100% !important; min-width: 0; flex: 1 1 auto !important; margin-left: 0 !important; }
+  .svc-row-1 { grid-template-columns: 1fr !important; gap: 16px; width: 100% !important; }
+  .svc-row-2 { grid-template-columns: 1fr !important; gap: 16px; width: 100% !important; }
+  .svc-row-2 .svc-tile,
+  .svc-row-1 .svc-tile { min-height: 180px; padding: 24px; width: 100% !important; margin: 0 !important; }
+  .svc-tile.featured { min-height: 200px; }
+  .svc-tile.featured .svc-name { font-size: 28px; }
+  .svc-row-1 .svc-name { font-size: 22px; }
+  .svc-name { font-size: 22px; }
   .projects-side-grid { grid-template-columns: 1fr; }
   .about-cta-inner h2 { font-size: 20px; }
   .btn-cta-orange { width: 200px; }
@@ -1118,8 +1190,8 @@ html { overflow-x: hidden; }
 
   <div class="reviews-grid">
 
-    <!-- 1 Mickey Rowe – dark (full width) -->
-    <div class="rc dark" style="grid-column: span 2; max-width: 63%; margin-left: 0; margin-right: auto; width: 63%;">
+    <!-- 1 Mickey Rowe – dark -->
+    <div class="rc dark" style="grid-column: span 2; width: 60.9%; max-width: 60.9%; margin-left: 0; margin-right: auto; padding: 28px 66px 22px; font-size: 105%;">
       <div class="rc-icon">❝</div>
       <p class="rc-text">We spoke to a few different companies as we set out to find someone to create a website/database application to augment our desktop software. We chose The Demski Group in part because we found them very easy to talk to in our interview. That first impression stuck as we have a great relationship with them now. We are currently planning to farm out another project and are not even considering looking for anyone else to take it on.</p>
       <div><div class="rc-name">Mickey Rowe</div><div class="rc-role">Manager</div></div>
@@ -1349,6 +1421,7 @@ html { overflow-x: hidden; }
         </a>
         <a href="/services/qa-testing/" class="svc-tile"
           style="background-image:url('https://demskigroup.com/wp-content/uploads/2025/03/Data-3-300x200.jpg'); width: calc(100% + 40px); margin-right: -40px;">
+          <div class="svc-icon"><i class="fa-solid fa-vial-circle-check"></i></div>
           <span class="svc-name">QA and Testing</span>
         </a>
       </div>
@@ -1360,6 +1433,7 @@ html { overflow-x: hidden; }
         </a>
         <a href="/services/maintenance/" class="svc-tile"
           style="background-image:url('https://demskigroup.com/wp-content/uploads/2025/02/stuff-300x200.png')">
+          <div class="svc-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
           <span class="svc-name">Maintenance<br/>and Support</span>
         </a>
         <a href="/services/mobile/" class="svc-tile"
@@ -1421,6 +1495,7 @@ html { overflow-x: hidden; }
       </div>
       <button class="about-cards-nav about-cards-nav-next" id="about-blog-next" aria-label="Next">→</button>
     </div>
+    <a href="/blog" class="btn-see-all-blog btn-see-all-blog-mobile">See all <span class="btn-arrow-icon"></span></a>
   </div>
 </section>
 
