@@ -348,7 +348,7 @@ html { overflow-x: hidden; }
   <div class="brands-wrap">
     <div class="brands-label">Companies that trust our<br/>experienced team.</div>
     <div class="brands-logos">
-      <img src="https://demskigroup.com/wp-content/uploads/2024/06/logoswhite-1024x366.png" alt="companies we work with" />
+      <img src="https://demskigroup.com/wp-content/uploads/2024/06/logoswhite-1024x366.png" alt="companies we work with" width="1024" height="366" loading="lazy" decoding="async" />
     </div>
   </div>
 </div>
@@ -365,7 +365,7 @@ html { overflow-x: hidden; }
         <a class="biopac-card" href={biopac.link} style="grid-row:span 2">
           <div class="biopac-logo">
             {biopacPhoto
-              ? <img src={biopacPhoto} alt={biopac.name} style="height:64px;object-fit:contain;filter:brightness(0) invert(1)" />
+              ? <img src={biopacPhoto} alt={biopac.name} style="height:64px;object-fit:contain;filter:brightness(0) invert(1)" loading="lazy" decoding="async" />
               : <span class="biopac-name-text">{biopac.name}</span>}
           </div>
           <p class="biopac-desc">{biopacDesc}</p>
