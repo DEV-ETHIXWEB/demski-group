@@ -1,0 +1,370 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="The Demski Group Careers | Join Our Team" description="Explore exciting career opportunities at The Demski Group. Join our innovative team and contribute to cutting-edge software solutions.">
+
+  <!-- ── HERO ── -->
+  <section class="careers-hero">
+    <div class="careers-hero__inner">
+      <div class="careers-hero__text">
+        <h1>Your New Favorite Place to Work</h1>
+        <p>Based out of Olean, New York and with branches in Ohio and Montana, The Demski Group is focused on creating software applications to accelerate business.</p>
+        <a href="/contact-us/" class="btn-primary">Get In Touch</a>
+      </div>
+      <div class="careers-hero__image">
+        <img
+          src="https://demskigroup.com/wp-content/uploads/2024/06/1.png"
+          alt="Demski Group"
+          width="373"
+          height="373"
+        />
+      </div>
+    </div>
+    <!-- curve divider -->
+    <div class="hero-curve" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+        <path d="M1000,4.3V0H0v4.3C0.9,23.1,126.7,99.2,500,100S1000,22.7,1000,4.3z"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ── WHY WORK ── -->
+  <section class="why-work">
+    <div class="container">
+      <h2>Why Work For The Demski Group</h2>
+      <p>At The Demski Group, we foster a culture of continuous learning, growth, and collaboration. We provide our employees with the tools, resources, and support they need to excel in their roles and achieve their career goals. Our work environment is dynamic, fast-paced, and challenging, but also fun and rewarding.</p>
+      <p>We offer competitive salaries, comprehensive benefits packages, flexible working arrangements, and plenty of opportunities for career advancement. We also value diversity, equity, and inclusion, and strive to create a workplace where everyone feels respected, valued, and heard.</p>
+    </div>
+  </section>
+
+  <!-- ── CURRENT OPENINGS ── -->
+  <section class="openings">
+    <div class="container">
+      <h2>Current Openings</h2>
+
+      <div class="accordion">
+        <!-- Item 1 -->
+        <div class="accordion__item">
+          <button class="accordion__header" aria-expanded="true">
+            <span class="accordion__icon">
+              <i class="fas fa-minus icon-open"></i>
+              <i class="fas fa-plus icon-closed"></i>
+            </span>
+            <span class="accordion__title">Fractional Marketing Director</span>
+          </button>
+          <div class="accordion__body" style="display:block;">
+            <div class="accordion__content">
+              <p><strong>About the Role</strong></p>
+              <p>We're seeking a strategic marketing leader who can operate as both a <strong>high-level strategist</strong> and a <strong>hands-on manager</strong> when needed. You'll work closely with the company's leadership team to shape our marketing direction, align our efforts with business goals, and help us scale effectively.</p>
+              <p>This is a <strong>fully remote</strong>, <strong>fractional</strong> role ideal for a seasoned marketer who enjoys working with growing companies and wants flexibility in their schedule.</p>
+              <hr />
+              <p><strong>Responsibilities</strong></p>
+              <ul>
+                <li>Develop and refine The Demski Group's overall marketing strategy, focusing on growth, lead generation, and brand positioning.</li>
+                <li>Oversee execution of marketing initiatives across paid ads, SEO, content, and social media.</li>
+                <li>Evaluate and improve our sales funnels, landing pages, and campaign performance.</li>
+                <li>Manage relationships with contractors, designers, and marketing partners as needed.</li>
+                <li>Provide regular reporting, analytics insights, and recommendations to leadership.</li>
+                <li>Collaborate with leadership to identify new growth opportunities and optimize ROI across marketing channels.</li>
+                <li>Help prioritize marketing activities based on impact and available resources.</li>
+              </ul>
+              <hr />
+              <p><strong>Requirements</strong></p>
+              <ul>
+                <li>7+ years of marketing experience, with at least 3 in a senior or leadership role (Director, VP, or CMO level).</li>
+                <li>Proven experience driving growth for <strong>B2B service-based</strong> or <strong>SaaS/software companies</strong>.</li>
+                <li>Strong understanding of <strong>digital marketing channels</strong>, including SEO, PPC, content, and CRM/email automation.</li>
+                <li>Excellent strategic thinking, project management, and communication skills.</li>
+                <li>Comfortable working autonomously in a remote environment.</li>
+                <li>Experience working on a <strong>fractional or consulting basis</strong> is a plus.</li>
+              </ul>
+              <hr />
+              <p><strong>What We Offer</strong></p>
+              <ul>
+                <li>Flexible, fully remote role (set your own hours).</li>
+                <li>10–20 hours per month with potential to grow as the company expands.</li>
+                <li>Opportunity to help shape the direction and growth of a fast-moving digital agency.</li>
+                <li>Collaborative, entrepreneurial team culture.</li>
+              </ul>
+              <hr />
+              <p><strong>To Apply:</strong><br />Please submit your resume, a short summary of relevant experience, and any examples of past marketing successes or case studies.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* ── HERO ── */
+  .careers-hero {
+    position: relative;
+    background: #e8e8e8;
+    padding: 80px 40px 0;
+    overflow: visible;
+  }
+
+  .careers-hero__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .careers-hero__text {
+    flex: 1;
+    max-width: 560px;
+    padding-bottom: 100px;
+  }
+
+  .careers-hero__text h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    color: #282828;
+    line-height: 1.15;
+    margin: 0 0 20px;
+  }
+
+  .careers-hero__text p {
+    font-size: 16px;
+    color: #282828;
+    line-height: 1.7;
+    margin: 0 0 36px;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background-color: #f09300;
+    color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #d47f00;
+    transform: translateY(-2px);
+  }
+
+  .careers-hero__image {
+    flex-shrink: 0;
+    width: 480px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: -100px;
+    position: relative;
+    z-index: 3;
+  }
+
+  .careers-hero__image img {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.18));
+  }
+
+  /* Curve divider */
+  .hero-curve {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    z-index: 2;
+  }
+
+  .hero-curve svg {
+    display: block;
+    width: 100%;
+    height: 100px;
+    fill: #E8E8E8;
+  }
+
+  /* ── WHY WORK ── */
+  .why-work {
+    background: #ffffff;
+    padding: 90px 40px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .why-work h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 700;
+    color: #282828;
+    margin: 0 0 28px;
+    line-height: 1.2;
+  }
+
+  .why-work p {
+    font-size: 16px;
+    color: #282828;
+    line-height: 1.8;
+    max-width: 760px;
+    margin: 0 0 20px;
+  }
+
+  /* ── OPENINGS ── */
+  .openings {
+    background: #ffffff;
+    padding: 20px 40px 100px;
+  }
+
+  .openings h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 700;
+    color: #282828;
+    margin: 0 0 48px;
+  }
+
+  /* ── ACCORDION ── */
+  .accordion {
+    max-width: 1100px;
+  }
+
+  .accordion__item {
+    background: #ffffff;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .accordion__header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 20px 24px;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Outfit', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #282828;
+    transition: background 0.2s;
+  }
+
+  .accordion__header:hover {
+    background: #fafafa;
+  }
+
+  .accordion__icon {
+    color: #005cb9;
+    font-size: 14px;
+    width: 18px;
+    flex-shrink: 0;
+  }
+
+  /* show/hide icons based on state */
+  .accordion__header[aria-expanded="true"] .icon-closed { display: none; }
+  .accordion__header[aria-expanded="true"] .icon-open  { display: inline; }
+  .accordion__header[aria-expanded="false"] .icon-open  { display: none; }
+  .accordion__header[aria-expanded="false"] .icon-closed { display: inline; }
+
+  .accordion__title {
+    flex: 1;
+  }
+
+  .accordion__body {
+    overflow: hidden;
+  }
+
+  .accordion__content {
+    padding: 8px 24px 32px 56px;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #282828;
+  }
+
+  .accordion__content p {
+    margin: 0 0 12px;
+  }
+
+  .accordion__content ul {
+    margin: 0 0 16px;
+    padding-left: 22px;
+  }
+
+  .accordion__content ul li {
+    margin-bottom: 8px;
+  }
+
+  .accordion__content hr {
+    border: none;
+    border-top: 1px solid #e5e5e5;
+    margin: 24px 0;
+  }
+
+  .accordion__content strong {
+    color: #001629;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .careers-hero__image {
+      display: none;
+    }
+
+    .careers-hero__inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .careers-hero__text {
+      padding-bottom: 60px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .careers-hero {
+      padding: 70px 20px 100px;
+    }
+
+    .why-work,
+    .openings {
+      padding: 60px 20px;
+    }
+
+    .accordion__content {
+      padding-left: 24px;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.accordion__header').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const body = btn.nextElementSibling as HTMLElement;
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        btn.setAttribute('aria-expanded', 'false');
+        body.style.display = 'none';
+      } else {
+        btn.setAttribute('aria-expanded', 'true');
+        body.style.display = 'block';
+      }
+    });
+  });
+</script>

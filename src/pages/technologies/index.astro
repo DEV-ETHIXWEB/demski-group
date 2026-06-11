@@ -1,0 +1,719 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Cutting-Edge Technologies | The Demski Group" description="Discover the latest technologies used by Demski Group. We leverage advanced tools and platforms to deliver innovative software solutions." pageClass="technologies-page">
+<style slot="head">
+  .technologies-page { font-family: 'Outfit', sans-serif; color: #282828; }
+
+  /* ── HERO ── */
+  .tech-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    background: #0A0000;
+    overflow: hidden;
+  }
+  .tech-hero-left {
+    padding: 80px 60px 80px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+  }
+  .tech-hero-eyebrow {
+    font-size: 15px;
+    font-weight: 600;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .tech-hero-left h1 {
+    font-size: clamp(30px, 3.5vw, 52px);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+    margin: 0;
+  }
+  .tech-hero-left p {
+    font-size: 18px;
+    color: #ccc;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 460px;
+  }
+  .tech-hero-btn {
+    display: inline-flex;
+    align-items: center;
+    background: #f09300;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    width: fit-content;
+    transition: background 0.2s;
+  }
+  .tech-hero-btn:hover { background: #d98200; }
+  .tech-hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .tech-hero-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.7;
+  }
+
+  /* ── BRAND LOGOS ── */
+  .tech-brands {
+    background: #fff;
+    padding: 50px 80px;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+  }
+  .tech-brands-label {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0A0000;
+    line-height: 1.3;
+    min-width: 180px;
+  }
+  .tech-brands-label span { color: #0154b1; }
+  .tech-brands img { flex: 1; max-width: 700px; height: auto; }
+
+  /* ── PLATFORMS ── */
+  .tech-platforms { padding: 70px 80px; background: #fff; }
+  .tech-platforms h2 { font-size: 36px; font-weight: 700; color: #0A0000; margin: 0 0 40px; }
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid #e5e5e5;
+  }
+  .platform-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 28px;
+    border-right: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .platform-item:nth-child(3n) { border-right: none; }
+  .platform-item:nth-last-child(-n+3) { border-bottom: none; }
+  .platform-item h3 { font-size: 20px; font-weight: 700; color: #0A0000; margin: 0; }
+  .platform-item a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #555;
+    text-decoration: none;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 6px 14px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .platform-item a:hover { background: #0A0000; color: #fff; border-color: #0A0000; }
+
+  /* ── TECH LOGOS ── */
+  .tech-logos-section { padding: 70px 80px; background: #faf9f5; }
+  .tech-logos-section h2 { font-size: 36px; font-weight: 700; color: #0A0000; margin: 0 0 40px; }
+  .tech-logos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+  }
+  .tech-logo-item {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 110px;
+    height: 70px;
+  }
+  .tech-logo-item img { max-height: 40px; max-width: 100px; width: auto; object-fit: contain; }
+
+  /* ── CODE THE FUTURE ── */
+  .tech-code-future {
+    background: #0A0000;
+    padding: 70px 80px;
+    position: relative;
+  }
+  .tech-code-future-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+  }
+  .tech-code-future h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    max-width: 500px;
+  }
+  .tech-see-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1.5px solid #555;
+    color: #ccc;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tech-see-all-btn:hover { border-color: #f09300; color: #f09300; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .service-card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .service-card-icon {
+    width: 44px;
+    height: 44px;
+    background: #2a2a2a;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    color: #f09300;
+    font-size: 20px;
+  }
+  .service-card h3 { font-size: 18px; font-weight: 700; color: #fff; margin: 0 0 12px; }
+  .service-card p { font-size: 14px; color: #888; line-height: 1.65; margin: 0; }
+
+  /* ── CASE STUDIES ── */
+  .tech-case-studies {
+    background: #fff;
+    padding: 70px 80px;
+  }
+  .case-studies-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 36px;
+  }
+  .case-studies-top h2 { font-size: 32px; font-weight: 800; color: #0A0000; margin: 0; }
+  .case-studies-top a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #555;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+  .case-studies-top a:hover { background: #0A0000; color: #fff; border-color: #0A0000; }
+  .case-studies-main { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; }
+  .case-study-featured {
+    background: #f5f5f5;
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .case-study-featured img { max-height: 60px; width: auto; }
+  .case-study-featured p { font-size: 15px; color: #555; line-height: 1.65; margin: 0; flex: 1; }
+  .case-study-featured a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #003087;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .case-study-featured a:hover { text-decoration: underline; }
+  .case-studies-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .case-study-mini {
+    background: #f5f5f5;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .case-study-mini img { max-height: 40px; width: auto; max-width: 140px; object-fit: contain; }
+  .case-study-mini a {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: #003087;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .case-study-mini a:hover { text-decoration: underline; }
+
+  /* ── EXCELLENCE ── */
+  .tech-excellence {
+    background: #0A0000;
+    padding: 70px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .tech-excellence-left h2 { font-size: 36px; font-weight: 800; color: #fff; margin: 0 0 16px; }
+  .tech-excellence-left p { font-size: 18px; color: #aaa; margin: 0 0 24px; }
+  .tech-excellence-left a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  .tech-excellence-left a:hover { color: #f09300; }
+  .tech-excellence-right { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .clutch-badge {
+    background: #fff;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 800;
+  }
+  .clutch-badge span { font-size: 11px; color: #333; }
+  .clutch-badge .clutch-big { font-size: 22px; color: #f09300; }
+  .rating-row { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+  .rating-item { display: flex; align-items: center; justify-content: space-between; }
+  .rating-item span { font-size: 16px; color: #fff; font-weight: 600; }
+  .stars { color: #f09300; font-size: 20px; letter-spacing: 2px; }
+
+  /* ── POS CTA ── */
+  .tech-pos-cta {
+    background: #fff;
+    padding: 70px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .pos-cta-img { border-radius: 12px; overflow: hidden; }
+  .pos-cta-img img { width: 100%; height: 300px; object-fit: cover; border-radius: 12px; display: block; }
+  .pos-cta-text h2 { font-size: 24px; color: #333; line-height: 1.5; margin: 0 0 16px; }
+  .pos-cta-text h2 span { color: #0154b1; }
+  .pos-cta-text a.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    background: #f09300;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+    margin-top: 8px;
+  }
+  .pos-cta-text a.cta-btn:hover { background: #d98200; }
+
+  /* ── PROVEN STRATEGIES ── */
+  .tech-strategies {
+    background: #faf9f5;
+    padding: 70px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .strategies-left h2 { font-size: 36px; font-weight: 800; color: #0A0000; margin: 0 0 16px; }
+  .strategies-left p { font-size: 17px; color: #555; line-height: 1.65; margin: 0 0 24px; }
+  .strategies-left a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #0A0000;
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .strategies-left a:hover { background: #333; }
+  .flip-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .flip-card {
+    height: 180px;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+  }
+  .flip-card-front {
+    background: #0A0000;
+    color: #fff;
+  }
+  .flip-card-front .arrow { font-size: 24px; color: #f09300; margin-bottom: 12px; }
+  .flip-card-front h3 { font-size: 22px; font-weight: 700; color: #fff; margin: 0; }
+  .flip-card-back {
+    background: #f09300;
+    transform: rotateY(180deg);
+    color: #fff;
+  }
+  .flip-card-back h3 { font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+  .flip-card-back p { font-size: 13px; line-height: 1.5; margin: 0; }
+
+  /* ── TRANSFORM CTA ── */
+  .tech-transform-cta {
+    background: #0154b1;
+    padding: 70px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .transform-cta-left h2 { font-size: 36px; font-weight: 800; color: #fff; margin: 0 0 8px; line-height: 1.2; }
+  .transform-cta-left h2 span { color: #f09300; }
+  .transform-cta-left p { font-size: 18px; color: #c5d8f5; margin: 0 0 24px; }
+  .transform-cta-left a {
+    display: inline-flex;
+    align-items: center;
+    background: #f09300;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .transform-cta-left a:hover { background: #d98200; }
+  .transform-cta-right img { width: 100%; border-radius: 12px; object-fit: cover; height: 320px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .tech-hero { grid-template-columns: 1fr; }
+    .tech-hero-right { display: none; }
+    .tech-hero-left { padding: 60px 40px; }
+    .tech-brands { flex-direction: column; padding: 40px; gap: 24px; }
+    .tech-platforms, .tech-logos-section, .tech-code-future, .tech-case-studies,
+    .tech-excellence, .tech-pos-cta, .tech-strategies, .tech-transform-cta { padding: 50px 40px; }
+    .platform-grid { grid-template-columns: 1fr 1fr; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .case-studies-main { grid-template-columns: 1fr; }
+    .tech-excellence { grid-template-columns: 1fr; }
+    .tech-pos-cta { grid-template-columns: 1fr; }
+    .tech-strategies { grid-template-columns: 1fr; }
+    .tech-transform-cta { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .tech-hero-left { padding: 40px 20px; }
+    .tech-platforms, .tech-logos-section, .tech-code-future, .tech-case-studies,
+    .tech-excellence, .tech-pos-cta, .tech-strategies, .tech-transform-cta { padding: 40px 16px; }
+    .platform-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .case-studies-grid { grid-template-columns: 1fr; }
+    .flip-cards-grid { grid-template-columns: 1fr; }
+    .tech-brands { padding: 30px 16px; }
+    .tech-code-future-top { flex-direction: column; gap: 16px; align-items: flex-start; }
+    .case-studies-top { flex-direction: column; gap: 16px; align-items: flex-start; }
+  }
+</style>
+
+<main id="main-content">
+
+  <!-- HERO -->
+  <section class="tech-hero">
+    <div class="tech-hero-left">
+      <p class="tech-hero-eyebrow">Technologies</p>
+      <h1>State-of-the-Art Tools and Technologies</h1>
+      <p>Talk to our experts today about your project. We love a challenge.</p>
+      <a href="/contact-us/" class="tech-hero-btn">Schedule a Consultation</a>
+    </div>
+    <div class="tech-hero-right">
+      <img src="https://demskigroup.com/wp-content/uploads/2024/07/sofware-developer-thinking-while-touching-beard-wh-2023-11-27-05-32-39-utc-1.jpg" alt="Software developer" loading="eager" />
+    </div>
+  </section>
+
+  <!-- BRAND LOGOS -->
+  <div class="tech-brands">
+    <div class="tech-brands-label">Companies that trust<br />our <span>experienced team</span>.</div>
+    <img src="https://demskigroup.com/wp-content/uploads/2024/07/brandlogos.png" alt="Companies we work with" loading="lazy" />
+  </div>
+
+  <!-- PLATFORMS -->
+  <section class="tech-platforms">
+    <h2>No Matter Your Platform, We've Got You Covered</h2>
+    <div class="platform-grid">
+      <div class="platform-item">
+        <h3>iOS</h3>
+        <a href="/technologies/ios/">Learn more →</a>
+      </div>
+      <div class="platform-item">
+        <h3>Android</h3>
+        <a href="/technologies/android/">Learn more →</a>
+      </div>
+      <div class="platform-item">
+        <h3>Hybrid</h3>
+        <a href="/technologies/hybrid/">Learn more →</a>
+      </div>
+      <div class="platform-item">
+        <h3>DBMS</h3>
+        <a href="/technologies/dbms/">Learn more →</a>
+      </div>
+      <div class="platform-item">
+        <h3>Cloud</h3>
+        <a href="/technologies/cloud/">Learn more →</a>
+      </div>
+      <div class="platform-item" style="visibility:hidden;"></div>
+    </div>
+  </section>
+
+  <!-- TECH LOGOS -->
+  <section class="tech-logos-section">
+    <h2>Technologies We Utilize</h2>
+    <div class="tech-logos-grid">
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/05/net.png" alt=".NET" /></div>
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/05/java.png" alt="Java" /></div>
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/07/kotlin.png" alt="Kotlin" /></div>
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/07/PHP.png" alt="PHP" /></div>
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/05/react.png" alt="React" /></div>
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/05/Layer-2.png" alt="Swift" /></div>
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/05/Python-Logo.png" alt="Python" /></div>
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/05/go.png" alt="Go" /></div>
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/05/nodejs.png" alt="Node.js" /></div>
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/07/Javascript.png" alt="JavaScript" /></div>
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/07/c-1.png" alt="C++" /></div>
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/07/c.png" alt="C#" /></div>
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/07/azure.png" alt="Azure" /></div>
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/07/aws.png" alt="AWS" /></div>
+      <div class="tech-logo-item"><img src="https://demskigroup.com/wp-content/uploads/2024/07/angular.png" alt="Angular" /></div>
+    </div>
+  </section>
+
+  <!-- CODE THE FUTURE -->
+  <section class="tech-code-future">
+    <div class="tech-code-future-top">
+      <h2>Code the Future: Innovative Solutions, Tailored for You</h2>
+      <a href="/services/" class="tech-see-all-btn">See all services →</a>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-card-icon">⌨</div>
+        <h3>Custom Software Development</h3>
+        <p>Develop tailored software solutions to meet your unique business needs and drive operational efficiency.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">✓</div>
+        <h3>QA and Testing</h3>
+        <p>Ensure your software is reliable, secure, and performs flawlessly under all conditions with our comprehensive QA and testing services.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">📱</div>
+        <h3>Mobile Development</h3>
+        <p>Build robust and user-friendly mobile applications for iOS and Android platforms to enhance your business's mobile presence.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">◈</div>
+        <h3>UI/UX Design</h3>
+        <p>Create intuitive and engaging user interfaces that provide an exceptional user experience through our UI/UX design services.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">☎</div>
+        <h3>Maintenance and Support</h3>
+        <p>We provide ongoing maintenance and support to keep your software running smoothly and efficiently, promptly addressing any issues.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">🌐</div>
+        <h3>IoT Development</h3>
+        <p>Integrate smart devices and advanced technologies to create connected solutions that transform your business operations with our IoT development services.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section class="tech-case-studies">
+    <div class="case-studies-top">
+      <h2>Over 600 Projects Delivered Successfully</h2>
+      <a href="/our-clients/">See all clients →</a>
+    </div>
+    <div class="case-studies-main">
+      <div class="case-study-featured">
+        <img src="https://demskigroup.com/wp-content/uploads/2024/06/Biopac-1-e1744133149662.png" alt="Biopac" />
+        <p>The Demski Group successfully delivered a scalable and efficient web application for Biopac, enabling users to perform and track scientific studies online.</p>
+        <a href="/our-clients/biopac/">Read full case study →</a>
+      </div>
+      <div class="case-studies-grid">
+        <div class="case-study-mini">
+          <img src="https://demskigroup.com/wp-content/uploads/2024/06/ShopOrthopedics-1.png" alt="ShopOrthopedics" />
+          <a href="/our-clients/shop-orthopedics/">Read full case study →</a>
+        </div>
+        <div class="case-study-mini">
+          <img src="https://demskigroup.com/wp-content/uploads/2024/07/PropertyGauge.png" alt="PropertyGauge" />
+          <a href="/our-clients/property-gauge/">Read full case study →</a>
+        </div>
+        <div class="case-study-mini">
+          <img src="https://demskigroup.com/wp-content/uploads/2024/06/company-logo-4.png" alt="PNC Bank" />
+          <a href="/our-clients/pnc-bank/">Read full case study →</a>
+        </div>
+        <div class="case-study-mini">
+          <img src="https://demskigroup.com/wp-content/uploads/2024/07/mrquick.png" alt="Mister Quik" />
+          <a href="/our-clients/mister-quik/">Read full case study →</a>
+        </div>
+        <div class="case-study-mini">
+          <img src="https://demskigroup.com/wp-content/uploads/2024/06/jacksonhewitt-1.png" alt="Jackson Hewitt" />
+          <a href="/our-clients/jackson-hewitt/">Read full case study →</a>
+        </div>
+        <div class="case-study-mini">
+          <img src="https://demskigroup.com/wp-content/uploads/2024/06/SEENDating-1.png" alt="SEEN Dating" />
+          <a href="/our-clients/seen-dating/">Read full case study →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXCELLENCE -->
+  <section class="tech-excellence">
+    <div class="tech-excellence-left">
+      <h2>Excellence | Our Minimum Standard</h2>
+      <p>We pride ourselves on our unwavering commitment to customer satisfaction.</p>
+      <a href="/our-clients/">See our success →</a>
+    </div>
+    <div class="tech-excellence-right">
+      <div class="clutch-badge">
+        <span class="clutch-big">★</span>
+        <span style="font-weight:800;font-size:16px;">CLUTCH</span>
+        <span>Top Developer</span>
+      </div>
+      <div class="rating-row">
+        <div class="rating-item">
+          <span>5/5 on Clutch</span>
+          <div class="stars">★★★★★</div>
+        </div>
+        <div class="rating-item">
+          <span>5/5 on Google</span>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POS CTA -->
+  <section class="tech-pos-cta">
+    <div class="pos-cta-img">
+      <img src="https://demskigroup.com/wp-content/uploads/2024/06/programmers-developing-software-in-team-2023-11-27-05-25-31-utc-1024x683.jpg" alt="POS Integration" loading="lazy" />
+    </div>
+    <div class="pos-cta-text">
+      <h2>Experience seamless integration and robust functionality with our POS integration.<br /><span>Request a quote today!</span></h2>
+      <a href="/contact-us/" class="cta-btn">Schedule a Consultation</a>
+    </div>
+  </section>
+
+  <!-- PROVEN STRATEGIES -->
+  <section class="tech-strategies">
+    <div class="strategies-left">
+      <h2>Proven Strategies for Success</h2>
+      <p>Empower your projects with our time-tested software development strategies that deliver results and ensure long-term success.</p>
+      <a href="/methodologies/">All methodologies →</a>
+    </div>
+    <div class="flip-cards-grid">
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="arrow">→</div>
+            <h3>Agile</h3>
+          </div>
+          <div class="flip-card-back">
+            <h3>Agile</h3>
+            <p>Embrace iterative development and continuous feedback with Agile methodologies to deliver high-quality software quickly and efficiently.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="arrow">→</div>
+            <h3>DevOps</h3>
+          </div>
+          <div class="flip-card-back">
+            <h3>DevOps</h3>
+            <p>Streamline collaboration between development and operations teams through DevOps practices to accelerate software delivery and improve reliability.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="arrow">→</div>
+            <h3>RAD</h3>
+          </div>
+          <div class="flip-card-back">
+            <h3>RAD</h3>
+            <p>Accelerate the software development process using Rapid Application Development (RAD) to quickly prototype and iterate on user feedback.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSFORM CTA -->
+  <section class="tech-transform-cta">
+    <div class="transform-cta-left">
+      <h2><span>Transform Your Vision into Reality:</span><br />Partner with Our Expert Team Today!</h2>
+      <a href="/contact-us/">Schedule a Consultation</a>
+    </div>
+    <div>
+      <img src="https://demskigroup.com/wp-content/uploads/2024/06/cropped-shot-of-a-group-of-creatives-having-a-meet-2023-11-27-04-53-10-utc-1-1024x1024.jpg" alt="Team meeting" loading="lazy" style="width:100%;border-radius:12px;object-fit:cover;height:320px;" />
+    </div>
+  </section>
+
+</main>
+</Layout>
