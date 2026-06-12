@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { CLIENT_FALLBACKS } from '../../data/clientFallbacks';
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600');
 
 const WP_BASE = 'https://demskigroup.com/wp-json/wp/v2/our-clients';
@@ -45,6 +46,18 @@ const HERO_CARDS = [
   { name:"Farmer's Daughter Fibers",   link:'/our-clients/farmers-daughter-fibers/',    photo:'https://demskigroup.com/wp-content/uploads/2024/07/FarmersDaughter.png' },
 ];
 
+// Static fallback grid, sourced from CLIENT_FALLBACKS, used whenever the
+// live WordPress API is unreachable or returns no results. Keeps the
+// "All Clients" grid from ever disappearing.
+const FALLBACK_CLIENTS: any[] = Object.entries(CLIENT_FALLBACKS).map(([slug, data]) => ({
+  id: `fallback-${slug}`,
+  name: data.title,
+  slug,
+  link: `/our-clients/${slug}/`,
+  photo: data.logo,
+  desc: data.tagline,
+}));
+
 let clients: any[] = [];
 try {
   let all: any[] = [], page = 1, totalPages = 1;
@@ -64,6 +77,8 @@ try {
     desc: clean(item.excerpt?.rendered||'').replace(/\[&hellip;\]/g,''),
   }));
 } catch(e) { console.warn('SSR clients fetch failed:', e); }
+
+if (!clients.length) clients = FALLBACK_CLIENTS;
 
 const biopac = clients.find(c => c.slug?.includes('biopac')) || clients[0];
 const others = clients.filter(c => c.id !== biopac?.id);
