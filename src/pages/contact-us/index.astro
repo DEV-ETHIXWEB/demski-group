@@ -1,11 +1,44 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import ContactSection from '../../components/ContactSection.astro';
+
+function cleanT(str: string) {
+  return (str || '').replace(/&amp;/g,'&').replace(/&#8217;/g,"'").replace(/&#8216;/g,"'")
+    .replace(/&#8220;/g,'"').replace(/&#8221;/g,'"').replace(/&#8230;/g,'…')
+    .replace(/<[^>]*>/g,'').trim();
+}
+function normalizeLink(link: string, slug: string) {
+  return (link || '').replace('https://demskigrdev.wpenginepowered.com','').replace('https://demskigroup.com','')
+    || `/our-clients/${slug}/`;
+}
+
+let testimonials: Array<{logo:string;logoAlt:string;quote:string;author:string;role:string;link:string}> = [];
+
+const WP_REVIEW_URLS = [
+  'https://demskigroup.com/wp-json/wp/v2/reviews?_embed&per_page=100',
+  'https://demskigrdev.wpenginepowered.com/wp-json/wp/v2/reviews?_embed&per_page=100',
+];
+for (const url of WP_REVIEW_URLS) {
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) continue;
+    const data = await res.json();
+    if (!Array.isArray(data) || !data.length) continue;
+    testimonials = data.map((item: any) => ({
+      logo:    item._embedded?.['wp:featuredmedia']?.[0]?.source_url || '',
+      logoAlt: cleanT(item.title?.rendered),
+      quote:   cleanT(item.acf?.testimonial || item.acf?.quote || item.acf?.review || item.content?.rendered || ''),
+      author:  cleanT(item.acf?.author_name || item.acf?.name || item.title?.rendered),
+      role:    cleanT(item.acf?.author_role || item.acf?.position || item.acf?.role || ''),
+      link:    normalizeLink(item.acf?.case_study_url || item.link, item.slug),
+    }));
+    break;
+  } catch(_) { continue; }
+}
 
 const offices = [
-  { city: 'Olean, NY', address: '237 Delaware Ave #7, Olean, NY 14760', phone: '716-379-3285' },
-  { city: 'Cincinnati, OH', address: '250 East 5th Street 15th floor, Cincinnati, OH 45202', phone: '513-562-1500' },
-  { city: 'Kalispell, MT', address: '1001 S. Main St. #8131, Kalispell, MT 59901', phone: '406-868-1034' },
+  { name: 'The Demski Group', address: '237 Delaware Ave #7', cityState: 'Olean, NY 14760', phone: '716-687-0840' },
+  { address: '250 East 5th Street 15th floor', cityState: 'Cincinnati, OH 45202', phone: '513-643-8442' },
+  { address: '1001 S. Main St. #8131', cityState: 'Kalispell, MT 59901', phone: '406-645-5084' },
 ];
 ---
 
@@ -14,66 +47,74 @@ const offices = [
 html { overflow-x: hidden; }
 *, *::before, *::after { box-sizing: border-box; }
 
+/* ══ HERO ══ */
 .cu-hero {
-  background: #001629;
-  padding: 90px 100px 80px;
+  background: #ffffff;
+  padding: 70px 130px 90px;
 }
 .cu-hero-inner {
   max-width: 1650px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1.05fr 0.95fr;
   gap: 70px;
   align-items: start;
 }
-.cu-eyebrow {
-  font-family: 'Outfit', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #f09300;
-  margin-bottom: 18px;
-}
 .cu-hero h1 {
   font-family: 'Outfit', sans-serif;
-  font-size: 48px;
-  font-weight: 600;
-  color: #ffffff;
+  font-size: 56px;
+  font-weight: 800;
+  color: #1a1a1a;
   line-height: 1.18;
-  margin: 0 0 20px;
-}
-.cu-hero-sub {
-  font-family: 'Outfit', sans-serif;
-  font-size: 17px;
-  color: rgba(255,255,255,0.78);
-  line-height: 1.7;
-  max-width: 520px;
-  margin: 0 0 36px;
+  margin: 0 0 40px;
+  max-width: 700px;
 }
 
+.cu-offices {
+  margin-bottom: 36px;
+}
+.cu-office {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  color: #333333;
+  line-height: 1.65;
+  margin: 0 0 28px;
+}
+.cu-office-name { font-weight: 600; }
+
+/* ══ FORM ══ */
 .cu-form {
   display: flex;
   flex-direction: column;
   gap: 22px;
-  max-width: 460px;
 }
-.cu-form input[type="tel"] {
+.cu-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.cu-form input,
+.cu-form textarea {
   width: 100%;
-  padding: 14px 0;
-  border: none;
-  border-bottom: 1.5px solid rgba(255,255,255,0.9);
-  border-radius: 0;
-  font-size: 16px;
+  padding: 16px 18px;
+  border: 1px solid #1a1a1a;
+  border-radius: 4px;
+  font-size: 15px;
   font-family: 'Outfit', sans-serif;
   outline: none;
-  background: transparent;
-  color: #ffffff;
+  background: #f0f0f0;
+  color: #1a1a1a;
+  transition: border-color 0.2s, background 0.2s;
 }
-.cu-form input::placeholder { color: rgba(255,255,255,0.65); }
+.cu-form input::placeholder,
+.cu-form textarea::placeholder { color: #6b6b6b; font-weight: 600; }
+.cu-form input:focus,
+.cu-form textarea:focus { border-color: #005cb9; background: #ffffff; }
+.cu-form textarea { resize: vertical; min-height: 130px; font-family: 'Outfit', sans-serif; }
+
 .cu-form-submit {
   align-self: flex-start;
-  padding: 15px 44px;
+  padding: 16px 44px;
   background: #f09300;
   color: #001629;
   border: none;
@@ -85,116 +126,560 @@ html { overflow-x: hidden; }
   transition: background 0.2s;
 }
 .cu-form-submit:hover { background: #ffa726; }
+
 .cu-disclaimer {
   font-family: 'Outfit', sans-serif;
-  font-size: 12px;
-  color: rgba(255,255,255,0.55);
+  font-size: 13px;
+  color: #888;
   line-height: 1.6;
-  margin: 0;
+  max-width: 1650px;
+  margin: 90px auto -60px;
+  text-align: center;
 }
 
-.cu-offices {
-  background: #f0f0f0;
-  border-radius: 25px;
-  padding: 40px;
+/* ══ TRUST BAND ══ */
+.cu-trust {
+  background: #282828;
+  padding: 60px 40px 50px;
+  text-align: center;
+}
+.cu-trust-stars {
   display: flex;
-  flex-direction: column;
-  gap: 28px;
-  box-shadow: 0 4px 32px rgba(0,0,0,0.14);
+  justify-content: center;
+  align-items: center;
+  gap: 220px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
 }
-.cu-offices h2 {
+.cu-trust-rating { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.cu-trust-rating-stars { color: #f0a942; font-size: 56px; letter-spacing: 6px; line-height: 1; }
+.cu-trust-rating-label {
   font-family: 'Outfit', sans-serif;
-  font-size: 24px;
-  font-weight: 600;
-  color: #001629;
-  margin: 0;
+  font-size: 48px;
+  font-weight: 700;
+  color: #ffffff;
 }
-.cu-office {
-  border-top: 1px solid #e0e0e0;
-  padding-top: 22px;
-}
-.cu-office:first-of-type { border-top: none; padding-top: 0; }
-.cu-office-city {
+.cu-trust-text {
   font-family: 'Outfit', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: #005cb9;
-  margin: 0 0 8px;
+  font-size: 17px;
+  color: #ffffff;
+  margin: 0 0 36px;
 }
-.cu-office-line {
-  font-family: 'Outfit', sans-serif;
-  font-size: 15px;
-  color: #444;
-  line-height: 1.6;
-  margin: 0;
+.cu-trust-logos {
+  max-width: 532px;
+  margin: 0 auto;
 }
-.cu-office-line a { color: #444; text-decoration: none; }
-.cu-office-line a:hover { color: #005cb9; }
-.cu-email {
-  font-family: 'Outfit', sans-serif;
-  font-size: 15px;
-  color: #444;
-  margin: 0;
-  padding-top: 22px;
-  border-top: 1px solid #e0e0e0;
+.cu-trust-logos img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
-.cu-email a { color: #005cb9; text-decoration: none; font-weight: 600; }
-.cu-email a:hover { text-decoration: underline; }
 
+/* ══ MOBILE ══ */
 @media (max-width: 1100px) {
-  .cu-hero { padding: 64px 32px; }
-  .cu-hero-inner { grid-template-columns: 1fr; gap: 44px; }
-  .cu-hero h1 { font-size: 36px; }
+  .cu-hero { padding: 56px 32px; }
+  .cu-hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .cu-hero h1 { font-size: 38px; margin-bottom: 32px; }
 }
 @media (max-width: 600px) {
-  .cu-hero { padding: 48px 22px; }
-  .cu-form { max-width: 100%; }
-  .cu-form-submit { align-self: center; }
+  .cu-hero { padding: 44px 20px; }
+  .cu-form-row { grid-template-columns: 1fr; gap: 22px; }
+  .cu-form-submit { align-self: stretch; text-align: center; }
+  .cu-trust { padding: 44px 20px 40px; }
+  .cu-trust-stars { gap: 50px; margin-bottom: 36px; }
 }
 </style>
 
 <section class="cu-hero">
   <div class="cu-hero-inner">
     <div>
-      <div class="cu-eyebrow">Get In Touch</div>
       <h1>Schedule a Free Consultation With One of Our Experts</h1>
-      <p class="cu-hero-sub">Tell us a bit about your project and one of our experts will reach out to discuss how we can help your business grow.</p>
-      <form class="cu-form" action="/contact-us/" method="get" novalidate>
-        <input type="tel" name="phone" placeholder="Phone Number" required />
-        <button type="submit" class="cu-form-submit">Start Your Project</button>
-        <p class="cu-disclaimer">*By providing your phone number, you agree to receive text messages related to your inquiry. Message &amp; data rates may apply. Reply STOP to opt out.</p>
-      </form>
+
+      <div class="cu-offices">
+        {offices.map(o => (
+          <p class="cu-office">
+            {o.name && <span class="cu-office-name">{o.name}<br /></span>}
+            {o.address}<br />
+            {o.cityState}<br />
+            {o.phone}
+          </p>
+        ))}
+        <p class="cu-office">contact@demskigroup.com</p>
+      </div>
     </div>
 
-    <div class="cu-offices">
-      <h2>Our Offices</h2>
-      {offices.map(o => (
-        <div class="cu-office">
-          <p class="cu-office-city">{o.city}</p>
-          <p class="cu-office-line">{o.address}</p>
-          <p class="cu-office-line"><a href={`tel:${o.phone.replace(/-/g, '')}`}>{o.phone}</a></p>
+    <div>
+      <form class="cu-form" id="cu-form" action="/contact-us/" method="get" novalidate>
+        <div class="cu-form-row">
+          <input type="text" name="name" placeholder="Name" />
+          <input type="email" name="email" placeholder="Email" required />
         </div>
-      ))}
-      <p class="cu-email">Email us at <a href="mailto:info@demskigroup.com">info@demskigroup.com</a></p>
+        <input type="tel" name="phone" placeholder="Phone" />
+        <input type="text" name="company" placeholder="Company" />
+        <input type="text" name="website" placeholder="Website" />
+        <textarea name="message" placeholder="Describe your project"></textarea>
+        <button type="submit" class="cu-form-submit">Start Your Project</button>
+      </form>
     </div>
+  </div>
+  <p class="cu-disclaimer">*By providing your phone number, you agree to receive text messages related to your inquiry. Message &amp; data rates may apply. Reply STOP to opt out.</p>
+</section>
+
+<!-- ══ TRUST BAND ══ -->
+<section class="cu-trust">
+  <div class="cu-trust-stars">
+    <div class="cu-trust-rating">
+      <div class="cu-trust-rating-stars">★★★★★</div>
+      <div class="cu-trust-rating-label">5/5 on Clutch</div>
+    </div>
+    <div class="cu-trust-rating">
+      <div class="cu-trust-rating-stars">★★★★★</div>
+      <div class="cu-trust-rating-label">5/5 on Google</div>
+    </div>
+  </div>
+  <p class="cu-trust-text">Companies that trust our experienced team.</p>
+  <div class="cu-trust-logos">
+    <img src="/logoswhite-492x176.webp" alt="Companies: Hewlett Packard Enterprise, Riot Games, Allstate, Bank of America, Herbalife Nutrition, Rinnai" width="492" height="176" loading="lazy" />
   </div>
 </section>
 
-<ContactSection />
+<!-- ══ CLIENTS / TESTIMONIALS ══ -->
+<section class="clients-section">
+  <div class="clients-top">
+    <div class="clients-left">
+      <img
+        src="https://demskigroup.com/wp-content/uploads/2024/06/two-coworkers-using-ipad-smiling-scaled.jpg"
+        alt="Two coworkers using iPad smiling"
+        width="600" height="800"
+        loading="lazy"
+      />
+    </div>
+    <div class="clients-right">
+      <h2>See the Businesses<br class="mob-br" /> That Rely<br class="desk-br" /> on Our<br class="mob-br" /> Services</h2>
+      <p>Over 12 years and hundreds of projects later, we have a lot to talk about.</p>
+      <a href="/our-clients/" class="btn-outline-clients">
+        See our clients <span class="btn-arrow-icon"></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="testimonial-slider-wrap">
+    <button class="slider-btn slider-btn-prev" id="tslider-prev" aria-label="Previous">←</button>
+    <div class="tslider-clip">
+    <div class="testimonial-slider" id="tslider">
+
+      {testimonials.length > 0 ? testimonials.map(t => (
+        <div class="testimonial-card-new">
+          <div class="tcard-top">
+            <div class="tcard-quote">❝❝</div>
+            <div class="tcard-logo">
+              {t.logo
+                ? <img src={t.logo} alt={t.logoAlt} width="120" height="36" loading="lazy" />
+                : <span class="tcard-logo-text">{t.logoAlt}</span>
+              }
+            </div>
+          </div>
+          <p class="tcard-body">{t.quote}</p>
+          <div class="tcard-footer">
+            <div>
+              <div class="tcard-author">{t.author}</div>
+              <div class="tcard-role">{t.role}</div>
+            </div>
+            <a href={t.link} class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+          </div>
+        </div>
+      )) : (
+      <>
+      <div class="testimonial-card-new">
+        <div class="tcard-top">
+          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-logo"><img src="/logos/Tausi.png" alt="Tausi" width="120" height="36" loading="lazy" /></div>
+        </div>
+        <p class="tcard-body">I've been working with the Demski team for a while now on building my app, and so far, the experience has been excellent! They are communicative, knowledgeable, and truly dedicated to bringing my vision to life. Their expertise and support have made this process smooth, enjoyable and nothing short of exciting. I'm looking forward to the launch and seeing everything come together. Highly recommended!</p>
+        <div class="tcard-footer">
+          <div>
+            <div class="tcard-author">Regina DeBellis</div>
+            <div class="tcard-role">Owner</div>
+          </div>
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+        </div>
+      </div>
+
+      <div class="testimonial-card-new">
+        <div class="tcard-top">
+          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-logo"><img src="/logos/Zoomifi.png" alt="Zoomifi" width="120" height="36" loading="lazy" /></div>
+        </div>
+        <p class="tcard-body">My company partnered with The Demski Group for mobile application development, and their work exceeded our expectations. Their professionalism, attention to detail, and quality are unmatched. They provided valuable infrastructure advice, maintained excellent communication, and quickly resolved any issues or bugs. We are confident in their expertise.</p>
+        <div class="tcard-footer">
+          <div>
+            <div class="tcard-author">Timilehin Bashorun</div>
+            <div class="tcard-role">Owner</div>
+          </div>
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+        </div>
+      </div>
+
+      <div class="testimonial-card-new">
+        <div class="tcard-top">
+          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-logo"><img src="/logos/BrandedAF.png" alt="Branded AF" width="120" height="36" loading="lazy" /></div>
+        </div>
+        <p class="tcard-body">Working with The Demski Group has been an absolute pleasure! They are professional, highly skilled, and incredibly easy to work with. Throughout the development of my mobile app, they are always responsive, helpful, and willing to go the extra mile to ensure everything is perfect. I highly recommend them to anyone looking for a reliable and talented development team! I know I will be returning to them for future projects!</p>
+        <div class="tcard-footer">
+          <div>
+            <div class="tcard-author">Kody Smith</div>
+            <div class="tcard-role">Owner</div>
+          </div>
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+        </div>
+      </div>
+
+      <div class="testimonial-card-new">
+        <div class="tcard-top">
+          <div class="tcard-quote">❝❝</div>
+          <div class="tcard-logo"><img src="/logos/ImpactTennis.png" alt="Impact Team Tennis" width="120" height="36" loading="lazy" /></div>
+        </div>
+        <p class="tcard-body">The Demski Group is great to work with! They inherited a mess with our platform and have been able to fix the bugs and make the platform more user friendly. Their professionalism and attention to detail are unmatched.</p>
+        <div class="tcard-footer">
+          <div>
+            <div class="tcard-author">Delaine Mast</div>
+            <div class="tcard-role">CEO</div>
+          </div>
+          <a href="/our-clients" class="tcard-case">Read case study <span class="svc-arrow"></span></a>
+        </div>
+      </div>
+      </>
+      )}
+
+    </div>
+    </div>
+    <button class="slider-btn slider-btn-next" id="tslider-next" aria-label="Next">→</button>
+  </div>
+</section>
+
+<style is:global>
+/* ══ CLIENTS / TESTIMONIALS (shared with homepage) ══ */
+.mob-br { display: none; }
+.desk-br { display: inline; }
+@media (max-width: 900px) {
+  .mob-br { display: block; }
+  .desk-br { display: none; }
+}
+.clients-section {
+  background: #FFFFFF;
+  padding: 0;
+  overflow: visible;
+  position: relative;
+}
+.clients-top {
+  display: flex;
+  align-items: stretch;
+  min-height: 1150px;
+}
+.clients-left {
+  flex: 0 0 34%;
+  position: relative;
+  margin-top: -70px;
+  overflow: hidden;
+  border-radius: 0 16px 16px 0;
+}
+.clients-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: calc(50% - 50px) center;
+  display: block;
+}
+.clients-right {
+  flex: 1;
+  padding: 80px 80px 60px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: #ffffff;
+}
+.clients-right h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 50px;
+  font-weight: 700;
+  color: #3A3A3A;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.clients-right p {
+  font-size: 18px;
+  color: #000000;
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+.btn-outline-clients {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  border: 1.65px solid #000000;
+  color: #000000;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 11px 18px 11px 22px;
+  border-radius: 50px;
+  text-decoration: none;
+  width: fit-content;
+  transition: all 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 92px;
+}
+.btn-outline-clients:hover { background: transparent; color: #0154b1; border-color: #0154b1; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(1,84,177,0.15); }
+
+.testimonial-slider-wrap {
+  position: relative;
+  margin-top: -676px;
+  padding: 0 0 100px 0;
+  z-index: 5;
+}
+.testimonial-slider {
+  display: flex;
+  gap: 32px;
+  padding: 20px 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  align-items: flex-start;
+}
+.testimonial-slider::-webkit-scrollbar { display: none; }
+.tslider-clip { overflow: hidden; margin: 0 60px; padding-left: 1%; }
+
+.testimonial-card-new {
+  flex: 0 0 calc(25% - 24px);
+  height: 520px;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 14px;
+  padding: 22px 22px 18px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.10), 0 0 2px rgba(0,0,0,0.06);
+  transition: box-shadow 0.25s ease;
+}
+.testimonial-card-new:hover {
+  box-shadow: 0 2px 9px rgba(0,0,0,0.16), 0 0 3px rgba(0,0,0,0.09);
+}
+.tcard-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+.tcard-quote {
+  font-size: 22px;
+  color: #7ab0cf;
+  line-height: 1;
+  font-family: Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+.tcard-logo img {
+  height: 35px;
+  width: auto;
+  object-fit: contain;
+  max-width: 120px;
+}
+.tcard-logo-text {
+  font-size: 13px;
+  font-weight: 800;
+  color: #111;
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  line-height: 1.3;
+  max-width: 150px;
+}
+.tcard-body {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.72;
+  flex: 1;
+  margin-bottom: 18px;
+}
+.tcard-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid #e8e8e8;
+}
+.tcard-author { font-size: 14px; font-weight: 700; color: #1a1a1a; line-height: 1.4; margin-bottom: 2px; }
+.tcard-role { font-size: 13px; font-weight: 400; color: #888; line-height: 1.4; }
+.tcard-case {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  line-height: 1.3;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+.tcard-case:hover { color: #0154b1; transform: translateY(-4px); }
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  background: #0154b1;
+  border: none;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+}
+.slider-btn:hover { background: #003d8f; color: white; }
+.slider-btn-prev { left: 16px; }
+.slider-btn-next { right: 16px; }
+
+@media (max-width: 900px) {
+  .clients-top { flex-direction: column; }
+  .clients-left { min-height: 300px; flex: none; }
+  .clients-right { padding: 40px 24px; background: #fff; }
+  .clients-right h2 { font-size: 30px; }
+  .testimonial-slider-wrap { margin-top: 0; }
+  .testimonial-slider { padding: 20px 20px; }
+  .testimonial-card-new { flex: 0 0 290px; }
+  .slider-btn { display: none; }
+}
+</style>
+
+<script is:inline>
+(function () {
+  const slider = document.getElementById('tslider');
+  const btnNext = document.getElementById('tslider-next');
+  const btnPrev = document.getElementById('tslider-prev');
+  if (!slider) return;
+
+  const cards = Array.from(slider.querySelectorAll('.testimonial-card-new'));
+  const gap = 14;
+
+  cards.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    slider.appendChild(clone);
+  });
+
+  cards.slice().reverse().forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    slider.prepend(clone);
+  });
+
+  function cardWidth() {
+    return slider.querySelector('.testimonial-card-new').offsetWidth + gap;
+  }
+
+  const jumpToReal = () => {
+    const all = slider.querySelectorAll('.testimonial-card-new');
+    const target = all[cards.length];
+    if (target) {
+      const sRect = slider.getBoundingClientRect();
+      const tRect = target.getBoundingClientRect();
+      const padL = parseFloat(getComputedStyle(slider).paddingLeft) || 0;
+      slider.scrollLeft += (tRect.left - sRect.left) - padL;
+    } else {
+      slider.scrollLeft = cardWidth() * cards.length;
+    }
+  };
+
+  jumpToReal();
+  requestAnimationFrame(() => requestAnimationFrame(jumpToReal));
+  window.addEventListener('load', jumpToReal, { once: true });
+
+  function alignedScrollOf(card) {
+    return card.offsetLeft - slider.offsetLeft;
+  }
+
+  function nearestCardIndex() {
+    const all = slider.querySelectorAll('.testimonial-card-new');
+    let bestIdx = 0, bestDist = Infinity;
+    for (let i = 0; i < all.length; i++) {
+      const d = Math.abs(alignedScrollOf(all[i]) - slider.scrollLeft);
+      if (d < bestDist) { bestDist = d; bestIdx = i; }
+    }
+    return bestIdx;
+  }
+
+  function goTo(idx, behavior) {
+    const all = slider.querySelectorAll('.testimonial-card-new');
+    const target = all[idx];
+    if (!target) return;
+    slider.scrollTo({ left: alignedScrollOf(target), behavior: behavior });
+  }
+
+  function next() {
+    const idx = nearestCardIndex();
+    goTo(idx + 1, 'smooth');
+    setTimeout(() => {
+      const cur = nearestCardIndex();
+      if (cur >= cards.length * 2) {
+        goTo(cur - cards.length, 'auto');
+      }
+    }, 500);
+  }
+
+  function prev() {
+    const idx = nearestCardIndex();
+    goTo(idx - 1, 'smooth');
+    setTimeout(() => {
+      const cur = nearestCardIndex();
+      if (cur < cards.length) {
+        goTo(cur + cards.length, 'auto');
+      }
+    }, 500);
+  }
+
+  btnNext && btnNext.addEventListener('click', next);
+  btnPrev && btnPrev.addEventListener('click', prev);
+})();
+</script>
 
 <script is:inline define:vars={{ serviceId: 'service_f4tf0yn', leadTemplate: 'template_c6hi8ir', confirmTemplate: 'template_7kz7hgj' }}>
 (function () {
-  const form = document.querySelector('.cu-form');
+  const form = document.getElementById('cu-form');
   if (!form) return;
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    const name = form.querySelector('input[name="name"]').value.trim();
+    const email = form.querySelector('input[name="email"]').value.trim();
     const phone = form.querySelector('input[name="phone"]').value.trim();
-    if (!phone) return;
-    if (typeof emailjs === 'undefined') { window.location.href = '/contact-us/?phone=' + encodeURIComponent(phone); return; }
-    const params = { user_phone: phone, cta_choice: 'Schedule a Free Consultation' };
-    emailjs.send(serviceId, leadTemplate, params).then(r => console.log('Lead sent', r.status)).catch(e => console.log('Lead failed', e));
-    emailjs.send(serviceId, confirmTemplate, { user_phone: phone, cta_choice: 'Schedule a Free Consultation' }).then(r => console.log('Confirm sent', r.status)).catch(e => console.log('Confirm failed', e));
-    form.innerHTML = '<p style="font-family:\'Outfit\',sans-serif;color:#fff;font-size:17px;">Thanks! One of our experts will reach out shortly.</p>';
+    const company = form.querySelector('input[name="company"]').value.trim();
+    const website = form.querySelector('input[name="website"]').value.trim();
+    const message = form.querySelector('textarea[name="message"]').value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      const emailInput = form.querySelector('input[name="email"]');
+      emailInput.reportValidity();
+      return;
+    }
+    if (typeof emailjs === 'undefined') {
+      window.location.href = '/contact-us/?' + new URLSearchParams({ name, email, phone, company, website, message }).toString();
+      return;
+    }
+    const submitBtn = form.querySelector('.cu-form-submit');
+    if (submitBtn) submitBtn.disabled = true;
+    const params = { user_name: name, user_email: email, user_phone: phone, user_company: company, user_website: website, user_message: message, cta_choice: 'Schedule a Free Consultation' };
+    emailjs.send(serviceId, leadTemplate, params).catch(() => {});
+    emailjs.send(serviceId, confirmTemplate, { user_name: name, user_email: email, cta_choice: 'Schedule a Free Consultation' }).catch(() => {});
+    form.innerHTML = '<p style="font-family:\'Outfit\',sans-serif;color:#1a1a1a;font-size:17px;">Thanks! One of our experts will reach out shortly.</p>';
   });
 })();
 </script>

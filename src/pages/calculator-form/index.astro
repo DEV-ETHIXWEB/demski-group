@@ -617,7 +617,7 @@ const priorities = [
         user_phone: data.phone,
         project_description: data.description,
         quiz_answers: summary,
-      }).then(function (r) { console.log('Lead sent', r.status); }).catch(function (e) { console.log('Lead failed', e); });
+      }).catch(function () {});
     }
 
     document.getElementById('cfContactForm').style.display = 'none';

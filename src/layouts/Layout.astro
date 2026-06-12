@@ -407,7 +407,7 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
           <h4>Explore</h4>
           <a href="/services/">Services</a>
           <a href="/services/">Methodologies</a>
-          <a href="/services/">Technologies</a>
+          <a href="/technologies/">Technologies</a>
           <a href="/services/">Custom Development</a>
           <a href="/services/">Enterprise Software</a>
           <a href="/services/">Mobile Development</a>
@@ -417,15 +417,15 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
           <h4>Resources</h4>
           <a href="/our-clients">Our Clients</a>
           <a href="/about">About Us</a>
-          <a href="/contact-us/">Careers</a>
+          <a href="/careers/">Careers</a>
           <a href="/blog">Blog</a>
-          <a href="/">Privacy Policy</a>
+          <a href="/privacy-policy/">Privacy Policy</a>
         </div>
         <div class="footer-contact">
           <h4>Get in Touch</h4>
           <a href="/contact-us/" class="footer-cta-btn">Schedule a Consultation</a>
           <p>The Demski Group<br />237 Delaware Ave #7<br />Olean, NY 14760<br />716-670-4514</p>
-          <p>250 East 5th Street 15th floor<br />Cincinnati, OH 45202<br />513-562-150</p>
+          <p>250 East 5th Street 15th floor<br />Cincinnati, OH 45202<br />513-643-8442</p>
           <p>1001 S. Main St. #8131<br />Kalispell, MT 59901<br />406-540-5604</p>
           <p><a href="mailto:contact@demskigroup.com" style="color:#000000;text-decoration:none;">contact@demskigroup.com</a></p>
           <h4 style="font-size:32px;margin-top:16px;margin-bottom:10px;">Follow Us</h4>
@@ -1372,8 +1372,8 @@ const { title = 'Demski Group', description = '', pageClass = '' } = Astro.props
 
     function submitLead() {
       const params = { intent:leadData.intent, intent_detail:leadData.intent_detail, timeline:leadData.timeline, budget:leadData.budget, name:leadData.name, phone:leadData.phone, email:leadData.email, cta_choice:leadData.cta_choice, page:leadData.page, page_name:leadData.page_name, utm_source:leadData.utm_source, utm_campaign:leadData.utm_campaign, utm_medium:leadData.utm_medium, utm_term:leadData.utm_term, utm_content:leadData.utm_content, gclid:leadData.gclid };
-      emailjs.send("service_f4tf0yn","template_c6hi8ir", params).then(r=>console.log("Lead sent",r.status)).catch(e=>console.log("Lead failed",e));
-      emailjs.send("service_f4tf0yn", USER_CONFIRM_TEMPLATE, { user_name:leadData.name, user_email:leadData.email, cta_choice:leadData.cta_choice }).then(r=>console.log("Confirm sent",r.status)).catch(e=>console.log("Confirm failed",e));
+      emailjs.send("service_f4tf0yn","template_c6hi8ir", params).catch(()=>{});
+      emailjs.send("service_f4tf0yn", USER_CONFIRM_TEMPLATE, { user_name:leadData.name, user_email:leadData.email, cta_choice:leadData.cta_choice }).catch(()=>{});
     }
 
     const offTopicKeywords = ["price","pricing","cost","how much","what do you","who are you","services","what is","can you","help","support","contact","discount","trial"];

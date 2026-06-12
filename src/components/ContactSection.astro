@@ -227,8 +227,8 @@
         return;
       }
       const params = { user_name: name, user_email: email, user_phone: phone, user_company: company, user_website: website, user_message: message, cta_choice: 'Contact Us' };
-      emailjs.send(serviceId, leadTemplate, params).then(r => console.log('Lead sent', r.status)).catch(e => console.log('Lead failed', e));
-      emailjs.send(serviceId, confirmTemplate, { user_name: name, user_email: email, cta_choice: 'Contact Us' }).then(r => console.log('Confirm sent', r.status)).catch(e => console.log('Confirm failed', e));
+      emailjs.send(serviceId, leadTemplate, params).catch(() => {});
+      emailjs.send(serviceId, confirmTemplate, { user_name: name, user_email: email, cta_choice: 'Contact Us' }).catch(() => {});
       form.innerHTML = '<p style="font-family:\'Outfit\',sans-serif;color:#fff;font-size:17px;">Thanks! One of our experts will reach out shortly.</p>';
     });
   });
