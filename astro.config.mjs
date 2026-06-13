@@ -6,6 +6,7 @@ export default defineConfig({
   adapter: vercel(),
   redirects: {
     '/services/cross-platform/': '/technologies/hybrid/',
+    '/services/mobile/': '/services/app-development/',
   },
   devToolbar: {
     enabled: false,
