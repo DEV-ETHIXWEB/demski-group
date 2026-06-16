@@ -223,6 +223,9 @@ const hasLiveContent = client.content.trim().length > 0;
     .cs-content ul, .cs-content ol { list-style: none; padding-left: 0; margin: 0 0 20px; }
     .cs-content li { position: relative; padding-left: 20px; margin-bottom: 2px; line-height: 1.7; }
     .cs-content li::before { content: '•'; position: absolute; left: 0; color: #333; }
+    /* Elementor icon-list: hide the icon widget, use our ::before bullet instead */
+    .cs-content .elementor-icon-list-icon { display: none; }
+    .cs-content .elementor-icon-list-text { display: inline; }
     .cs-content img { max-width: 100%; height: auto; border-radius: 12px; margin: 24px 0; display: block; }
     .cs-content blockquote {
       border: none; padding: 0; margin: 36px 0; background: transparent;
