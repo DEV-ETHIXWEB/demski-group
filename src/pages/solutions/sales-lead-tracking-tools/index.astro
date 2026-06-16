@@ -985,19 +985,6 @@ const cases = [
       border-radius: 16px 16px 22px 22px; transform: translateY(-50px);
     }
 
-    /* ── Chat bubble ── */
-    .chat-bubble {
-      position: fixed;
-      right: 24px;
-      bottom: 20px;
-      z-index: 25;
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      border: 4px solid #24b7d5;
-      background: #fff url('/solutions/sales-lead-tracking-tools/1-300x300.png') center / cover no-repeat;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
-    }
 
     .sales-solution-page footer {
       margin-top: 0;
@@ -1128,8 +1115,6 @@ const cases = [
       .form-row { grid-template-columns: 1fr; }
 
       .contact-right-img { height: 180px; border-radius: 14px 14px 19px 19px; }
-
-      .chat-bubble { display: none; }
     }
 
     /* ── Responsive: ≤ 600px — full mobile ── */
@@ -1427,7 +1412,6 @@ const cases = [
 
     <ContactSection />
 
-    <div class="chat-bubble" aria-hidden="true"></div>
   </main>
 
   <script is:inline>
