@@ -190,9 +190,9 @@ import Layout from '../../../layouts/Layout.astro';
 ═══════════════════════════════════════════ -->
 <section class="cd-why">
   <div class="container">
+    <h2 class="cd-why__heading">Why Choose Us</h2>
     <div class="cd-why__inner">
       <div class="cd-why__left">
-        <h2>Why Choose Us</h2>
         <img src="/why-choose-us-custom-dev.webp" alt="software engineers working on project" />
       </div>
       <div class="cd-why__right">
@@ -862,16 +862,17 @@ import Layout from '../../../layouts/Layout.astro';
     margin: 0 auto;
     display: flex;
     gap: 60px;
-    align-items: flex-start;
+    align-items: center;
   }
-  .cd-why__left { flex: 1; }
-  .cd-why__left h2 {
+  .cd-why__heading {
     font-family: 'Outfit', sans-serif;
     font-size: clamp(36px, 4.5vw, 56px);
     font-weight: 700;
     color: var(--ink);
-    margin: 0 0 24px;
+    margin: 0 0 40px;
+    max-width: 1200px;
   }
+  .cd-why__left { flex: 1; }
   .cd-why__left img {
     width: 50vw;
     max-width: none;

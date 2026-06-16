@@ -1135,19 +1135,20 @@ const canonicalUrl = canonical.replace(/\/$/, '') || Astro.url.origin;
       intent:"", intent_detail:"", project_description:"", budget:"", name:"", phone:"", email:"", cta_choice:""
     };
 
-    window.addEventListener("load", () => {
+    // Show launcher 1.5s after DOM is ready — don't wait for window.load (slow images/fonts delay it too long)
+    function revealLauncher() {
       const launcher = document.getElementById("bot-launcher");
-      const avatar = launcher.querySelector("img");
-      const reveal = () => {
-        launcher.style.display = "flex";
-        setTimeout(() => {
-          launcher.classList.add("launcher-visible");
-          // setTimeout(() => { if (!expanded) showGreetingBubble(); }, 1000);
-        }, 3000);
-      };
-      if (avatar.complete) reveal();
-      else { avatar.addEventListener("load", reveal, { once: true }); avatar.addEventListener("error", reveal, { once: true }); }
-    });
+      if (!launcher) return;
+      launcher.style.display = "flex";
+      setTimeout(() => {
+        launcher.classList.add("launcher-visible");
+      }, 800);
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => setTimeout(revealLauncher, 700));
+    } else {
+      setTimeout(revealLauncher, 700);
+    }
 
     function showGreetingBubble() {
       if (document.getElementById("greeting-bubble")) return;
