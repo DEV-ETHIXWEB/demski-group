@@ -1,8 +1,27 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { normalizeClient } from '../../data/clientFallbacks';
+import { normalizeClient, CLIENT_FALLBACKS } from '../../data/clientFallbacks';
 
 const { slug } = Astro.params as { slug: string };
+
+// Companies with a featured "graphic card" (background image + blurb). For
+// these, the first card renders large instead of a plain logo card. Add an
+// entry here to give any company its own graphic card.
+const GRAPHIC_CARDS: Record<string, { bg: string; blurb: string }> = {
+  'farmers-daughter-fibers': {
+    // TODO: replace with the real yarn background image URL.
+    bg: 'https://demskigroup.com/wp-content/uploads/2025/02/Blue-Abstract-Background-1-768x432.jpg',
+    blurb: "The Demski Group developed a new website for The Farmer's Daughter Fibers using Shopify, prioritizing conversion rate optimization and site performance. See how we achieved 1,144.27% Return on Investment.",
+  },
+};
+
+// "Other Success Stories" cards — every other case-study client, shown on
+// every case study detail page. Graphic-card companies are sorted first so
+// the featured card leads the grid.
+const otherClients = Object.entries(CLIENT_FALLBACKS)
+  .filter(([s]) => s !== slug)
+  .map(([s, d]) => ({ slug: s, title: d.title, logo: d.logo, graphic: GRAPHIC_CARDS[s] || null }))
+  .sort((a, b) => (b.graphic ? 1 : 0) - (a.graphic ? 1 : 0));
 
 const WP_URLS = [
   `https://demskigroup.com/wp-json/wp/v2/our-clients?slug=${slug}&_embed`,
@@ -32,7 +51,7 @@ const hasLiveContent = client.content.trim().length > 0;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=7200');
 ---
 
-<Layout title={`${client.title} | Case Study – The Demski Group`} description={client.excerpt}>
+<Layout title={`${client.title} | Case Study – The Demski Group`} description={client.excerpt} ogImage={client.logo}>
 
   <style slot="head">
     .cs-page { font-family: 'Outfit', sans-serif; color: #1b1c1d; }
@@ -163,6 +182,43 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
     }
     .btn-cta-orange:hover { background: #d98200; }
 
+    /* ── Other Success Stories grid (every case study) ── */
+    .cs-other-stories { background: #fff; }
+    .cs-other-inner { max-width: 1280px; margin: 0 auto; padding: 30px 60px 70px; }
+    .cs-other-stories h2 {
+      font-size: 34px; font-weight: 800; color: #0a0000; line-height: 1.2;
+      margin: 0 0 14px; font-family: 'Outfit', sans-serif;
+    }
+    .cs-other-inner > p { color: #555; font-size: 17px; line-height: 1.6; max-width: 680px; margin: 0 0 40px; }
+    .cs-other-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 175px; gap: 20px; }
+    .cs-other-card {
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+      gap: 16px; background: #fff; border: 1px solid #ececec; border-radius: 12px;
+      padding: 28px 18px; text-decoration: none;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .cs-other-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.12); transform: translateY(-3px); }
+    .cs-other-card-logo { flex: 1; display: flex; align-items: center; justify-content: center; }
+    .cs-other-card-logo img { max-height: 70px; max-width: 80%; object-fit: contain; }
+    .cs-other-card-link { font-size: 14px; font-weight: 600; color: #0a0000; white-space: nowrap; }
+    .cs-other-card:hover .cs-other-card-link { color: #0154b1; }
+    /* Featured graphic card — spans 2×2, bg image + dark overlay + white logo. */
+    .cs-other-card--featured {
+      grid-column: span 2; grid-row: span 2; padding: 0; overflow: hidden;
+      position: relative; background-size: cover; background-position: center;
+      align-items: stretch; justify-content: stretch;
+    }
+    .cs-other-card--featured::before { content: ''; position: absolute; inset: 0; background: rgba(15,18,26,0.62); z-index: 0; }
+    .cs-other-feat-body { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; padding: 32px; }
+    .cs-other-feat-logo { height: 110px; object-fit: contain; object-position: left center; filter: brightness(0) invert(1); }
+    .cs-other-feat-desc { color: rgba(255,255,255,0.9); font-size: 16px; line-height: 1.6; margin-top: auto; margin-bottom: 14px; }
+    .cs-other-feat-link { color: #fff; align-self: flex-start; }
+
+    @media (max-width: 900px) {
+      .cs-other-inner { padding: 24px 20px 50px; }
+      .cs-other-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    }
+
     @media (max-width: 900px) {
       .cs-hero { padding: 32px 20px 24px; }
       .cs-hero-inner { flex-direction: column; align-items: flex-start; gap: 28px; }
@@ -205,6 +261,320 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
     .cs-content .elementor-widget-container {
       display: block; width: 100%; max-width: 100%;
       flex: none; margin: 0; padding: 0;
+    }
+
+    /* ── WILLO desktop zigzag (scope: .cs-willo only) ──
+       Re-enable the two-column rows WordPress/Elementor authored but the
+       reset above flattened. Targets only the four clean image/text rows by
+       their stable Elementor element ids. Desktop only — mobile/tablet keep
+       the stacked single-column layout untouched. */
+    @media (min-width: 901px) {
+      .cs-willo .cs-content .elementor-element-67fd5fb > .e-con-inner,
+      .cs-willo .cs-content .elementor-element-3cfbc4a > .e-con-inner,
+      .cs-willo .cs-content .elementor-element-7e72035 > .e-con-inner,
+      .cs-willo .cs-content .elementor-element-db2834a > .e-con-inner {
+        display: flex; gap: 48px; align-items: center;
+      }
+      .cs-willo .cs-content .elementor-element-67fd5fb > .e-con-inner > .elementor-element,
+      .cs-willo .cs-content .elementor-element-3cfbc4a > .e-con-inner > .elementor-element,
+      .cs-willo .cs-content .elementor-element-7e72035 > .e-con-inner > .elementor-element,
+      .cs-willo .cs-content .elementor-element-db2834a > .e-con-inner > .elementor-element {
+        flex: 1 1 0; min-width: 0;
+      }
+      /* Key Features [2a3f537]: intro (left) | feature accordion (right),
+         top-aligned because the two columns are unequal-height lists. */
+      .cs-willo .cs-content .elementor-element-2a3f537 > .e-con-inner {
+        display: flex; gap: 48px; align-items: flex-start;
+      }
+      .cs-willo .cs-content .elementor-element-2a3f537 > .e-con-inner > .elementor-element {
+        flex: 1 1 0; min-width: 0;
+      }
+      /* Seamless Sync header row [67fd5fb]: heading/text wide-left, the two
+         CTA buttons narrow-right and top-aligned beside the heading. */
+      .cs-willo .cs-content .elementor-element-67fd5fb > .e-con-inner {
+        align-items: flex-start;
+      }
+      .cs-willo .cs-content .elementor-element-67fd5fb > .e-con-inner > .elementor-element:first-child {
+        flex: 2 1 0;
+      }
+      .cs-willo .cs-content .elementor-element-67fd5fb > .e-con-inner > .elementor-element:last-child {
+        flex: 1 1 0;
+      }
+
+      /* Pairing row [44ad9c7]: toothbrush (left) | caption (mid) | phone
+         (right) — the inner wrapper 2193ffa holds the three columns. */
+      .cs-willo .cs-content .elementor-element-2193ffa {
+        display: flex; gap: 32px; align-items: center;
+      }
+      .cs-willo .cs-content .elementor-element-2193ffa > .elementor-element {
+        flex: 1 1 0; min-width: 0;
+      }
+      /* Portrait phone / before-after images in the zigzag rows are very tall
+         (≈585×1023). Cap their height and centre them in the column so they
+         match the reference scale instead of filling the half-width. */
+      .cs-willo .cs-content .elementor-element-3cfbc4a img,
+      .cs-willo .cs-content .elementor-element-7e72035 img,
+      .cs-willo .cs-content .elementor-element-2193ffa img,
+      .cs-willo .cs-content .elementor-element-db2834a img {
+        max-height: 480px; width: auto; max-width: 100%; margin: 0 auto;
+      }
+
+      /* CTA buttons (Schedule a Consultation / Call Us) in the Seamless Sync
+         row and the Unlock the Benefits intro → match the site-wide orange
+         CTA button instead of the default grey pill. willo only. */
+      .cs-willo .cs-content .elementor-element-67fd5fb a.elementor-button,
+      .cs-willo .cs-content .elementor-element-f8ea4ab a.elementor-button,
+      .cs-shop-orthopedics .cs-content .elementor-element-67fd5fb a.elementor-button,
+      .cs-shop-orthopedics .cs-content .elementor-element-2a3f537 a.elementor-button,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-67fd5fb a.elementor-button {
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        background: #F09300; color: #fff; text-decoration: none;
+        font-size: 16px; font-weight: 600; font-family: 'Outfit', sans-serif;
+        padding: 14px 28px; border-radius: 8px; margin: 0 12px 12px 0;
+        border: 1.1px solid #0A0000; transition: all 0.4s ease;
+      }
+      .cs-willo .cs-content .elementor-element-67fd5fb a.elementor-button:hover,
+      .cs-willo .cs-content .elementor-element-f8ea4ab a.elementor-button:hover,
+      .cs-shop-orthopedics .cs-content .elementor-element-67fd5fb a.elementor-button:hover,
+      .cs-shop-orthopedics .cs-content .elementor-element-2a3f537 a.elementor-button:hover,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-67fd5fb a.elementor-button:hover {
+        background: #ffffff; color: #222; border: 1.1px solid #0A0000;
+      }
+      .cs-willo .cs-content .elementor-element-67fd5fb a[href^="tel:"].elementor-button::before,
+      .cs-willo .cs-content .elementor-element-f8ea4ab a[href^="tel:"].elementor-button::before,
+      .cs-shop-orthopedics .cs-content .elementor-element-67fd5fb a[href^="tel:"].elementor-button::before,
+      .cs-shop-orthopedics .cs-content .elementor-element-2a3f537 a[href^="tel:"].elementor-button::before,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-67fd5fb a[href^="tel:"].elementor-button::before {
+        content: '\260E'; font-size: 15px; line-height: 1;
+      }
+
+      /* Animated dashed connector line between the toothbrush and phone in the
+         pairing row (empty html widget 97cbb75). Marching purple dashes. */
+      .cs-willo .cs-content .elementor-element-97cbb75 {
+        height: 5px; width: 100%; margin: 22px 0 6px; border-radius: 3px;
+        background-image: repeating-linear-gradient(90deg,
+          #7c3aed 0 18px, transparent 18px 30px);
+        background-size: 30px 100%; background-repeat: repeat-x;
+        animation: willo-pairing-dash 0.7s linear infinite;
+      }
+
+      /* ── Before/After comparison slider (wpr-before-after widget) ──
+         The WP-Royal plugin's JS/CSS isn't loaded here, so rebuild it as a
+         CSS clip slider driven by --pos; a small inline script handles drag.
+         image-1 = After (base), image-2 = Before (clipped overlay). */
+      .cs-willo .cs-content .wpr-ba-image-container {
+        --pos: 50%;
+        position: relative; display: block; width: max-content; max-width: 100%;
+        margin: 0 auto; line-height: 0; cursor: ew-resize; touch-action: none;
+        border-radius: 12px; overflow: hidden; user-select: none;
+      }
+      .cs-willo .cs-content .wpr-ba-image-1 { position: relative; }
+      .cs-willo .cs-content .wpr-ba-image-1 img {
+        display: block; height: auto; max-height: 480px; width: auto; margin: 0;
+      }
+      .cs-willo .cs-content .wpr-ba-image-2 {
+        position: absolute; inset: 0; overflow: hidden;
+        clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+      }
+      .cs-willo .cs-content .wpr-ba-image-2 img {
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        max-height: none; object-fit: cover; margin: 0;
+      }
+      .cs-willo .cs-content .wpr-ba-divider {
+        position: absolute; top: 0; bottom: 0; left: var(--pos);
+        width: 3px; background: #fff; transform: translateX(-50%); z-index: 3;
+        box-shadow: 0 0 6px rgba(0,0,0,0.25);
+      }
+      .cs-willo .cs-content .wpr-ba-divider-icons {
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+        width: 40px; height: 40px; border-radius: 50%; background: #7c3aed;
+        color: #fff; display: flex; align-items: center; justify-content: center;
+        gap: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+      }
+      .cs-willo .cs-content .wpr-ba-divider-icons i { font-style: normal; font-size: 18px; line-height: 1; }
+      .cs-willo .cs-content .wpr-ba-divider-icons i.fa-angle-left::before { content: '\2039'; }
+      .cs-willo .cs-content .wpr-ba-divider-icons i.fa-angle-right::before { content: '\203A'; }
+      .cs-willo .cs-content .wpr-ba-label {
+        position: absolute; top: 12px; z-index: 2; padding: 4px 12px;
+        font-size: 12px; font-weight: 700; letter-spacing: 0.04em; color: #fff;
+        background: rgba(0,0,0,0.55); border-radius: 4px; line-height: 1.4;
+      }
+      .cs-willo .cs-content .wpr-ba-label-1 { right: 12px; }
+      .cs-willo .cs-content .wpr-ba-label-2 { left: 12px; }
+
+      /* ── Unlock the Benefits [b1228f9] benefit grid (55000c0) ──
+         Six benefit items into a 2-column grid; each item keeps its top
+         divider line, gets a blue circled check, and an icon-left /
+         title+description-right layout to match the reference. */
+      .cs-willo .cs-content .elementor-element-55000c0 {
+        display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px;
+      }
+      .cs-willo .cs-content .elementor-element-55000c0 > .elementor-element {
+        padding-bottom: 26px;
+      }
+      .cs-willo .cs-content .elementor-element-55000c0 .elementor-divider {
+        margin: 0 0 18px;
+      }
+      .cs-willo .cs-content .elementor-element-55000c0 .elementor-icon-box-wrapper {
+        display: flex; align-items: flex-start; gap: 14px;
+      }
+      .cs-willo .cs-content .elementor-element-55000c0 .elementor-icon-box-icon {
+        flex: 0 0 auto; display: block; margin: 0;
+      }
+      /* the source icon glyph is empty — draw the blue circled check here */
+      .cs-willo .cs-content .elementor-element-55000c0 .elementor-icon-box-icon::before {
+        content: '\2713'; display: flex; align-items: center; justify-content: center;
+        width: 26px; height: 26px; border-radius: 50%;
+        border: 2px solid #005cb9; color: #005cb9;
+        font-size: 14px; font-weight: 700; line-height: 1;
+      }
+      .cs-willo .cs-content .elementor-element-55000c0 .elementor-icon-box-content {
+        flex: 1; min-width: 0;
+      }
+      .cs-willo .cs-content .elementor-element-55000c0 .elementor-icon-box-title {
+        font-size: 20px; font-weight: 700; color: #0a0000;
+        margin: 0 0 6px; line-height: 1.3;
+      }
+      .cs-willo .cs-content .elementor-element-55000c0 .elementor-icon-box-description {
+        font-size: 15px; color: #555; margin: 0; line-height: 1.6;
+      }
+
+      /* ══════════ SHOP-ORTHOPEDICS desktop layout (.cs-shop-orthopedics) ══════════
+         Same Elementor reset issue as willo — re-enable the authored two-column
+         rows. IDs are shared Elementor templates, so everything stays slug-scoped. */
+      .cs-shop-orthopedics .cs-content .elementor-element-67fd5fb > .e-con-inner,
+      .cs-shop-orthopedics .cs-content .elementor-element-0fec99b > .e-con-inner,
+      .cs-shop-orthopedics .cs-content .elementor-element-7e72035 > .e-con-inner,
+      .cs-shop-orthopedics .cs-content .elementor-element-2a3f537 > .e-con-inner {
+        display: flex; gap: 48px; align-items: center;
+      }
+      .cs-shop-orthopedics .cs-content .elementor-element-67fd5fb > .e-con-inner > .elementor-element,
+      .cs-shop-orthopedics .cs-content .elementor-element-0fec99b > .e-con-inner > .elementor-element,
+      .cs-shop-orthopedics .cs-content .elementor-element-7e72035 > .e-con-inner > .elementor-element,
+      .cs-shop-orthopedics .cs-content .elementor-element-2a3f537 > .e-con-inner > .elementor-element {
+        flex: 1 1 0; min-width: 0;
+      }
+      /* "Our Solution" header row: heading/text wide-left, CTA buttons right. */
+      .cs-shop-orthopedics .cs-content .elementor-element-67fd5fb > .e-con-inner {
+        align-items: flex-start;
+      }
+      .cs-shop-orthopedics .cs-content .elementor-element-67fd5fb > .e-con-inner > .elementor-element:first-child { flex: 2 1 0; }
+      .cs-shop-orthopedics .cs-content .elementor-element-67fd5fb > .e-con-inner > .elementor-element:last-child { flex: 1 1 0; }
+      /* Results row: text left, ROI/ROAS boxes right, top-aligned. */
+      .cs-shop-orthopedics .cs-content .elementor-element-2a3f537 > .e-con-inner {
+        align-items: flex-start;
+      }
+      /* Cap the tall portrait phone screenshots and centre them in the column. */
+      .cs-shop-orthopedics .cs-content .elementor-element-0fec99b img,
+      .cs-shop-orthopedics .cs-content .elementor-element-7e72035 img {
+        max-height: 480px; width: auto; max-width: 100%; margin: 0 auto;
+      }
+      /* ROI / ROAS result boxes (right column of 2a3f537) → deep-blue rounded
+         boxes with the Google Ads icon and the big stat centred in white.
+         box-sizing + a shrinkable text widget keep the content inside the
+         column (the global reset otherwise forces width:100% and overflows). */
+      .cs-shop-orthopedics .cs-content .elementor-element-e955794,
+      .cs-shop-orthopedics .cs-content .elementor-element-eab573a {
+        display: flex; align-items: center; justify-content: center; gap: 20px;
+        box-sizing: border-box; width: 100%;
+        background: #1456c7; border-radius: 16px; padding: 24px 28px; margin: 0 0 18px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+      }
+      .cs-shop-orthopedics .cs-content .elementor-element-e955794 > .elementor-element,
+      .cs-shop-orthopedics .cs-content .elementor-element-eab573a > .elementor-element {
+        flex: 0 0 auto; width: auto; min-width: 0;
+      }
+      .cs-shop-orthopedics .cs-content .elementor-element-e955794 p,
+      .cs-shop-orthopedics .cs-content .elementor-element-eab573a p {
+        color: #fff; font-size: 34px; font-weight: 800; margin: 0; line-height: 1.1;
+        white-space: nowrap;
+      }
+      .cs-shop-orthopedics .cs-content .elementor-element-e955794 img,
+      .cs-shop-orthopedics .cs-content .elementor-element-eab573a img {
+        width: 48px; height: auto; margin: 0; border-radius: 0; flex: 0 0 auto;
+      }
+      /* Unlock the Benefits grid (4007a1b) → 2-col grid, blue circled checks,
+         icon-left layout (mirrors the willo benefits styling). */
+      .cs-shop-orthopedics .cs-content .elementor-element-4007a1b {
+        display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px;
+      }
+      .cs-shop-orthopedics .cs-content .elementor-element-4007a1b > .elementor-element { padding-bottom: 26px; }
+      .cs-shop-orthopedics .cs-content .elementor-element-4007a1b .elementor-divider { margin: 0 0 18px; }
+      .cs-shop-orthopedics .cs-content .elementor-element-4007a1b .elementor-icon-box-wrapper { display: flex; align-items: flex-start; gap: 14px; }
+      .cs-shop-orthopedics .cs-content .elementor-element-4007a1b .elementor-icon-box-icon { flex: 0 0 auto; display: block; margin: 0; }
+      .cs-shop-orthopedics .cs-content .elementor-element-4007a1b .elementor-icon-box-icon::before {
+        content: '\2713'; display: flex; align-items: center; justify-content: center;
+        width: 26px; height: 26px; border-radius: 50%; border: 2px solid #005cb9;
+        color: #005cb9; font-size: 14px; font-weight: 700; line-height: 1;
+      }
+      .cs-shop-orthopedics .cs-content .elementor-element-4007a1b .elementor-icon-box-content { flex: 1; min-width: 0; }
+      .cs-shop-orthopedics .cs-content .elementor-element-4007a1b .elementor-icon-box-title { font-size: 20px; font-weight: 700; color: #0a0000; margin: 0 0 6px; line-height: 1.3; }
+      .cs-shop-orthopedics .cs-content .elementor-element-4007a1b .elementor-icon-box-description { font-size: 15px; color: #555; margin: 0; line-height: 1.6; }
+
+      /* ══════════ FARMERS-DAUGHTER-FIBERS (.cs-farmers-daughter-fibers) ══════════
+         Family-A template (same IDs as shop-ortho) plus an extra image row
+         75534a7. Row 2a3f537's right column is plain ROI text here (no boxes). */
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-67fd5fb > .e-con-inner,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-0fec99b > .e-con-inner,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-7e72035 > .e-con-inner,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-75534a7 > .e-con-inner,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-2a3f537 > .e-con-inner {
+        display: flex; gap: 48px; align-items: center;
+      }
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-67fd5fb > .e-con-inner > .elementor-element,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-0fec99b > .e-con-inner > .elementor-element,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-7e72035 > .e-con-inner > .elementor-element,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-75534a7 > .e-con-inner > .elementor-element,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-2a3f537 > .e-con-inner > .elementor-element {
+        flex: 1 1 0; min-width: 0;
+      }
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-67fd5fb > .e-con-inner { align-items: flex-start; }
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-67fd5fb > .e-con-inner > .elementor-element:first-child { flex: 2 1 0; }
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-67fd5fb > .e-con-inner > .elementor-element:last-child { flex: 1 1 0; }
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-0fec99b img,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-7e72035 img,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-75534a7 img {
+        max-height: 480px; width: auto; max-width: 100%; margin: 0 auto;
+      }
+      /* Benefit grid (shared 4007a1b container) → 2-col + blue circled checks. */
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-4007a1b {
+        display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px;
+      }
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-4007a1b > .elementor-element { padding-bottom: 26px; }
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-4007a1b .elementor-divider { margin: 0 0 18px; }
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-4007a1b .elementor-icon-box-wrapper { display: flex; align-items: flex-start; gap: 14px; }
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-4007a1b .elementor-icon-box-icon { flex: 0 0 auto; display: block; margin: 0; }
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-4007a1b .elementor-icon-box-icon::before {
+        content: '\2713'; display: flex; align-items: center; justify-content: center;
+        width: 26px; height: 26px; border-radius: 50%; border: 2px solid #005cb9;
+        color: #005cb9; font-size: 14px; font-weight: 700; line-height: 1;
+      }
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-4007a1b .elementor-icon-box-content { flex: 1; min-width: 0; }
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-4007a1b .elementor-icon-box-title { font-size: 20px; font-weight: 700; color: #0a0000; margin: 0 0 6px; line-height: 1.3; }
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-4007a1b .elementor-icon-box-description { font-size: 15px; color: #555; margin: 0; line-height: 1.6; }
+
+      /* ══════════ BIOPAC (.cs-biopac) ══════════
+         Content rows are heading/intro (left) | details, timeline or accordion
+         (right). Restore the two-column layout, top-aligned (unequal lists).
+         The accordion + timeline widgets themselves are already styled by the
+         global CSS to render as plain stacked sub-sections. */
+      .cs-biopac .cs-content .elementor-element-ea8c2aa > .e-con-inner,
+      .cs-biopac .cs-content .elementor-element-6a9c337 > .e-con-inner,
+      .cs-biopac .cs-content .elementor-element-7f32615 > .e-con-inner,
+      .cs-biopac .cs-content .elementor-element-2a3f537 > .e-con-inner {
+        display: flex; gap: 48px; align-items: flex-start;
+      }
+      .cs-biopac .cs-content .elementor-element-ea8c2aa > .e-con-inner > .elementor-element,
+      .cs-biopac .cs-content .elementor-element-6a9c337 > .e-con-inner > .elementor-element,
+      .cs-biopac .cs-content .elementor-element-7f32615 > .e-con-inner > .elementor-element,
+      .cs-biopac .cs-content .elementor-element-2a3f537 > .e-con-inner > .elementor-element {
+        flex: 1 1 0; min-width: 0;
+      }
+    }
+
+    @keyframes willo-pairing-dash {
+      from { background-position: 0 0; }
+      to   { background-position: 30px 0; }
     }
 
     .cs-content { font-size: 17px; line-height: 1.7; color: #333; word-break: break-word; }
@@ -337,7 +707,7 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
     }
   </style>
 
-  <div class="cs-page">
+  <div class={`cs-page cs-${slug}`}>
     <div class="cs-hero">
       <div class="cs-hero-inner">
         <div>
@@ -442,6 +812,33 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
       </div>
     </div>
 
+    {otherClients.length > 0 && (
+      <section class="cs-other-stories">
+        <div class="cs-other-inner">
+          <h2>Some of Our Other Success Stories</h2>
+          <p>From custom theme development to SEO to PPC, we specialize in all areas to help you grow your sales online. With over 12 years of experience, we have a lot to talk about.</p>
+          <div class="cs-other-grid">
+            {otherClients.map((c) => (
+              c.graphic ? (
+                <a class="cs-other-card cs-other-card--featured" href={`/our-clients/${c.slug}/`} style={`background-image:url('${c.graphic.bg}')`}>
+                  <div class="cs-other-feat-body">
+                    <img class="cs-other-feat-logo" src={c.logo} alt={c.title} loading="lazy" decoding="async" />
+                    <p class="cs-other-feat-desc">{c.graphic.blurb}</p>
+                    <span class="cs-other-card-link cs-other-feat-link">Read full case study →</span>
+                  </div>
+                </a>
+              ) : (
+                <a class="cs-other-card" href={`/our-clients/${c.slug}/`}>
+                  <div class="cs-other-card-logo"><img src={c.logo} alt={c.title} loading="lazy" decoding="async" /></div>
+                  <span class="cs-other-card-link">Read full case study →</span>
+                </a>
+              )
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
     <!-- ══ FINAL CTA ══ -->
     <section class="cs-cta">
       <div class="cs-cta-inner">
@@ -458,5 +855,27 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
       </div>
     </section>
   </div>
+
+  <!-- Drag handler for the willo Before/After comparison slider (scoped to
+       .cs-willo; rebuilds the WP-Royal widget's drag since its JS isn't here). -->
+  <script is:inline>
+    (function () {
+      document.querySelectorAll('.cs-willo .wpr-ba-image-container').forEach(function (c) {
+        var dragging = false;
+        function setPos(clientX) {
+          var r = c.getBoundingClientRect();
+          var p = Math.max(0, Math.min(1, (clientX - r.left) / r.width));
+          c.style.setProperty('--pos', (p * 100) + '%');
+        }
+        c.addEventListener('pointerdown', function (e) {
+          dragging = true; setPos(e.clientX);
+          try { c.setPointerCapture(e.pointerId); } catch (_) {}
+        });
+        c.addEventListener('pointermove', function (e) { if (dragging) setPos(e.clientX); });
+        c.addEventListener('pointerup', function () { dragging = false; });
+        c.addEventListener('pointercancel', function () { dragging = false; });
+      });
+    })();
+  </script>
 
 </Layout>

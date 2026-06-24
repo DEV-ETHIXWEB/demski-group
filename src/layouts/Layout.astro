@@ -610,9 +610,11 @@ const canonicalUrl = canonical.replace(/\/$/, '') || Astro.url.origin;
     </script>
 
   <!-- ══ CHATBOT WIDGET ══ -->
-  <!-- Self-contained: injects its own DOM, styles, and EmailJS. No duplicate IDs. -->
-  <script src="/widget.js"
-    data-avatar="/avatar-alex.webp"
+  <!-- Loaded live from the deployed chatbot (single source of truth).
+       Self-contained: injects its own DOM, styles, and EmailJS. No duplicate IDs.
+       No data-avatar override here — the widget's own deployed default
+       (avatar-alex.png) is the source of truth for branding. -->
+  <script src="https://wordpress-astro-bot.vercel.app/widget.js"
     data-bot-name="Alex"
     data-bot-title="The Demski Group"
     async></script>
