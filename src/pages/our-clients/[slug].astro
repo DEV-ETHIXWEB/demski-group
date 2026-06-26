@@ -352,7 +352,8 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
       .cs-willo .cs-content .elementor-element-f8ea4ab a.elementor-button,
       .cs-shop-orthopedics .cs-content .elementor-element-67fd5fb a.elementor-button,
       .cs-shop-orthopedics .cs-content .elementor-element-2a3f537 a.elementor-button,
-      .cs-farmers-daughter-fibers .cs-content .elementor-element-67fd5fb a.elementor-button {
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-67fd5fb a.elementor-button,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-2a3f537 a.elementor-button {
         display: inline-flex; align-items: center; justify-content: center; gap: 8px;
         background: #F09300; color: #fff; text-decoration: none;
         font-size: 16px; font-weight: 600; font-family: 'Outfit', sans-serif;
@@ -363,14 +364,16 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
       .cs-willo .cs-content .elementor-element-f8ea4ab a.elementor-button:hover,
       .cs-shop-orthopedics .cs-content .elementor-element-67fd5fb a.elementor-button:hover,
       .cs-shop-orthopedics .cs-content .elementor-element-2a3f537 a.elementor-button:hover,
-      .cs-farmers-daughter-fibers .cs-content .elementor-element-67fd5fb a.elementor-button:hover {
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-67fd5fb a.elementor-button:hover,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-2a3f537 a.elementor-button:hover {
         background: #ffffff; color: #222; border: none;
       }
       .cs-willo .cs-content .elementor-element-67fd5fb a[href^="tel:"].elementor-button::before,
       .cs-willo .cs-content .elementor-element-f8ea4ab a[href^="tel:"].elementor-button::before,
       .cs-shop-orthopedics .cs-content .elementor-element-67fd5fb a[href^="tel:"].elementor-button::before,
       .cs-shop-orthopedics .cs-content .elementor-element-2a3f537 a[href^="tel:"].elementor-button::before,
-      .cs-farmers-daughter-fibers .cs-content .elementor-element-67fd5fb a[href^="tel:"].elementor-button::before {
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-67fd5fb a[href^="tel:"].elementor-button::before,
+      .cs-farmers-daughter-fibers .cs-content .elementor-element-2a3f537 a[href^="tel:"].elementor-button::before {
         content: '\260E'; font-size: 15px; line-height: 1;
       }
 
@@ -553,6 +556,26 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
       .cs-biopac .cs-content .elementor-element-2a3f537 > .e-con-inner > .elementor-element {
         flex: 1 1 0; min-width: 0;
       }
+
+      /* ══════════ MISTER-QUIK (new) (.cs-mister-quik-case-study-new) ══════════
+         Each result section nests its image|text pair inside an e-con-boxed >
+         e-con-inner. Markup already alternates IMG|TXT / TXT|IMG, so just
+         restore the two-column flex on those inner containers. */
+      .cs-mister-quik-case-study-new .cs-content .elementor-element-47c4840 .e-con-boxed > .e-con-inner,
+      .cs-mister-quik-case-study-new .cs-content .elementor-element-5e5cd3e .e-con-boxed > .e-con-inner,
+      .cs-mister-quik-case-study-new .cs-content .elementor-element-4d7284b .e-con-boxed > .e-con-inner {
+        display: flex; gap: 48px; align-items: center;
+      }
+      .cs-mister-quik-case-study-new .cs-content .elementor-element-47c4840 .e-con-boxed > .e-con-inner > .elementor-element,
+      .cs-mister-quik-case-study-new .cs-content .elementor-element-5e5cd3e .e-con-boxed > .e-con-inner > .elementor-element,
+      .cs-mister-quik-case-study-new .cs-content .elementor-element-4d7284b .e-con-boxed > .e-con-inner > .elementor-element {
+        flex: 1 1 0; min-width: 0;
+      }
+      .cs-mister-quik-case-study-new .cs-content .elementor-element-47c4840 img,
+      .cs-mister-quik-case-study-new .cs-content .elementor-element-5e5cd3e img,
+      .cs-mister-quik-case-study-new .cs-content .elementor-element-4d7284b img {
+        max-height: 480px; width: auto; max-width: 100%; margin: 0 auto;
+      }
     }
 
     @keyframes willo-pairing-dash {
@@ -627,6 +650,51 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
     .cs-willo .cs-content .wpr-ba-label-1 { right: 12px; }
     .cs-willo .cs-content .wpr-ba-label-2 { left: 12px; }
 
+    /* ── FDF interactive results circle (Essential-Addons "Interactive Circle")
+       Its plugin JS/CSS isn't loaded here, so rebuild it: 6 stat circles in a
+       ring, the active stat's value shown in the centre, circles clickable
+       (handler in the inline script below). All widths. */
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-inner {
+      position: relative; width: 100%; max-width: 440px; margin: 0 auto;
+    }
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-inner::after {
+      content: ''; display: block; padding-bottom: 100%;
+    }
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-inner::before {
+      content: ''; position: absolute; inset: 11%; border-radius: 50%;
+      border: 1.5px solid #b0b0b0; z-index: 0;
+    }
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-item { position: static; }
+    /* centre value panels (stacked, only active visible) */
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-btn-content {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 56%; text-align: center; margin: 0;
+      font-size: 24px; font-weight: 600; color: #1b1c1d; line-height: 1.35;
+      opacity: 0; visibility: hidden; transition: opacity .25s; z-index: 1;
+    }
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-btn-content.active {
+      opacity: 1; visibility: visible;
+    }
+    /* circle buttons on the ring */
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-btn {
+      position: absolute; width: 92px; height: 92px; border-radius: 50%;
+      background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; padding: 6px; cursor: pointer; transform: translate(-50%,-50%);
+      text-align: center; line-height: 1.1; font-size: 12px; font-weight: 600;
+      color: #1b1c1d; z-index: 2; transition: background .2s, color .2s, box-shadow .2s;
+    }
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-btn:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.16); }
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-btn svg { width: 30px; height: 30px; }
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-btn.active { background: #1456c7; color: #fff; }
+    /* six positions around the ring (clockwise from top) */
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-item:nth-child(1) .eael-circle-btn { left: 50%;   top: 8%;  }
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-item:nth-child(2) .eael-circle-btn { left: 86%;   top: 29%; }
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-item:nth-child(3) .eael-circle-btn { left: 86%;   top: 71%; }
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-item:nth-child(4) .eael-circle-btn { left: 50%;   top: 92%; }
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-item:nth-child(5) .eael-circle-btn { left: 14%;   top: 71%; }
+    .cs-farmers-daughter-fibers .cs-content .eael-circle-item:nth-child(6) .eael-circle-btn { left: 14%;   top: 29%; }
+
     .cs-content { font-size: 17px; line-height: 1.7; color: #333; word-break: break-word; }
     .cs-content h2 {
       font-size: 34px; font-weight: 800; color: #0a0000; line-height: 1.2;
@@ -648,6 +716,15 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
     .cs-content .elementor-icon-list-icon { display: none; }
     .cs-content .elementor-icon-list-text { display: inline; }
     .cs-content img { max-width: 100%; height: auto; border-radius: 12px; margin: 24px 0; display: block; }
+
+    /* Simple single-column case studies (every page EXCEPT the per-slug
+       zigzag/layout-fixed ones): give each content image a uniform 1520:820
+       box that scales to the column width, object-fit: cover so they all share
+       the same shape instead of varying heights. */
+    .cs-page:not(.cs-willo):not(.cs-shop-orthopedics):not(.cs-farmers-daughter-fibers):not(.cs-biopac):not(.cs-mister-quik-case-study-new) .cs-content img {
+      width: 100%; max-width: 1520px; aspect-ratio: 1520 / 820; height: auto;
+      object-fit: cover; margin: 28px auto; border-radius: 12px;
+    }
     .cs-content blockquote {
       border: none; padding: 0; margin: 36px 0; background: transparent;
       font-style: italic; color: #555; border-radius: 0;
@@ -924,6 +1001,41 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
         c.addEventListener('pointermove', function (e) { if (dragging) setPos(e.clientX); });
         c.addEventListener('pointerup', function () { dragging = false; });
         c.addEventListener('pointercancel', function () { dragging = false; });
+      });
+
+      // FDF interactive results circle: auto-rotate through the stats and let
+      // the user click any circle. Dwell time depends on the value length —
+      // short sentences 2s, longer ones 4s. Clicking resets the cycle.
+      document.querySelectorAll('.cs-farmers-daughter-fibers .eael-interactive-circle').forEach(function (w) {
+        var items = [].slice.call(w.querySelectorAll('.eael-circle-item'));
+        if (!items.length) return;
+        var timer;
+        function show(idx) {
+          items.forEach(function (it) {
+            var b = it.querySelector('.eael-circle-btn');
+            var c = it.querySelector('.eael-circle-btn-content');
+            if (b) b.classList.remove('active');
+            if (c) c.classList.remove('active');
+          });
+          var it = items[idx];
+          var btn = it.querySelector('.eael-circle-btn');
+          var content = it.querySelector('.eael-circle-btn-content');
+          if (btn) btn.classList.add('active');
+          if (content) content.classList.add('active');
+          clearTimeout(timer);
+          var len = content ? (content.innerText || '').trim().length : 0;
+          var delay = len < 26 ? 2000 : 4000;
+          timer = setTimeout(function () { show((idx + 1) % items.length); }, delay);
+        }
+        items.forEach(function (it, i) {
+          var btn = it.querySelector('.eael-circle-btn');
+          if (btn) btn.addEventListener('click', function () { show(i); });
+        });
+        var start = items.findIndex(function (it) {
+          var b = it.querySelector('.eael-circle-btn');
+          return b && b.classList.contains('active');
+        });
+        show(start < 0 ? 0 : start);
       });
     })();
   </script>
