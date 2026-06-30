@@ -621,7 +621,7 @@ function removeTrailingUnmatchedOpenDivs(html: string): string {
 // and stopping before the first global/page-chrome section, while preserving
 // every heading, paragraph, image, list, quote, etc. in between regardless of
 // how many sections or sub-sections the case study has.
-export function extractCaseStudyHtml(html: string): string {
+export function extractCaseStudyHtml(html: string, opts: { includeServices?: boolean } = {}): string {
   if (!html) return '';
 
   const startMatch = html.match(/<h2[^>]*>\s*(?:The Project|The Problem)\s*<\/h2>/i);
@@ -629,7 +629,10 @@ export function extractCaseStudyHtml(html: string): string {
   const startIdx = startMatch.index;
 
   const stopPatterns = [
-    /<h2[^>]*>\s*Our Custom Software Development Services\s*<\/h2>/i,
+    // biopac's reference design keeps the "Our Custom Software Development
+    // Services" block (styled inside the gray Results band); every other
+    // case study stops before it as page chrome.
+    ...(opts.includeServices ? [] : [/<h2[^>]*>\s*Our Custom Software Development Services\s*<\/h2>/i]),
     /<h2[^>]*>\s*Some of Our Other[^<]*Success Stories\.?\s*<\/h2>/i,
     /<h2[^>]*>\s*Frequently Asked Questions\s*<\/h2>/i,
     /<h2[^>]*>\s*Ready to[^<]*<\/h2>/i,
@@ -793,7 +796,7 @@ export function normalizeClient(slug: string, apiItem: any | null): NormalizedCl
   const fallback = CLIENT_FALLBACKS[slug] || GENERIC_FALLBACK;
 
   const apiTitle = cleanText(apiItem?.title?.rendered);
-  const apiContent = extractCaseStudyHtml(apiItem?.content?.rendered || '');
+  const apiContent = extractCaseStudyHtml(apiItem?.content?.rendered || '', { includeServices: slug === 'biopac' });
   const apiExcerpt = cleanText(apiItem?.excerpt?.rendered);
   const apiImage = apiItem?._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
   const rawApiIndustry = cleanText(apiItem?._embedded?.['wp:term']?.[0]?.[0]?.name);

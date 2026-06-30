@@ -171,17 +171,19 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
       max-width: 640px;
       margin: 0;
     }
+    /* Hero logo card — sized to match biopac's premium hero logo across every
+       case study, per reference. */
     .cs-hero-logo {
       flex-shrink: 0;
-      width: 220px;
-      height: 110px;
-      border: 1px solid #ececec;
-      border-radius: 12px;
+      width: 420px;
+      height: 380px;
+      border: none;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px;
-      background: #fff;
+      padding: 40px;
+      background: #F0F0F0;
     }
     .cs-hero-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
@@ -396,8 +398,8 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
       .cs-hero { padding: 32px 20px 24px; }
       .cs-hero-inner { flex-direction: column; align-items: flex-start; gap: 28px; }
       .cs-hero-logo {
-        width: 100%; max-width: 280px; height: 200px; border: none; border-radius: 0;
-        margin: 0 auto; padding: 0;
+        width: 100%; max-width: 320px; height: 260px; border: none; border-radius: 16px;
+        margin: 0 auto; padding: 28px; background: #F0F0F0;
       }
       .cs-body-wrap { grid-template-columns: 1fr; padding: 32px 20px 60px; gap: 28px; }
       .cs-sidebar { position: static; flex-direction: column; gap: 0; }
@@ -1422,7 +1424,7 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
       background: #eef0f2; border-radius: 50% 50% 0 0 / 70px 70px 0 0;
       box-sizing: border-box; width: 100vw; max-width: 100vw;
       margin: 24px calc(50% - 50vw) 0;
-      padding: 100px max(60px, calc((100vw - 1160px) / 2)) 56px;
+      padding: 100px max(60px, calc((100vw - 1280px) / 2)) 56px;
     }
     .cs-biopac .cs-content .elementor-element-2a3f537 .e-n-accordion-item { margin: 0 0 14px; }
     .cs-biopac .cs-content .elementor-element-2a3f537 .e-n-accordion-item:last-child { margin-bottom: 0; }
@@ -1486,7 +1488,7 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
       background: #eef0f2; border-radius: 0 0 50% 50% / 0 0 70px 70px;
       box-sizing: border-box; width: 100vw; max-width: 100vw;
       margin: 0 calc(50% - 50vw);
-      padding: 0 max(60px, calc((100vw - 1160px) / 2)) 100px;
+      padding: 0 max(60px, calc((100vw - 1280px) / 2)) 100px;
     }
     .cs-biopac .cs-content .elementor-element-503e2e9 {
       display: flex; justify-content: space-between; align-items: flex-start;
@@ -1505,15 +1507,37 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
     .cs-biopac .cs-content .elementor-element-8aadf52 > .elementor-element {
       width: auto; flex: 0 0 auto;
     }
+    /* Match the site-wide CTA (Layout .btn-cta / .btn-arrow): orange button that
+       swaps to white-on-dark-border on hover, with the shared masked arrow asset
+       that slides right. Call Us is the secondary outline variant, animated to
+       fill on hover. */
     .cs-biopac .cs-content .elementor-element-8aadf52 a.elementor-button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
       background: #F09300; color: #fff; font-size: 15px; font-weight: 600;
-      padding: 12px 26px; border-radius: 10px; margin: 0; white-space: nowrap;
+      padding: 12px 26px; border-radius: 6px; margin: 0; white-space: nowrap;
+      border: 1.1px solid #0A0000;
+      transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
     }
-    .cs-biopac .cs-content .elementor-element-8aadf52 a.elementor-button:hover { background: #d98200; color: #fff; }
+    .cs-biopac .cs-content .elementor-element-8aadf52 a.elementor-button:hover {
+      background: #fff; color: #222; border-color: #0A0000;
+    }
+    /* shared site arrow asset (primary button only) — slides 5px on hover */
+    .cs-biopac .cs-content .elementor-element-8aadf52 .elementor-element:not(.elementor-element-2e0d281) a.elementor-button .elementor-button-text::after {
+      content: ''; display: inline-block; width: 17px; height: 17px; margin-left: 10px;
+      vertical-align: -3px; background-color: currentColor;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 18'%3E%3Cpath d='M0 9 H21 M14 2 L22 9 L14 16' stroke='black' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 18'%3E%3Cpath d='M0 9 H21 M14 2 L22 9 L14 16' stroke='black' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+      transition: transform 0.3s ease;
+    }
+    .cs-biopac .cs-content .elementor-element-8aadf52 .elementor-element:not(.elementor-element-2e0d281) a.elementor-button:hover .elementor-button-text::after {
+      transform: translateX(5px);
+    }
     .cs-biopac .cs-content .elementor-element-8aadf52 .elementor-element-2e0d281 a.elementor-button {
       background: #fff; color: #0154b1; border: 1.5px solid #0154b1;
     }
-    .cs-biopac .cs-content .elementor-element-8aadf52 .elementor-element-2e0d281 a.elementor-button:hover { background: #f0f6ff; }
+    .cs-biopac .cs-content .elementor-element-8aadf52 .elementor-element-2e0d281 a.elementor-button:hover {
+      background: #0154b1; color: #fff; border-color: #0154b1;
+    }
     /* The 6 service rows are nested one level deeper than the wrapper this
        was originally written against: fff8def > 0d8cb7b > [d6ef544,
        062d331, 233d2e5, ddbbf76, 11c519d, f988483] (each holding a divider
@@ -1547,12 +1571,12 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
       /* Match the 20px gutter the rest of the mobile layout uses (.cs-body-wrap
          drops to 20px padding at this breakpoint — see the scoped style block). */
       .cs-biopac .cs-content .elementor-element-2a3f537 {
-        padding-left: max(20px, calc((100vw - 1160px) / 2));
-        padding-right: max(20px, calc((100vw - 1160px) / 2));
+        padding-left: max(20px, calc((100vw - 1280px) / 2));
+        padding-right: max(20px, calc((100vw - 1280px) / 2));
       }
       .cs-biopac .cs-content .elementor-element-6b4d231 {
-        padding-left: max(20px, calc((100vw - 1160px) / 2));
-        padding-right: max(20px, calc((100vw - 1160px) / 2));
+        padding-left: max(20px, calc((100vw - 1280px) / 2));
+        padding-right: max(20px, calc((100vw - 1280px) / 2));
       }
     }
 
