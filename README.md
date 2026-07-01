@@ -1,43 +1,67 @@
-# Astro Starter Kit: Minimal
+# Demski Group Website
 
-```sh
-npm create astro@latest -- --template minimal
-```
+**Client:** The Demski Group
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## What This Project Is
 
-## 🚀 Project Structure
+The official marketing website for The Demski Group, a US-based custom software development firm with 12+ years of experience and 600+ successful projects. The site includes service pages, case studies, a blog, careers listings, a software cost calculator, and technology/methodology pages. Built with Astro in server-side rendering (SSR) mode and deployed on Vercel.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Tech Stack
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- **Framework:** Astro 6 (SSR mode)
+- **Language:** TypeScript
+- **Hosting / Deployment:** Vercel (via `@astrojs/vercel` adapter)
+- **Testing:** Playwright
+- **Node:** >=22.12.0
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## How to Set Up Locally
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/DEV-ETHIXWEB/demski-group.git
+   cd demski-group
+   ```
 
-Any static assets, like images, can be placed in the `public/` directory.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## 🧞 Commands
+3. Create a local environment file:
+   ```bash
+   cp .env.example .env
+   ```
+   *(Fill in any values needed — see Environment Variables below.)*
 
-All commands are run from the root of the project, from a terminal:
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+5. Open [http://localhost:4321](http://localhost:4321) in your browser.
 
-## 👀 Want to learn more?
+## Environment Variables
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Create a `.env` file at the project root (never commit this file). Required variables:
+
+| Variable | Purpose |
+|---|---|
+| `OPENAI_API_KEY` | Only needed if running AI-integrated features locally |
+
+> Vercel injects its own tokens automatically at build and preview time — you do not need to set `VERCEL_OIDC_TOKEN` manually.
+
+## Deployment Notes
+
+- **Platform:** Vercel
+- **Mode:** SSR (server-side rendering), max function duration 30 s
+- **Auto-deploy:** Pushes to `main` trigger a production deployment on Vercel
+- **Branch workflow:** Work on `feat/<clickup-task-name>` branches only — never commit directly to `develop` or `main`
+- **Redirects:** Configured in `astro.config.mjs`
+
+## Key Contacts
+
+| Role | Name | Contact |
+|---|---|---|
+| Client | Andrew Demski | andrew.demski@demskigroupdev.com |
+| Client | Aaron Demski | aaron.demski@demskigroupdev.com |
+| Lead Dev | Amar | Ethixweb |

@@ -22,6 +22,7 @@ export interface ResultsStat {
 export interface ClientFallback {
   title: string;
   tagline: string;
+  heroIntro?: string;
   industries: string[];
   techStack: string[];
   logo: string;
@@ -48,9 +49,10 @@ export interface NormalizedClient extends ClientFallback {
 export const CLIENT_FALLBACKS: Record<string, ClientFallback> = {
   'biopac': {
     title: 'Biopac Systems',
-    tagline: 'Powering Scientific Discovery Online.',
+    tagline: 'Scaling Scientific Research: Complete Custom Web Platform for BIOPAC.',
+    heroIntro: 'The Demski Group developed a powerful research web application for BIOPAC Systems Inc., enabling users to conduct and track large-scale scientific studies online. The SaaS platform seamlessly handles extensive data storage, scales with user needs, and features a usage-based billing system for flexibility and efficiency.',
     industries: ['Scientific Research', 'Data Analytics'],
-    techStack: ['PHP', 'MySQL', 'JavaScript', 'AWS'],
+    techStack: ['React', 'Node.js', 'Azure', 'TypeScript'],
     logo: '/logos/Biopac.png',
     screenshot: '/logos/Biopac.png',
     project: 'Biopac needed a scalable, efficient web application that would let researchers and educators perform and track scientific studies online, replacing manual, disconnected workflows with a unified digital platform.',
