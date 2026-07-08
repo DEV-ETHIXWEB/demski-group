@@ -556,12 +556,12 @@ html { overflow-x: hidden; }
 
 @media (max-width: 900px) {
   .clients-top { flex-direction: column; }
-  .clients-left { min-height: 300px; flex: none; }
+  .clients-left { min-height: 300px; flex: none; margin-top: 0; }
   .clients-right { padding: 40px 24px; background: #fff; }
   .clients-right h2 { font-size: 30px; }
   .testimonial-slider-wrap { margin-top: 0; }
   .testimonial-slider { padding: 20px 20px; }
-  .testimonial-card-new { flex: 0 0 290px; }
+  .testimonial-card-new { flex: 0 0 calc(100% - 4px); width: calc(100% - 4px); }
   .slider-btn { display: none; }
 }
 </style>
