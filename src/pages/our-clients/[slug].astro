@@ -1404,10 +1404,11 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
 
     /* ── Results & Impact + Services: one continuous light-gray section with
        a curved top (white→gray) and curved bottom (gray→white), matching
-       the reference. Results renders its accordion as dark "achievement
-       pills"; only the first (expanded) item shows its description text
-       below the pill with a −/+ icon, matching the reference exactly —
-       the rest stay pill-only with a + icon.
+       the reference. Results renders its accordion as brand-blue "achievement
+       pills" (matching the site's design system instead of the black fill
+       used in an earlier pass); only the first (expanded) item shows its
+       description text below the pill with a −/+ icon, matching the
+       reference exactly — the rest stay pill-only with a + icon.
 
        The reference bleeds this band the full browser width (the curve
        meets the viewport edges, no white gutter) — it isn't boxed inside
@@ -1429,12 +1430,12 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
     .cs-biopac .cs-content .elementor-element-2a3f537 .e-n-accordion-item { margin: 0 0 14px; }
     .cs-biopac .cs-content .elementor-element-2a3f537 .e-n-accordion-item:last-child { margin-bottom: 0; }
     .cs-biopac .cs-content .elementor-element-2a3f537 summary.e-n-accordion-item-title {
-      background: #1b1c1d; border-radius: 999px; padding: 18px 28px;
+      background: #0154b1; border-radius: 999px; padding: 18px 28px;
       justify-content: center; gap: 10px; margin: 0;
       transition: background 0.2s, transform 0.2s;
     }
     .cs-biopac .cs-content .elementor-element-2a3f537 summary.e-n-accordion-item-title:hover {
-      background: #2e2f30; transform: scale(1.02);
+      background: #014a9e; transform: scale(1.02);
     }
     .cs-biopac .cs-content .elementor-element-2a3f537 .e-n-accordion-item-title-text {
       color: #fff; font-size: 15px; text-align: center;
