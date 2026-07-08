@@ -754,6 +754,18 @@ export function extractCaseStudyHtml(html: string, opts: { includeServices?: boo
     }
   );
 
+  // Some case studies were authored with an already-proper <ul><li> list,
+  // but the author also typed a literal "&bull;"/"•" as the first character
+  // of the item text (a copy-paste habit from Word/Docs). .cs-content
+  // already draws its own bullet via `li::before`, so that leading
+  // character renders as a second, redundant marker ("• • Text"). Strip
+  // just that leading bullet + following space, leaving the real list
+  // marker and the item text untouched.
+  body = body.replace(
+    /(<li[^>]*>(?:\s*<span[^>]*>)?)\s*(?:&bull;|•)\s*/gi,
+    '$1'
+  );
+
   // A testimonial-style quote is often a plain <p><em>...</em></p> rather
   // than a <blockquote>. Convert a fully-italic paragraph into a blockquote
   // so it gets the quote styling (large quote mark, etc.).
