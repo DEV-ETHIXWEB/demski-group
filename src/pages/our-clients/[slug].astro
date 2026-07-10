@@ -237,15 +237,18 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
       margin: 0; flex-shrink: 0; width: 230px;
     }
     .cs-trust-divider { width: 1px; height: 140px; background: rgba(255,255,255,0.25); flex-shrink: 0; }
-    /* /public/biopac/logoswhite.webp is a single composite of all 6 trust
+    /* /public/logoswhite-white.webp is a single composite of all 6 trust
        logos (HPE/Riot Games/Allstate top row, Bank of America/Herbalife/
        Rinnai bottom row), pure white on a transparent background — no color
        filter needed, unlike the individual logo files used elsewhere on the
-       site. Regenerated at 2038×606 (luminance-keyed from the full-res
-       brandlogos-dark.webp source) after the original 1076×385 export was
-       reported as visibly pixelated next to the same logos on /contact-us/.
-       Sized by height with width:auto so it scales at its native ~3.36:1
-       aspect ratio. */
+       site. This is the same asset used for the equivalent "Companies that
+       trust our team" band on 21 other pages (about, our-clients, and the
+       service/technology templates): the crisp brandlogos-dark.webp source
+       composited onto a padded canvas that exactly reproduces the original
+       1076×385 WordPress master's proportions (2.795:1) at 2x resolution
+       (2152×770), so it drops in without shifting any of that hand-tuned
+       per-page layout CSS. Sized by height with width:auto so it scales at
+       its native ~2.795:1 aspect ratio. */
     .cs-trust-logos { height: 170px; width: auto; object-fit: contain; flex-shrink: 0; }
 
     /* ── Body layout ── */
@@ -1638,7 +1641,7 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-r
           <div class="cs-trust-divider"></div>
           <img
             class="cs-trust-logos"
-            src="/biopac/logoswhite.webp"
+            src="/logoswhite-white.webp"
             alt="Hewlett Packard Enterprise, Riot Games, Allstate, Bank of America, Herbalife Nutrition, Rinnai"
             loading="lazy" decoding="async"
           />
