@@ -18,7 +18,7 @@ The official marketing website for The Demski Group, a US-based custom software 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/DEV-ETHIXWEB/demski-group.git
+   git https://github.com/thedemskigroup/demski-group-headless.git
    cd demski-group
    ```
 
