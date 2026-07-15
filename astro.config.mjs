@@ -1,10 +1,10 @@
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel';
+import node from '@astrojs/node';
 
 export default defineConfig({
   output: 'server',
-  adapter: vercel({
-    maxDuration: 30,
+  adapter: node({
+    mode: 'standalone',
   }),
   compressHTML: true,
   redirects: {

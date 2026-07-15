@@ -25,7 +25,8 @@ pnpm-debug.log*
 
 .vercel
 .env*.local
-.vercel/ 
-dist/ 
-node_modules/ 
-.astro/ 
+.vercel/
+dist/
+node_modules/
+.astro/
+.amplify-hosting/
