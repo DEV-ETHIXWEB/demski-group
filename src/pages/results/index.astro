@@ -5,8 +5,13 @@ const page = Number(Astro.url.searchParams.get('page') || 1);
 const search = (Astro.url.searchParams.get('s') || '').trim();
 const perPage = 10;
 
-// All results posts (hardcoded from WP)
-const allPosts = [
+// The already-published case studies that render on this page today are
+// pinned here verbatim so they stay pixel-identical. New case studies
+// published on/after AUTO_APPEND_SINCE (below) are pulled live from WordPress
+// and appended on top automatically — see the fetch/merge after this array.
+// (Two earlier entries that pointed at 404 detail pages — no longer present
+// in WordPress — have been removed.)
+const PINNED_POSTS = [
   { id: 40550, slug: 'making-property-listings-and-home-buying-simpler-with-a-well-organized-online-platform', title: 'Making Property Listings and Home Buying Simpler with a Well-Organized Online Platform', excerpt: 'When you are buying or selling a home, it\'s a huge step. The online tools you use should make it simpler, not more complicated. But if property listings are all...', date: 'May 27, 2026', img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/05/young-woman-calculates-finances-at-home-office-2026-03-17-09-03-36-utc-1024x683.jpg', alt: 'Making Property Listings and Home Buying Simpler' },
   { id: 40547, slug: 'automating-aircraft-appraisal-with-a-smart-web-platform', title: 'Automating Aircraft Appraisal with a Smart Web Platform', excerpt: 'The aircraft appraisal process is multifaceted and requires a structured, accurate, and properly documented system. A comprehensive appraisal report should be generated for each aircraft assessed...', date: 'May 23, 2026', img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/05/aircraft-mechanic-inspecting-engine-with-tablet-de-2026-03-26-08-38-07-utc-1024x683.jpg', alt: 'Automating Aircraft Appraisal with a Smart Web Platform' },
   { id: 40535, slug: 'combining-campaigns-products-and-communities-in-one-platform', title: 'Combining Campaigns, Products, and Communities in One Platform', excerpt: 'Crowdfunding operates best when people unite around one common purpose. However, vendors need a dedicated platform for showcasing their products...', date: 'May 17, 2026', img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/05/crowdsourcing-concept-on-a-laptop-on-a-desk-2026-03-18-11-48-41-utc-1024x681.jpg', alt: 'Combining Campaigns, Products, and Communities in One Platform' },
@@ -17,9 +22,79 @@ const allPosts = [
   { id: 40460, slug: 'building-safer-workplaces-with-smarter-safety-training-and-compliance-tools', title: 'Building Safer Workplaces with Smarter Safety Training and Compliance Tools', excerpt: 'Safety of employees is not something you write down in a policy book. For companies it is something they have to think about every day...', date: 'April 8, 2026', img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/04/middle-aged-caucasian-foreman-supervising-diverse-2026-03-05-11-50-35-utc-1024x683.jpg', alt: 'Building Safer Workplaces with Smarter Safety Training' },
   { id: 40452, slug: 'bringing-league-operations-under-one-roof', title: 'Bringing League Operations Under One Roof', excerpt: 'A sports league has to be managed beyond just games, fixtures and results. Behind every match, there are registrations, payments, schedules, messages...', date: 'March 27, 2026', img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/03/soccer-coach-explaining-strategy-to-an-internation-2026-03-26-23-08-30-utc-1024x683.jpg', alt: 'Bringing League Operations Under One Roof' },
   { id: 40422, slug: 'modernizing-home-appraisals-with-a-mobile-workflow-system', title: 'Modernizing Home Appraisals with a Mobile Workflow System', excerpt: 'In real estate, home appraisals are a linchpin for buying, selling, and lending — yet for years, the process has been stuck in the past...', date: 'March 15, 2026', img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/03/serious-professional-architect-design-engineer-wor-2026-01-09-09-37-59-utc-1024x740.jpg', alt: 'Modernizing Home Appraisals with a Mobile Workflow System' },
-  { id: 40400, slug: 'helping-a-startup-launch-a-scalable-saas-platform', title: 'Helping a Startup Launch a Scalable SaaS Platform', excerpt: 'When a startup is preparing to launch its first SaaS product, the technical decisions made early on can define the entire trajectory of the business...', date: 'March 5, 2026', img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/02/startup-team-working-on-laptop-2026-01-10-05-20-30-utc-1024x683.jpg', alt: 'Helping a Startup Launch a Scalable SaaS Platform' },
-  { id: 40380, slug: 'streamlining-field-operations-with-a-custom-mobile-app', title: 'Streamlining Field Operations with a Custom Mobile App', excerpt: 'Field teams face unique challenges when it comes to coordination, reporting, and real-time communication. Off-the-shelf tools rarely fit these workflows perfectly...', date: 'February 22, 2026', img: 'https://demskigrdev.wpenginepowered.com/wp-content/uploads/2026/02/field-worker-with-tablet-2026-01-08-06-15-20-utc-1024x683.jpg', alt: 'Streamlining Field Operations with a Custom Mobile App' },
 ];
+
+const AUTO_APPEND_SINCE = '2026-07-16';
+const PINNED_SLUGS = new Set(PINNED_POSTS.map(p => p.slug));
+
+function decodeEntities(s) {
+  return (s || '')
+    .replace(/&amp;/g, '&').replace(/&#0?38;/g, '&')
+    .replace(/&#8217;/g, '’').replace(/&#8216;/g, '‘')
+    .replace(/&#8220;/g, '“').replace(/&#8221;/g, '”')
+    .replace(/&#8211;/g, '–').replace(/&#8212;/g, '—')
+    .replace(/&hellip;|&#8230;/g, '…')
+    .replace(/&quot;/g, '"').replace(/&#0?39;/g, "'").replace(/&nbsp;/g, ' ');
+}
+function stripHtml(s) { return decodeEntities((s || '').replace(/<[^>]*>/g, ' ')).replace(/\s+/g, ' ').trim(); }
+function truncateExcerpt(s, n) {
+  if (!s || s.length <= n) return s;
+  const cut = s.slice(0, n);
+  const lastSpace = cut.lastIndexOf(' ');
+  return (lastSpace > 0 ? cut.slice(0, lastSpace) : cut).replace(/[\s.,;:–-]+$/, '') + '…';
+}
+
+// Maps a WordPress "results" post to the exact card shape PINNED_POSTS uses,
+// so a new case study renders through the identical card markup below.
+function toCard(wp) {
+  const media = wp._embedded && wp._embedded['wp:featuredmedia'] && wp._embedded['wp:featuredmedia'][0];
+  const sizes = (media && media.media_details && media.media_details.sizes) || {};
+  const img = (sizes.large || sizes.medium_large || {}).source_url || (media && media.source_url) || '';
+  const title = stripHtml(wp.title && wp.title.rendered);
+  // Excerpt: prefer the WP excerpt, but these case studies often leave it
+  // blank, so fall back to the SEO description, then to the opening of the
+  // content — matching the intro-sentence style of the pinned cards. Never
+  // leaves the card's description empty.
+  let excerpt = stripHtml(wp.excerpt && wp.excerpt.rendered).replace(/\s*\[…\]\s*$/, '…');
+  if (!excerpt) {
+    const seo = wp.yoast_head_json && wp.yoast_head_json.og_description;
+    excerpt = seo ? truncateExcerpt(decodeEntities(seo), 200) : truncateExcerpt(stripHtml(wp.content && wp.content.rendered), 200);
+  }
+  return {
+    id: wp.id,
+    slug: wp.slug || '',
+    title,
+    excerpt,
+    date: new Date(wp.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+    img,
+    alt: (media && decodeEntities(media.alt_text)) || title,
+  };
+}
+
+// Pull case studies from the same WordPress hosts the detail pages use (dev
+// WPEngine primary, demskigroup.com fallback). Append only ones published
+// on/after the pin date and not already pinned, so today's page is unchanged
+// and only genuinely new case studies appear. Any failure degrades to the
+// pinned list — the page never breaks.
+let autoPosts = [];
+const RESULTS_HOSTS = ['https://demskigrdev.wpenginepowered.com', 'https://demskigroup.com'];
+for (const host of RESULTS_HOSTS) {
+  try {
+    const res = await fetch(`${host}/wp-json/wp/v2/results?_embed&per_page=100&orderby=date&order=desc`, { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) continue;
+    const data = await res.json();
+    if (!Array.isArray(data) || !data.length) continue;
+    const since = new Date(AUTO_APPEND_SINCE + 'T00:00:00');
+    autoPosts = data
+      .filter(wp => wp && wp.slug && !PINNED_SLUGS.has(wp.slug) && new Date(wp.date) >= since)
+      .map(toCard)
+      .filter(c => c.title);
+    break;
+  } catch (e) { /* try next host, else keep the pinned list only */ }
+}
+
+// New case studies (newest first) sit above the pinned, already-published set.
+const allPosts = [...autoPosts, ...PINNED_POSTS];
 
 // Filter by search
 const filtered = search
